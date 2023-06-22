@@ -1,0 +1,41 @@
+{
+  "$schema": "https://turbo.build/schema.json",
+  "globalEnv": [
+    "NODE_ENV",
+    "PSQL_CONNECTION_STRING",
+    "REDIS_CONNECTION_STRING",
+    "NEXTAUTH_URL",
+    "NEXTAUTH_SECRET",
+    "NEXTAUTH_GITHUB_ID",
+    "NEXTAUTH_GITHUB_SECRET"
+  ],
+  "pipeline": {
+    "lint": {
+      "cache": false
+    },
+    "clean": {
+      "cache": false
+    },
+    "web:dev": {
+      "cache": false,
+      "persistent": true
+    },
+    "web:build": {
+      "cache": false,
+      "outputs": [".next"]
+    },
+    "web:start": {
+      "cache": false,
+      "persistent": true
+    },
+    "db:generate": {
+      "cache": false
+    },
+    "db:introspect": {
+      "cache": false
+    },
+    "db:migrate": {
+      "cache": false
+    }
+  }
+}

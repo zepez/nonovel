@@ -1,0 +1,30 @@
+{
+  "name": "@nonovel/db",
+  "version": "1.0.0",
+  "private": true,
+  "main": "./src/index.ts",
+  "types": "./src/index.ts",
+  "scripts": {
+    "lint": "eslint --ext .ts .",
+    "lint:fix": "eslint --ext .ts . --fix",
+    "clean": "../../scripts/clean.sh",
+    "db:generate": "yarn drizzle-kit generate:pg",
+    "db:introspect": "dotenv -e ../../.env -- bash -c 'PGSSLMODE=require yarn drizzle-kit introspect:pg --out=src/migrations --connectionString \"$PG_CONNECTION_STRING\"'",
+    "db:migrate": "dotenv -e ../../.env -- yarn tsx src/migrate.ts",
+    "db:version": "yarn drizzle-kit -v"
+  },
+  "devDependencies": {
+    "@types/node": "^18.0.0",
+    "dotenv-cli": "^7.0.0",
+    "drizzle-kit": "^0.19.1",
+    "postgres": "^3.3.3",
+    "typescript": "^4.8.4"
+  },
+  "dependencies": {
+    "@types/pg": "^8.6.6",
+    "drizzle-orm": "^0.27.0",
+    "drizzle-zod": "^0.4.4",
+    "pg": "^8.11.0",
+    "tsx": "^3.12.7"
+  }
+}

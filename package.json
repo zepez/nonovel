@@ -1,25 +1,28 @@
 {
   "name": "nonovel",
-  "version": "0.1.0",
+  "version": "1.0.0",
   "private": true,
+  "packageManager": "yarn@3.3.1",
+  "engines": {
+    "node": ">=18.12.1",
+    "yarn": "1.22.19"
+  },
+  "workspaces": [
+    "packages/*"
+  ],
   "scripts": {
-    "dev": "next dev",
-    "build": "next build",
-    "start": "next start",
-    "lint": "next lint"
+    "commit": "gitmoji -c",
+    "clean": "yarn turbo clean && scripts/clean.sh"
   },
   "dependencies": {
-    "@types/node": "20.3.1",
-    "@types/react": "18.2.13",
-    "@types/react-dom": "18.2.6",
-    "autoprefixer": "10.4.14",
-    "eslint": "8.43.0",
-    "eslint-config-next": "13.4.6",
-    "next": "13.4.6",
-    "postcss": "8.4.24",
-    "react": "18.2.0",
-    "react-dom": "18.2.0",
-    "tailwindcss": "3.3.2",
-    "typescript": "5.1.3"
+    "@typescript-eslint/eslint-plugin": "^5.50.0",
+    "@typescript-eslint/parser": "^5.50.0",
+    "eslint": "^8.33.0",
+    "eslint-config-prettier": "^8.6.0",
+    "gitmoji-cli": "^7.0.3",
+    "prettier": "^2.8.4",
+    "prettier-plugin-tailwindcss": "^0.2.2",
+    "turbo": "^1.10.3",
+    "typescript": "^4.9.5"
   }
 }
