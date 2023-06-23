@@ -2,26 +2,50 @@
 @tailwind components;
 @tailwind utilities;
 
-:root {
-  --foreground-rgb: 0, 0, 0;
-  --background-start-rgb: 214, 219, 220;
-  --background-end-rgb: 255, 255, 255;
+.font-brand {
+  font-family: 'Inknut Antiqua', sans-serif;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --foreground-rgb: 255, 255, 255;
-    --background-start-rgb: 0, 0, 0;
-    --background-end-rgb: 0, 0, 0;
-  }
+*:focus {
+  @apply outline-none ring-2 ring-inset ring-pink-500;
 }
 
-body {
-  color: rgb(var(--foreground-rgb));
-  background: linear-gradient(
-      to bottom,
-      transparent,
-      rgb(var(--background-end-rgb))
-    )
-    rgb(var(--background-start-rgb));
+*:disabled {
+  @apply opacity-50 cursor-not-allowed;
+}
+
+::selection {
+  @apply text-white bg-pink-600;
+}
+
+.interactive {
+  @apply bg-zinc-100 hover:bg-white focus:bg-white 
+    data-[active]:bg-white data-[state=open]:bg-white
+    dark:bg-zinc-950 dark:hover:bg-zinc-900 dark:focus:bg-zinc-900 
+    dark:data-[active]:bg-zinc-900 dark:data-[state=open]:bg-zinc-900
+    disabled:pointer-events-none disabled:opacity-50
+    transition-colors;
+}
+
+.interactive-primary {
+  @apply bg-pink-600 hover:bg-pink-700 focus:bg-pink-700
+    data-[active]:bg-pink-700 data-[state=open]:bg-pink-700
+    text-white
+
+    dark:bg-pink-800 dark:hover:bg-pink-900 dark:focus:bg-pink-900
+    dark:data-[active]:bg-pink-900 dark:data-[state=open]:bg-pink-900
+    disabled:pointer-events-none disabled:opacity-50
+    transition-colors;
+}
+
+.background {
+  @apply bg-zinc-100 text-zinc-950 dark:bg-zinc-950 dark:text-zinc-100;
+}
+
+.background-border {
+  @apply border shadow-sm border-zinc-400 dark:border-zinc-800;
+}
+
+.text-secondary {
+  @apply text-sm leading-snug opacity-50 text-inherit dark:opacity-70;
 }

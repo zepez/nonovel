@@ -5,5 +5,5 @@ export default async function Home() {
     id: "ddd2b0b0-280b-4ae3-8395-e06a52497d86",
   });
 
-  return <main>{JSON.stringify(user)}</main>;
+  return <main className="whitespace-break-spaces">{user?.name}</main>;
 }
