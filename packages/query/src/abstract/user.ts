@@ -11,8 +11,7 @@ export const getUserById = async (opts: GetUserByIdOptions) => {
     const schema = selectUserSchema.pick({ id: true });
     const { id } = schema.parse(opts);
 
-    const query = await getUserByIdPrepared.execute({ id });
-    const result = query[0]?.user ?? null;
+    const result = (await getUserByIdPrepared.execute({ id })) ?? null;
 
     return [null, result] as const;
   } catch (err) {
