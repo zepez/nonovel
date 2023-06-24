@@ -1,6 +1,7 @@
 import NextAuth, { NextAuthOptions } from "next-auth";
 import GithubProvider from "next-auth/providers/github";
 import GoogleProvider from "next-auth/providers/google";
+import config from "@nonovel/config-server";
 import { db } from "@nonovel/db";
 import adapter from "@nonovel/drizzle-adapter";
 import { getUserById } from "@nonovel/query";
@@ -16,8 +17,8 @@ const authOptions: NextAuthOptions = {
   },
   providers: [
     GithubProvider({
-      clientId: process.env.NEXTAUTH_GITHUB_ID as string,
-      clientSecret: process.env.NEXTAUTH_GITHUB_SECRET as string,
+      clientId: config.NEXTAUTH_GITHUB_ID,
+      clientSecret: config.NEXTAUTH_GITHUB_SECRET,
     }),
     GoogleProvider({
       clientId: process.env.NEXTAUTH_GOOGLE_CLIENT_ID as string,

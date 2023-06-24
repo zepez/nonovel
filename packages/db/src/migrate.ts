@@ -5,8 +5,8 @@ import { drizzle } from "drizzle-orm/node-postgres";
 
 const { Pool } = pg;
 
-const connectionString = process.env.PG_CONNECTION_STRING as string;
-if (!connectionString) throw new Error("Missing PG_CONNECTION_STRING");
+const connectionString = process.env.PG_URI as string;
+if (!connectionString) throw new Error("Missing PG_URI");
 
 console.dir({ connectionString });
 

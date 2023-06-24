@@ -1,5 +1,5 @@
 {
-  "name": "@nonovel/kv",
+  "name": "@nonovel/config-server",
   "version": "1.0.0",
   "private": true,
   "main": "./src/index.ts",
@@ -9,12 +9,12 @@
     "lint:fix": "eslint --ext .ts . --fix",
     "clean": "../../scripts/clean.sh"
   },
+  "dependencies": {
+    "server-only": "^0.0.1",
+    "zod": "^3.21.4"
+  },
   "devDependencies": {
     "@types/node": "^18.0.0",
     "typescript": "^4.8.4"
-  },
-  "dependencies": {
-    "@nonovel/config-server": "*",
-    "ioredis": "^5.3.1"
   }
 }

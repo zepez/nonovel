@@ -1,3 +1,4 @@
 import { default as Redis } from "ioredis";
+import config from "@nonovel/config-server";
 
-export default new Redis(process.env.REDIS_CONNECTION_STRING as string);
+export default new Redis(config.REDIS_URI);

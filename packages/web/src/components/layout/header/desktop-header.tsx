@@ -5,6 +5,7 @@ import Link from "next/link";
 
 import { cn } from "~/lib/utils";
 import {
+  Input,
   NavigationMenu,
   NavigationMenuContent,
   NavigationMenuItem,
@@ -12,10 +13,9 @@ import {
   NavigationMenuList,
   NavigationMenuTrigger,
   navigationMenuTriggerStyle,
-} from "~/components/ui/navigation-menu";
+} from "~/components/ui";
 
-import { Input } from "~/components/ui/input";
-import { ThemeSwitcher } from "~/components/layout/header/theme-switcher";
+import { ThemeSwitcher } from "~/components/layout";
 
 const components: {
   title: string;

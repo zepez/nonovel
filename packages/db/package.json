@@ -21,6 +21,7 @@
     "typescript": "^4.8.4"
   },
   "dependencies": {
+    "@nonovel/config-server": "*",
     "@types/pg": "^8.6.6",
     "drizzle-orm": "^0.27.0",
     "drizzle-zod": "^0.4.4",
