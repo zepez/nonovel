@@ -1,7 +1,6 @@
 import { Inter } from "next/font/google";
-import { ThemeProvider } from "~/components";
-import { Layout } from "~/components/default";
-import { Footer } from "~/components/shared";
+import { LayoutDesktopHeader } from "~/components/default";
+import { LayoutFooter, ThemeProvider } from "~/components/shared";
 import { getSession } from "~/lib/auth";
 import "@fontsource/inknut-antiqua";
 import "../globals.css";
@@ -25,9 +24,9 @@ export default async function RootLayout({
       <body className={inter.className}>
         <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
           <div className="flex min-h-screen flex-col">
-            <Layout.DesktopHeader session={session} />
+            <LayoutDesktopHeader session={session} />
             <main className="flex-grow">{children}</main>
-            <Footer />
+            <LayoutFooter />
           </div>
         </ThemeProvider>
       </body>

@@ -1,4 +1,4 @@
-import { Wrapper, ThemeSwitcher } from "~/components/shared";
+import { LayoutWrapper, ThemeSwitcher } from "~/components/shared";
 
 const navigation = [
   {
@@ -25,10 +25,10 @@ const navigation = [
   },
 ];
 
-export const Footer = () => {
+export const LayoutFooter = () => {
   return (
     <footer className="background">
-      <Wrapper className="py-4 md:flex md:items-center md:justify-between">
+      <LayoutWrapper className="py-4 md:flex md:items-center md:justify-between">
         <div className="flex justify-center space-x-6 md:order-2">
           <div className="mt-[.15rem]">
             <ThemeSwitcher />
@@ -51,7 +51,7 @@ export const Footer = () => {
             reserved.
           </p>
         </div>
-      </Wrapper>
+      </LayoutWrapper>
     </footer>
   );
 };

@@ -15,7 +15,7 @@ import {
   navigationMenuTriggerStyle,
 } from "~/components/ui";
 
-import { ThemeSwitcher, Wrapper } from "~/components/shared";
+import { ThemeSwitcher, LayoutWrapper, BrandIcon } from "~/components/shared";
 
 const components: {
   title: string;
@@ -45,14 +45,14 @@ const components: {
   },
 ];
 
-interface DesktopHeaderProps {
+interface LayoutDesktopHeaderProps {
   session: GetUserByIdReturn[1];
 }
 
-export function DesktopHeader({ session }: DesktopHeaderProps) {
+export function LayoutDesktopHeader({ session }: LayoutDesktopHeaderProps) {
   return (
     <div className="background">
-      <Wrapper className="flex flex-col flex-wrap justify-between px-4 py-4 md:flex-row">
+      <LayoutWrapper className="flex flex-col flex-wrap justify-between px-4 py-4 md:flex-row">
         <NavigationMenu>
           <NavigationMenuList>
             {/* sign up / account */}
@@ -64,7 +64,7 @@ export function DesktopHeader({ session }: DesktopHeaderProps) {
                     "font-brand text-3xl"
                   )}
                 >
-                  <span className="text-4xl">📖</span>
+                  <BrandIcon />
                 </NavigationMenuLink>
               </Link>
             </NavigationMenuItem>
@@ -79,11 +79,11 @@ export function DesktopHeader({ session }: DesktopHeaderProps) {
                         className="interactive-primary flex h-full w-full select-none flex-col justify-end rounded-md p-6 no-underline"
                         href="/"
                       >
-                        <i className="mb-4 mr-4 text-center text-[5rem]">📖</i>
+                        <BrandIcon className="mb-4 mr-4 text-center text-[5rem]" />
                         <div className="mb-2 text-lg font-medium">NoNovel</div>
                         <p className="text-secondary">
-                          Immersive digital narratives delivered seamlessly
-                          through NoNovel.
+                          Immersive digital narratives beamed directly into your
+                          eye sockets
                         </p>
                       </a>
                     </NavigationMenuLink>
@@ -165,7 +165,7 @@ export function DesktopHeader({ session }: DesktopHeaderProps) {
             )}
           </NavigationMenuList>
         </NavigationMenu>
-      </Wrapper>
+      </LayoutWrapper>
     </div>
   );
 }
