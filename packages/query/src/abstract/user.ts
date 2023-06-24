@@ -19,3 +19,5 @@ export const getUserById = async (opts: GetUserByIdOptions) => {
     return [error, null] as const;
   }
 };
+
+export type GetUserByIdReturn = Awaited<ReturnType<typeof getUserById>>;

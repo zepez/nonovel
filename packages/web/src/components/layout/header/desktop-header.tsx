@@ -2,7 +2,7 @@
 
 import * as React from "react";
 import Link from "next/link";
-
+import type { GetUserByIdReturn } from "@nonovel/query";
 import { cn } from "~/lib/utils";
 import {
   Input,
@@ -45,7 +45,11 @@ const components: {
   },
 ];
 
-export function DesktopHeader() {
+interface DesktopHeaderProps {
+  session: GetUserByIdReturn[1];
+}
+
+export function DesktopHeader({ session }: DesktopHeaderProps) {
   return (
     <div className="background flex flex-col flex-wrap justify-between px-4 py-4 md:flex-row">
       <NavigationMenu>
@@ -141,13 +145,23 @@ export function DesktopHeader() {
           </NavigationMenuItem>
 
           {/* sign up / account */}
-          <NavigationMenuItem className="pr-2">
-            <Link href="/api/auth/signin" legacyBehavior passHref>
-              <NavigationMenuLink className="interactive rounded-md p-2 text-sm">
-                Login
-              </NavigationMenuLink>
-            </Link>
-          </NavigationMenuItem>
+          {session ? (
+            <NavigationMenuItem className="pr-2">
+              <Link href="/api/auth/signout" legacyBehavior passHref>
+                <NavigationMenuLink className="interactive rounded-md p-2 text-sm">
+                  Logout
+                </NavigationMenuLink>
+              </Link>
+            </NavigationMenuItem>
+          ) : (
+            <NavigationMenuItem className="pr-2">
+              <Link href="/api/auth/signin" legacyBehavior passHref>
+                <NavigationMenuLink className="interactive rounded-md p-2 text-sm">
+                  Login
+                </NavigationMenuLink>
+              </Link>
+            </NavigationMenuItem>
+          )}
         </NavigationMenuList>
       </NavigationMenu>
     </div>

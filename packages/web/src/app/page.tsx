@@ -1,9 +1,7 @@
-import { getUserById } from "~/lib/request";
+import { getSession } from "~/lib/auth";
 
 export default async function Home() {
-  const [_, user] = await getUserById({
-    id: "0a2939ed-85f0-48ac-a390-43fa4ca188af",
-  });
+  const [_, session] = await getSession();
 
-  return <main className="whitespace-break-spaces">{user?.name}</main>;
+  return <main className="whitespace-break-spaces">{session?.name}</main>;
 }
