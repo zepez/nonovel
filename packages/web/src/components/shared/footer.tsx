@@ -1,4 +1,4 @@
-import { Wrapper, ThemeSwitcher } from "~/components/layout/shared";
+import { Wrapper, ThemeSwitcher } from "~/components/shared";
 
 const navigation = [
   {

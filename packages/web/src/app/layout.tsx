@@ -1,7 +1,7 @@
 import { Inter } from "next/font/google";
 import { ThemeProvider } from "~/components";
-import * as Layout from "~/components/layout/default";
-import { Footer } from "~/components/layout/shared";
+import { Layout } from "~/components/default";
+import { Footer } from "~/components/shared";
 import { getSession } from "~/lib/auth";
 import "@fontsource/inknut-antiqua";
 import "../globals.css";
