@@ -15,7 +15,7 @@ import {
   navigationMenuTriggerStyle,
 } from "~/components/ui";
 
-import { ThemeSwitcher, Wrapper } from "~/components/layout";
+import { ThemeSwitcher, Wrapper } from "~/components/layout/shared";
 
 const components: {
   title: string;

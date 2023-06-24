@@ -1,4 +1,4 @@
-import { Wrapper, ThemeSwitcher } from "~/components/layout";
+import { Wrapper, ThemeSwitcher } from "~/components/layout/shared";
 
 const navigation = [
   {
@@ -30,21 +30,22 @@ export const Footer = () => {
     <footer className="background">
       <Wrapper className="py-4 md:flex md:items-center md:justify-between">
         <div className="flex justify-center space-x-6 md:order-2">
+          <div className="mt-[.15rem]">
+            <ThemeSwitcher />
+          </div>
           {navigation.map((item) => (
             <a
               key={item.name}
               href={item.href}
-              className="interactive rounded-md p-2 "
+              className="interactive rounded-md p-2"
+              target="_blank"
             >
               <span className="sr-only">{item.name}</span>
               <item.icon className="h-6 w-6" aria-hidden="true" />
             </a>
           ))}
-          <div className="mt-[.15rem]">
-            <ThemeSwitcher />
-          </div>
         </div>
-        <div className="mt-8 md:order-1 md:mt-0">
+        <div className="mt-4 md:order-1 md:mt-0">
           <p className="text-secondary text-center">
             &copy; {new Date().getFullYear()} NoNovel, L.L.C. All rights
             reserved.
