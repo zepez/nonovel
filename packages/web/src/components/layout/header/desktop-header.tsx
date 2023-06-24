@@ -15,7 +15,7 @@ import {
   navigationMenuTriggerStyle,
 } from "~/components/ui";
 
-import { ThemeSwitcher } from "~/components/layout";
+import { ThemeSwitcher, Wrapper } from "~/components/layout";
 
 const components: {
   title: string;
@@ -51,119 +51,121 @@ interface DesktopHeaderProps {
 
 export function DesktopHeader({ session }: DesktopHeaderProps) {
   return (
-    <div className="background flex flex-col flex-wrap justify-between px-4 py-4 md:flex-row">
-      <NavigationMenu>
-        <NavigationMenuList>
-          {/* sign up / account */}
-          <NavigationMenuItem>
-            <Link href="/" legacyBehavior passHref>
-              <NavigationMenuLink
-                className={cn(
-                  navigationMenuTriggerStyle(),
-                  "font-brand text-3xl"
-                )}
-              >
-                <span className="text-4xl">📖</span>
-              </NavigationMenuLink>
-            </Link>
-          </NavigationMenuItem>
-          {/* about */}
-          <NavigationMenuItem>
-            <NavigationMenuTrigger>About</NavigationMenuTrigger>
-            <NavigationMenuContent>
-              <ul className="grid gap-3 p-6 md:w-[400px] lg:w-[500px] lg:grid-cols-[.75fr_1fr]">
-                <li className="row-span-3">
-                  <NavigationMenuLink asChild>
-                    <a
-                      className="interactive-primary flex h-full w-full select-none flex-col justify-end rounded-md p-6 no-underline"
-                      href="/"
-                    >
-                      <i className="mb-4 mr-4 text-center text-[5rem]">📖</i>
-                      <div className="mb-2 text-lg font-medium">NoNovel</div>
-                      <p className="text-secondary">
-                        Immersive digital narratives delivered seamlessly
-                        through NoNovel.
-                      </p>
-                    </a>
-                  </NavigationMenuLink>
-                </li>
-                <ListItem href="/publish" title="Publish">
-                  Manage and share your creative brilliance with the world
-                </ListItem>
-                <ListItem href="/ranking" title="Ranking">
-                  Novels curated and ranked based on popularity
-                </ListItem>
-                <ListItem href="/updates" title="Updates">
-                  Stay up to date with new features and site announcements
-                </ListItem>
-              </ul>
-            </NavigationMenuContent>
-          </NavigationMenuItem>
-
-          {/* browse */}
-          <NavigationMenuItem>
-            <NavigationMenuTrigger>Browse</NavigationMenuTrigger>
-            <NavigationMenuContent>
-              <ul className="grid w-[400px] gap-3 p-4 md:w-[500px] md:grid-cols-2 lg:w-[600px] ">
-                {components.map((component) => (
-                  <ListItem
-                    key={component.title}
-                    title={component.title}
-                    icon={component.icon}
-                    href={component.href}
-                  >
-                    {component.description}
-                  </ListItem>
-                ))}
-                <ListItem
-                  title="View More"
-                  icon="📚"
-                  href="/browse"
-                  className="interactive-primary"
+    <div className="background">
+      <Wrapper className="flex flex-col flex-wrap justify-between px-4 py-4 md:flex-row">
+        <NavigationMenu>
+          <NavigationMenuList>
+            {/* sign up / account */}
+            <NavigationMenuItem>
+              <Link href="/" legacyBehavior passHref>
+                <NavigationMenuLink
+                  className={cn(
+                    navigationMenuTriggerStyle(),
+                    "font-brand text-3xl"
+                  )}
                 >
-                  Ready for more? Uncover endless stories across countless
-                  genres
-                </ListItem>
-              </ul>
-            </NavigationMenuContent>
-          </NavigationMenuItem>
-        </NavigationMenuList>
-      </NavigationMenu>
-
-      <NavigationMenu>
-        <NavigationMenuList>
-          {/* search */}
-          <NavigationMenuItem>
-            <div className="ms-center flex w-full max-w-sm">
-              <Input type="text" placeholder="search" />
-            </div>
-          </NavigationMenuItem>
-
-          {/* theme switcher */}
-          <NavigationMenuItem className="md:px-2">
-            <ThemeSwitcher />
-          </NavigationMenuItem>
-
-          {/* sign up / account */}
-          {session ? (
-            <NavigationMenuItem className="pr-2">
-              <Link href="/api/auth/signout" legacyBehavior passHref>
-                <NavigationMenuLink className="interactive rounded-md p-2 text-sm">
-                  Logout
+                  <span className="text-4xl">📖</span>
                 </NavigationMenuLink>
               </Link>
             </NavigationMenuItem>
-          ) : (
-            <NavigationMenuItem className="pr-2">
-              <Link href="/api/auth/signin" legacyBehavior passHref>
-                <NavigationMenuLink className="interactive rounded-md p-2 text-sm">
-                  Login
-                </NavigationMenuLink>
-              </Link>
+            {/* about */}
+            <NavigationMenuItem>
+              <NavigationMenuTrigger>About</NavigationMenuTrigger>
+              <NavigationMenuContent>
+                <ul className="grid gap-3 p-6 md:w-[400px] lg:w-[500px] lg:grid-cols-[.75fr_1fr]">
+                  <li className="row-span-3">
+                    <NavigationMenuLink asChild>
+                      <a
+                        className="interactive-primary flex h-full w-full select-none flex-col justify-end rounded-md p-6 no-underline"
+                        href="/"
+                      >
+                        <i className="mb-4 mr-4 text-center text-[5rem]">📖</i>
+                        <div className="mb-2 text-lg font-medium">NoNovel</div>
+                        <p className="text-secondary">
+                          Immersive digital narratives delivered seamlessly
+                          through NoNovel.
+                        </p>
+                      </a>
+                    </NavigationMenuLink>
+                  </li>
+                  <ListItem href="/publish" title="Publish">
+                    Manage and share your creative brilliance with the world
+                  </ListItem>
+                  <ListItem href="/ranking" title="Ranking">
+                    Novels curated and ranked based on popularity
+                  </ListItem>
+                  <ListItem href="/updates" title="Updates">
+                    Stay up to date with new features and site announcements
+                  </ListItem>
+                </ul>
+              </NavigationMenuContent>
             </NavigationMenuItem>
-          )}
-        </NavigationMenuList>
-      </NavigationMenu>
+
+            {/* browse */}
+            <NavigationMenuItem>
+              <NavigationMenuTrigger>Browse</NavigationMenuTrigger>
+              <NavigationMenuContent>
+                <ul className="grid w-[400px] gap-3 p-4 md:w-[500px] md:grid-cols-2 lg:w-[600px] ">
+                  {components.map((component) => (
+                    <ListItem
+                      key={component.title}
+                      title={component.title}
+                      icon={component.icon}
+                      href={component.href}
+                    >
+                      {component.description}
+                    </ListItem>
+                  ))}
+                  <ListItem
+                    title="View More"
+                    icon="📚"
+                    href="/browse"
+                    className="interactive-primary"
+                  >
+                    Ready for more? Uncover endless stories across countless
+                    genres
+                  </ListItem>
+                </ul>
+              </NavigationMenuContent>
+            </NavigationMenuItem>
+          </NavigationMenuList>
+        </NavigationMenu>
+
+        <NavigationMenu>
+          <NavigationMenuList>
+            {/* search */}
+            <NavigationMenuItem>
+              <div className="ms-center flex w-full max-w-sm">
+                <Input type="text" placeholder="search" />
+              </div>
+            </NavigationMenuItem>
+
+            {/* theme switcher */}
+            <NavigationMenuItem className="md:px-2">
+              <ThemeSwitcher />
+            </NavigationMenuItem>
+
+            {/* sign up / account */}
+            {session ? (
+              <NavigationMenuItem className="pr-2">
+                <Link href="/api/auth/signout" legacyBehavior passHref>
+                  <NavigationMenuLink className="interactive rounded-md p-2 text-sm">
+                    Logout
+                  </NavigationMenuLink>
+                </Link>
+              </NavigationMenuItem>
+            ) : (
+              <NavigationMenuItem className="pr-2">
+                <Link href="/api/auth/signin" legacyBehavior passHref>
+                  <NavigationMenuLink className="interactive rounded-md p-2 text-sm">
+                    Login
+                  </NavigationMenuLink>
+                </Link>
+              </NavigationMenuItem>
+            )}
+          </NavigationMenuList>
+        </NavigationMenu>
+      </Wrapper>
     </div>
   );
 }

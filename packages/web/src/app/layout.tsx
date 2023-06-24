@@ -22,8 +22,11 @@ export default async function RootLayout({
     <html lang="en" suppressHydrationWarning>
       <body className={inter.className}>
         <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
-          <Layout.DesktopHeader session={session} />
-          {children}
+          <div className="flex min-h-screen flex-col">
+            <Layout.DesktopHeader session={session} />
+            <main className="flex-grow">{children}</main>
+            <Layout.Footer />
+          </div>
         </ThemeProvider>
       </body>
     </html>
