@@ -15,7 +15,7 @@ import {
   navigationMenuTriggerStyle,
 } from "~/components/ui";
 
-import { ThemeSwitcher, LayoutWrapper, BrandIcon } from "~/components/shared";
+import { LayoutWrapper, BrandIcon, LayoutProfile } from "~/components/shared";
 
 const components: {
   title: string;
@@ -140,20 +140,9 @@ export function LayoutDesktopHeader({ session }: LayoutDesktopHeaderProps) {
               </div>
             </NavigationMenuItem>
 
-            {/* theme switcher */}
-            <NavigationMenuItem className="md:px-2">
-              <ThemeSwitcher />
-            </NavigationMenuItem>
-
-            {/* sign up / account */}
+            {/* sign up / profile */}
             {session ? (
-              <NavigationMenuItem className="pr-2">
-                <Link href="/api/auth/signout" legacyBehavior passHref>
-                  <NavigationMenuLink className="interactive rounded-md p-2 text-sm">
-                    Logout
-                  </NavigationMenuLink>
-                </Link>
-              </NavigationMenuItem>
+              <LayoutProfile session={session} />
             ) : (
               <NavigationMenuItem className="pr-2">
                 <Link href="/api/auth/signin" legacyBehavior passHref>
