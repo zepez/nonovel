@@ -1,7 +1,7 @@
 import { z } from "zod";
 import { serializeError } from "serialize-error";
 
-export type ServerErrorName = "GetResourceError";
+export type ServerErrorName = "GetResourceError" | "UpdateResourceError";
 export type ServerErrorType = Error | ServerError | z.ZodError | string;
 export type ServerStatusCode = 400 | 401 | 404 | 500;
 

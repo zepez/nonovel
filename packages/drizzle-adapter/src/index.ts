@@ -1,19 +1,15 @@
-import {
-  db,
-  user,
-  account,
-  session,
-  verificationToken,
-  insertUserSchema,
-} from "@nonovel/db";
 import { eq, and } from "drizzle-orm";
 import type { Adapter, AdapterSession, AdapterUser } from "next-auth/adapters";
+import { user as validator } from "@nonovel/validator";
+import { db, user, account, session, verificationToken } from "@nonovel/db";
 
 export default function adapter(client: typeof db): Adapter {
   return {
     async createUser(userData) {
       const username = userData.name ?? userData.email;
-      const parsed = insertUserSchema.parse({ ...userData, username });
+      const parsed = validator
+        .pick({ username: true, email: true, name: true })
+        .parse({ ...userData, username });
 
       const res = await client.insert(user).values(parsed).returning();
       // eslint-disable-next-line @typescript-eslint/no-non-null-assertion

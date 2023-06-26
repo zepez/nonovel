@@ -40,10 +40,12 @@ export const LayoutProfile = ({ session }: LayoutProfileProps) => {
       </DropdownMenuTrigger>
       <DropdownMenuContent className="w-48">
         <div className="p-1">
-          <DropdownMenuItem>
-            <GearIcon className="mx-2" />
-            Settings
-          </DropdownMenuItem>
+          <Link href="/settings/account">
+            <DropdownMenuItem>
+              <GearIcon className="mx-2" />
+              Settings
+            </DropdownMenuItem>
+          </Link>
           <DropdownMenuItem>
             <Pencil1Icon className="mx-2" />
             Write

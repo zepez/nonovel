@@ -10,7 +10,6 @@ import {
   varchar,
 } from "drizzle-orm/pg-core";
 import { InferModel, relations } from "drizzle-orm";
-import { createInsertSchema, createSelectSchema } from "drizzle-zod";
 
 export const account = pgTable(
   "account",
@@ -149,12 +148,6 @@ export const userRelations = relations(user, ({ many }) => ({
 
 export type User = InferModel<typeof user>;
 export type NewUser = InferModel<typeof user, "insert">;
-
-export const insertUserSchema = createInsertSchema(user, {
-  email: (schema) => schema.email.email(),
-}).pick({ name: true, email: true, username: true });
-
-export const selectUserSchema = createSelectSchema(user);
 
 // ########################################################
 

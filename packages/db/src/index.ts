@@ -7,4 +7,4 @@ export * from "./schema";
 
 export const pool = new pg.Pool({ connectionString: config.PG_URI });
 
-export const db = drizzle(pool, { schema, logger: true });
+export const db = drizzle(pool, { schema, logger: false });

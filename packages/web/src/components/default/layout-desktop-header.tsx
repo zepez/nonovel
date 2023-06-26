@@ -52,7 +52,7 @@ interface LayoutDesktopHeaderProps {
 export function LayoutDesktopHeader({ session }: LayoutDesktopHeaderProps) {
   return (
     <div className="background">
-      <LayoutWrapper className="flex flex-col flex-wrap justify-between px-4 py-4 md:flex-row">
+      <LayoutWrapper className="flex flex-col flex-wrap justify-between px-4 py-2 md:flex-row">
         <NavigationMenu>
           <NavigationMenuList>
             {/* sign up / account */}
