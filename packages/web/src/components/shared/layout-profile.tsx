@@ -11,21 +11,23 @@ import {
   ThickArrowRightIcon,
 } from "@radix-ui/react-icons";
 
-import type { GetUserByIdReturn } from "@nonovel/query";
+import type { Session } from "~/lib/auth";
 import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
   DropdownMenuTrigger,
-} from "~/components/ui";
+} from "~/components/ui/dropdown-menu";
 
 interface LayoutProfileProps {
-  session: NonNullable<GetUserByIdReturn[1]>;
+  session: Session;
 }
 
 export const LayoutProfile = ({ session }: LayoutProfileProps) => {
+  const { profile } = session;
+
   const { setTheme } = useTheme();
-  const profilePicture = session.image ?? "/profile.png";
+  const profilePicture = profile.image ?? "/profile.png";
 
   return (
     <DropdownMenu>

@@ -1,4 +1,3 @@
-import "server-only";
 import * as z from "zod";
 
 const schema = z

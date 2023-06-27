@@ -1,19 +1,50 @@
 import { eq, and } from "drizzle-orm";
 import type { Adapter, AdapterSession, AdapterUser } from "next-auth/adapters";
-import { user as validator } from "@nonovel/validator";
-import { db, user, account, session, verificationToken } from "@nonovel/db";
+import {
+  user as userValidator,
+  profile as profileValidator,
+} from "@nonovel/validator";
+import {
+  db,
+  user,
+  profile,
+  account,
+  session,
+  verificationToken,
+} from "@nonovel/db";
 
 export default function adapter(client: typeof db): Adapter {
   return {
     async createUser(userData) {
-      const username = userData.name ?? userData.email;
-      const parsed = validator
-        .pick({ username: true, email: true, name: true })
-        .parse({ ...userData, username });
+      const profileValidated = profileValidator
+        .pick({ username: true })
+        .parse({ username: Math.random().toString(36).substring(7) });
 
-      const res = await client.insert(user).values(parsed).returning();
-      // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-      return res[0]! as AdapterUser;
+      const userValidated = userValidator
+        .pick({ email: true, name: true })
+        .parse(userData);
+
+      const [userReturn] = await client.transaction(async (tx) => {
+        const [profileReturn] = await tx
+          .insert(profile)
+          .values(profileValidated)
+          .returning();
+
+        if (!profileReturn) {
+          throw new Error("Unable to create profile.");
+        }
+
+        return await tx
+          .insert(user)
+          .values({ ...userValidated, profileId: profileReturn.id })
+          .returning();
+      });
+
+      if (!userReturn) {
+        throw new Error("Unable to create user.");
+      }
+
+      return userReturn as AdapterUser;
     },
     async getUser(id) {
       const res = await client

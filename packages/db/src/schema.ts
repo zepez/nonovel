@@ -123,9 +123,9 @@ export const user = pgTable(
     name: text("name"),
     email: varchar("email", { length: 256 }),
     emailVerified: timestamp("email_verified", { withTimezone: true }),
-    image: text("image"),
-    username: varchar("username", { length: 32 }),
-    description: text("description"),
+    profileId: uuid("profile_id")
+      .notNull()
+      .references(() => profile.id),
 
     createdAt: timestamp("created_at", { withTimezone: true })
       .defaultNow()
@@ -137,17 +137,51 @@ export const user = pgTable(
   (u) => {
     return {
       uniqueUserEmail: uniqueIndex("unique_user_email").on(u.email),
-      uniqueUserUsername: uniqueIndex("unique_user_username").on(u.username),
     };
   }
 );
 
-export const userRelations = relations(user, ({ many }) => ({
+export const userRelations = relations(user, ({ many, one }) => ({
   projects: many(userProject),
+  profile: one(profile, {
+    fields: [user.profileId],
+    references: [profile.id],
+  }),
 }));
 
 export type User = InferModel<typeof user>;
 export type NewUser = InferModel<typeof user, "insert">;
+
+// ########################################################
+
+export const profile = pgTable(
+  "profile",
+  {
+    id: uuid("id").defaultRandom().primaryKey(),
+    image: text("image"),
+    username: varchar("username", { length: 32 }).notNull(),
+    bio: text("bio"),
+
+    createdAt: timestamp("created_at", { withTimezone: true })
+      .defaultNow()
+      .notNull(),
+    updatedAt: timestamp("updated_at", { withTimezone: true })
+      .defaultNow()
+      .notNull(),
+  },
+  (p) => {
+    return {
+      uniqueUserUsername: uniqueIndex("unique_profile_username").on(p.username),
+    };
+  }
+);
+
+export const profileRelations = relations(profile, ({ one }) => ({
+  user: one(user),
+}));
+
+export type Profile = InferModel<typeof profile>;
+export type NewProfile = InferModel<typeof profile, "insert">;
 
 // ########################################################
 

@@ -6,14 +6,28 @@ import GoogleProvider from "next-auth/providers/google";
 import config from "@nonovel/config-server";
 import { db } from "@nonovel/db";
 import adapter from "@nonovel/drizzle-adapter";
-import { getUserById } from "~/lib/request";
+import { getUserById, getProfileById } from "~/lib/request";
+
+export type Session = {
+  user: NonNullable<Awaited<ReturnType<typeof getUserById>>[1]>;
+  profile: NonNullable<Awaited<ReturnType<typeof getProfileById>>[1]>;
+};
 
 export const getSession = cache(async () => {
-  const { user = null } = (await getServerSession(options)) ?? {};
+  const { user: session = null } = (await getServerSession(options)) ?? {};
 
-  if (!user?.id) return [null, null];
+  if (!session?.id) return [null, null] as const;
 
-  return await getUserById({ id: user.id });
+  // get user
+  const [userError, user] = await getUserById({ id: session.id });
+  if (userError || !user) return [userError, null] as const;
+
+  // get profile
+  const [profileError, profile] = await getProfileById({ id: user.profileId });
+  if (profileError || !profile) return [profileError, null] as const;
+
+  // return formatted session
+  return [null, { user, profile } as Session] as const;
 });
 
 export const options: NextAuthOptions = {
@@ -58,7 +72,6 @@ export const options: NextAuthOptions = {
         id: userData.id,
         name: userData.name,
         email: userData.email,
-        picture: userData.image,
       };
     },
   },

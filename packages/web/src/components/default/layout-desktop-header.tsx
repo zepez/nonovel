@@ -2,10 +2,11 @@
 
 import * as React from "react";
 import Link from "next/link";
-import type { GetUserByIdReturn } from "@nonovel/query";
+import type { Session } from "~/lib/auth";
 import { cn } from "~/lib/utils";
+import { LayoutWrapper, BrandIcon, LayoutProfile } from "~/components/shared";
+import { Input } from "~/components/ui/input";
 import {
-  Input,
   NavigationMenu,
   NavigationMenuContent,
   NavigationMenuItem,
@@ -13,9 +14,7 @@ import {
   NavigationMenuList,
   NavigationMenuTrigger,
   navigationMenuTriggerStyle,
-} from "~/components/ui";
-
-import { LayoutWrapper, BrandIcon, LayoutProfile } from "~/components/shared";
+} from "~/components/ui/navigation-menu";
 
 const components: {
   title: string;
@@ -46,7 +45,7 @@ const components: {
 ];
 
 interface LayoutDesktopHeaderProps {
-  session: GetUserByIdReturn[1];
+  session: Session | null;
 }
 
 export function LayoutDesktopHeader({ session }: LayoutDesktopHeaderProps) {

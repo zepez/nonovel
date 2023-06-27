@@ -1,6 +1,7 @@
 import { Inter } from "next/font/google";
 import { LayoutDesktopHeader } from "~/components/default";
 import { LayoutFooter, ThemeProvider } from "~/components/shared";
+import { Toaster } from "~/components/ui/toaster";
 import { getSession } from "~/lib/auth";
 import "@fontsource/inknut-antiqua";
 import "../globals.css";
@@ -28,6 +29,7 @@ export default async function RootLayout({
             <main className="flex-grow">{children}</main>
             <LayoutFooter />
           </div>
+          <Toaster />
         </ThemeProvider>
       </body>
     </html>

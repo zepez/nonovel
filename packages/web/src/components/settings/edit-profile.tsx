@@ -5,10 +5,10 @@ import * as z from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 
-import { user as userSchema } from "@nonovel/validator";
+import { profile as profileSchema } from "@nonovel/validator";
 
 import type { Session } from "~/lib/auth";
-import { updateAccount } from "~/actions";
+import { updateProfile } from "~/actions";
 import {
   Form,
   FormControl,
@@ -22,36 +22,36 @@ import { Input } from "~/components/ui/input";
 import { Button } from "~/components/ui/button";
 import { useToast } from "~/components/ui/use-toast";
 
-interface EditAccountProps {
+interface EditProfileProps {
   session: Session;
 }
 
-const schema = userSchema.pick({
+const schema = profileSchema.pick({
   id: true,
-  email: true,
-  name: true,
+  username: true,
+  image: true,
 });
 
-export type EditAccountSchema = z.infer<typeof schema>;
+export type EditProfileSchema = z.infer<typeof schema>;
 
-export const EditAccount = ({ session }: EditAccountProps) => {
-  const { user } = session;
+export const EditProfile = ({ session }: EditProfileProps) => {
+  const { profile } = session;
 
   const { toast } = useToast();
   const [loading, setLoading] = useState<boolean>(false);
 
-  const form = useForm<EditAccountSchema>({
+  const form = useForm<EditProfileSchema>({
     resolver: zodResolver(schema),
     defaultValues: {
-      id: user.id,
-      email: user.email ?? "",
-      name: user.name ?? "",
+      id: profile.id,
+      username: profile.username,
+      image: profile.image ?? "",
     },
   });
 
-  const handleSubmit = async (values: EditAccountSchema) => {
+  const handleSubmit = async (values: EditProfileSchema) => {
     setLoading(true);
-    const [submitError] = await updateAccount(values);
+    const [submitError] = await updateProfile(values);
     setLoading(false);
 
     if (submitError) {
@@ -64,7 +64,7 @@ export const EditAccount = ({ session }: EditAccountProps) => {
 
     if (!submitError) {
       toast({
-        description: "Your account has been updated.",
+        description: "Your profile has been updated.",
       });
     }
   };
@@ -72,37 +72,37 @@ export const EditAccount = ({ session }: EditAccountProps) => {
   return (
     <Form {...form}>
       <form onSubmit={form.handleSubmit(handleSubmit)} className="space-y-8">
-        {/* name */}
+        {/* username */}
         <FormField
           control={form.control}
-          name="name"
+          name="username"
           render={({ field }) => (
             <FormItem>
-              <FormLabel>Full Name</FormLabel>
+              <FormLabel>Username</FormLabel>
               <FormControl>
-                <Input placeholder="name" {...field} />
+                <Input placeholder="username" {...field} />
               </FormControl>
               <FormDescription>
-                This will not be publicly visible.
+                Usernames must be unique and can only contain alphanumeric and
+                underscore characters.
               </FormDescription>
               <FormMessage />
             </FormItem>
           )}
         />
 
-        {/* email */}
+        {/* profile picture */}
         <FormField
           control={form.control}
-          name="email"
+          name="image"
           render={({ field }) => (
             <FormItem>
-              <FormLabel>Email</FormLabel>
+              <FormLabel>Profile Picture</FormLabel>
               <FormControl>
-                <Input placeholder="email" readOnly {...field} />
+                <Input placeholder="Link to any image" {...field} />
               </FormControl>
               <FormDescription>
-                This email will be used to send you important notifications and
-                recover your account. This value can not be changed.
+                You can use your profile picture from other sites via a link.
               </FormDescription>
               <FormMessage />
             </FormItem>

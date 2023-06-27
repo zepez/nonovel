@@ -38,6 +38,15 @@ CREATE TABLE IF NOT EXISTS "chapter" (
 	"updated_at" timestamp with time zone DEFAULT now() NOT NULL
 );
 --> statement-breakpoint
+CREATE TABLE IF NOT EXISTS "profile" (
+	"id" uuid PRIMARY KEY DEFAULT gen_random_uuid() NOT NULL,
+	"image" text,
+	"username" varchar(32) NOT NULL,
+	"bio" text,
+	"created_at" timestamp with time zone DEFAULT now() NOT NULL,
+	"updated_at" timestamp with time zone DEFAULT now() NOT NULL
+);
+--> statement-breakpoint
 CREATE TABLE IF NOT EXISTS "project" (
 	"id" uuid PRIMARY KEY DEFAULT gen_random_uuid() NOT NULL,
 	"name" text,
@@ -61,9 +70,7 @@ CREATE TABLE IF NOT EXISTS "users" (
 	"name" text,
 	"email" varchar(256),
 	"email_verified" timestamp with time zone,
-	"image" text,
-	"username" varchar(32),
-	"description" text,
+	"profile_id" uuid NOT NULL,
 	"created_at" timestamp with time zone DEFAULT now() NOT NULL,
 	"updated_at" timestamp with time zone DEFAULT now() NOT NULL
 );
@@ -88,10 +95,10 @@ CREATE TABLE IF NOT EXISTS "verification_token" (
 );
 --> statement-breakpoint
 CREATE UNIQUE INDEX IF NOT EXISTS "unique_account_provider_provider_account_id" ON "account" ("provider","provider_account_id");--> statement-breakpoint
+CREATE UNIQUE INDEX IF NOT EXISTS "unique_profile_username" ON "profile" ("username");--> statement-breakpoint
 CREATE UNIQUE INDEX IF NOT EXISTS "unique_project_slug" ON "project" ("slug");--> statement-breakpoint
 CREATE UNIQUE INDEX IF NOT EXISTS "unique_session_token" ON "session" ("session_token");--> statement-breakpoint
 CREATE UNIQUE INDEX IF NOT EXISTS "unique_user_email" ON "users" ("email");--> statement-breakpoint
-CREATE UNIQUE INDEX IF NOT EXISTS "unique_user_username" ON "users" ("username");--> statement-breakpoint
 CREATE UNIQUE INDEX IF NOT EXISTS "unique_user_project_ids" ON "user_projects" ("user_id","project_id");--> statement-breakpoint
 CREATE UNIQUE INDEX IF NOT EXISTS "unique_verification_token_identifier_token" ON "verification_token" ("identifier","token");--> statement-breakpoint
 CREATE UNIQUE INDEX IF NOT EXISTS "unique_verification_token_token" ON "verification_token" ("token");--> statement-breakpoint
@@ -109,6 +116,12 @@ END $$;
 --> statement-breakpoint
 DO $$ BEGIN
  ALTER TABLE "session" ADD CONSTRAINT "session_user_id_users_id_fk" FOREIGN KEY ("user_id") REFERENCES "users"("id") ON DELETE no action ON UPDATE no action;
+EXCEPTION
+ WHEN duplicate_object THEN null;
+END $$;
+--> statement-breakpoint
+DO $$ BEGIN
+ ALTER TABLE "users" ADD CONSTRAINT "users_profile_id_profile_id_fk" FOREIGN KEY ("profile_id") REFERENCES "profile"("id") ON DELETE no action ON UPDATE no action;
 EXCEPTION
  WHEN duplicate_object THEN null;
 END $$;

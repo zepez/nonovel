@@ -3,9 +3,11 @@ import pg from "pg";
 import { migrate } from "drizzle-orm/node-postgres/migrator";
 import { drizzle } from "drizzle-orm/node-postgres";
 
+import config from "@nonovel/config-server";
+
 const { Pool } = pg;
 
-const connectionString = process.env.PG_URI as string;
+const connectionString = config.PG_URI;
 if (!connectionString) throw new Error("Missing PG_URI");
 
 console.dir({ connectionString });
