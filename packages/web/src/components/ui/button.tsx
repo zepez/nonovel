@@ -12,13 +12,11 @@ const buttonVariants = cva(
         default: "nn-bg-contrast",
         destructive:
           "bg-red-500 text-zinc-50 hover:bg-red-500:90 dark:bg-red-900 dark:text-red-50 dark:hover:bg-red-900:90",
-        primary:
-          "bg-pink-600 text-pink-50 hover:bg-pink-700 dark:bg-pink-800 dark:text-pink-50 dark:hover:bg-pink-900",
+        primary: "nn-bg-primary",
         outline: "nn-interactive nn-bg-foreground nn-border",
-        secondary:
-          "bg-zinc-100 text-zinc-900 shadow-sm hover:bg-zinc-100:80 dark:bg-zinc-800 dark:text-zinc-50 dark:hover:bg-zinc-800:80",
+        secondary: "nn-bg-background",
         ghost: "text-inherit",
-        link: "text-zinc-900 underline-offset-4 hover:underline dark:text-zinc-50",
+        link: "text-inherit underline-offset-4 hover:underline",
       },
       size: {
         default: "h-9 px-4 py-2",

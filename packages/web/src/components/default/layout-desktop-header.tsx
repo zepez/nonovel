@@ -50,7 +50,7 @@ interface LayoutDesktopHeaderProps {
 
 export function LayoutDesktopHeader({ session }: LayoutDesktopHeaderProps) {
   return (
-    <div className="nn-bg-foreground">
+    <div className="nn-bg-foreground nn-border-bottom">
       <LayoutWrapper className="flex flex-col flex-wrap justify-between px-4 py-2 md:flex-row">
         <NavigationMenu>
           <NavigationMenuList>
