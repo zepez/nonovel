@@ -37,7 +37,7 @@ export const LayoutFooter = () => {
             <a
               key={item.name}
               href={item.href}
-              className="interactive rounded-md p-2"
+              className="nn-interactive rounded-md p-2"
               target="_blank"
             >
               <span className="sr-only">{item.name}</span>
@@ -46,7 +46,7 @@ export const LayoutFooter = () => {
           ))}
         </div>
         <div className="mt-4 md:order-1 md:mt-0">
-          <p className="text-secondary text-center">
+          <p className="nn-text-secondary text-center">
             &copy; {new Date().getFullYear()} NoNovel, L.L.C. All rights
             reserved.
           </p>

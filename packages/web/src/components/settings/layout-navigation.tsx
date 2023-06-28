@@ -27,9 +27,7 @@ export const LayoutNavigation = () => {
           href={item.href}
           key={item.name}
           className={cn(
-            item.segment === segment
-              ? "bg-zinc-100 dark:bg-zinc-900"
-              : "interactive",
+            item.segment === segment ? "nn-bg-foreground" : "nn-interactive",
             "rounded-md py-3 text-sm"
           )}
         >

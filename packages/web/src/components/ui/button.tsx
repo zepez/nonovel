@@ -9,16 +9,15 @@ const buttonVariants = cva(
   {
     variants: {
       variant: {
-        default: "interactive background",
+        default: "nn-bg-contrast",
         destructive:
           "bg-red-500 text-zinc-50 hover:bg-red-500:90 dark:bg-red-900 dark:text-red-50 dark:hover:bg-red-900:90",
         primary:
           "bg-pink-600 text-pink-50 hover:bg-pink-700 dark:bg-pink-800 dark:text-pink-50 dark:hover:bg-pink-900",
-        outline: "interactive background background-border",
+        outline: "nn-interactive nn-bg-foreground nn-border",
         secondary:
           "bg-zinc-100 text-zinc-900 shadow-sm hover:bg-zinc-100:80 dark:bg-zinc-800 dark:text-zinc-50 dark:hover:bg-zinc-800:80",
-        ghost:
-          "hover:bg-zinc-100 hover:text-zinc-900 dark:hover:bg-zinc-800 dark:hover:text-zinc-50",
+        ghost: "text-inherit",
         link: "text-zinc-900 underline-offset-4 hover:underline dark:text-zinc-50",
       },
       size: {
@@ -46,7 +45,10 @@ const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
     const Comp = asChild ? Slot : "button";
     return (
       <Comp
-        className={cn(buttonVariants({ variant, size, className }))}
+        className={cn(
+          "nn-interactive",
+          buttonVariants({ variant, size, className })
+        )}
         ref={ref}
         {...props}
       />

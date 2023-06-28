@@ -50,7 +50,7 @@ interface LayoutDesktopHeaderProps {
 
 export function LayoutDesktopHeader({ session }: LayoutDesktopHeaderProps) {
   return (
-    <div className="background">
+    <div className="nn-bg-foreground">
       <LayoutWrapper className="flex flex-col flex-wrap justify-between px-4 py-2 md:flex-row">
         <NavigationMenu>
           <NavigationMenuList>
@@ -58,10 +58,7 @@ export function LayoutDesktopHeader({ session }: LayoutDesktopHeaderProps) {
             <NavigationMenuItem>
               <Link href="/" legacyBehavior passHref>
                 <NavigationMenuLink
-                  className={cn(
-                    navigationMenuTriggerStyle(),
-                    "font-brand text-3xl"
-                  )}
+                  className={cn(navigationMenuTriggerStyle())}
                 >
                   <BrandIcon />
                 </NavigationMenuLink>
@@ -75,12 +72,12 @@ export function LayoutDesktopHeader({ session }: LayoutDesktopHeaderProps) {
                   <li className="row-span-3">
                     <NavigationMenuLink asChild>
                       <a
-                        className="interactive-primary flex h-full w-full select-none flex-col justify-end rounded-md p-6 no-underline"
+                        className="nn-bg-primary nn-interactive flex h-full w-full select-none flex-col justify-end rounded-md p-6 no-underline"
                         href="/"
                       >
                         <BrandIcon className="mb-4 mr-4 text-center text-[5rem]" />
                         <div className="mb-2 text-lg font-medium">NoNovel</div>
-                        <p className="text-secondary">
+                        <p className="nn-text-secondary">
                           Immersive digital narratives beamed directly into your
                           eye sockets
                         </p>
@@ -119,7 +116,7 @@ export function LayoutDesktopHeader({ session }: LayoutDesktopHeaderProps) {
                     title="View More"
                     icon="📚"
                     href="/browse"
-                    className="interactive-primary"
+                    className="nn-bg-primary nn-interactive"
                   >
                     Ready for more? Uncover endless stories across countless
                     genres
@@ -168,15 +165,15 @@ const ListItem = React.forwardRef<
         <a
           ref={ref}
           className={cn(
-            "interactive block select-none space-y-1 rounded-md p-3 leading-none no-underline",
+            "nn-interactive block select-none space-y-1 rounded-md p-3 leading-none no-underline",
             className
           )}
           {...props}
         >
           <div className="text-sm font-medium leading-none">
-            {icon && <span className="text-xl">{icon}</span>} {title}
+            {icon && <span className="mx-2 text-xl">{icon}</span>} {title}
           </div>
-          <p className="text-secondary line-clamp-2">{children}</p>
+          <p className="nn-text-secondary line-clamp-2 pt-1">{children}</p>
         </a>
       </NavigationMenuLink>
     </li>

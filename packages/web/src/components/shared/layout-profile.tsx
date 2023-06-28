@@ -31,11 +31,11 @@ export const LayoutProfile = ({ session }: LayoutProfileProps) => {
 
   return (
     <DropdownMenu>
-      <DropdownMenuTrigger className="ms-center flex rounded-md p-1 ">
+      <DropdownMenuTrigger className="nn-interactive ms-center flex rounded-md p-1 ">
         <Image
           src={profilePicture}
           alt="Profile picture"
-          className="interactive-primary mx-1 rounded-full"
+          className="mx-1 rounded-full"
           width={32}
           height={32}
         />
@@ -59,7 +59,7 @@ export const LayoutProfile = ({ session }: LayoutProfileProps) => {
             </DropdownMenuItem>
           </Link>
         </div>
-        <div className="mt-1 flex justify-evenly bg-zinc-100 py-1 dark:bg-zinc-900">
+        <div className="nn-bg-foreground mt-1 flex justify-evenly py-1">
           <DropdownMenuItem
             onClick={() => setTheme("light")}
             className="rounded-md p-2"
