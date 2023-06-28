@@ -6,11 +6,11 @@ import GoogleProvider from "next-auth/providers/google";
 import config from "@nonovel/config-server";
 import { db } from "@nonovel/db";
 import adapter from "@nonovel/drizzle-adapter";
-import { getUserById, getProfileById } from "~/lib/request";
+import { getUserById, getProfileByUserId } from "~/lib/request";
 
 export type Session = {
   user: NonNullable<Awaited<ReturnType<typeof getUserById>>[1]>;
-  profile: NonNullable<Awaited<ReturnType<typeof getProfileById>>[1]>;
+  profile: NonNullable<Awaited<ReturnType<typeof getProfileByUserId>>[1]>;
 };
 
 export const getSession = cache(async () => {
@@ -23,7 +23,7 @@ export const getSession = cache(async () => {
   if (userError || !user) return [userError, null] as const;
 
   // get profile
-  const [profileError, profile] = await getProfileById({ id: user.profileId });
+  const [profileError, profile] = await getProfileByUserId({ id: user.id });
   if (profileError || !profile) return [profileError, null] as const;
 
   // return formatted session

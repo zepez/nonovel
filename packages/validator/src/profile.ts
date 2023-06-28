@@ -2,6 +2,7 @@ import * as z from "zod";
 
 export const profile = z.object({
   id: z.string(),
+  userId: z.string(),
   image: z.string().url().optional(),
   username: z
     .string()

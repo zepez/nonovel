@@ -18,26 +18,32 @@ export default function adapter(client: typeof db): Adapter {
     async createUser(userData) {
       const profileValidated = profileValidator
         .pick({ username: true })
-        .parse({ username: Math.random().toString(36).substring(7) });
+        .parse({ username: Math.random().toString(36).substring(4) });
 
       const userValidated = userValidator
         .pick({ email: true, name: true })
         .parse(userData);
 
-      const [userReturn] = await client.transaction(async (tx) => {
+      const userReturn = await client.transaction(async (tx) => {
+        const [userReturn] = await tx
+          .insert(user)
+          .values({ ...userValidated })
+          .returning();
+
+        if (!userReturn) {
+          throw new Error("Unable to create user.");
+        }
+
         const [profileReturn] = await tx
           .insert(profile)
-          .values(profileValidated)
+          .values({ ...profileValidated, userId: userReturn.id })
           .returning();
 
         if (!profileReturn) {
           throw new Error("Unable to create profile.");
         }
 
-        return await tx
-          .insert(user)
-          .values({ ...userValidated, profileId: profileReturn.id })
-          .returning();
+        return userReturn;
       });
 
       if (!userReturn) {

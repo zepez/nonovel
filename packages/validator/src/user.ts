@@ -12,7 +12,6 @@ export const user = z.object({
     }),
   email: z.string().email(),
   emailVerified: z.string().datetime().nullable(),
-  profileId: z.string(),
   createdAt: z.string().datetime(),
   updatedAt: z.string().datetime(),
 });

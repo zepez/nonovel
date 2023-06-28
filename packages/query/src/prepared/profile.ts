@@ -15,3 +15,9 @@ export const updateProfileByIdPrepared = db
   })
   .where(eq(profile.id, placeholder("id")))
   .prepare("update_profile_by_id_prepared");
+
+export const getProfileByUserIdPrepared = db.query.profile
+  .findFirst({
+    where: (profile, { eq }) => eq(profile.userId, placeholder("id")),
+  })
+  .prepare("get_profile_by_user_id_prepared");

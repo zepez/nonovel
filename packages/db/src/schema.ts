@@ -123,9 +123,6 @@ export const user = pgTable(
     name: text("name"),
     email: varchar("email", { length: 256 }),
     emailVerified: timestamp("email_verified", { withTimezone: true }),
-    profileId: uuid("profile_id")
-      .notNull()
-      .references(() => profile.id),
 
     createdAt: timestamp("created_at", { withTimezone: true })
       .defaultNow()
@@ -143,10 +140,7 @@ export const user = pgTable(
 
 export const userRelations = relations(user, ({ many, one }) => ({
   projects: many(userProject),
-  profile: one(profile, {
-    fields: [user.profileId],
-    references: [profile.id],
-  }),
+  user: one(user),
 }));
 
 export type User = InferModel<typeof user>;
@@ -161,6 +155,9 @@ export const profile = pgTable(
     image: text("image"),
     username: varchar("username", { length: 32 }).notNull(),
     bio: text("bio"),
+    userId: uuid("user_id")
+      .notNull()
+      .references(() => user.id),
 
     createdAt: timestamp("created_at", { withTimezone: true })
       .defaultNow()
@@ -177,7 +174,10 @@ export const profile = pgTable(
 );
 
 export const profileRelations = relations(profile, ({ one }) => ({
-  user: one(user),
+  user: one(user, {
+    fields: [profile.userId],
+    references: [user.id],
+  }),
 }));
 
 export type Profile = InferModel<typeof profile>;
