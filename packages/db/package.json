@@ -11,7 +11,8 @@
     "db:generate": "yarn drizzle-kit generate:pg",
     "db:introspect": "dotenv -e ../../.env -- bash -c 'PGSSLMODE=require yarn drizzle-kit introspect:pg --out=src/migrations --connectionString \"$PG_CONNECTION_STRING\"'",
     "db:migrate": "dotenv -e ../../.env -- yarn tsx src/migrate.ts",
-    "db:version": "yarn drizzle-kit -v"
+    "db:version": "yarn drizzle-kit -v",
+    "db:seed": "dotenv -e ../../.env -- yarn tsx src/seed.ts"
   },
   "devDependencies": {
     "@types/node": "^18.0.0",
@@ -21,6 +22,7 @@
     "typescript": "^4.8.4"
   },
   "dependencies": {
+    "@faker-js/faker": "^8.0.2",
     "@nonovel/config-server": "*",
     "@types/pg": "^8.6.6",
     "drizzle-orm": "^0.27.0",
