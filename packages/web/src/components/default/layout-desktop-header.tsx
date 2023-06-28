@@ -143,9 +143,9 @@ export function LayoutDesktopHeader({ session }: LayoutDesktopHeaderProps) {
             {session ? (
               <LayoutProfile session={session} />
             ) : (
-              <NavigationMenuItem className="pr-2">
+              <NavigationMenuItem className="py-1 pl-2">
                 <Link href="/api/auth/signin" legacyBehavior passHref>
-                  <NavigationMenuLink className="interactive rounded-md p-2 text-sm">
+                  <NavigationMenuLink className="rounded-md border border-zinc-950 bg-zinc-950 p-2 text-sm text-white dark:bg-white dark:text-black">
                     Login
                   </NavigationMenuLink>
                 </Link>
