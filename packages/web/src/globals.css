@@ -3,7 +3,7 @@
 @tailwind utilities;
 
 *:focus {
-  @apply outline-none ring-2 ring-inset ring-pink-500;
+  @apply outline-none ring-2 ring-inset ring-green-500;
 }
 
 *:disabled {
@@ -11,7 +11,7 @@
 }
 
 ::selection {
-  @apply bg-pink-600 text-white;
+  @apply bg-green-600 text-white;
 }
 
 .nn-interactive {
@@ -19,7 +19,11 @@
 }
 
 .nn-interactive:hover {
-  @apply opacity-70 outline-none ring-2 ring-inset ring-pink-500;
+  @apply opacity-70 outline-none ring-2 ring-inset ring-green-500;
+}
+
+.nn-no-select {
+  @apply outline-none ring-0 transition-colors;
 }
 
 .nn-bg-foreground {
@@ -27,7 +31,7 @@
 }
 
 .nn-bg-primary {
-  @apply bg-pink-600 text-white dark:bg-pink-800 dark:text-white;
+  @apply bg-green-600 text-white dark:bg-green-800 dark:text-white;
 }
 
 .nn-bg-contrast {
@@ -48,4 +52,32 @@
 
 .nn-text-secondary {
   @apply text-sm leading-snug text-inherit opacity-60 dark:opacity-60;
+}
+
+[cmdk-item] {
+  content-visibility: auto;
+
+  cursor: pointer;
+  /* height: 48px; */
+  /* border-radius: 8px; */
+  /* font-size: 14px; */
+  /* display: flex; */
+  /* align-items: center; */
+  /* gap: 8px; */
+  /* padding: 0 16px; */
+  /* color: var(--gray11); */
+  /* user-select: none;
+  will-change: background, color;
+  transition: all 150ms ease;
+  transition-property: none; */
+
+  &[data-selected="true"] {
+    @apply outline-none ring-2 ring-inset ring-green-500;
+  }
+
+  &[data-disabled="true"] {
+    @apply cursor-not-allowed opacity-50;
+  }
+
+  /* &:active {} */
 }

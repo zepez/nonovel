@@ -5,7 +5,7 @@ import Link from "next/link";
 import type { Session } from "~/lib/auth";
 import { cn } from "~/lib/utils";
 import { LayoutWrapper, BrandIcon, LayoutProfile } from "~/components/shared";
-import { Input } from "~/components/ui/input";
+import { LayoutSearch } from "~/components/default/layout-search";
 import {
   NavigationMenu,
   NavigationMenuContent,
@@ -131,9 +131,7 @@ export function LayoutDesktopHeader({ session }: LayoutDesktopHeaderProps) {
           <NavigationMenuList>
             {/* search */}
             <NavigationMenuItem>
-              <div className="ms-center flex w-full max-w-sm">
-                <Input type="text" placeholder="search" />
-              </div>
+              <LayoutSearch />
             </NavigationMenuItem>
 
             {/* sign up / profile */}
