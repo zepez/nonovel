@@ -3,6 +3,7 @@ import Image from "next/image";
 import { notFound } from "next/navigation";
 import { formatDistanceToNow } from "date-fns";
 import { getProfileByUsername } from "~/lib/request";
+import { toTitleCase } from "~/lib/string";
 import { LayoutWrapper } from "~/components/shared";
 
 interface ProfilePageProps {
@@ -49,7 +50,6 @@ export default async function ProfilePage({ params }: ProfilePageProps) {
             href={`/p/${project.slug}`}
             className="nn-interactive nn-bg-foreground flex rounded-md"
           >
-            {/* <div className="mr-4 aspect-[2/3] h-full rounded-md bg-zinc-500"></div> */}
             <Image
               src={project.cover ?? "/profile.png"}
               alt="Novel cover"
@@ -59,9 +59,11 @@ export default async function ProfilePage({ params }: ProfilePageProps) {
             />
             <div className="p-4">
               <h3 className="line-clamp-1 text-xl font-bold leading-tight">
-                {project.name}
+                {toTitleCase(project.name)}
               </h3>
-              <p className="nn-text-secondary mb-4 mt-1">{relation.role}</p>
+              <p className="nn-text-secondary mb-4 mt-1">
+                {toTitleCase(relation.role)}
+              </p>
               <p className="nn-text-secondary line-clamp-2">
                 {project.description}
               </p>
