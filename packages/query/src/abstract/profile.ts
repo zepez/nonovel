@@ -1,7 +1,7 @@
 import { type Profile, type User } from "@nonovel/db";
 import { ServerError, ServerErrorType } from "@nonovel/lib";
 import {
-  getProfileByIdPrepared,
+  getProfileByUsernamePrepared,
   updateProfileByIdPrepared,
   getProfileByUserIdPrepared,
 } from "../prepared";
@@ -10,15 +10,17 @@ import {
   user as userValidator,
 } from "@nonovel/validator";
 
-export interface GetProfileByIdOptions {
-  id: Profile["id"];
+export interface GetProfileByUsernameOptions {
+  username: Profile["username"];
 }
 
-export const getProfileById = async (opts: GetProfileByIdOptions) => {
+export const getProfileByUsername = async (
+  opts: GetProfileByUsernameOptions
+) => {
   try {
-    const parsed = validator.pick({ id: true }).parse(opts);
+    const parsed = validator.pick({ username: true }).parse(opts);
 
-    const result = (await getProfileByIdPrepared.execute(parsed)) ?? null;
+    const result = (await getProfileByUsernamePrepared.execute(parsed)) ?? null;
 
     return [null, result] as const;
   } catch (err) {
@@ -27,7 +29,9 @@ export const getProfileById = async (opts: GetProfileByIdOptions) => {
   }
 };
 
-export type GetProfileByIdReturn = Awaited<ReturnType<typeof getProfileById>>;
+export type GetProfileByUsernameReturn = Awaited<
+  ReturnType<typeof getProfileByUsername>
+>;
 
 // ########################################################
 

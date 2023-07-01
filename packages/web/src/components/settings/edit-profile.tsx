@@ -45,12 +45,13 @@ export const EditProfile = ({ session }: EditProfileProps) => {
     defaultValues: {
       id: profile.id,
       username: profile.username,
-      image: profile.image ?? "",
+      image: profile.image,
     },
   });
 
   const handleSubmit = async (values: EditProfileSchema) => {
     setLoading(true);
+
     const [submitError] = await updateProfile(values);
     setLoading(false);
 
@@ -99,7 +100,11 @@ export const EditProfile = ({ session }: EditProfileProps) => {
             <FormItem>
               <FormLabel>Profile Picture</FormLabel>
               <FormControl>
-                <Input placeholder="Link to any image" {...field} />
+                <Input
+                  placeholder="Link to any image"
+                  {...field}
+                  value={field.value ?? ""}
+                />
               </FormControl>
               <FormDescription>
                 You can use your profile picture from other sites via a link.

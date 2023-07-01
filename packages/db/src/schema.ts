@@ -120,8 +120,8 @@ export const user = pgTable(
   "users",
   {
     id: uuid("id").defaultRandom().primaryKey(),
-    name: text("name"),
-    email: varchar("email", { length: 256 }),
+    name: text("name").notNull(),
+    email: varchar("email", { length: 256 }).notNull(),
     emailVerified: timestamp("email_verified", { withTimezone: true }),
 
     createdAt: timestamp("created_at", { withTimezone: true })
@@ -157,7 +157,8 @@ export const profile = pgTable(
     bio: text("bio"),
     userId: uuid("user_id")
       .notNull()
-      .references(() => user.id),
+      .references(() => user.id)
+      .notNull(),
 
     createdAt: timestamp("created_at", { withTimezone: true })
       .defaultNow()
@@ -197,10 +198,12 @@ export const userProject = pgTable(
     id: uuid("id").defaultRandom().primaryKey(),
     projectId: uuid("project_id")
       .notNull()
-      .references(() => project.id),
+      .references(() => project.id)
+      .notNull(),
     userId: uuid("user_id")
       .notNull()
-      .references(() => user.id),
+      .references(() => user.id)
+      .notNull(),
     role: userProjectRole("role").default("author").notNull(),
     owner: boolean("owner").default(true).notNull(),
 
@@ -241,8 +244,9 @@ export const project = pgTable(
   "project",
   {
     id: uuid("id").defaultRandom().primaryKey(),
-    name: text("name"),
-    slug: text("slug"),
+    cover: text("cover"),
+    name: text("name").notNull(),
+    slug: text("slug").notNull(),
     description: text("description"),
 
     createdAt: timestamp("created_at", { withTimezone: true })
@@ -278,9 +282,10 @@ export const chapter = pgTable("chapter", {
   id: uuid("id").defaultRandom().primaryKey(),
   projectId: uuid("project_id")
     .notNull()
-    .references(() => project.id),
-  name: text("name"),
-  order: numeric("order", { precision: 9, scale: 3 }),
+    .references(() => project.id)
+    .notNull(),
+  name: text("name").notNull(),
+  order: numeric("order", { precision: 9, scale: 3 }).notNull(),
   contentType: chapterContentType("content_type").default("html").notNull(),
   content: text("content"),
 

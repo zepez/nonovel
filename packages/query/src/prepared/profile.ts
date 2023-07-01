@@ -1,9 +1,20 @@
 import { db, profile } from "@nonovel/db";
 import { placeholder, eq } from "drizzle-orm";
 
-export const getProfileByIdPrepared = db.query.profile
+export const getProfileByUsernamePrepared = db.query.profile
   .findFirst({
-    where: (profile, { eq }) => eq(profile.id, placeholder("id")),
+    where: (profile, { eq }) => eq(profile.username, placeholder("username")),
+    with: {
+      user: {
+        with: {
+          projects: {
+            with: {
+              project: true,
+            },
+          },
+        },
+      },
+    },
   })
   .prepare("get_profile_by_id_prepared");
 

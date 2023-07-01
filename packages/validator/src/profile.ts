@@ -3,7 +3,11 @@ import * as z from "zod";
 export const profile = z.object({
   id: z.string(),
   userId: z.string(),
-  image: z.string().url().optional(),
+  image: z
+    .string()
+    .url()
+    .nullable()
+    .transform((val) => (val === "" ? null : val)),
   username: z
     .string()
     .min(2, {

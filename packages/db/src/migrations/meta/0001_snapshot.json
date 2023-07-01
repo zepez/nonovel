@@ -1,8 +1,8 @@
 {
   "version": "5",
   "dialect": "pg",
-  "id": "1389de83-a18b-4d6a-9f9b-23d14148df34",
-  "prevId": "00000000-0000-0000-0000-000000000000",
+  "id": "2a2e3389-5664-495c-8cf6-b3990a34e2f1",
+  "prevId": "1389de83-a18b-4d6a-9f9b-23d14148df34",
   "tables": {
     "account": {
       "name": "account",
@@ -284,6 +284,12 @@
           "primaryKey": true,
           "notNull": true,
           "default": "gen_random_uuid()"
+        },
+        "cover": {
+          "name": "cover",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
         },
         "name": {
           "name": "name",

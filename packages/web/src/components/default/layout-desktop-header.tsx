@@ -1,8 +1,6 @@
-"use client";
-
 import * as React from "react";
 import Link from "next/link";
-import type { Session } from "~/lib/auth";
+import { getSession } from "~/lib/auth";
 import { cn } from "~/lib/utils";
 import { LayoutWrapper, BrandIcon, LayoutProfile } from "~/components/shared";
 import { LayoutSearch } from "~/components/default/layout-search";
@@ -13,7 +11,6 @@ import {
   NavigationMenuLink,
   NavigationMenuList,
   NavigationMenuTrigger,
-  navigationMenuTriggerStyle,
 } from "~/components/ui/navigation-menu";
 
 const components: {
@@ -44,11 +41,9 @@ const components: {
   },
 ];
 
-interface LayoutDesktopHeaderProps {
-  session: Session | null;
-}
+export async function LayoutDesktopHeader() {
+  const [_, session] = await getSession();
 
-export function LayoutDesktopHeader({ session }: LayoutDesktopHeaderProps) {
   return (
     <div className="nn-bg-foreground nn-border-bottom">
       <LayoutWrapper className="flex flex-col flex-wrap justify-between px-4 py-2 md:flex-row">
@@ -57,10 +52,8 @@ export function LayoutDesktopHeader({ session }: LayoutDesktopHeaderProps) {
             {/* sign up / account */}
             <NavigationMenuItem>
               <Link href="/" legacyBehavior passHref>
-                <NavigationMenuLink
-                  className={cn(navigationMenuTriggerStyle())}
-                >
-                  <BrandIcon />
+                <NavigationMenuLink className="nn-interactive group inline-flex h-9 w-max items-center justify-center rounded-md bg-inherit px-4 py-2 text-sm font-medium">
+                  <BrandIcon className="my-1" />
                 </NavigationMenuLink>
               </Link>
             </NavigationMenuItem>

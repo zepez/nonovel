@@ -30,8 +30,8 @@ CREATE TABLE IF NOT EXISTS "account" (
 CREATE TABLE IF NOT EXISTS "chapter" (
 	"id" uuid PRIMARY KEY DEFAULT gen_random_uuid() NOT NULL,
 	"project_id" uuid NOT NULL,
-	"name" text,
-	"order" numeric(9, 3),
+	"name" text NOT NULL,
+	"order" numeric(9, 3) NOT NULL,
 	"content_type" "chapter_content_type" DEFAULT 'html' NOT NULL,
 	"content" text,
 	"created_at" timestamp with time zone DEFAULT now() NOT NULL,
@@ -50,8 +50,8 @@ CREATE TABLE IF NOT EXISTS "profile" (
 --> statement-breakpoint
 CREATE TABLE IF NOT EXISTS "project" (
 	"id" uuid PRIMARY KEY DEFAULT gen_random_uuid() NOT NULL,
-	"name" text,
-	"slug" text,
+	"name" text NOT NULL,
+	"slug" text NOT NULL,
 	"description" text,
 	"created_at" timestamp with time zone DEFAULT now() NOT NULL,
 	"updated_at" timestamp with time zone DEFAULT now() NOT NULL
@@ -68,8 +68,8 @@ CREATE TABLE IF NOT EXISTS "session" (
 --> statement-breakpoint
 CREATE TABLE IF NOT EXISTS "users" (
 	"id" uuid PRIMARY KEY DEFAULT gen_random_uuid() NOT NULL,
-	"name" text,
-	"email" varchar(256),
+	"name" text NOT NULL,
+	"email" varchar(256) NOT NULL,
 	"email_verified" timestamp with time zone,
 	"created_at" timestamp with time zone DEFAULT now() NOT NULL,
 	"updated_at" timestamp with time zone DEFAULT now() NOT NULL
