@@ -19,17 +19,22 @@ export default async function ProfilePage({ params }: ProfilePageProps) {
 
   return (
     <>
-      <div className="h-64 w-full bg-zinc-500" />
-      <LayoutWrapper className="-mt-32 flex flex-wrap items-end">
+      <div className="relative h-64 overflow-hidden">
+        <div
+          className="nn-bg-blurred absolute inset-0 h-full w-full"
+          style={{ backgroundImage: `url(${profile.image ?? "/profile.png"})` }}
+        />
+      </div>
+      <LayoutWrapper className="relative -mt-32 flex flex-wrap items-end">
         <Image
           src={profile.image ?? "/profile.png"}
           alt="Profile picture"
           width={256}
           height={256}
-          className="nn-outline h-64 w-64 rounded-md border-4 border-[#121212] bg-zinc-800"
+          className="nn-outline h-64 w-64 rounded-md border-4 border-[#FFFFFF] bg-zinc-800 dark:border-[#121212]"
         />
         <div className="mb-2 ml-8">
-          <h1 className="text-5xl font-bold leading-tight ">
+          <h1 className="text-5xl font-bold leading-tight">
             <span className="mr-1 text-xl font-normal">@</span>
             {profile.username.toLowerCase()}
           </h1>
@@ -40,6 +45,7 @@ export default async function ProfilePage({ params }: ProfilePageProps) {
           <p className="nn-text-secondary"></p>
         </div>
       </LayoutWrapper>
+
       <LayoutWrapper className="mt-12">
         <p className="px-8">{profile.bio}</p>
       </LayoutWrapper>

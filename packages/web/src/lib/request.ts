@@ -2,11 +2,13 @@ import { cache } from "react";
 
 import {
   getUserById as getUserByIdQuery,
-  GetUserByIdOptions,
+  type GetUserByIdOptions,
   getProfileByUsername as getProfileByUsernameQuery,
-  GetProfileByUsernameOptions,
+  type GetProfileByUsernameOptions,
   getProfileByUserId as getProfileByUserIdQuery,
-  GetProfileByUserIdOptions,
+  type GetProfileByUserIdOptions,
+  getProjectById as getProjectByIdQuery,
+  type GetProjectByIdOptions,
 } from "@nonovel/query";
 
 export const getUserById = cache(
@@ -20,4 +22,8 @@ export const getProfileByUsername = cache(
 
 export const getProfileByUserId = cache(
   async (opts: GetProfileByUserIdOptions) => await getProfileByUserIdQuery(opts)
+);
+
+export const getProjectById = cache(
+  async (opts: GetProjectByIdOptions) => await getProjectByIdQuery(opts)
 );

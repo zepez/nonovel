@@ -140,7 +140,7 @@ export const user = pgTable(
 
 export const userRelations = relations(user, ({ many, one }) => ({
   projects: many(userProject),
-  user: one(user),
+  profile: one(profile),
 }));
 
 export type User = InferModel<typeof user>;

@@ -1,0 +1,34 @@
+import { db } from "@nonovel/db";
+import { placeholder } from "drizzle-orm";
+
+export const getProjectByIdPrepared = db.query.project
+  .findFirst({
+    where: (project, { eq }) => eq(project.slug, placeholder("slug")),
+    with: {
+      users: {
+        columns: {
+          id: true,
+          role: true,
+        },
+        with: {
+          user: {
+            columns: {
+              id: true,
+            },
+            with: {
+              profile: true,
+            },
+          },
+        },
+      },
+      chapters: {
+        columns: {
+          id: true,
+          name: true,
+          order: true,
+          createdAt: true,
+        },
+      },
+    },
+  })
+  .prepare("get_project_by_id_prepared");
