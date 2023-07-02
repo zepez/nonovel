@@ -11,7 +11,11 @@ export const user = z.object({
       message: "Display name can not exceed 50 characters.",
     }),
   email: z.string().email(),
-  emailVerified: z.string().datetime().nullable(),
+  emailVerified: z
+    .string()
+    .datetime()
+    .nullable()
+    .transform((val) => (val ? new Date(val) : null)),
   createdAt: z.string().datetime(),
   updatedAt: z.string().datetime(),
 });

@@ -47,8 +47,7 @@ export const LayoutFooter = () => {
         </div>
         <div className="mt-4 md:order-1 md:mt-0">
           <p className="nn-text-secondary text-center">
-            &copy; {new Date().getFullYear()} NoNovel, L.L.C. All rights
-            reserved.
+            &copy; {new Date().getFullYear()} NoNovel. All rights reserved.
           </p>
         </div>
       </LayoutWrapper>

@@ -64,18 +64,20 @@ export default async function ProjectPage({ params }: ProfilePageProps) {
       <LayoutWrapper className="nn-bg-foreground rounded-b-md py-12">
         <div className="mx-12">
           <h2 className="mb-2 text-2xl font-bold">Chapters</h2>
-          {project.chapters.map((chapter, chapterIdx) => (
-            <Link
-              key={chapterIdx}
-              href={`/p/${project.slug}/c/${chapter.order}`}
-              className="nn-interactive nn-border-bottom flex"
-            >
-              <h3 className="line-clamp-1 px-4 py-3">
-                <strong className="mr-4">{chapter.order}</strong>{" "}
-                {toTitleCase(chapter.name)}
-              </h3>
-            </Link>
-          ))}
+          <nav className="grid grid-cols-1 divide-y divide-zinc-500/50">
+            {project.chapters.map((chapter, chapterIdx) => (
+              <Link
+                key={chapterIdx}
+                href={`/p/${project.slug}/c/${chapter.order}`}
+                className="nn-interactive"
+              >
+                <h3 className="line-clamp-1 px-4 py-3">
+                  <strong className="mr-4">{chapter.order}</strong>{" "}
+                  {toTitleCase(chapter.name)}
+                </h3>
+              </Link>
+            ))}
+          </nav>
         </div>
       </LayoutWrapper>
     </>

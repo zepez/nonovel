@@ -88,9 +88,13 @@ export default function adapter(client: typeof db): Adapter {
       return (resUser as AdapterUser) ?? null;
     },
     async updateUser({ id, ...userData }) {
+      const userValidated = userValidator
+        .pick({ email: true, name: true, emailVerified: true })
+        .parse(userData);
+
       const res = await client
         .update(user)
-        .set(userData)
+        .set(userValidated)
         .where(eq(user.id, id))
         .returning();
 

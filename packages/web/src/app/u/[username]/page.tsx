@@ -50,32 +50,42 @@ export default async function ProfilePage({ params }: ProfilePageProps) {
         <p className="px-8">{profile.bio}</p>
       </LayoutWrapper>
       <LayoutWrapper className="mt-12 grid grid-cols-1 gap-6 md:grid-cols-2">
-        {profile.user.projects.map(({ project, ...relation }, relationIdx) => (
-          <Link
-            key={relationIdx}
-            href={`/p/${project.slug}`}
-            className="nn-interactive nn-bg-foreground flex rounded-md"
-          >
-            <Image
-              src={project.cover ?? "/profile.png"}
-              alt="Novel cover"
-              width={100}
-              height={150}
-              className="mr-4 aspect-[2/3] h-full rounded-md bg-zinc-500"
-            />
-            <div className="p-4">
-              <h3 className="line-clamp-1 text-xl font-bold leading-tight">
-                {toTitleCase(project.name)}
-              </h3>
-              <p className="nn-text-secondary mb-4 mt-1">
-                {toTitleCase(relation.role)}
-              </p>
-              <p className="nn-text-secondary line-clamp-2">
-                {project.description}
-              </p>
-            </div>
-          </Link>
-        ))}
+        {!profile.user.projects.length ? (
+          <div className="nn-bg-foreground col-span-2 rounded-md p-4 text-center text-sm">
+            @{profile.username} is not a part of any projects.
+          </div>
+        ) : null}
+
+        {profile.user.projects.length
+          ? profile.user.projects.map(
+              ({ project, ...relation }, relationIdx) => (
+                <Link
+                  key={relationIdx}
+                  href={`/p/${project.slug}`}
+                  className="nn-interactive nn-bg-foreground flex rounded-md"
+                >
+                  <Image
+                    src={project.cover ?? "/profile.png"}
+                    alt="Novel cover"
+                    width={100}
+                    height={150}
+                    className="mr-4 aspect-[2/3] h-full rounded-md bg-zinc-500"
+                  />
+                  <div className="p-4">
+                    <h3 className="line-clamp-1 text-xl font-bold leading-tight">
+                      {toTitleCase(project.name)}
+                    </h3>
+                    <p className="nn-text-secondary mb-4 mt-1">
+                      {toTitleCase(relation.role)}
+                    </p>
+                    <p className="nn-text-secondary line-clamp-2">
+                      {project.description}
+                    </p>
+                  </div>
+                </Link>
+              )
+            )
+          : null}
       </LayoutWrapper>
     </>
   );
