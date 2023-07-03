@@ -6,6 +6,9 @@ export const getProfileByUsernamePrepared = db.query.profile
     where: (profile, { eq }) => eq(profile.username, placeholder("username")),
     with: {
       user: {
+        columns: {
+          id: true,
+        },
         with: {
           projects: {
             with: {
