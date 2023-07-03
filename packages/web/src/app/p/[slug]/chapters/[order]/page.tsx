@@ -23,7 +23,7 @@ export default async function ChapterPage({ params }: ChapterPageProps) {
     <>
       <div className="relative overflow-hidden">
         <div
-          className="nn-bg-blurred-2 absolute inset-0 z-0"
+          className="nn-bg-blurred-2 absolute inset-0 z-0 bg-cover"
           style={{ backgroundImage: `url(${project.cover ?? ""})` }}
         />
         <div className="relative z-10">

@@ -88,10 +88,10 @@
 
 .nn-bg-blurred {
   filter: blur(50px);
-  @apply nn-bg-foreground bg-cover bg-center opacity-70;
+  @apply nn-bg-foreground bg-center opacity-70;
 }
 
 .nn-bg-blurred-2 {
   filter: blur(100px);
-  @apply nn-bg-foreground bg-cover bg-center opacity-50;
+  @apply nn-bg-foreground bg-center opacity-50;
 }

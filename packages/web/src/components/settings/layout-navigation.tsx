@@ -8,13 +8,6 @@ import { cn } from "~/lib/utils";
 const navigation = [
   { name: "Account", href: "/settings/account", segment: "account" },
   { name: "Profile", href: "/settings/profile", segment: "profile" },
-  {
-    name: "Notifications",
-    href: "/settings/notifications",
-    segment: "notifications",
-  },
-  { name: "Privacy", href: "/settings/privacy", segment: "privacy" },
-  { name: "Billing", href: "/settings/billing", segment: "billing" },
 ];
 
 export const LayoutNavigation = () => {

@@ -1,17 +1,20 @@
 import { LayoutWrapper } from "~/components/shared";
-import { LayoutNavigation } from "~/components/settings";
+import { LayoutNavigation, LayoutHeader } from "~/components/settings";
 
-export default function SettingsLayout({
-  children,
-}: {
+interface SettingsLayoutProps {
   children: React.ReactNode;
-}) {
+}
+
+export default function SettingsLayout({ children }: SettingsLayoutProps) {
   return (
-    <LayoutWrapper className="col-span-1 mt-12 grid gap-4 md:grid-cols-4">
-      <LayoutNavigation />
-      <div className="nn-bg-foreground col-span-1 rounded-md pb-8 pt-4 md:col-span-3">
-        {children}
-      </div>
-    </LayoutWrapper>
+    <>
+      <LayoutHeader />
+      <LayoutWrapper className="col-span-1 mt-8 grid md:mt-0 md:grid-cols-4">
+        <LayoutNavigation />
+        <div className="nn-bg-foreground col-span-1 mt-6 rounded-b-md pb-8 pt-4 md:col-span-3 md:mt-0">
+          {children}
+        </div>
+      </LayoutWrapper>
+    </>
   );
 }

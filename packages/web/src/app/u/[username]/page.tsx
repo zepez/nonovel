@@ -21,7 +21,7 @@ export default async function ProfilePage({ params }: ProfilePageProps) {
     <>
       <div className="relative h-64 overflow-hidden">
         <div
-          className="nn-bg-blurred absolute inset-0 h-full w-full"
+          className="nn-bg-blurred absolute inset-0 h-full w-full bg-cover"
           style={{ backgroundImage: `url(${profile.image ?? "/profile.png"})` }}
         />
       </div>

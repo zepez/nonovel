@@ -1,3 +1,4 @@
+export * from "./background-emoji";
 export * from "./brand-icon";
 export * from "./layout-footer";
 export * from "./layout-wrapper";
