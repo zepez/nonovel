@@ -7,7 +7,7 @@ import {
   MoonIcon,
   SunIcon,
   GearIcon,
-  Pencil1Icon,
+  PersonIcon,
   ThickArrowRightIcon,
 } from "@radix-ui/react-icons";
 
@@ -29,6 +29,19 @@ export const LayoutProfile = ({ session }: LayoutProfileProps) => {
   const { setTheme, theme } = useTheme();
   const profilePicture = profile.image ?? "/profile.png";
 
+  const profileNavItems = [
+    {
+      title: "Profile",
+      href: `/u/${profile.username}`,
+      icon: <PersonIcon className="mx-2" />,
+    },
+    {
+      title: "Settings",
+      href: "/settings/account",
+      icon: <GearIcon className="mx-2" />,
+    },
+  ];
+
   return (
     <DropdownMenu>
       <DropdownMenuTrigger className="nn-interactive ms-center flex rounded-md p-1 ">
@@ -42,12 +55,14 @@ export const LayoutProfile = ({ session }: LayoutProfileProps) => {
       </DropdownMenuTrigger>
       <DropdownMenuContent className="w-48">
         <div className="p-1">
-          <Link href="/settings/account">
-            <DropdownMenuItem>
-              <GearIcon className="mx-2" />
-              Settings
-            </DropdownMenuItem>
-          </Link>
+          {profileNavItems.map(({ title, href, icon }, itemIdx) => (
+            <Link key={itemIdx} href={href}>
+              <DropdownMenuItem>
+                {icon}
+                {title}
+              </DropdownMenuItem>
+            </Link>
+          ))}
           {theme === "light" || theme === "system" || !theme ? (
             <DropdownMenuItem onClick={() => setTheme("dark")}>
               <MoonIcon className="mx-2" />
@@ -59,10 +74,6 @@ export const LayoutProfile = ({ session }: LayoutProfileProps) => {
               Light Theme
             </DropdownMenuItem>
           )}
-          <DropdownMenuItem>
-            <Pencil1Icon className="mx-2" />
-            Write
-          </DropdownMenuItem>
           <Link href="/api/auth/signout">
             <DropdownMenuItem>
               <ThickArrowRightIcon className="mx-2" />
@@ -70,23 +81,6 @@ export const LayoutProfile = ({ session }: LayoutProfileProps) => {
             </DropdownMenuItem>
           </Link>
         </div>
-        {/* <div className="flex py-1 mt-1 nn-bg-foreground justify-evenly">
-          {theme === "light" ? (
-            <DropdownMenuItem
-              onClick={() => setTheme("dark")}
-              className="p-2 rounded-md"
-            >
-              <MoonIcon className="h-[1.3rem] w-[1.3rem]" /> Dark Mode
-            </DropdownMenuItem>
-          ) : (
-            <DropdownMenuItem
-              onClick={() => setTheme("light")}
-              className="p-2 rounded-md"
-            >
-              <SunIcon className="h-[1.3rem] w-[1.3rem]" /> Light Mode
-            </DropdownMenuItem>
-          )}
-        </div> */}
       </DropdownMenuContent>
     </DropdownMenu>
   );

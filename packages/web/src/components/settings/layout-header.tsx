@@ -8,16 +8,19 @@ const segments = {
     title: "Settings",
     description:
       "Your settings will be applied to all of your devices and browsers.",
+    emoji: "⚙️",
   },
   account: {
     title: "Account Settings",
     description:
       "Your account details will always remain private and are not publicly displayed.",
+    emoji: "⚙️",
   },
   profile: {
     title: "Profile Settings",
     description:
       "Your profile details will be displayed publicly on your profile page.",
+    emoji: "👨🏼‍🎨",
   },
 };
 
@@ -30,7 +33,7 @@ export const LayoutHeader = () => {
   return (
     <div className="relative overflow-hidden">
       <BackgroundEmoji
-        emoji="⚙️"
+        emoji={current.emoji}
         className="nn-bg-blurred absolute inset-0 z-0 h-full w-full"
         tiled={false}
       />
