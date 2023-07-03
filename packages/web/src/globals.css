@@ -13,6 +13,10 @@
   transition-timing-function: ease-in-out;
   font-size: var(--chapter-text-size);
   line-height: var(--chapter-leading);
+  margin: 2rem 0px;
+}
+
+.nn-content-wrapper p:not(:first-child):not(:last-child) {
   margin: var(--chapter-paragraph-spacing);
 }
 
