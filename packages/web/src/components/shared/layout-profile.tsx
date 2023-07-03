@@ -26,7 +26,7 @@ interface LayoutProfileProps {
 export const LayoutProfile = ({ session }: LayoutProfileProps) => {
   const { profile } = session;
 
-  const { setTheme } = useTheme();
+  const { setTheme, theme } = useTheme();
   const profilePicture = profile.image ?? "/profile.png";
 
   return (
@@ -48,6 +48,17 @@ export const LayoutProfile = ({ session }: LayoutProfileProps) => {
               Settings
             </DropdownMenuItem>
           </Link>
+          {theme === "light" || theme === "system" || !theme ? (
+            <DropdownMenuItem onClick={() => setTheme("dark")}>
+              <MoonIcon className="mx-2" />
+              Dark Theme
+            </DropdownMenuItem>
+          ) : (
+            <DropdownMenuItem onClick={() => setTheme("light")}>
+              <SunIcon className="mx-2" />
+              Light Theme
+            </DropdownMenuItem>
+          )}
           <DropdownMenuItem>
             <Pencil1Icon className="mx-2" />
             Write
@@ -59,20 +70,23 @@ export const LayoutProfile = ({ session }: LayoutProfileProps) => {
             </DropdownMenuItem>
           </Link>
         </div>
-        <div className="nn-bg-foreground mt-1 flex justify-evenly py-1">
-          <DropdownMenuItem
-            onClick={() => setTheme("light")}
-            className="rounded-md p-2"
-          >
-            <SunIcon className="h-[1.3rem] w-[1.3rem]" />
-          </DropdownMenuItem>
-          <DropdownMenuItem
-            onClick={() => setTheme("dark")}
-            className="rounded-md p-2"
-          >
-            <MoonIcon className="h-[1.3rem] w-[1.3rem]" />
-          </DropdownMenuItem>
-        </div>
+        {/* <div className="flex py-1 mt-1 nn-bg-foreground justify-evenly">
+          {theme === "light" ? (
+            <DropdownMenuItem
+              onClick={() => setTheme("dark")}
+              className="p-2 rounded-md"
+            >
+              <MoonIcon className="h-[1.3rem] w-[1.3rem]" /> Dark Mode
+            </DropdownMenuItem>
+          ) : (
+            <DropdownMenuItem
+              onClick={() => setTheme("light")}
+              className="p-2 rounded-md"
+            >
+              <SunIcon className="h-[1.3rem] w-[1.3rem]" /> Light Mode
+            </DropdownMenuItem>
+          )}
+        </div> */}
       </DropdownMenuContent>
     </DropdownMenu>
   );

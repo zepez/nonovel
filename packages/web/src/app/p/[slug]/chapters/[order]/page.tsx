@@ -58,7 +58,7 @@ export default async function ChapterPage({ params }: ChapterPageProps) {
           </LayoutWrapper>
         </div>
       </div>
-      <LayoutWrapper className="nn-bg-foreground rounded-b-md py-6">
+      <LayoutWrapper className="nn-bg-foreground rounded-b-md py-6 lg:px-16">
         <div className="nn-content-wrapper">{parse(chapter.content ?? "")}</div>
       </LayoutWrapper>
     </>

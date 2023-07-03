@@ -59,22 +59,20 @@ export default async function ProjectPage({ params }: ProjectPageProps) {
           </LayoutWrapper>
         </div>
       </div>
-      <LayoutWrapper className="nn-bg-foreground rounded-b-md py-12">
-        <div className="md:mx-8">
-          <h2 className="mb-2 text-2xl font-bold">Chapters</h2>
-          <nav className="grid grid-cols-1 divide-y divide-zinc-500/50">
-            {project.chapters.map((chapter, chapterIdx) => (
-              <Link
-                key={chapterIdx}
-                href={`/p/${project.slug}/chapters/${chapter.order}`}
-                className="nn-interactive flex items-center"
-              >
-                <strong className="ml-4 mr-8">{chapter.order}</strong>{" "}
-                <h3 className="py-3">{toTitleCase(chapter.name)}</h3>
-              </Link>
-            ))}
-          </nav>
-        </div>
+      <LayoutWrapper className="nn-bg-foreground rounded-b-md py-12 md:px-16 lg:px-16">
+        <h2 className="mb-2 text-2xl font-bold">Chapters</h2>
+        <nav className="grid grid-cols-1 divide-y divide-zinc-500/50">
+          {project.chapters.map((chapter, chapterIdx) => (
+            <Link
+              key={chapterIdx}
+              href={`/p/${project.slug}/chapters/${chapter.order}`}
+              className="nn-interactive flex items-center"
+            >
+              <strong className="ml-4 mr-8">{chapter.order}</strong>{" "}
+              <h3 className="py-3">{toTitleCase(chapter.name)}</h3>
+            </Link>
+          ))}
+        </nav>
       </LayoutWrapper>
     </>
   );
