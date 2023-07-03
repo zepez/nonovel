@@ -16,8 +16,7 @@ export default function SettingsLoading() {
           <Skeleton className="mb-[1rem] h-[1rem] w-full rounded-full" />
         </div>
       </LayoutWrapper>
-      <LayoutWrapper className="mt-12 grid grid-cols-1 gap-6 sm:grid-cols-2">
-        <Skeleton className="h-[150px] w-full" />
+      <LayoutWrapper className="mt-12">
         <Skeleton className="h-[150px] w-full" />
       </LayoutWrapper>
     </>
