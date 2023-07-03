@@ -26,15 +26,15 @@ export default async function ProjectPage({ params }: ProjectPageProps) {
           style={{ backgroundImage: `url(${project.cover ?? ""})` }}
         />
         <div className="relative z-10">
-          <LayoutWrapper className="flex py-12">
+          <LayoutWrapper className="flex flex-wrap py-12 md:flex-nowrap">
             <Image
               src={project.cover ?? ""}
               alt={project.name}
               width={300}
               height={500}
-              className="mr-16 min-w-[300px] rounded-md"
+              className="mx-auto w-48 flex-shrink-0 rounded-md md:mx-0 md:w-72"
             />
-            <div>
+            <div className="ml-0 mt-12 md:ml-16 md:mt-0">
               <h1 className="mb-4 text-4xl font-bold leading-tight">
                 {toTitleCase(project.name)}
               </h1>
@@ -60,19 +60,17 @@ export default async function ProjectPage({ params }: ProjectPageProps) {
         </div>
       </div>
       <LayoutWrapper className="nn-bg-foreground rounded-b-md py-12">
-        <div className="mx-12">
+        <div className="md:mx-8">
           <h2 className="mb-2 text-2xl font-bold">Chapters</h2>
           <nav className="grid grid-cols-1 divide-y divide-zinc-500/50">
             {project.chapters.map((chapter, chapterIdx) => (
               <Link
                 key={chapterIdx}
-                href={`/p/${project.slug}/chapter/${chapter.order}`}
-                className="nn-interactive"
+                href={`/p/${project.slug}/chapters/${chapter.order}`}
+                className="nn-interactive flex items-center"
               >
-                <h3 className="line-clamp-1 px-4 py-3">
-                  <strong className="mr-4">{chapter.order}</strong>{" "}
-                  {toTitleCase(chapter.name)}
-                </h3>
+                <strong className="ml-4 mr-8">{chapter.order}</strong>{" "}
+                <h3 className="py-3">{toTitleCase(chapter.name)}</h3>
               </Link>
             ))}
           </nav>

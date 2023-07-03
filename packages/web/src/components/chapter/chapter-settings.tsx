@@ -1,8 +1,9 @@
 "use client";
 
-import { useEffect } from "react";
+import { useEffect, type Dispatch, type SetStateAction } from "react";
 import { useLocalStorage } from "react-use";
-import { GearIcon } from "@radix-ui/react-icons";
+import { MixerHorizontalIcon } from "@radix-ui/react-icons";
+import { cn } from "~/lib/utils";
 import {
   Popover,
   PopoverContent,
@@ -10,12 +11,70 @@ import {
 } from "~/components/ui/popover";
 import { Button } from "~/components/ui/button";
 
-export const ChapterSettings = () => {
-  const defaultSettings = {
-    fontSize: 24,
-    leading: 1.5,
+const defaultSettings = {
+  fontSize: 24,
+  leading: 1.5,
+  paragraphSpacing: 2,
+};
+
+interface IncrementalChangeProps {
+  name: string;
+  stored: typeof defaultSettings;
+  storedKey: keyof typeof defaultSettings;
+  setStored: Dispatch<SetStateAction<typeof defaultSettings | undefined>>;
+  increment: number;
+  min: number;
+  max: number;
+}
+
+const IncrementalChange = ({
+  name,
+  stored,
+  storedKey,
+  increment,
+  setStored,
+  min,
+  max,
+}: IncrementalChangeProps) => {
+  const setStoredKey = (
+    storedKey: keyof typeof defaultSettings,
+    value: number | string
+  ) => {
+    setStored(() => {
+      if (stored) return { ...stored, [storedKey]: value };
+
+      return { ...defaultSettings, [storedKey]: value };
+    });
   };
 
+  return (
+    <div className="mb-4 flex w-full select-none items-center justify-between">
+      <Button
+        variant="outline"
+        disabled={stored[storedKey] <= min}
+        onClick={() => setStoredKey(storedKey, stored[storedKey] - increment)}
+      >
+        -
+      </Button>
+      <p className="text-xs">
+        {name}: {stored[storedKey]}
+      </p>
+      <Button
+        variant="outline"
+        disabled={stored[storedKey] >= max}
+        onClick={() => setStoredKey(storedKey, stored[storedKey] + increment)}
+      >
+        +
+      </Button>
+    </div>
+  );
+};
+
+interface ChapterSettingsProps {
+  className?: string;
+}
+
+export const ChapterSettings = ({ className }: ChapterSettingsProps) => {
   const [stored, setStored] = useLocalStorage<typeof defaultSettings>(
     "read-chapter-settings",
     defaultSettings
@@ -27,70 +86,71 @@ export const ChapterSettings = () => {
     // font size
     document.documentElement.style.setProperty(
       "--chapter-text-size",
-      `${stored.fontSize}px`
+      `${stored.fontSize ?? defaultSettings.fontSize}px`
     );
     // leading
     document.documentElement.style.setProperty(
       "--chapter-leading",
-      stored.leading.toString()
+      stored.leading?.toString() ?? defaultSettings.leading.toString()
+    );
+    // paragraph spacing
+    document.documentElement.style.setProperty(
+      "--chapter-paragraph-spacing",
+      `${
+        stored.paragraphSpacing?.toString() ??
+        defaultSettings.paragraphSpacing.toString()
+      }rem 0rem`
     );
   }, [stored]);
-
-  const setStoredKey = (
-    key: keyof typeof defaultSettings,
-    value: number | string
-  ) => {
-    setStored(() => {
-      if (stored) return { ...stored, [key]: value };
-
-      return { ...defaultSettings, [key]: value };
-    });
-  };
 
   if (!stored) return null;
 
   return (
     <>
       <Popover>
-        <PopoverTrigger className="nn-bg-primary mt-4 flex h-12 w-full items-center justify-center rounded-md sm:mt-0 sm:w-12">
-          <GearIcon className="m-2" width="32" height="32" />
+        <PopoverTrigger className={cn(className)}>
+          <MixerHorizontalIcon
+            className="m-2 hidden md:block"
+            width="32"
+            height="32"
+          />
+          <div className="flex text-xs md:hidden">
+            <MixerHorizontalIcon className="mr-2" width="16" height="16" />
+            Text settings
+          </div>
         </PopoverTrigger>
         <PopoverContent>
-          <div className="flex w-full select-none items-center justify-between">
-            <Button
-              variant="outline"
-              onClick={() => setStoredKey("fontSize", stored.fontSize - 1)}
-            >
-              -
-            </Button>
-            <p>Font Size: {stored.fontSize}</p>
-            <Button
-              variant="outline"
-              onClick={() => setStoredKey("fontSize", stored.fontSize + 1)}
-            >
-              +
-            </Button>
-          </div>
-
-          <div className="mt-4 flex w-full select-none items-center justify-between">
-            <Button
-              variant="outline"
-              onClick={() => setStoredKey("leading", stored.leading - 0.25)}
-            >
-              -
-            </Button>
-            <p>Line Height: {stored.leading}</p>
-            <Button
-              variant="outline"
-              onClick={() => setStoredKey("leading", stored.leading + 0.25)}
-            >
-              +
-            </Button>
-          </div>
+          <IncrementalChange
+            name="Font Size"
+            storedKey="fontSize"
+            increment={1}
+            stored={stored}
+            setStored={setStored}
+            min={12}
+            max={48}
+          />
+          <IncrementalChange
+            name="Line Height"
+            storedKey="leading"
+            increment={0.25}
+            stored={stored}
+            setStored={setStored}
+            min={1}
+            max={6}
+          />
+          <IncrementalChange
+            name="Paragraph Spacing"
+            storedKey="paragraphSpacing"
+            increment={0.25}
+            stored={stored}
+            setStored={setStored}
+            min={1}
+            max={6}
+          />
 
           <Button
             size="sm"
-            className="mt-4 h-8 w-full text-xs"
+            className="h-8 w-full text-xs"
             onClick={() => setStored(defaultSettings)}
           >
             Reset

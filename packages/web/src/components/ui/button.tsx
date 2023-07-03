@@ -44,7 +44,7 @@ const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
     return (
       <Comp
         className={cn(
-          "nn-interactive",
+          "nn-interactive disabled:cursor-not-allowed",
           buttonVariants({ variant, size, className })
         )}
         ref={ref}

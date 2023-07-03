@@ -5,7 +5,7 @@
 :root {
   --chapter-text-size: 24px;
   --chapter-leading: 1.5;
-  --chapter-p-margin: 1.5rem 0px;
+  --chapter-paragraph-spacing: 2rem 0px;
 }
 
 .nn-content-wrapper p {
@@ -13,7 +13,7 @@
   transition-timing-function: ease-in-out;
   font-size: var(--chapter-text-size);
   line-height: var(--chapter-leading);
-  margin: var(--chapter-p-margin);
+  margin: var(--chapter-paragraph-spacing);
 }
 
 *:focus {

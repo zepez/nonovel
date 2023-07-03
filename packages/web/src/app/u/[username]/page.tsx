@@ -25,16 +25,16 @@ export default async function ProfilePage({ params }: ProfilePageProps) {
           style={{ backgroundImage: `url(${profile.image ?? "/profile.png"})` }}
         />
       </div>
-      <LayoutWrapper className="relative -mt-32 flex flex-wrap items-end">
+      <LayoutWrapper className="relative -mt-32 flex flex-wrap items-end md:flex-nowrap">
         <Image
           src={profile.image ?? "/profile.png"}
           alt="Profile picture"
           width={256}
           height={256}
-          className="nn-outline h-64 w-64 rounded-md border-4 border-[#FFFFFF] bg-zinc-800 dark:border-[#121212]"
+          className="nn-outline nn-bg-foreground mx-auto w-64 rounded-md border-4 border-[#FFFFFF] dark:border-[#121212] md:mx-0"
         />
-        <div className="mb-2 ml-8">
-          <h1 className="text-5xl font-bold leading-tight">
+        <div className="mt-8 w-full text-center md:mb-2 md:ml-8 md:mt-0 md:w-auto md:text-left">
+          <h1 className="mb-2 text-2xl font-bold leading-tight md:text-5xl">
             <span className="mr-1 text-xl font-normal">@</span>
             {profile.username.toLowerCase()}
           </h1>
@@ -46,8 +46,8 @@ export default async function ProfilePage({ params }: ProfilePageProps) {
         </div>
       </LayoutWrapper>
 
-      <LayoutWrapper className="mt-12">
-        <p className="px-8">{profile.bio}</p>
+      <LayoutWrapper className="mt-8 md:mt-12">
+        <p className="px-0 md:px-8">{profile.bio}</p>
       </LayoutWrapper>
       <LayoutWrapper className="mt-12 grid grid-cols-1 gap-6 md:grid-cols-2">
         {!profile.user.projects.length ? (
