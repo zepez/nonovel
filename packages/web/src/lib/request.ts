@@ -9,6 +9,8 @@ import {
   type GetProfileByUserIdOptions,
   getProjectById as getProjectByIdQuery,
   type GetProjectByIdOptions,
+  getChapterBySlugAndOrder as getChapterBySlugAndOrderQuery,
+  type GetChapterBySlugAndOrderOptions,
 } from "@nonovel/query";
 
 export const getUserById = cache(
@@ -26,4 +28,9 @@ export const getProfileByUserId = cache(
 
 export const getProjectById = cache(
   async (opts: GetProjectByIdOptions) => await getProjectByIdQuery(opts)
+);
+
+export const getChapterBySlugAndOrder = cache(
+  async (opts: GetChapterBySlugAndOrderOptions) =>
+    await getChapterBySlugAndOrderQuery(opts)
 );

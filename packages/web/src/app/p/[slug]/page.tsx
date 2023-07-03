@@ -6,14 +6,12 @@ import { getProjectById } from "~/lib/request";
 import { LayoutWrapper } from "~/components/shared";
 import { toTitleCase } from "~/lib/string";
 
-interface ProfilePageProps {
+interface ProjectPageProps {
   params: { slug: string };
 }
 
-export default async function ProjectPage({ params }: ProfilePageProps) {
-  const [_, project] = await getProjectById({
-    slug: params.slug,
-  });
+export default async function ProjectPage({ params }: ProjectPageProps) {
+  const [_, project] = await getProjectById(params);
 
   if (!project) notFound();
 
@@ -68,7 +66,7 @@ export default async function ProjectPage({ params }: ProfilePageProps) {
             {project.chapters.map((chapter, chapterIdx) => (
               <Link
                 key={chapterIdx}
-                href={`/p/${project.slug}/c/${chapter.order}`}
+                href={`/p/${project.slug}/chapter/${chapter.order}`}
                 className="nn-interactive"
               >
                 <h3 className="line-clamp-1 px-4 py-3">
