@@ -9,6 +9,8 @@
 }
 
 .nn-content-wrapper p {
+  transition: all 0.25s;
+  transition-timing-function: ease-in-out;
   font-size: var(--chapter-text-size);
   line-height: var(--chapter-leading);
   margin: var(--chapter-p-margin);

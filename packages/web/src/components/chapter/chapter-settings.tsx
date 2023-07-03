@@ -40,8 +40,8 @@ export const ChapterSettings = () => {
     key: keyof typeof defaultSettings,
     value: number | string
   ) => {
-    setStored((s) => {
-      if (s) return { ...s, [key]: value };
+    setStored(() => {
+      if (stored) return { ...stored, [key]: value };
 
       return { ...defaultSettings, [key]: value };
     });
