@@ -7,13 +7,12 @@ import {
 } from "drizzle-orm/pg-core";
 import { InferModel, relations } from "drizzle-orm";
 
-import { userProject, projectGenre, chapter } from "./index";
+import { projectGenre } from "./index";
 
-export const project = pgTable(
-  "project",
+export const genre = pgTable(
+  "genre",
   {
     id: uuid("id").defaultRandom().primaryKey(),
-    cover: text("cover"),
     name: text("name").notNull(),
     slug: text("slug").notNull(),
     description: text("description"),
@@ -25,18 +24,17 @@ export const project = pgTable(
       .defaultNow()
       .notNull(),
   },
-  (p) => {
+  (g) => {
     return {
-      uniqueProjectSlug: uniqueIndex("unique_project_slug").on(p.slug),
+      uniqueGenreSlug: uniqueIndex("unique_genre_slug").on(g.slug),
+      uniqueGenreName: uniqueIndex("unique_genre_name").on(g.name),
     };
   }
 );
 
-export const projectRelations = relations(project, ({ many }) => ({
-  users: many(userProject),
-  genres: many(projectGenre),
-  chapters: many(chapter),
+export const genreRelations = relations(genre, ({ many }) => ({
+  projects: many(projectGenre),
 }));
 
-export type Project = InferModel<typeof project>;
-export type NewProject = InferModel<typeof project, "insert">;
+export type Genre = InferModel<typeof genre>;
+export type NewGenre = InferModel<typeof genre, "insert">;

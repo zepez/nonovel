@@ -18,12 +18,12 @@ export const profile = z.object({
     })
     .refine(
       (value) => {
-        const regex = /^[a-zA-Z0-9_]+$/;
+        const regex = /^[a-zA-Z0-9_.]+$/;
         return regex.test(value);
       },
       {
         message:
-          "Username can only contain alphanumeric and underscore characters",
+          "Username can only contain alphanumeric, underscore, and period characters",
       }
     ),
   bio: z.string().max(160, {

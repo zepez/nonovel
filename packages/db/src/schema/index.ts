@@ -6,3 +6,5 @@ export * from "./profile";
 export * from "./user-project";
 export * from "./project";
 export * from "./chapter";
+export * from "./project-genre";
+export * from "./genre";
