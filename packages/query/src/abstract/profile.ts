@@ -38,6 +38,8 @@ export type GetProfileByUsernameReturn = Awaited<
 export interface UpdateProfileByIdOptions {
   id: Profile["id"];
   username: Profile["username"];
+  image: Profile["image"];
+  countryCode: Profile["countryCode"];
 }
 
 export const updateProfileById = async (opts: UpdateProfileByIdOptions) => {
@@ -47,6 +49,7 @@ export const updateProfileById = async (opts: UpdateProfileByIdOptions) => {
         id: true,
         username: true,
         image: true,
+        countryCode: true,
       })
       .parse(opts);
 

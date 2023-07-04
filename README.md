@@ -12,7 +12,8 @@ NoNovel can only be used to read public domain books. There are no options to se
   - [ ] Google
   - [ ] Discord
 - [x] Basic Chapter Reading Settings
-- [ ] Project genres
+- [x] Project genres
+- [x] Profile country code
 - [ ] Omni-search profiles by username and project by name
 - [ ] Epub parsing library
 - [ ] File uploading via uploadThing

@@ -5,7 +5,11 @@ import { formatDistanceToNow } from "date-fns";
 import { getProfileByUsername } from "~/lib/request";
 import { toTitleCase } from "~/lib/string";
 import { cn } from "~/lib/utils";
-import { LayoutWrapper } from "~/components/shared";
+import {
+  LayoutWrapper,
+  CountryCodeName,
+  CountryCodeEmoji,
+} from "~/components/shared";
 
 interface ProfilePageProps {
   params: { username: string };
@@ -43,7 +47,14 @@ export default async function ProfilePage({ params }: ProfilePageProps) {
           </h1>
           <p className="nn-text-secondary">
             Joined {formatDistanceToNow(profile.createdAt, { addSuffix: true })}{" "}
-            | Based in Ukraine 🇺🇦
+            <CountryCodeName code={profile.countryCode}>
+              {(countryName) => (
+                <span>
+                  | Located in {countryName}{" "}
+                  <CountryCodeEmoji code={profile.countryCode} />
+                </span>
+              )}
+            </CountryCodeName>
           </p>
           <p className="nn-text-secondary"></p>
         </div>

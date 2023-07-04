@@ -41,6 +41,7 @@ const createProfile = (userId: User["id"], fullName: string) => {
     username: faker.internet.userName({ firstName, lastName }).toLowerCase(),
     bio: faker.lorem.sentences({ min: 3, max: 8 }),
     image: faker.image.avatar(),
+    countryCode: faker.location.countryCode(),
   };
 };
 

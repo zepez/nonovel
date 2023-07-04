@@ -17,6 +17,7 @@ export const profile = pgTable(
     image: text("image"),
     username: varchar("username", { length: 32 }).notNull(),
     bio: text("bio"),
+    countryCode: varchar("country_code", { length: 2 }),
     userId: uuid("user_id")
       .notNull()
       .references(() => user.id)

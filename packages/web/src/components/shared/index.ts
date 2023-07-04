@@ -1,5 +1,7 @@
 export * from "./background-emoji";
 export * from "./brand-icon";
+export * from "./country-code-emoji";
+export * from "./country-code-name";
 export * from "./layout-footer";
 export * from "./layout-wrapper";
 export * from "./layout-profile";

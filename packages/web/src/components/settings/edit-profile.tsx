@@ -4,6 +4,8 @@ import { useState } from "react";
 import * as z from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
+import countries from "i18n-iso-countries";
+import enLocaleData from "i18n-iso-countries/langs/en.json";
 
 import { profile as profileSchema } from "@nonovel/validator";
 
@@ -18,9 +20,18 @@ import {
   FormLabel,
   FormMessage,
 } from "~/components/ui/form";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "~/components/ui/select";
 import { Input } from "~/components/ui/input";
 import { Button } from "~/components/ui/button";
 import { useToast } from "~/components/ui/use-toast";
+
+countries.registerLocale(enLocaleData);
 
 interface EditProfileProps {
   session: Session;
@@ -30,6 +41,7 @@ const schema = profileSchema.pick({
   id: true,
   username: true,
   image: true,
+  countryCode: true,
 });
 
 export type EditProfileSchema = z.infer<typeof schema>;
@@ -42,11 +54,7 @@ export const EditProfile = ({ session }: EditProfileProps) => {
 
   const form = useForm<EditProfileSchema>({
     resolver: zodResolver(schema),
-    defaultValues: {
-      id: profile.id,
-      username: profile.username,
-      image: profile.image,
-    },
+    defaultValues: profile,
   });
 
   const handleSubmit = async (values: EditProfileSchema) => {
@@ -69,6 +77,8 @@ export const EditProfile = ({ session }: EditProfileProps) => {
       });
     }
   };
+
+  const locations = countries.getNames("en", { select: "official" });
 
   return (
     <Form {...form}>
@@ -108,6 +118,38 @@ export const EditProfile = ({ session }: EditProfileProps) => {
               </FormControl>
               <FormDescription>
                 You can use your profile picture from other sites via a link.
+              </FormDescription>
+              <FormMessage />
+            </FormItem>
+          )}
+        />
+
+        {/* countryCode */}
+        <FormField
+          control={form.control}
+          name="countryCode"
+          render={({ field }) => (
+            <FormItem>
+              <FormLabel>Country</FormLabel>
+              <Select
+                onValueChange={field.onChange}
+                value={field.value ?? undefined}
+              >
+                <FormControl>
+                  <SelectTrigger>
+                    <SelectValue placeholder="Choose a country" />
+                  </SelectTrigger>
+                </FormControl>
+                <SelectContent className="h-64">
+                  {Object.entries(locations).map(([code, name]) => (
+                    <SelectItem key={code} value={code}>
+                      {name}
+                    </SelectItem>
+                  ))}
+                </SelectContent>
+              </Select>
+              <FormDescription>
+                Select a country code to display on your profile.
               </FormDescription>
               <FormMessage />
             </FormItem>

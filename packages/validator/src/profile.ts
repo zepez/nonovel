@@ -29,6 +29,13 @@ export const profile = z.object({
   bio: z.string().max(160, {
     message: "User bios can not exceed 160 characters.",
   }),
+  countryCode: z
+    .string()
+    .length(2, {
+      message: "Country code must be 2 characters.",
+    })
+    .nullable()
+    .transform((val) => (val === "" ? null : val)),
   createdAt: z.string().datetime(),
   updatedAt: z.string().datetime(),
 });
