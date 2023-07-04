@@ -140,7 +140,7 @@ export const EditProfile = ({ session }: EditProfileProps) => {
                     <SelectValue placeholder="Choose a country" />
                   </SelectTrigger>
                 </FormControl>
-                <SelectContent className="h-64">
+                <SelectContent className="h-64 w-64 sm:w-auto">
                   {Object.entries(locations).map(([code, name]) => (
                     <SelectItem key={code} value={code}>
                       {name}

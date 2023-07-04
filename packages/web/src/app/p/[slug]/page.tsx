@@ -50,11 +50,24 @@ export default async function ProjectPage({ params }: ProjectPageProps) {
                   </Link>
                 ))}
               </p>
-              <p className="nn-text-secondary mb-8">
+              <p className="nn-text-secondary mt-1">
                 Updated{" "}
                 {formatDistanceToNow(latest.createdAt, { addSuffix: true })}
               </p>
-              <p>{project.description}</p>
+              <div className="m-1 mt-4 flex">
+                {project.genres.map(({ genre }, genreIdx) => (
+                  <Link
+                    key={genreIdx}
+                    href={`/browse/category/${genre.slug}`}
+                    className="nn-interactive rounded-md p-[2px]"
+                  >
+                    <div className="nn-bg-foreground rounded-md px-2 py-1 text-xs">
+                      {genre.name}
+                    </div>
+                  </Link>
+                ))}
+              </div>
+              <p className="mt-8">{project.description}</p>
             </div>
           </LayoutWrapper>
         </div>

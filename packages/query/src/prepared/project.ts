@@ -5,6 +5,20 @@ export const getProjectByIdPrepared = db.query.project
   .findFirst({
     where: (project, { eq }) => eq(project.slug, placeholder("slug")),
     with: {
+      genres: {
+        columns: {
+          id: true,
+        },
+        with: {
+          genre: {
+            columns: {
+              id: true,
+              name: true,
+              slug: true,
+            },
+          },
+        },
+      },
       users: {
         columns: {
           id: true,
