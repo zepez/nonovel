@@ -9,12 +9,13 @@ const buttonVariants = cva(
   {
     variants: {
       variant: {
-        default: "nn-bg-contrast",
+        default: "nn-bg-foreground",
+        primary: "nn-bg-primary",
+        secondary: "nn-bg-background",
+        contrast: "nn-bg-contrast",
         destructive:
           "bg-red-500 text-zinc-50 hover:bg-red-500:90 dark:bg-red-900 dark:text-red-50 dark:hover:bg-red-900:90",
-        primary: "nn-bg-primary",
         outline: "nn-border",
-        secondary: "nn-bg-background",
         ghost: "text-inherit",
         link: "text-inherit underline-offset-4 hover:underline",
       },
@@ -23,6 +24,7 @@ const buttonVariants = cva(
         sm: "h-8 rounded-md px-3 text-xs",
         lg: "h-10 rounded-md px-8",
         icon: "h-9 w-9",
+        fluid: "px-4 py-2",
       },
     },
     defaultVariants: {

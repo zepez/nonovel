@@ -1,3 +1,4 @@
+export * from "./aspect-image";
 export * from "./background-emoji";
 export * from "./brand-icon";
 export * from "./country-code-emoji";
@@ -8,3 +9,4 @@ export * from "./layout-profile";
 export * from "./layout-command";
 export * from "./theme-switcher";
 export * from "./theme-provider";
+export * from "./section-heading";

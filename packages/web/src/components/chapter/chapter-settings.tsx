@@ -151,6 +151,7 @@ export const ChapterSettings = ({ className }: ChapterSettingsProps) => {
           <Button
             size="sm"
             className="h-8 w-full text-xs"
+            variant="contrast"
             onClick={() => setStored(defaultSettings)}
           >
             Reset

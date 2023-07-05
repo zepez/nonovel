@@ -133,7 +133,7 @@ export async function LayoutDesktopHeader() {
             ) : (
               <NavigationMenuItem className="py-1 pl-2">
                 <Link href="/api/auth/signin" legacyBehavior passHref>
-                  <NavigationMenuLink className="rounded-md border border-zinc-950 bg-zinc-950 p-2 text-sm text-white dark:bg-white dark:text-black">
+                  <NavigationMenuLink className="nn-bg-contrast rounded-md border p-2 text-sm">
                     Login
                   </NavigationMenuLink>
                 </Link>

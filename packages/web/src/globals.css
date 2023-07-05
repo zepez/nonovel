@@ -60,6 +60,10 @@
   @apply bg-white text-zinc-950 dark:bg-zinc-900 dark:text-zinc-100;
 }
 
+.nn-divide {
+  @apply divide-zinc-950/20 dark:divide-zinc-100/20;
+}
+
 .nn-border {
   @apply border border-zinc-300 dark:border-zinc-700;
 }
