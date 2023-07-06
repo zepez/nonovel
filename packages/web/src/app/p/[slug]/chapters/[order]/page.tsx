@@ -5,7 +5,7 @@ import parse from "html-react-parser";
 import { formatDistanceToNow } from "date-fns";
 import { getChapterBySlugAndOrder } from "~/lib/request";
 import { toTitleCase } from "~/lib/string";
-import { LayoutWrapper } from "~/components/shared";
+import { LayoutWrapper, AspectImage } from "~/components/shared";
 import { ChapterSettings } from "~/components/chapter";
 
 interface ChapterPageProps {
@@ -23,42 +23,41 @@ export default async function ChapterPage({ params }: ChapterPageProps) {
     <>
       <div className="relative overflow-hidden">
         <div
-          className="nn-bg-blurred-2 absolute inset-0 z-0 bg-cover"
+          className="absolute inset-0 z-0 bg-cover nn-bg-blurred-2"
           style={{ backgroundImage: `url(${project.cover ?? ""})` }}
         />
         <div className="relative z-10">
-          <LayoutWrapper className="my-12 flex flex-wrap items-center justify-between md:flex-nowrap">
-            <div className="mb-8 flex w-full flex-wrap items-center md:mb-0 md:w-auto md:flex-nowrap">
+          <LayoutWrapper className="flex flex-wrap items-center justify-between my-12 md:flex-nowrap">
+            <div className="flex flex-wrap items-center w-full mb-8 md:mb-0 md:w-auto md:flex-nowrap">
               <Link
                 href={`/p/${project.slug}`}
-                className="nn-interactive mb-8 w-full flex-shrink-0 rounded-md p-1 md:mx-0 md:mb-0 md:w-auto"
+                className="flex-shrink-0 w-full p-1 mb-8 rounded-md nn-interactive md:mx-0 md:mb-0 md:w-auto"
               >
-                <Image
-                  src={project.cover ?? ""}
+                <AspectImage
+                  src={project.cover}
                   alt={project.name}
                   width={150}
-                  height={225}
-                  className="mx-auto min-w-[150] rounded-md"
+                  className="flex justify-center w-auto"
                 />
               </Link>
-              <div className="mx-auto max-w-md flex-shrink text-center md:mx-16 md:text-left">
+              <div className="flex-shrink max-w-md mx-auto text-center md:mx-16 md:text-left">
                 <Link href={`/p/${project.slug}`} className="nn-interactive">
                   {toTitleCase(project.name)}
                 </Link>
                 <h1 className="mt-2 text-2xl font-bold leading-tight">
                   Chapter {chapter.order} - {chapter.name}
                 </h1>
-                <p className="nn-text-secondary mt-2">
+                <p className="mt-2 nn-text-secondary">
                   Uploaded{" "}
                   {formatDistanceToNow(chapter.createdAt, { addSuffix: true })}
                 </p>
               </div>
             </div>
-            <ChapterSettings className="nn-interactive nn-bg-foreground flex h-8 w-full items-center justify-center rounded-md md:h-12 md:w-12" />
+            <ChapterSettings className="flex items-center justify-center w-full h-8 rounded-md nn-interactive nn-bg-foreground md:h-12 md:w-12" />
           </LayoutWrapper>
         </div>
       </div>
-      <LayoutWrapper className="nn-bg-foreground rounded-b-md py-6 lg:px-16">
+      <LayoutWrapper className="py-6 nn-bg-foreground rounded-b-md lg:px-16">
         <div className="nn-content-wrapper">{parse(chapter.content ?? "")}</div>
       </LayoutWrapper>
     </>
