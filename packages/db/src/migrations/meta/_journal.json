@@ -5,22 +5,8 @@
     {
       "idx": 0,
       "version": "5",
-      "when": 1688448812621,
-      "tag": "0000_right_jimmy_woo",
-      "breakpoints": true
-    },
-    {
-      "idx": 1,
-      "version": "5",
-      "when": 1688449585685,
-      "tag": "0001_robust_black_tom",
-      "breakpoints": true
-    },
-    {
-      "idx": 2,
-      "version": "5",
-      "when": 1688452642755,
-      "tag": "0002_zippy_violations",
+      "when": 1688597330968,
+      "tag": "0000_high_dexter_bennett",
       "breakpoints": true
     }
   ]

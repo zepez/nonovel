@@ -7,7 +7,7 @@ import {
 } from "drizzle-orm/pg-core";
 import { InferModel, relations } from "drizzle-orm";
 
-import { userProject, projectGenre, chapter } from "./index";
+import { userProject, projectGenre, chapter, follow } from "./index";
 
 export const project = pgTable(
   "project",
@@ -33,9 +33,10 @@ export const project = pgTable(
 );
 
 export const projectRelations = relations(project, ({ many }) => ({
-  users: many(userProject),
-  genres: many(projectGenre),
   chapters: many(chapter),
+  follows: many(follow),
+  genres: many(projectGenre),
+  users: many(userProject),
 }));
 
 export type Project = InferModel<typeof project>;

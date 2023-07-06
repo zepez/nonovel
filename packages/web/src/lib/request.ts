@@ -7,8 +7,12 @@ import {
   type GetProfileByUsernameOptions,
   getProfileByUserId as getProfileByUserIdQuery,
   type GetProfileByUserIdOptions,
-  getProjectById as getProjectByIdQuery,
-  type GetProjectByIdOptions,
+  getProjectBySlug as getProjectBySlugQuery,
+  type GetProjectBySlugOptions,
+  getFollowCountByProjectId as getFollowCountByProjectIdQuery,
+  type GetFollowCountByProjectIdOptions,
+  getFollowStatusByIds as getFollowStatusByIdsQuery,
+  type GetFollowStatusByIdsOptions,
   getChapterBySlugAndOrder as getChapterBySlugAndOrderQuery,
   type GetChapterBySlugAndOrderOptions,
 } from "@nonovel/query";
@@ -26,8 +30,18 @@ export const getProfileByUserId = cache(
   async (opts: GetProfileByUserIdOptions) => await getProfileByUserIdQuery(opts)
 );
 
-export const getProjectById = cache(
-  async (opts: GetProjectByIdOptions) => await getProjectByIdQuery(opts)
+export const getProjectBySlug = cache(
+  async (opts: GetProjectBySlugOptions) => await getProjectBySlugQuery(opts)
+);
+
+export const getFollowCountByProjectId = cache(
+  async (opts: GetFollowCountByProjectIdOptions) =>
+    await getFollowCountByProjectIdQuery(opts)
+);
+
+export const getFollowStatusByIds = cache(
+  async (opts: GetFollowStatusByIdsOptions) =>
+    await getFollowStatusByIdsQuery(opts)
 );
 
 export const getChapterBySlugAndOrder = cache(

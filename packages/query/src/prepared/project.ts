@@ -1,7 +1,7 @@
 import { db } from "@nonovel/db";
 import { placeholder } from "drizzle-orm";
 
-export const getProjectByIdPrepared = db.query.project
+export const getProjectBySlugPrepared = db.query.project
   .findFirst({
     where: (project, { eq }) => eq(project.slug, placeholder("slug")),
     with: {
@@ -45,4 +45,4 @@ export const getProjectByIdPrepared = db.query.project
       },
     },
   })
-  .prepare("get_project_by_id_prepared");
+  .prepare("get_project_by_slug_prepared");

@@ -1,23 +1,40 @@
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { formatDistanceToNow } from "date-fns";
-import { getProjectById } from "~/lib/request";
+import { getSession } from "~/lib/auth";
+import {
+  getProjectBySlug,
+  getFollowCountByProjectId,
+  getFollowStatusByIds,
+} from "~/lib/request";
 import {
   LayoutWrapper,
   SectionHeading,
   AspectImage,
 } from "~/components/shared";
+import { ButtonFollow } from "~/components/project";
 import { toTitleCase } from "~/lib/string";
-import { Button } from "~/components/ui/button";
 
 interface ProjectPageProps {
   params: { slug: string };
 }
 
 export default async function ProjectPage({ params }: ProjectPageProps) {
-  const [_, project] = await getProjectById(params);
+  const [_sessionErr, session] = await getSession();
+  const { user } = session ?? {};
+
+  const [_projectErr, project] = await getProjectBySlug(params);
 
   if (!project) notFound();
+
+  const [_followErr, follow] = await getFollowStatusByIds({
+    userId: user?.id,
+    projectId: project.id,
+  });
+
+  const [_followCountErr, followCount] = await getFollowCountByProjectId({
+    projectId: project.id,
+  });
 
   const latest = project.chapters[project.chapters.length - 1];
   const authors = project.users.filter((user) => user.role === "author");
@@ -71,7 +88,9 @@ export default async function ProjectPage({ params }: ProjectPageProps) {
                 </div>
                 <div className="pl-4">
                   <p className="text-xs">Followers</p>
-                  <p className="mt-2 text-lg font-bold leading-tight">1.2k</p>
+                  <p className="mt-2 text-lg font-bold leading-tight">
+                    {followCount}
+                  </p>
                 </div>
                 <div className="pl-4">
                   <p className="text-xs">Status</p>
@@ -101,16 +120,15 @@ export default async function ProjectPage({ params }: ProjectPageProps) {
               <p>{project.description}</p>
 
               <div className="mt-8 grid grid-cols-2 gap-8">
-                <Button
-                  variant="ghost"
-                  size="fluid"
-                  className="bg-zinc-950/40 px-4 py-2 text-center text-sm font-bold leading-tight text-white"
-                >
-                  FOLLOW
-                </Button>
+                <ButtonFollow
+                  followId={follow?.id}
+                  userId={session?.user?.id}
+                  projectId={project.id}
+                  projectName={toTitleCase(project.name)}
+                />
                 <Link
                   href={`/p/${project.slug}/chapters/${project.chapters[0].order}`}
-                  className="nn-bg-primary rounded-md px-4 py-2 text-center text-sm font-bold leading-tight"
+                  className="nn-bg-primary rounded-md px-4 py-2 text-center text-sm font-semibold leading-tight"
                 >
                   START READING
                 </Link>

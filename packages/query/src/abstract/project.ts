@@ -1,17 +1,17 @@
 import { type Project } from "@nonovel/db";
 import { ServerError, ServerErrorType } from "@nonovel/lib";
-import { getProjectByIdPrepared } from "../prepared";
+import { getProjectBySlugPrepared } from "../prepared";
 import { project as validator } from "@nonovel/validator";
 
-export interface GetProjectByIdOptions {
+export interface GetProjectBySlugOptions {
   slug: Project["slug"];
 }
 
-export const getProjectById = async (opts: GetProjectByIdOptions) => {
+export const getProjectBySlug = async (opts: GetProjectBySlugOptions) => {
   try {
     const parsed = validator.pick({ slug: true }).parse(opts);
 
-    const result = (await getProjectByIdPrepared.execute(parsed)) ?? null;
+    const result = (await getProjectBySlugPrepared.execute(parsed)) ?? null;
 
     return [null, result] as const;
   } catch (err) {
@@ -20,4 +20,6 @@ export const getProjectById = async (opts: GetProjectByIdOptions) => {
   }
 };
 
-export type GetProjectByIdReturn = Awaited<ReturnType<typeof getProjectById>>;
+export type GetProjectBySlugReturn = Awaited<
+  ReturnType<typeof getProjectBySlug>
+>;

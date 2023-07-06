@@ -1,1 +1,0 @@
-ALTER TABLE "profile" ADD COLUMN "country_code" varchar(2);
