@@ -24,7 +24,7 @@ export const ButtonFollow = ({
   projectName,
 }: ButtonFollowProps) => {
   const [text, setText] = useState(
-    !userId ? "LOGIN TO FOLLOW" : followId ? "UNFOLLOW" : "FOLLOW"
+    !userId ? "SIGN IN TO FOLLOW" : followId ? "UNFOLLOW" : "FOLLOW"
   );
   const { toast } = useToast();
   const router = useRouter();
@@ -65,7 +65,7 @@ export const ButtonFollow = ({
       disabled={text === "..." || text === "Error"}
       className={cn(
         className,
-        "bg-zinc-950/40 px-4 py-2 text-center text-sm font-semibold leading-tight text-white"
+        "text-center text-sm font-semibold leading-tight"
       )}
       onClick={() => toggleFollow()}
     >

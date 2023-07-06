@@ -54,7 +54,7 @@ export default async function ProjectPage({ params }: ProjectPageProps) {
               width={400}
               className="mx-auto w-48 flex-shrink-0 md:mx-0 md:w-72"
             />
-            <div className="ml-0 mt-12 md:ml-16 md:mt-0">
+            <div className="ml-0 mt-12 flex flex-col md:ml-16 md:mt-0">
               <h1 className="mb-4 text-4xl font-bold leading-tight">
                 {toTitleCase(project.name)}
               </h1>
@@ -78,49 +78,32 @@ export default async function ProjectPage({ params }: ProjectPageProps) {
               <div className="nn-divide mt-8 grid w-auto grid-cols-2 gap-4 sm:grid-cols-4 sm:divide-x">
                 <div className="pl-4">
                   <p className="text-xs">Chapters</p>
-                  <p className="mt-2 text-lg font-bold leading-tight">
+                  <p className="mt-2 text-xl font-bold leading-tight">
                     {project.chapters.length}
                   </p>
                 </div>
                 <div className="pl-4">
                   <p className="text-xs">Views</p>
-                  <p className="mt-2 text-lg font-bold leading-tight">17.3k</p>
+                  <p className="mt-2 text-xl font-bold leading-tight">17.3k</p>
                 </div>
                 <div className="pl-4">
                   <p className="text-xs">Followers</p>
-                  <p className="mt-2 text-lg font-bold leading-tight">
+                  <p className="mt-2 text-xl font-bold leading-tight">
                     {followCount}
                   </p>
                 </div>
                 <div className="pl-4">
                   <p className="text-xs">Status</p>
-                  <p className="mt-2 text-lg font-bold leading-tight">
+                  <p className="mt-2 text-xl font-bold leading-tight">
                     Ongoing
                   </p>
                 </div>
               </div>
 
-              <SectionHeading className="mb-3 mt-8">
-                Genre{project.genres.length !== 1 ? "s" : ""}
-              </SectionHeading>
-              <div className="flex">
-                {project.genres.map(({ genre }, genreIdx) => (
-                  <Link
-                    key={genreIdx}
-                    href={`/browse/category/${genre.slug}`}
-                    className="nn-interactive mx-1 rounded-md p-[2px]"
-                  >
-                    <div className="rounded-md bg-zinc-950/40 px-3 py-1 text-sm text-white">
-                      {genre.name.toLowerCase()}
-                    </div>
-                  </Link>
-                ))}
-              </div>
-              <SectionHeading className="mb-3 mt-8">Synopsis</SectionHeading>
-              <p>{project.description}</p>
-
+              <div className="flex-grow" />
               <div className="mt-8 grid grid-cols-2 gap-8">
                 <ButtonFollow
+                  className="border border-zinc-100/20 bg-zinc-950/40 px-4 py-4 text-white"
                   followId={follow?.id}
                   userId={session?.user?.id}
                   projectId={project.id}
@@ -128,7 +111,7 @@ export default async function ProjectPage({ params }: ProjectPageProps) {
                 />
                 <Link
                   href={`/p/${project.slug}/chapters/${project.chapters[0].order}`}
-                  className="nn-bg-primary rounded-md px-4 py-2 text-center text-sm font-semibold leading-tight"
+                  className="nn-interactive nn-bg-primary rounded-md border border-zinc-100/10 px-4 py-4 text-center text-sm font-semibold leading-tight"
                 >
                   START READING
                 </Link>
@@ -138,7 +121,31 @@ export default async function ProjectPage({ params }: ProjectPageProps) {
         </div>
       </div>
       <LayoutWrapper className="nn-bg-foreground rounded-b-md py-12 md:px-16 lg:px-16">
-        <h2 className="mb-2 text-2xl font-bold">Chapters</h2>
+        <div className="nn-border rounded-md border border-zinc-950/20 p-4 dark:border-zinc-100/20">
+          {project.name} is a {project.genres[0].genre.name.toLowerCase() ?? ""}{" "}
+          novel written by @{project.users[0].user?.profile?.username}.{" "}
+          {project.chapters.length} chapters have been published so far, and
+          more are on the way.
+        </div>
+        <SectionHeading className="mb-3 mt-8">
+          Genre{project.genres.length !== 1 ? "s" : ""}
+        </SectionHeading>
+        <div className="flex">
+          {project.genres.map(({ genre }, genreIdx) => (
+            <Link
+              key={genreIdx}
+              href={`/browse/category/${genre.slug}`}
+              className="nn-interactive mx-1 rounded-md p-[2px]"
+            >
+              <div className="nn-bg-contrast rounded-sm bg-zinc-950 px-3 py-1 text-sm">
+                {genre.name.toLowerCase()}
+              </div>
+            </Link>
+          ))}
+        </div>
+        <SectionHeading className="mb-3 mt-8">Synopsis</SectionHeading>
+        <p>{project.description}</p>
+        <SectionHeading className="mb-3 mt-8">Chapters</SectionHeading>
         <nav className="nn-divide grid grid-cols-1 divide-y">
           {project.chapters.map((chapter, chapterIdx) => (
             <Link
