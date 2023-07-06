@@ -13,6 +13,7 @@ import {
   AspectImage,
 } from "~/components/shared";
 import { ButtonFollow, Blurb } from "~/components/project";
+import { summarizeNumber } from "~/lib/number";
 import { toTitleCase } from "~/lib/string";
 
 interface ProjectPageProps {
@@ -43,7 +44,7 @@ export default async function ProjectPage({ params }: ProjectPageProps) {
     <>
       <div className="relative overflow-hidden">
         <div
-          className="nn-bg-blurred-2 absolute inset-0 z-0 bg-cover"
+          className="absolute inset-0 z-0 bg-cover nn-bg-blurred-2"
           style={{ backgroundImage: `url(${project.cover ?? ""})` }}
         />
         <div className="relative z-10">
@@ -52,9 +53,9 @@ export default async function ProjectPage({ params }: ProjectPageProps) {
               src={project.cover}
               alt={project.name}
               width={400}
-              className="mx-auto w-48 flex-shrink-0 md:mx-0 md:w-72"
+              className="flex-shrink-0 w-48 mx-auto md:mx-0 md:w-72"
             />
-            <div className="ml-0 mt-12 flex flex-col md:ml-16 md:mt-0">
+            <div className="flex flex-col mt-12 ml-0 md:ml-16 md:mt-0">
               <h1 className="mb-4 text-4xl font-bold leading-tight">
                 {toTitleCase(project.name)}
               </h1>
@@ -70,26 +71,28 @@ export default async function ProjectPage({ params }: ProjectPageProps) {
                   </Link>
                 ))}
               </p>
-              <p className="nn-text-secondary mt-1">
+              <p className="mt-1 nn-text-secondary">
                 Updated{" "}
                 {formatDistanceToNow(latest.createdAt, { addSuffix: true })}
               </p>
 
-              <div className="nn-divide mt-8 grid w-auto grid-cols-2 gap-4 sm:grid-cols-4 sm:divide-x">
+              <div className="grid w-auto grid-cols-2 gap-4 mt-8 nn-divide sm:grid-cols-4 sm:divide-x">
                 <div className="pl-4">
                   <p className="text-xs">Chapters</p>
                   <p className="mt-2 text-xl font-bold leading-tight">
-                    {project.chapters.length}
+                    {summarizeNumber(project.chapters.length)}
                   </p>
                 </div>
                 <div className="pl-4">
                   <p className="text-xs">Views</p>
-                  <p className="mt-2 text-xl font-bold leading-tight">17.3k</p>
+                  <p className="mt-2 text-xl font-bold leading-tight">
+                    {summarizeNumber(17400)}
+                  </p>
                 </div>
                 <div className="pl-4">
                   <p className="text-xs">Followers</p>
                   <p className="mt-2 text-xl font-bold leading-tight">
-                    {followCount}
+                    {summarizeNumber(followCount)}
                   </p>
                 </div>
                 <div className="pl-4">
@@ -101,9 +104,9 @@ export default async function ProjectPage({ params }: ProjectPageProps) {
               </div>
 
               <div className="flex-grow" />
-              <div className="mt-8 grid grid-cols-2 gap-8">
+              <div className="grid grid-cols-2 gap-8 mt-8">
                 <ButtonFollow
-                  className="border border-zinc-100/20 bg-zinc-950/40 px-4 py-4 text-white"
+                  className="px-4 py-4 text-white border border-zinc-100/20 bg-zinc-950/40"
                   followId={follow?.id}
                   userId={session?.user?.id}
                   projectId={project.id}
@@ -111,7 +114,7 @@ export default async function ProjectPage({ params }: ProjectPageProps) {
                 />
                 <Link
                   href={`/p/${project.slug}/chapters/${project.chapters[0].order}`}
-                  className="nn-interactive nn-bg-primary rounded-md border border-zinc-100/10 px-4 py-4 text-center text-sm font-semibold leading-tight"
+                  className="px-4 py-4 text-sm font-semibold leading-tight text-center border rounded-md nn-interactive nn-bg-primary border-zinc-100/10"
                 >
                   START READING
                 </Link>
@@ -120,12 +123,12 @@ export default async function ProjectPage({ params }: ProjectPageProps) {
           </LayoutWrapper>
         </div>
       </div>
-      <LayoutWrapper className="nn-bg-foreground rounded-b-md py-12 md:px-16 lg:px-16">
+      <LayoutWrapper className="py-12 nn-bg-foreground rounded-b-md md:px-16 lg:px-16">
         <Blurb
-          className="nn-border nn-bg-background rounded-md border border-zinc-950/20 p-4 dark:border-zinc-100/20"
+          className="p-4 border rounded-md nn-border nn-bg-background border-zinc-950/20 dark:border-zinc-100/20"
           slug={params.slug}
         />
-        <SectionHeading className="mb-3 mt-8">
+        <SectionHeading className="mt-8 mb-3">
           Genre{project.genres.length !== 1 ? "s" : ""}
         </SectionHeading>
         <div className="flex">
@@ -135,21 +138,21 @@ export default async function ProjectPage({ params }: ProjectPageProps) {
               href={`/browse/category/${genre.slug}`}
               className="nn-interactive mx-1 rounded-md p-[2px]"
             >
-              <div className="nn-bg-contrast rounded-sm bg-zinc-950 px-3 py-1 text-sm">
+              <div className="px-3 py-1 text-sm rounded-sm nn-bg-contrast bg-zinc-950">
                 {genre.name.toLowerCase()}
               </div>
             </Link>
           ))}
         </div>
-        <SectionHeading className="mb-3 mt-8">Synopsis</SectionHeading>
+        <SectionHeading className="mt-8 mb-3">Synopsis</SectionHeading>
         <p>{project.description}</p>
-        <SectionHeading className="mb-3 mt-8">Chapters</SectionHeading>
+        <SectionHeading className="mt-8 mb-3">Chapters</SectionHeading>
         <nav className="grid grid-cols-1">
           {project.chapters.map((chapter, chapterIdx) => (
             <Link
               key={chapterIdx}
               href={`/p/${project.slug}/chapters/${chapter.order}`}
-              className="nn-interactive flex items-center"
+              className="flex items-center nn-interactive"
             >
               <strong className="ml-4 mr-8">{chapter.order}</strong>{" "}
               <h3 className="py-3">{toTitleCase(chapter.name)}</h3>
