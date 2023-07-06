@@ -24,6 +24,7 @@ export const AspectImage = ({
         alt={alt}
         fill={false}
         width={width}
+        priority={true}
         height={width * 1.5}
         className="rounded-md"
       />

@@ -12,7 +12,7 @@ import {
   SectionHeading,
   AspectImage,
 } from "~/components/shared";
-import { ButtonFollow } from "~/components/project";
+import { ButtonFollow, Blurb } from "~/components/project";
 import { toTitleCase } from "~/lib/string";
 
 interface ProjectPageProps {
@@ -121,12 +121,10 @@ export default async function ProjectPage({ params }: ProjectPageProps) {
         </div>
       </div>
       <LayoutWrapper className="nn-bg-foreground rounded-b-md py-12 md:px-16 lg:px-16">
-        <div className="nn-border nn-bg-background rounded-md border border-zinc-950/20 p-4 dark:border-zinc-100/20">
-          {project.name} is a {project.genres[0].genre.name.toLowerCase() ?? ""}{" "}
-          novel written by @{project.users[0].user?.profile?.username}.{" "}
-          {project.chapters.length} chapters have been published so far, and
-          more are on the way.
-        </div>
+        <Blurb
+          className="nn-border nn-bg-background rounded-md border border-zinc-950/20 p-4 dark:border-zinc-100/20"
+          slug={params.slug}
+        />
         <SectionHeading className="mb-3 mt-8">
           Genre{project.genres.length !== 1 ? "s" : ""}
         </SectionHeading>
