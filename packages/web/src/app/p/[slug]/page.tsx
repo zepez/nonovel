@@ -121,7 +121,7 @@ export default async function ProjectPage({ params }: ProjectPageProps) {
         </div>
       </div>
       <LayoutWrapper className="nn-bg-foreground rounded-b-md py-12 md:px-16 lg:px-16">
-        <div className="nn-border rounded-md border border-zinc-950/20 p-4 dark:border-zinc-100/20">
+        <div className="nn-border nn-bg-background rounded-md border border-zinc-950/20 p-4 dark:border-zinc-100/20">
           {project.name} is a {project.genres[0].genre.name.toLowerCase() ?? ""}{" "}
           novel written by @{project.users[0].user?.profile?.username}.{" "}
           {project.chapters.length} chapters have been published so far, and
@@ -146,7 +146,7 @@ export default async function ProjectPage({ params }: ProjectPageProps) {
         <SectionHeading className="mb-3 mt-8">Synopsis</SectionHeading>
         <p>{project.description}</p>
         <SectionHeading className="mb-3 mt-8">Chapters</SectionHeading>
-        <nav className="nn-divide grid grid-cols-1 divide-y">
+        <nav className="grid grid-cols-1">
           {project.chapters.map((chapter, chapterIdx) => (
             <Link
               key={chapterIdx}
