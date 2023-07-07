@@ -12,7 +12,8 @@
     "db:introspect": "dotenv -e ../../.env -- bash -c 'PGSSLMODE=require yarn drizzle-kit introspect:pg --out=src/migrations --connectionString \"$PG_CONNECTION_STRING\"'",
     "db:migrate": "dotenv -e ../../.env -- yarn tsx src/migrate.ts",
     "db:version": "yarn drizzle-kit -v",
-    "db:seed": "dotenv -e ../../.env -- yarn tsx src/seed.ts"
+    "db:seed": "dotenv -e ../../.env -- yarn tsx src/seed.ts",
+    "db:empty": "dotenv -e ../../.env -- yarn tsx src/empty.ts"
   },
   "devDependencies": {
     "@types/node": "^18.0.0",
