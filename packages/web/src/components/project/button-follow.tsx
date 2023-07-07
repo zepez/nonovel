@@ -24,7 +24,7 @@ export const ButtonFollow = ({
   projectName,
 }: ButtonFollowProps) => {
   const [text, setText] = useState(
-    !userId ? "SIGN IN TO FOLLOW" : followId ? "UNFOLLOW" : "FOLLOW"
+    !userId ? "SIGN IN TO BOOKMARK" : followId ? "REMOVE BOOKMARK" : "BOOKMARK"
   );
   const { toast } = useToast();
   const router = useRouter();
@@ -49,11 +49,11 @@ export const ButtonFollow = ({
     }
 
     if (!error) {
-      setText(followId ? "FOLLOW" : "UNFOLLOW");
+      setText(followId ? "BOOKMARK" : "REMOVE BOOKMARK");
       toast({
         description: followId
-          ? `You have stopped following ${projectName}.`
-          : `You are now following ${projectName}.`,
+          ? `You have un-bookmarked ${projectName}.`
+          : `You have bookmarked ${projectName}.`,
       });
     }
   };

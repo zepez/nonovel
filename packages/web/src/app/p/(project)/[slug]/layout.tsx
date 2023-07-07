@@ -93,7 +93,7 @@ export default async function ProjectLayout({
                   </p>
                 </div>
                 <div className="pl-4">
-                  <p className="text-xs">Followers</p>
+                  <p className="text-xs">Bookmarks</p>
                   <p className="mt-2 text-xl font-bold leading-tight">
                     {summarizeNumber(followCount)}
                   </p>

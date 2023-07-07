@@ -39,28 +39,20 @@ export default async function ProjectPage({ params }: ProjectPageProps) {
         ))}
       </section>
 
-      {project.chapters.length ? (
-        <>
-          <SectionHeading className="my-8">Recent Chapters</SectionHeading>
-          <ListChapters
-            chapters={project.chapters.slice(-3).reverse()}
-            disabledSearch
-            itemHeight={1}
-            projectSlug={project.slug}
-            additionalItems={
-              project.chapters.length > 3
-                ? [
-                    {
-                      name: "View All",
-                      href: `/p/${project.slug}/chapters`,
-                      symbol: "...",
-                    },
-                  ]
-                : []
-            }
-          />
-        </>
-      ) : null}
+      <SectionHeading className="my-8">Recent Chapters</SectionHeading>
+      <ListChapters
+        chapters={project.chapters.slice(-3).reverse()}
+        disabledSearch
+        itemHeight={1}
+        projectSlug={project.slug}
+        additionalItems={[
+          {
+            name: "View All",
+            href: `/p/${project.slug}/chapters`,
+            symbol: "...",
+          },
+        ]}
+      />
     </>
   );
 }

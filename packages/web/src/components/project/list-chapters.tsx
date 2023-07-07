@@ -70,8 +70,10 @@ export const ListChapters = ({
 
   if (!chapters.length)
     return (
-      <div className="flex items-center justify-center h-32">
-        <p className="nn-text-secondary">No chapters yet.</p>
+      <div className="flex items-center justify-center h-32 rounded-md nn-bg-background">
+        <p className="nn-text-secondary">
+          This novel does not have any chapters.
+        </p>
       </div>
     );
 
