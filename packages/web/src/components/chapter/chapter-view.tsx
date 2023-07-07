@@ -17,8 +17,6 @@ export const ChapterView = ({
   chapterId,
 }: ChapterViewProps) => {
   useTimeoutFn(() => {
-    if (!userId) return null;
-
     void markViewed({ userId, projectId, chapterId });
   }, delay);
 

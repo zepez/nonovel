@@ -1,11 +1,11 @@
 import { cache } from "react";
 
 import {
-  getUserViewCountByProjectId as getUserViewCountByProjectIdQuery,
-  type GetUserViewCountByProjectIdOptions,
+  getTotalViewCountByProjectId as getTotalViewCountByProjectIdQuery,
+  type GetTotalViewCountByProjectIdOptions,
 } from "@nonovel/query";
 
-export const getUserViewCountByProjectId = cache(
-  async (opts: GetUserViewCountByProjectIdOptions) =>
-    await getUserViewCountByProjectIdQuery(opts)
+export const getTotalViewCountByProjectId = cache(
+  async (opts: GetTotalViewCountByProjectIdOptions) =>
+    await getTotalViewCountByProjectIdQuery(opts)
 );

@@ -1,10 +1,10 @@
 import { pgTable, uuid, timestamp, uniqueIndex } from "drizzle-orm/pg-core";
-import { InferModel, relations, sql } from "drizzle-orm";
+import { InferModel, relations } from "drizzle-orm";
 
 import { user, project, chapter } from "./index";
 
-export const view = pgTable(
-  "view",
+export const userChapterView = pgTable(
+  "user_chapter_view",
   {
     id: uuid("id").defaultRandom().primaryKey(),
     userId: uuid("user_id")
@@ -22,27 +22,29 @@ export const view = pgTable(
   },
   (v) => {
     return {
-      uniqueUserView: uniqueIndex("unique_user_view")
-        .on(v.userId, v.projectId, v.chapterId)
-        .where(sql`${v.userId} IS NOT NULL`),
+      uniqueUserView: uniqueIndex("unique_user_view").on(
+        v.userId,
+        v.projectId,
+        v.chapterId
+      ),
     };
   }
 );
 
-export const viewRelations = relations(view, ({ one }) => ({
+export const viewRelations = relations(userChapterView, ({ one }) => ({
   user: one(user, {
-    fields: [view.userId],
+    fields: [userChapterView.userId],
     references: [user.id],
   }),
   project: one(project, {
-    fields: [view.projectId],
+    fields: [userChapterView.projectId],
     references: [project.id],
   }),
   chapter: one(chapter, {
-    fields: [view.chapterId],
+    fields: [userChapterView.chapterId],
     references: [chapter.id],
   }),
 }));
 
-export type View = InferModel<typeof view>;
-export type NewView = InferModel<typeof view, "insert">;
+export type View = InferModel<typeof userChapterView>;
+export type NewView = InferModel<typeof userChapterView, "insert">;

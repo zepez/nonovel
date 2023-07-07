@@ -6,7 +6,7 @@ import {
   getProjectBySlug,
   getFollowCountByProjectId,
   getFollowStatusByIds,
-  getUserViewCountByProjectId,
+  getTotalViewCountByProjectId,
 } from "~/lib/request";
 import { LayoutWrapper, AspectImage } from "~/components/shared";
 import { ButtonFollow, Blurb } from "~/components/project";
@@ -38,7 +38,7 @@ export default async function ProjectLayout({
     projectId: project.id,
   });
 
-  const [_viewCountErr, viewCount] = await getUserViewCountByProjectId({
+  const [_viewCountErr, viewCount] = await getTotalViewCountByProjectId({
     projectId: project.id,
   });
 
