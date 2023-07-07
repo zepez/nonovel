@@ -6,6 +6,7 @@ import {
   getProjectBySlug,
   getFollowCountByProjectId,
   getFollowStatusByIds,
+  getUserViewCountByProjectId,
 } from "~/lib/request";
 import { LayoutWrapper, AspectImage } from "~/components/shared";
 import { ButtonFollow, Blurb } from "~/components/project";
@@ -34,6 +35,10 @@ export default async function ProjectLayout({
   });
 
   const [_followCountErr, followCount] = await getFollowCountByProjectId({
+    projectId: project.id,
+  });
+
+  const [_viewCountErr, viewCount] = await getUserViewCountByProjectId({
     projectId: project.id,
   });
 
@@ -87,9 +92,9 @@ export default async function ProjectLayout({
                   </p>
                 </div>
                 <div className="pl-4">
-                  <p className="text-xs">Views</p>
+                  <p className="text-xs">Total Views</p>
                   <p className="mt-2 text-xl font-bold leading-tight">
-                    {summarizeNumber(17400)}
+                    {summarizeNumber(viewCount)}
                   </p>
                 </div>
                 <div className="pl-4">

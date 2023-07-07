@@ -10,3 +10,4 @@ export * from "./user-project";
 export * from "./session";
 export * from "./session";
 export * from "./verification-token";
+export * from "./view";

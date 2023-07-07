@@ -2,17 +2,19 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import parse from "html-react-parser";
 import { formatDistanceToNow } from "date-fns";
+import { getSession } from "~/lib/auth";
 import { getChapterBySlugAndOrder } from "~/lib/request";
 import { toTitleCase } from "~/lib/string";
 import { LayoutWrapper, AspectImage } from "~/components/shared";
-import { ChapterSettings } from "~/components/chapter";
+import { ChapterSettings, ChapterView } from "~/components/chapter";
 
 interface ChapterPageProps {
   params: { slug: string; order: string };
 }
 
 export default async function ChapterPage({ params }: ChapterPageProps) {
-  const [_, project] = await getChapterBySlugAndOrder(params);
+  const [_sessionErr, session] = await getSession();
+  const [_projectErr, project] = await getChapterBySlugAndOrder(params);
   if (!project) notFound();
 
   const chapter = project.chapters[0];
@@ -20,6 +22,12 @@ export default async function ChapterPage({ params }: ChapterPageProps) {
 
   return (
     <>
+      <ChapterView
+        delay={2000}
+        userId={session?.user.id}
+        projectId={project.id}
+        chapterId={chapter.id}
+      />
       <div className="relative overflow-hidden">
         <div
           className="absolute inset-0 z-0 bg-cover nn-bg-blurred-2"
