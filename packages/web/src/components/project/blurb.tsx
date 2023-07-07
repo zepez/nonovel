@@ -1,7 +1,7 @@
 import Link from "next/link";
 
 import { cn } from "~/lib/utils";
-import { toTitleCase } from "~/lib/string";
+import { toTitleCase, naturalListJoin } from "~/lib/string";
 import { getProjectBySlug } from "~/lib/request";
 
 interface BlurbProps {
@@ -13,14 +13,6 @@ export const Blurb = async ({ className, slug }: BlurbProps) => {
   const [_projectErr, project] = await getProjectBySlug({ slug });
 
   if (!project) return null;
-
-  const naturalListJoin = (index: number, length: number) => {
-    const total = length - 1;
-
-    if (index === total) return "";
-    if (index === total - 1) return " and ";
-    return ", ";
-  };
 
   const authors = project.users
     .filter((user) => user.role === "author")

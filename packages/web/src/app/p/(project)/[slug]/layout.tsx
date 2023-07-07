@@ -7,20 +7,20 @@ import {
   getFollowCountByProjectId,
   getFollowStatusByIds,
 } from "~/lib/request";
-import {
-  LayoutWrapper,
-  SectionHeading,
-  AspectImage,
-} from "~/components/shared";
+import { LayoutWrapper, AspectImage } from "~/components/shared";
 import { ButtonFollow, Blurb } from "~/components/project";
 import { summarizeNumber } from "~/lib/number";
-import { toTitleCase } from "~/lib/string";
+import { toTitleCase, naturalListJoin } from "~/lib/string";
 
-interface ProjectPageProps {
+interface ProjectLayoutProps {
+  children: React.ReactNode;
   params: { slug: string };
 }
 
-export default async function ProjectPage({ params }: ProjectPageProps) {
+export default async function ProjectLayout({
+  children,
+  params,
+}: ProjectLayoutProps) {
   const [_sessionErr, session] = await getSession();
   const { user } = session ?? {};
 
@@ -62,13 +62,16 @@ export default async function ProjectPage({ params }: ProjectPageProps) {
               <p className="text-sm">
                 By{" "}
                 {authors.map(({ user }, relationIdx) => (
-                  <Link
-                    key={relationIdx}
-                    href={`/u/${user?.profile?.username ?? ""}`}
-                    className="nn-interactive"
-                  >
-                    @{user?.profile?.username.toLowerCase()}
-                  </Link>
+                  <>
+                    <Link
+                      key={relationIdx}
+                      href={`/u/${user?.profile?.username ?? ""}`}
+                      className="nn-interactive"
+                    >
+                      @{user?.profile?.username.toLowerCase()}
+                    </Link>
+                    {naturalListJoin(relationIdx, authors.length)}
+                  </>
                 ))}
               </p>
               <p className="mt-1 nn-text-secondary">
@@ -103,7 +106,7 @@ export default async function ProjectPage({ params }: ProjectPageProps) {
                 </div>
               </div>
 
-              <div className="flex-grow" />
+              <Blurb className="flex-grow mt-8" slug={params.slug} />
               <div className="grid grid-cols-2 gap-8 mt-8">
                 <ButtonFollow
                   className="px-4 py-4 text-white border border-zinc-100/20 bg-zinc-950/40"
@@ -124,41 +127,28 @@ export default async function ProjectPage({ params }: ProjectPageProps) {
         </div>
       </div>
       <LayoutWrapper className="py-12 nn-bg-foreground rounded-b-md md:px-16 lg:px-16">
-        <Blurb
-          className="p-4 border rounded-md nn-border nn-bg-background border-zinc-950/20 dark:border-zinc-100/20"
-          slug={params.slug}
-        />
-        <SectionHeading className="mt-8 mb-3">
-          Genre{project.genres.length !== 1 ? "s" : ""}
-        </SectionHeading>
-        <div className="flex">
-          {project.genres.map(({ genre }, genreIdx) => (
-            <Link
-              key={genreIdx}
-              href={`/browse/category/${genre.slug}`}
-              className="nn-interactive mx-1 rounded-md p-[2px]"
-            >
-              <div className="px-3 py-1 text-sm rounded-sm nn-bg-contrast bg-zinc-950">
-                {genre.name.toLowerCase()}
-              </div>
-            </Link>
-          ))}
-        </div>
-        <SectionHeading className="mt-8 mb-3">Synopsis</SectionHeading>
-        <p>{project.description}</p>
-        <SectionHeading className="mt-8 mb-3">Chapters</SectionHeading>
-        <nav className="grid grid-cols-1">
-          {project.chapters.map((chapter, chapterIdx) => (
-            <Link
-              key={chapterIdx}
-              href={`/p/${project.slug}/chapters/${chapter.order}`}
-              className="flex items-center nn-interactive"
-            >
-              <strong className="ml-4 mr-8">{chapter.order}</strong>{" "}
-              <h3 className="py-3">{toTitleCase(chapter.name)}</h3>
-            </Link>
-          ))}
+        <nav className="grid grid-cols-3 gap-4 text-xs font-bold leading-tight text-center">
+          <Link
+            href={`/p/${project.slug}`}
+            className="py-3 rounded-md nn-bg-background nn-interactive nn-border"
+          >
+            ABOUT
+          </Link>
+          <Link
+            href={`/p/${project.slug}/reviews`}
+            className="py-3 rounded-md nn-bg-background nn-interactive nn-border"
+          >
+            REVIEWS
+          </Link>
+          <Link
+            href={`/p/${project.slug}/chapters`}
+            className="py-3 rounded-md nn-bg-background nn-interactive nn-border"
+          >
+            CHAPTERS
+          </Link>
         </nav>
+
+        {children}
       </LayoutWrapper>
     </>
   );

@@ -1,0 +1,66 @@
+import Link from "next/link";
+import { notFound } from "next/navigation";
+import { getProjectBySlug } from "~/lib/request";
+import { SectionHeading } from "~/components/shared";
+import { Blurb, ListChapters } from "~/components/project";
+
+interface ProjectPageProps {
+  params: { slug: string };
+}
+
+export default async function ProjectPage({ params }: ProjectPageProps) {
+  const [_projectErr, project] = await getProjectBySlug(params);
+
+  if (!project) notFound();
+
+  return (
+    <>
+      <SectionHeading className="mt-8 mb-3">Synopsis</SectionHeading>
+      <section>
+        {project.description ? (
+          <p>{project.description}</p>
+        ) : (
+          <Blurb slug={params.slug} />
+        )}
+      </section>
+
+      <SectionHeading className="mt-8 mb-3">
+        Genre{project.genres.length !== 1 ? "s" : ""}
+      </SectionHeading>
+      <section className="flex">
+        {project.genres.map(({ genre }, genreIdx) => (
+          <Link
+            key={genreIdx}
+            href={`/browse/category/${genre.slug}`}
+            className="nn-interactive nn-bg-background nn-border mx-1 rounded-sm bg-zinc-950 p-[2px] px-3 py-1 text-sm"
+          >
+            {genre.name.toLowerCase()}
+          </Link>
+        ))}
+      </section>
+
+      {project.chapters.length ? (
+        <>
+          <SectionHeading className="my-8">Recent Chapters</SectionHeading>
+          <ListChapters
+            chapters={project.chapters.slice(-3).reverse()}
+            disabledSearch
+            itemHeight={1}
+            projectSlug={project.slug}
+            additionalItems={
+              project.chapters.length > 3
+                ? [
+                    {
+                      name: "View All",
+                      href: `/p/${project.slug}/chapters`,
+                      symbol: "...",
+                    },
+                  ]
+                : []
+            }
+          />
+        </>
+      ) : null}
+    </>
+  );
+}
