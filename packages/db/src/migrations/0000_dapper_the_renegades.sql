@@ -5,6 +5,12 @@ EXCEPTION
 END $$;
 --> statement-breakpoint
 DO $$ BEGIN
+ CREATE TYPE "project_progress" AS ENUM('finished', 'ongoing');
+EXCEPTION
+ WHEN duplicate_object THEN null;
+END $$;
+--> statement-breakpoint
+DO $$ BEGIN
  CREATE TYPE "project_role" AS ENUM('author', 'editor', 'moderator');
 EXCEPTION
  WHEN duplicate_object THEN null;
@@ -27,6 +33,13 @@ CREATE TABLE IF NOT EXISTS "account" (
 	"updated_at" timestamp with time zone DEFAULT now() NOT NULL
 );
 --> statement-breakpoint
+CREATE TABLE IF NOT EXISTS "anon_chapter_view" (
+	"id" uuid PRIMARY KEY DEFAULT gen_random_uuid() NOT NULL,
+	"project_id" uuid NOT NULL,
+	"chapter_id" uuid NOT NULL,
+	"created_at" timestamp with time zone DEFAULT now() NOT NULL
+);
+--> statement-breakpoint
 CREATE TABLE IF NOT EXISTS "chapter" (
 	"id" uuid PRIMARY KEY DEFAULT gen_random_uuid() NOT NULL,
 	"project_id" uuid NOT NULL,
@@ -34,7 +47,6 @@ CREATE TABLE IF NOT EXISTS "chapter" (
 	"order" numeric(9, 3) NOT NULL,
 	"content_type" "chapter_content_type" DEFAULT 'html' NOT NULL,
 	"content" text,
-	"anon_views" integer DEFAULT 0 NOT NULL,
 	"created_at" timestamp with time zone DEFAULT now() NOT NULL,
 	"updated_at" timestamp with time zone DEFAULT now() NOT NULL
 );
@@ -73,6 +85,7 @@ CREATE TABLE IF NOT EXISTS "project" (
 	"name" text NOT NULL,
 	"slug" text NOT NULL,
 	"description" text,
+	"progress" "project_progress" DEFAULT 'ongoing' NOT NULL,
 	"created_at" timestamp with time zone DEFAULT now() NOT NULL,
 	"updated_at" timestamp with time zone DEFAULT now() NOT NULL
 );
@@ -145,6 +158,18 @@ CREATE UNIQUE INDEX IF NOT EXISTS "unique_verification_token_identifier_token" O
 CREATE UNIQUE INDEX IF NOT EXISTS "unique_verification_token_token" ON "verification_token" ("token");--> statement-breakpoint
 DO $$ BEGIN
  ALTER TABLE "account" ADD CONSTRAINT "account_user_id_users_id_fk" FOREIGN KEY ("user_id") REFERENCES "users"("id") ON DELETE no action ON UPDATE no action;
+EXCEPTION
+ WHEN duplicate_object THEN null;
+END $$;
+--> statement-breakpoint
+DO $$ BEGIN
+ ALTER TABLE "anon_chapter_view" ADD CONSTRAINT "anon_chapter_view_project_id_project_id_fk" FOREIGN KEY ("project_id") REFERENCES "project"("id") ON DELETE no action ON UPDATE no action;
+EXCEPTION
+ WHEN duplicate_object THEN null;
+END $$;
+--> statement-breakpoint
+DO $$ BEGIN
+ ALTER TABLE "anon_chapter_view" ADD CONSTRAINT "anon_chapter_view_chapter_id_chapter_id_fk" FOREIGN KEY ("chapter_id") REFERENCES "chapter"("id") ON DELETE no action ON UPDATE no action;
 EXCEPTION
  WHEN duplicate_object THEN null;
 END $$;

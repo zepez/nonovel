@@ -4,10 +4,16 @@ import {
   timestamp,
   uniqueIndex,
   text,
+  pgEnum,
 } from "drizzle-orm/pg-core";
 import { InferModel, relations } from "drizzle-orm";
 
 import { userProject, projectGenre, chapter, follow } from "./index";
+
+export const projectProgress = pgEnum("project_progress", [
+  "finished",
+  "ongoing",
+]);
 
 export const project = pgTable(
   "project",
@@ -17,6 +23,7 @@ export const project = pgTable(
     name: text("name").notNull(),
     slug: text("slug").notNull(),
     description: text("description"),
+    progress: projectProgress("progress").default("ongoing").notNull(),
 
     createdAt: timestamp("created_at", { withTimezone: true })
       .defaultNow()

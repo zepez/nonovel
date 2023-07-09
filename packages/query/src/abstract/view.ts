@@ -2,9 +2,8 @@ import { type Project, type User, type Chapter } from "@nonovel/db";
 import { ServerError, ServerErrorType } from "@nonovel/lib";
 import {
   createUserChapterViewPrepared,
-  getUserChapterViewCountByProjectIdPrepared,
-  incrementChapterAnonViewsPrepared,
-  getProjectAnonViewCountPrepared,
+  createAnonChapterViewPrepared,
+  getTotalChapterViewCountByProjectIdPrepared,
 } from "../prepared";
 import { view as viewValidator } from "@nonovel/validator";
 
@@ -23,7 +22,7 @@ export const createView = async (opts: CreateViewOptions) => {
     if (parsed.userId) {
       await createUserChapterViewPrepared.execute(parsed);
     } else {
-      await incrementChapterAnonViewsPrepared.execute(parsed);
+      await createAnonChapterViewPrepared.execute(parsed);
     }
 
     return [null, null] as const;
@@ -50,20 +49,11 @@ export const getTotalViewCountByProjectId = async (
   try {
     const parsed = viewValidator.pick({ projectId: true }).parse(opts);
 
-    const { count: userCount } =
-      (await getUserChapterViewCountByProjectIdPrepared.execute(parsed))[0] ??
+    const { count = 0 } =
+      (await getTotalChapterViewCountByProjectIdPrepared.execute(parsed))[0] ??
       {};
 
-    const { count: anonCount } =
-      (await getProjectAnonViewCountPrepared.execute(parsed))[0] ?? {};
-
-    // typedefs are wrong. userCount and anonCount are actually strings.
-    const userCountInt = parseInt((userCount as unknown as string) ?? 0);
-    const anonCountInt = parseInt((anonCount as unknown as string) ?? 0);
-
-    const sum = userCountInt + anonCountInt;
-
-    return [null, sum] as const;
+    return [null, count] as const;
   } catch (err) {
     const error = new ServerError("GetResourceError", err as ServerErrorType);
     return [error, 0] as const;

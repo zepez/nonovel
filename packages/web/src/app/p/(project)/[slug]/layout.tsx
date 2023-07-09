@@ -106,7 +106,7 @@ export default async function ProjectLayout({
                 <div className="pl-4">
                   <p className="text-xs">Status</p>
                   <p className="mt-2 text-xl font-bold leading-tight">
-                    Ongoing
+                    {toTitleCase(project.progress)}
                   </p>
                 </div>
               </div>

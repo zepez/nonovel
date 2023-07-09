@@ -44,10 +44,12 @@ const schema = profileSchema.pick({
   countryCode: true,
 });
 
-export type EditProfileSchema = z.infer<typeof schema>;
+export type EditProfileSchema = z.infer<typeof schema> & {
+  userId: Session["user"]["id"];
+};
 
 export const EditProfile = ({ session }: EditProfileProps) => {
-  const { profile } = session;
+  const { profile, user } = session;
 
   const { toast } = useToast();
   const [loading, setLoading] = useState<boolean>(false);
@@ -60,7 +62,7 @@ export const EditProfile = ({ session }: EditProfileProps) => {
   const handleSubmit = async (values: EditProfileSchema) => {
     setLoading(true);
 
-    const [submitError] = await updateProfile(values);
+    const [submitError] = await updateProfile({ ...values, userId: user.id });
     setLoading(false);
 
     if (submitError) {
@@ -140,7 +142,7 @@ export const EditProfile = ({ session }: EditProfileProps) => {
                     <SelectValue placeholder="Choose a country" />
                   </SelectTrigger>
                 </FormControl>
-                <SelectContent className="h-64 w-64 sm:w-auto">
+                <SelectContent className="w-64 h-64 sm:w-auto">
                   {Object.entries(locations).map(([code, name]) => (
                     <SelectItem key={code} value={code}>
                       {name}
@@ -157,7 +159,7 @@ export const EditProfile = ({ session }: EditProfileProps) => {
         />
 
         {form.formState.errors.root?.serverError && (
-          <div className="rounded-md bg-red-500 p-4">
+          <div className="p-4 bg-red-500 rounded-md">
             <FormMessage className="text-white dark:text-white">
               Error: {form.formState.errors.root.serverError.message}. If the
               problem persists, please contact support.

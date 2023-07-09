@@ -1,4 +1,5 @@
 import { cache } from "react";
+import { cookies, headers } from "next/headers";
 import { NextAuthOptions } from "next-auth";
 import { getServerSession } from "next-auth/next";
 import GithubProvider from "next-auth/providers/github";
@@ -29,6 +30,46 @@ export const getSession = cache(async () => {
   // return formatted session
   return [null, { user, profile } as Session] as const;
 });
+
+// TODO: This is a workaround to get the session in server actions
+export const getActionSession = async () => {
+  const req = {
+    headers: Object.fromEntries(headers() as Headers),
+    cookies: Object.fromEntries(
+      cookies()
+        .getAll()
+        .map((c) => [c.name, c.value])
+    ),
+  };
+  const res = { getHeader() {}, setCookie() {}, setHeader() {} };
+
+  // @ts-ignore - The type used in next-auth for the req object doesn't match, but it still works
+  const { user } = (await getServerSession(req, res, options)) ?? {};
+
+  return user;
+};
+
+interface AuthorizeServerActionOptions {
+  userId?: string;
+  optional?: boolean;
+}
+
+export const authorizeServerAction = async ({
+  userId,
+  optional,
+}: AuthorizeServerActionOptions) => {
+  const { id } = (await getActionSession()) ?? {};
+
+  if (id && userId !== id) {
+    throw new Error("Unauthorized");
+  }
+
+  if (!id && !optional) {
+    throw new Error("Unauthorized");
+  }
+
+  return true;
+};
 
 export const options: NextAuthOptions = {
   adapter: adapter(db),

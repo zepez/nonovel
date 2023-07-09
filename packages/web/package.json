@@ -62,7 +62,6 @@
   },
   "devDependencies": {
     "@tailwindcss/aspect-ratio": "^0.4.2",
-    "dotenv-cli": "^7.2.1",
-    "postcss-nesting": "^11.3.0"
+    "dotenv-cli": "^7.2.1"
   }
 }

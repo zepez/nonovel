@@ -5,7 +5,6 @@ import {
   text,
   pgEnum,
   numeric,
-  integer,
 } from "drizzle-orm/pg-core";
 import { InferModel, relations } from "drizzle-orm";
 
@@ -26,7 +25,6 @@ export const chapter = pgTable("chapter", {
   order: numeric("order", { precision: 9, scale: 3 }).notNull(),
   contentType: chapterContentType("content_type").default("html").notNull(),
   content: text("content"),
-  anonViews: integer("anon_views").default(0).notNull(),
 
   createdAt: timestamp("created_at", { withTimezone: true })
     .defaultNow()

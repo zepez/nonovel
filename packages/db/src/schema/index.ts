@@ -1,4 +1,5 @@
 export * from "./account";
+export * from "./anon-chapter-view";
 export * from "./chapter";
 export * from "./follow";
 export * from "./genre";

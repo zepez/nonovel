@@ -54,6 +54,10 @@ const createProject = () => {
     name,
     slug: faker.helpers.slugify(name),
     description: faker.lorem.sentences({ min: 2, max: 5 }),
+    progress: faker.helpers.arrayElement<"finished" | "ongoing">([
+      "finished",
+      "ongoing",
+    ]),
   };
 };
 

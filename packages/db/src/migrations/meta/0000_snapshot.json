@@ -1,7 +1,7 @@
 {
   "version": "5",
   "dialect": "pg",
-  "id": "f672a063-136a-4ffb-96d2-0ce2df9a1458",
+  "id": "3bb5a536-e76e-41f9-b3e3-9afa929aacd6",
   "prevId": "00000000-0000-0000-0000-000000000000",
   "tables": {
     "account": {
@@ -123,6 +123,68 @@
       },
       "compositePrimaryKeys": {}
     },
+    "anon_chapter_view": {
+      "name": "anon_chapter_view",
+      "schema": "",
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "uuid",
+          "primaryKey": true,
+          "notNull": true,
+          "default": "gen_random_uuid()"
+        },
+        "project_id": {
+          "name": "project_id",
+          "type": "uuid",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "chapter_id": {
+          "name": "chapter_id",
+          "type": "uuid",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "created_at": {
+          "name": "created_at",
+          "type": "timestamp with time zone",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "now()"
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {
+        "anon_chapter_view_project_id_project_id_fk": {
+          "name": "anon_chapter_view_project_id_project_id_fk",
+          "tableFrom": "anon_chapter_view",
+          "tableTo": "project",
+          "columnsFrom": [
+            "project_id"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "no action",
+          "onUpdate": "no action"
+        },
+        "anon_chapter_view_chapter_id_chapter_id_fk": {
+          "name": "anon_chapter_view_chapter_id_chapter_id_fk",
+          "tableFrom": "anon_chapter_view",
+          "tableTo": "chapter",
+          "columnsFrom": [
+            "chapter_id"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "no action",
+          "onUpdate": "no action"
+        }
+      },
+      "compositePrimaryKeys": {}
+    },
     "chapter": {
       "name": "chapter",
       "schema": "",
@@ -164,13 +226,6 @@
           "type": "text",
           "primaryKey": false,
           "notNull": false
-        },
-        "anon_views": {
-          "name": "anon_views",
-          "type": "integer",
-          "primaryKey": false,
-          "notNull": true,
-          "default": 0
         },
         "created_at": {
           "name": "created_at",
@@ -462,6 +517,13 @@
           "type": "text",
           "primaryKey": false,
           "notNull": false
+        },
+        "progress": {
+          "name": "progress",
+          "type": "project_progress",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "'ongoing'"
         },
         "created_at": {
           "name": "created_at",
@@ -948,6 +1010,13 @@
       "values": {
         "html": "html",
         "md": "md"
+      }
+    },
+    "project_progress": {
+      "name": "project_progress",
+      "values": {
+        "finished": "finished",
+        "ongoing": "ongoing"
       }
     },
     "project_role": {

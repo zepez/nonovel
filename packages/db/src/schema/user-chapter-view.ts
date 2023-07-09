@@ -22,7 +22,7 @@ export const userChapterView = pgTable(
   },
   (v) => {
     return {
-      uniqueUserView: uniqueIndex("unique_user_view").on(
+      uniqueUserChapterView: uniqueIndex("unique_user_view").on(
         v.userId,
         v.projectId,
         v.chapterId
@@ -31,20 +31,23 @@ export const userChapterView = pgTable(
   }
 );
 
-export const viewRelations = relations(userChapterView, ({ one }) => ({
-  user: one(user, {
-    fields: [userChapterView.userId],
-    references: [user.id],
-  }),
-  project: one(project, {
-    fields: [userChapterView.projectId],
-    references: [project.id],
-  }),
-  chapter: one(chapter, {
-    fields: [userChapterView.chapterId],
-    references: [chapter.id],
-  }),
-}));
+export const userChapterViewRelations = relations(
+  userChapterView,
+  ({ one }) => ({
+    user: one(user, {
+      fields: [userChapterView.userId],
+      references: [user.id],
+    }),
+    project: one(project, {
+      fields: [userChapterView.projectId],
+      references: [project.id],
+    }),
+    chapter: one(chapter, {
+      fields: [userChapterView.chapterId],
+      references: [chapter.id],
+    }),
+  })
+);
 
-export type View = InferModel<typeof userChapterView>;
-export type NewView = InferModel<typeof userChapterView, "insert">;
+export type UserChapterView = InferModel<typeof userChapterView>;
+export type NewUserChapterView = InferModel<typeof userChapterView, "insert">;
