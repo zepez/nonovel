@@ -13,7 +13,8 @@
     "db:migrate": "dotenv -e ../../.env -- yarn tsx src/migrate.ts",
     "db:version": "yarn drizzle-kit -v",
     "db:seed": "dotenv -e ../../.env -- yarn tsx src/seed.ts",
-    "db:empty": "dotenv -e ../../.env -- yarn tsx src/empty.ts"
+    "db:empty": "dotenv -e ../../.env -- yarn tsx src/empty.ts",
+    "db:reset": "yarn db:empty && yarn db:generate && yarn db:migrate && yarn db:seed"
   },
   "devDependencies": {
     "@types/node": "^18.0.0",

@@ -1,4 +1,10 @@
-import { pgTable, uuid, timestamp, uniqueIndex } from "drizzle-orm/pg-core";
+import {
+  pgTable,
+  uuid,
+  timestamp,
+  uniqueIndex,
+  index,
+} from "drizzle-orm/pg-core";
 import { InferModel, relations } from "drizzle-orm";
 
 import { user, project, chapter } from "./index";
@@ -26,6 +32,9 @@ export const userChapterView = pgTable(
         v.userId,
         v.projectId,
         v.chapterId
+      ),
+      userChapterViewProjectIndex: index("user_view_project_index").on(
+        v.projectId
       ),
     };
   }

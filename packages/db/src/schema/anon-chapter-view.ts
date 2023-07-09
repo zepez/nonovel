@@ -1,20 +1,30 @@
-import { pgTable, uuid, timestamp } from "drizzle-orm/pg-core";
+import { pgTable, uuid, timestamp, index } from "drizzle-orm/pg-core";
 import { InferModel, relations } from "drizzle-orm";
 
 import { project, chapter } from "./index";
 
-export const anonChapterView = pgTable("anon_chapter_view", {
-  id: uuid("id").defaultRandom().primaryKey(),
-  projectId: uuid("project_id")
-    .notNull()
-    .references(() => project.id),
-  chapterId: uuid("chapter_id")
-    .notNull()
-    .references(() => chapter.id),
-  createdAt: timestamp("created_at", { withTimezone: true })
-    .defaultNow()
-    .notNull(),
-});
+export const anonChapterView = pgTable(
+  "anon_chapter_view",
+  {
+    id: uuid("id").defaultRandom().primaryKey(),
+    projectId: uuid("project_id")
+      .notNull()
+      .references(() => project.id),
+    chapterId: uuid("chapter_id")
+      .notNull()
+      .references(() => chapter.id),
+    createdAt: timestamp("created_at", { withTimezone: true })
+      .defaultNow()
+      .notNull(),
+  },
+  (v) => {
+    return {
+      anonChapterViewProjectIndex: index("anon_view_project_index").on(
+        v.projectId
+      ),
+    };
+  }
+);
 
 export const anonChapterViewRelations = relations(
   anonChapterView,

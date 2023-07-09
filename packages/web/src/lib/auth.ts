@@ -60,7 +60,7 @@ export const authorizeServerAction = async ({
 }: AuthorizeServerActionOptions) => {
   const { id } = (await getActionSession()) ?? {};
 
-  if (id && userId !== id) {
+  if (id && userId && userId !== id) {
     throw new Error("Unauthorized");
   }
 
