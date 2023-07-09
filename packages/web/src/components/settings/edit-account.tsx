@@ -51,7 +51,10 @@ export const EditAccount = ({ session }: EditAccountProps) => {
 
   const handleSubmit = async (values: EditAccountSchema) => {
     setLoading(true);
-    const [submitError] = await updateAccount(values);
+    const [submitError] = await updateAccount({
+      ...values,
+      revalidate: window.location.pathname,
+    });
     setLoading(false);
 
     if (submitError) {
@@ -110,7 +113,7 @@ export const EditAccount = ({ session }: EditAccountProps) => {
         />
 
         {form.formState.errors.root?.serverError && (
-          <div className="rounded-md bg-red-500 p-4">
+          <div className="p-4 bg-red-500 rounded-md">
             <FormMessage className="text-white dark:text-white">
               Error: {form.formState.errors.root.serverError.message}. If the
               problem persists, please contact support.

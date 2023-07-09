@@ -8,7 +8,14 @@ import {
 } from "drizzle-orm/pg-core";
 import { InferModel, relations } from "drizzle-orm";
 
-import { userProject, projectGenre, chapter, follow } from "./index";
+import {
+  userProject,
+  projectGenre,
+  chapter,
+  follow,
+  userChapterView,
+  anonChapterView,
+} from "./index";
 
 export const projectProgress = pgEnum("project_progress", [
   "finished",
@@ -44,6 +51,8 @@ export const projectRelations = relations(project, ({ many }) => ({
   follows: many(follow),
   genres: many(projectGenre),
   users: many(userProject),
+  userChapterViews: many(userChapterView),
+  anonChapterViews: many(anonChapterView),
 }));
 
 export type Project = InferModel<typeof project>;

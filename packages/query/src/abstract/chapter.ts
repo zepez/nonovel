@@ -1,6 +1,9 @@
 import type { Project, Chapter } from "@nonovel/db";
 import { ServerError, ServerErrorType } from "@nonovel/lib";
-import { getChapterBySlugAndOrderPrepared } from "../prepared";
+import {
+  getChapterBySlugAndOrderPrepared,
+  getChapterManifestByProjectIdPrepared,
+} from "../prepared";
 import {
   project as projectValidator,
   chapter as chapterValidator,
@@ -32,4 +35,30 @@ export const getChapterBySlugAndOrder = async (
 
 export type GetChapterBySlugAndOrderReturn = Awaited<
   ReturnType<typeof getChapterBySlugAndOrder>
+>;
+
+// ########################################
+
+export interface GetChapterManifestByProjectIdOptions {
+  projectId: Project["id"];
+}
+
+export const getChapterManifestByProjectId = async (
+  opts: GetChapterManifestByProjectIdOptions
+) => {
+  try {
+    const parsed = chapterValidator.pick({ projectId: true }).parse(opts);
+
+    const result =
+      (await getChapterManifestByProjectIdPrepared.execute(parsed)) ?? null;
+
+    return [null, result] as const;
+  } catch (err) {
+    const error = new ServerError("GetResourceError", err as ServerErrorType);
+    return [error, null] as const;
+  }
+};
+
+export type GetChapterManifestByProjectIdReturn = Awaited<
+  ReturnType<typeof getChapterManifestByProjectId>
 >;

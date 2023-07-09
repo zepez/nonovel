@@ -11,3 +11,15 @@ export const getChapterBySlugAndOrderPrepared = db.query.project
     },
   })
   .prepare("get_chapter_by_slug_and_order_prepared");
+
+export const getChapterManifestByProjectIdPrepared = db.query.chapter
+  .findMany({
+    orderBy: (chapter, { asc }) => [asc(chapter.order)],
+    where: (chapter, { eq }) => eq(chapter.projectId, placeholder("projectId")),
+    columns: {
+      id: true,
+      name: true,
+      order: true,
+    },
+  })
+  .prepare("get_chapter_manifest_by_project_id");

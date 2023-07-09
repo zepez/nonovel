@@ -38,7 +38,7 @@ export default async function ProfilePage({ params }: ProfilePageProps) {
           alt="Profile picture"
           width={256}
           height={256}
-          className="nn-outline nn-bg-foreground mx-auto w-64 rounded-md border-4 border-[#FFFFFF] dark:border-[#121212] md:mx-0"
+          className="nn-bg-foreground mx-auto w-64 rounded-md border-4 border-[#FFFFFF] dark:border-[#121212] md:mx-0"
         />
         <div className="w-full mt-8 text-center md:mb-2 md:ml-8 md:mt-0 md:w-auto md:text-left">
           <h1 className="mb-4 text-2xl font-bold leading-tight md:text-5xl">

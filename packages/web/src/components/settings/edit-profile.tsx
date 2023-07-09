@@ -62,7 +62,11 @@ export const EditProfile = ({ session }: EditProfileProps) => {
   const handleSubmit = async (values: EditProfileSchema) => {
     setLoading(true);
 
-    const [submitError] = await updateProfile({ ...values, userId: user.id });
+    const [submitError] = await updateProfile({
+      ...values,
+      userId: user.id,
+      revalidate: window.location.pathname,
+    });
     setLoading(false);
 
     if (submitError) {

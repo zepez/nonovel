@@ -4,8 +4,12 @@ import {
   createUserChapterViewPrepared,
   createAnonChapterViewPrepared,
   getTotalChapterViewCountByProjectIdPrepared,
+  getUserChapterViewsByProjectIdPrepared,
 } from "../prepared";
-import { view as viewValidator } from "@nonovel/validator";
+import {
+  view as viewValidator,
+  userView as userViewValidator,
+} from "@nonovel/validator";
 
 export interface CreateViewOptions {
   userId?: User["id"];
@@ -62,4 +66,32 @@ export const getTotalViewCountByProjectId = async (
 
 export type GetTotalViewCountByProjectIdReturn = Awaited<
   ReturnType<typeof getTotalViewCountByProjectId>
+>;
+
+// ########################################################
+
+export interface GetUserChapterViewsByProjectIdOptions {
+  userId?: User["id"];
+  projectId: Project["id"];
+}
+
+export const getUserChapterViewsByProjectId = async (
+  opts: GetUserChapterViewsByProjectIdOptions
+) => {
+  try {
+    const parsed = userViewValidator
+      .pick({ projectId: true, userId: true })
+      .parse(opts);
+
+    const result = await getUserChapterViewsByProjectIdPrepared.execute(parsed);
+
+    return [null, result] as const;
+  } catch (err) {
+    const error = new ServerError("GetResourceError", err as ServerErrorType);
+    return [error, null] as const;
+  }
+};
+
+export type GetUserChapterViewsByProjectIdReturn = Awaited<
+  ReturnType<typeof getUserChapterViewsByProjectId>
 >;

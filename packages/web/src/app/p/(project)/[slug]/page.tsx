@@ -1,6 +1,10 @@
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import { getProjectBySlug } from "~/lib/request";
+import { getSession } from "~/lib/auth";
+import {
+  getProjectBySlug,
+  getUserChapterViewsByProjectId,
+} from "~/lib/request";
 import { SectionHeading } from "~/components/shared";
 import { Blurb, ListChapters } from "~/components/project";
 
@@ -9,12 +13,35 @@ interface ProjectPageProps {
 }
 
 export default async function ProjectPage({ params }: ProjectPageProps) {
+  const [, session] = await getSession();
+  const { user } = session ?? {};
+
   const [_projectErr, project] = await getProjectBySlug(params);
 
   if (!project) notFound();
 
+  const [, userChapterViews] = await getUserChapterViewsByProjectId({
+    userId: user?.id,
+    projectId: project.id,
+  });
+
   return (
     <>
+      {userChapterViews?.length ? (
+        <>
+          <Link
+            href={`/p/${project.slug}/chapters/${userChapterViews[0].chapter.order}`}
+          >
+            <section className="w-full px-3 py-2 mt-8 mb-3 text-center border-dashed rounded-md nn-interactive nn-border">
+              <p className="nn-text-secondary">
+                Resume reading chapter {userChapterViews[0].chapter.order}:{" "}
+                {userChapterViews[0].chapter.name}
+              </p>
+            </section>
+          </Link>
+        </>
+      ) : null}
+
       <SectionHeading className="mt-8 mb-3">Synopsis</SectionHeading>
       <section>
         {project.description ? (
@@ -42,6 +69,7 @@ export default async function ProjectPage({ params }: ProjectPageProps) {
       <SectionHeading className="my-8">Recent Chapters</SectionHeading>
       <ListChapters
         chapters={project.chapters.slice(-3).reverse()}
+        userChapterViews={userChapterViews}
         disabledSearch
         itemHeight={1}
         projectSlug={project.slug}

@@ -7,11 +7,14 @@ import {
   getFollowCountByProjectId,
   getFollowStatusByIds,
   getTotalViewCountByProjectId,
+  getUserChapterViewsByProjectId,
 } from "~/lib/request";
 import { LayoutWrapper, AspectImage } from "~/components/shared";
 import { ButtonFollow, Blurb } from "~/components/project";
 import { summarizeNumber } from "~/lib/number";
 import { toTitleCase, naturalListJoin } from "~/lib/string";
+
+export const revalidate = 60;
 
 interface ProjectLayoutProps {
   children: React.ReactNode;
@@ -22,28 +25,43 @@ export default async function ProjectLayout({
   children,
   params,
 }: ProjectLayoutProps) {
-  const [_sessionErr, session] = await getSession();
+  const [, session] = await getSession();
   const { user } = session ?? {};
 
-  const [_projectErr, project] = await getProjectBySlug(params);
+  const [, project] = await getProjectBySlug(params);
 
   if (!project) notFound();
 
-  const [_followErr, follow] = await getFollowStatusByIds({
+  const [, follow] = await getFollowStatusByIds({
     userId: user?.id,
     projectId: project.id,
   });
 
-  const [_followCountErr, followCount] = await getFollowCountByProjectId({
+  const [, userChapterViews] = await getUserChapterViewsByProjectId({
+    userId: user?.id,
     projectId: project.id,
   });
 
-  const [_viewCountErr, viewCount] = await getTotalViewCountByProjectId({
+  const [, followCount] = await getFollowCountByProjectId({
+    projectId: project.id,
+  });
+
+  const [, viewCount] = await getTotalViewCountByProjectId({
     projectId: project.id,
   });
 
   const latest = project.chapters[project.chapters.length - 1];
   const authors = project.users.filter((user) => user.role === "author");
+
+  const readButton = userChapterViews?.length
+    ? {
+        text: "CONTINUE READING",
+        href: `/p/${project.slug}/chapters/${userChapterViews[0].chapter.order}`,
+      }
+    : {
+        text: "START READING",
+        href: `/p/${project.slug}/chapters/${project.chapters[0].order}`,
+      };
 
   return (
     <>
@@ -121,10 +139,10 @@ export default async function ProjectLayout({
                   projectName={toTitleCase(project.name)}
                 />
                 <Link
-                  href={`/p/${project.slug}/chapters/${project.chapters[0].order}`}
+                  href={readButton.href}
                   className="px-4 py-4 text-sm font-semibold leading-tight text-center border rounded-md nn-interactive nn-bg-primary border-zinc-100/10"
                 >
-                  START READING
+                  {readButton.text}
                 </Link>
               </div>
             </div>

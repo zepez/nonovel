@@ -36,7 +36,12 @@ export const ButtonFollow = ({
 
     const action = followId ? "delete" : "create";
 
-    const [error] = await follow({ userId, projectId, action });
+    const [error] = await follow({
+      userId,
+      projectId,
+      action,
+      revalidate: window.location.pathname,
+    });
 
     if (error) {
       console.error(error);

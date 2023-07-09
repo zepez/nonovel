@@ -8,7 +8,7 @@ import {
 } from "drizzle-orm/pg-core";
 import { InferModel, relations } from "drizzle-orm";
 
-import { project } from "./index";
+import { project, userChapterView, anonChapterView } from "./index";
 
 export const chapterContentType = pgEnum("chapter_content_type", [
   "html",
@@ -34,11 +34,13 @@ export const chapter = pgTable("chapter", {
     .notNull(),
 });
 
-export const chapterRelations = relations(chapter, ({ one }) => ({
+export const chapterRelations = relations(chapter, ({ one, many }) => ({
   project: one(project, {
     fields: [chapter.projectId],
     references: [project.id],
   }),
+  userChapterViews: many(userChapterView),
+  anonChapterViews: many(anonChapterView),
 }));
 
 export type Chapter = InferModel<typeof chapter>;

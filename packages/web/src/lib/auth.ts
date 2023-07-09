@@ -31,7 +31,9 @@ export const getSession = cache(async () => {
   return [null, { user, profile } as Session] as const;
 });
 
-// TODO: This is a workaround to get the session in server actions
+// TODO: This is a hack to get the session in server actions
+// remove this when upstream issue is fixed
+// remove explicit any and empty methods
 export const getActionSession = async () => {
   const req = {
     headers: Object.fromEntries(headers() as Headers),
@@ -41,10 +43,12 @@ export const getActionSession = async () => {
         .map((c) => [c.name, c.value])
     ),
   };
+  // eslint-disable-next-line @typescript-eslint/no-empty-function
   const res = { getHeader() {}, setCookie() {}, setHeader() {} };
 
-  // @ts-ignore - The type used in next-auth for the req object doesn't match, but it still works
-  const { user } = (await getServerSession(req, res, options)) ?? {};
+  const { user } =
+    // eslint-disable-next-line @typescript-eslint/no-unsafe-argument, @typescript-eslint/no-explicit-any
+    (await getServerSession(req as any, res as any, options)) ?? {};
 
   return user;
 };

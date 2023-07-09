@@ -1,5 +1,9 @@
 import { notFound } from "next/navigation";
-import { getProjectBySlug } from "~/lib/request";
+import { getSession } from "~/lib/auth";
+import {
+  getProjectBySlug,
+  getUserChapterViewsByProjectId,
+} from "~/lib/request";
 import { SectionHeading } from "~/components/shared";
 import { ListChapters } from "~/components/project";
 
@@ -8,14 +12,26 @@ interface ProjectPageProps {
 }
 
 export default async function ProjectPage({ params }: ProjectPageProps) {
+  const [, session] = await getSession();
+  const { user } = session ?? {};
+
   const [_projectErr, project] = await getProjectBySlug(params);
 
   if (!project) notFound();
 
+  const [, userChapterViews] = await getUserChapterViewsByProjectId({
+    userId: user?.id,
+    projectId: project.id,
+  });
+
   return (
     <>
       <SectionHeading className="my-8">All Chapters</SectionHeading>
-      <ListChapters chapters={project.chapters} projectSlug={project.slug} />
+      <ListChapters
+        chapters={project.chapters}
+        userChapterViews={userChapterViews}
+        projectSlug={project.slug}
+      />
     </>
   );
 }

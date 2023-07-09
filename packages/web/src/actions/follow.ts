@@ -12,10 +12,12 @@ import { authorizeServerAction } from "~/lib/auth";
 
 interface CreateOpts extends CreateFollowOptions {
   action: "create";
+  revalidate: string;
 }
 
 interface DeleteOpts extends DeleteFollowOptions {
   action: "delete";
+  revalidate: string;
 }
 
 type FollowOpts = CreateOpts | DeleteOpts;
@@ -28,7 +30,7 @@ export const follow = async (values: FollowOpts) => {
       ? await createFollow(values)
       : await deleteFollow(values);
 
-  revalidatePath("/");
+  revalidatePath(values.revalidate);
 
   return [error ? error.serialize() : null, null] as const;
 };

@@ -6,12 +6,16 @@ import { updateUserById } from "@nonovel/query";
 import { authorizeServerAction } from "~/lib/auth";
 import type { EditAccountSchema } from "~/components/settings";
 
-export const updateAccount = async (values: EditAccountSchema) => {
+interface UpdateAccountOptions extends EditAccountSchema {
+  revalidate: string;
+}
+
+export const updateAccount = async (values: UpdateAccountOptions) => {
   await authorizeServerAction({ userId: values.id });
 
   const [error, result] = await updateUserById(values);
 
-  revalidatePath("/");
+  revalidatePath(values.revalidate);
 
   return [error ? error.serialize() : null, result] as const;
 };

@@ -2,7 +2,10 @@
 
 import { useState, useEffect } from "react";
 import Link from "next/link";
-import type { GetProjectBySlugReturn } from "@nonovel/query";
+import type {
+  GetProjectBySlugReturn,
+  GetUserChapterViewsByProjectIdReturn,
+} from "@nonovel/query";
 
 import { cn } from "~/lib/utils";
 import { toTitleCase } from "~/lib/string";
@@ -13,32 +16,28 @@ interface ListItemProps {
   name: string;
   symbol: string;
   height?: string | number;
+  isRead?: boolean;
 }
 
-const ListItem = ({ href, name, symbol, height }: ListItemProps) => {
+const ListItem = ({ href, name, symbol, height, isRead }: ListItemProps) => {
   return (
     <Link
       href={href}
-      className="flex items-center nn-interactive odd:bg-white dark:odd:bg-zinc-900"
+      className={cn(
+        isRead ? "opacity-50" : "",
+        "nn-interactive flex items-center odd:bg-white dark:odd:bg-zinc-900"
+      )}
     >
-      <div className="flex-shrink-0 w-auto mx-8 font-bold text-center md:w-24">
-        {symbol}
-      </div>{" "}
-      <h3 className={cn(height ? `py-${height}` : "py-3", "pr-4")}>
+      <div className="flex flex-shrink-0 w-12 mx-8 font-bold sm:w-14">
+        <div className="flex-shrink-0 w-4 mr-2">{isRead && "✔"}</div>
+        <span className="">{symbol}</span>
+      </div>
+      <h3 className={cn(height ? `py-${height}` : "py-3", "flex-grow pr-4")}>
         {toTitleCase(name)}
       </h3>
     </Link>
   );
 };
-
-interface ListChaptersProps {
-  className?: string;
-  chapters: NonNullable<GetProjectBySlugReturn[1]>["chapters"];
-  projectSlug: string;
-  disabledSearch?: boolean;
-  itemHeight?: string | number;
-  additionalItems?: AdditionItemProps[];
-}
 
 interface AdditionItemProps {
   href: string;
@@ -46,20 +45,43 @@ interface AdditionItemProps {
   symbol: string;
 }
 
+type extendedChapter = NonNullable<GetProjectBySlugReturn[1]>["chapters"][0] & {
+  isRead?: boolean;
+};
+
+interface ListChaptersProps {
+  className?: string;
+  chapters: extendedChapter[];
+  userChapterViews: GetUserChapterViewsByProjectIdReturn[1];
+  projectSlug: string;
+  disabledSearch?: boolean;
+  itemHeight?: string | number;
+  additionalItems?: AdditionItemProps[];
+}
+
 export const ListChapters = ({
   className,
   chapters,
+  userChapterViews = [],
   projectSlug,
   disabledSearch,
   itemHeight,
   additionalItems = [],
 }: ListChaptersProps) => {
-  const [list, setList] = useState(chapters);
+  const processedChapters = chapters.map((chapter) => {
+    const isRead = userChapterViews?.some(
+      (view) => view.chapterId === chapter.id
+    );
+
+    return { ...chapter, isRead: !!isRead };
+  });
+
+  const [list, setList] = useState(processedChapters);
   const [search, setSearch] = useState("");
 
   useEffect(() => {
     const searchRegex = new RegExp(search, "i");
-    const filteredChapters = chapters.filter(
+    const filteredChapters = processedChapters.filter(
       (chapter) =>
         searchRegex.test(chapter.name) || searchRegex.test(chapter.order)
     );
@@ -95,6 +117,7 @@ export const ListChapters = ({
             name={chapter.name}
             symbol={chapter.order}
             height={itemHeight}
+            isRead={chapter.isRead}
           />
         ))}
         {additionalItems.map((item, itemIdx) => (
