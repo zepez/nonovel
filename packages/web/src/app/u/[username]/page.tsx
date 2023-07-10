@@ -71,9 +71,9 @@ export default async function ProfilePage({ params }: ProfilePageProps) {
         ) : null}
 
         {projects.length
-          ? projects.map(({ project, ...relation }, relationIdx) => (
+          ? projects.map(({ project, ...relation }) => (
               <Link
-                key={relationIdx}
+                key={project.id}
                 href={`/p/${project.slug}`}
                 className={cn(
                   projects.length % 2 !== 0 ? "last:col-span-2" : null,

@@ -24,7 +24,7 @@ export const Blurb = async ({ className, slug }: BlurbProps) => {
       {project.genres.map(({ genre }, genreIdx) => (
         <Link
           href={`/browse/category/${genre.slug}`}
-          key={genreIdx}
+          key={genre.id}
           className="nn-interactive"
         >
           {genre.name.toLowerCase()}
@@ -33,7 +33,7 @@ export const Blurb = async ({ className, slug }: BlurbProps) => {
       ))}{" "}
       novel written by{" "}
       {authors.map((author, authorIdx) => (
-        <Link href={`/u/${author}`} key={authorIdx} className="nn-interactive">
+        <Link href={`/u/${author}`} key={author} className="nn-interactive">
           @{author}
           {naturalListJoin(authorIdx, authors.length)}
         </Link>

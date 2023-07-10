@@ -111,9 +111,9 @@ export const ListChapters = ({
         />
       )}
       <section className={cn(className, "grid grid-cols-1")}>
-        {list.map((chapter, chapterIdx) => (
+        {list.map((chapter) => (
           <ListItem
-            key={chapterIdx}
+            key={chapter.id}
             href={`/p/${projectSlug}/chapters/${chapter.order}`}
             name={chapter.name}
             symbol={chapter.order}
