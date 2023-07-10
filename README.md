@@ -2,7 +2,7 @@
 
 The launch of NoNovel can be split into three phases.
 
-#### Phase 1
+### Phase 1
 
 NoNovel can only be used to read public domain books. There are no options to self publish or monetize books. Users can create accounts and NoNovel will track their progress for each project.
 
@@ -14,26 +14,33 @@ NoNovel can only be used to read public domain books. There are no options to se
 - [x] Basic Chapter Reading Settings
 - [x] Project genres
 - [x] Profile country code
-- [ ] comment system (profile, project, chapter)
-- [ ] report system (profile, project, chapter, comment)
+- [x] View tracking
+- [x] Chapter navigation
+- [ ] Make header responsive
+- [ ] Review system (project)
+- [ ] Comment system (profile, project, chapter)
 - [ ] Omni-search profiles by username and project by name
 - [ ] Epub parsing library
-- [ ] File uploading via uploadThing
 - [ ] Epub CLI
+- [ ] File uploading via UploadThing
 - [ ] Service Account with email, password auth
 - [ ] Project tags (?)
 - [ ] Upload a lot of public domain books
-- [ ] CRD (create, read, delete) table and tracking
+- [ ] Report system (profile, project, chapter, comment)
+- [ ] Custom login / register / logout pages
+- [ ] Callback URL on successful login/register/logout
+- [ ] Browse by category and ranking pages
+- [ ] Home and about pages
 
-#### Phase 2
+### Phase 2
 
 CMS. Users can publish and edit content for themselves.
 
-#### Phase 3
+### Phase 3
 
 Monetization. Potential revshare.
 
-### Technology
+## Technology
 
 - [Next.js 13 App Directory](https://nextjs.org/docs/getting-started/project-structure)
 - [React Server Components](https://github.com/reactjs/rfcs/blob/main/text/0188-server-components.md)
@@ -46,7 +53,7 @@ Monetization. Potential revshare.
 - [Radix](https://www.radix-ui.com/)
 - [TailwindCSS](https://tailwindcss.com/)
 
-### Packages
+## Packages
 
 - `config-client` - Validated environment variables, available on the client. Must be prefixed with `NEXT_PUBLIC_`.
 - `config-server` - Validated environment variables, only available on the server. Contains secrets and extends `config-client`.
