@@ -26,7 +26,7 @@ export default async function ProjectPage({ params }: ProjectPageProps) {
 
   return (
     <>
-      <SectionHeading className="my-8">All Chapters</SectionHeading>
+      <SectionHeading>All Chapters</SectionHeading>
       <ListChapters
         chapters={project.chapters}
         userChapterViews={userChapterViews}

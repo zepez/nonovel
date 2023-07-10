@@ -87,7 +87,7 @@ export default async function ProjectLayout({
                 {authors.map(({ user }, relationIdx) => (
                   <>
                     <Link
-                      key={relationIdx}
+                      key={user.id}
                       href={`/u/${user?.profile?.username ?? ""}`}
                       className="nn-interactive"
                     >

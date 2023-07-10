@@ -20,7 +20,7 @@ import {
 import { ScrollArea } from "~/components/ui/scroll-area";
 
 interface DirectionalButtonProps {
-  chapter: string | null;
+  chapter: number | null;
   slug: string;
   icon: React.ReactNode;
   className?: string;
@@ -35,7 +35,7 @@ const DirectionalButton = ({
   return (
     <Link
       className={cn(!chapter && "nn-no-select", "rounded-md")}
-      href={chapter ? `/p/${slug}/chapters/${parseInt(chapter)}` : "#"}
+      href={chapter ? `/p/${slug}/chapters/${chapter}` : "#"}
     >
       <div
         className={cn(
@@ -77,14 +77,13 @@ const ChapterManifest = ({
             {manifest.map((c) => (
               <Link
                 key={c.id}
-                href={`/p/${project.slug}/chapters/${parseInt(c.order)}`}
+                href={`/p/${project.slug}/chapters/${c.order}`}
                 className={cn(
-                  parseInt(chapter.order) == parseInt(c.order) &&
-                    "nn-bg-foreground",
+                  chapter.order == c.order && "nn-bg-foreground",
                   "nn-interactive p-2"
                 )}
               >
-                Chapter {parseInt(c.order)} - {c.name.substring(0, 25)}...
+                Chapter {c.order} - {c.name.substring(0, 25)}...
               </Link>
             ))}
             <div className="flex-grow" />

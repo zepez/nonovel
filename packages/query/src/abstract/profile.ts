@@ -1,4 +1,4 @@
-import { type Profile, type User } from "@nonovel/db";
+import type { Profile } from "@nonovel/db";
 import { ServerError, ServerErrorType } from "@nonovel/lib";
 import {
   getProfileByUsernamePrepared,
@@ -72,7 +72,7 @@ export type UpdateProfileByIdReturn = Awaited<
 // ########################################################
 
 export interface GetProfileByUserIdOptions {
-  id: User["id"];
+  id: Profile["userId"];
 }
 
 export const getProfileByUserId = async (opts: GetProfileByUserIdOptions) => {

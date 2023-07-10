@@ -21,7 +21,7 @@ export const getChapterBySlugAndOrder = async (
     const { slug } = projectValidator.pick({ slug: true }).parse(opts);
     const { order } = chapterValidator
       .pick({ order: true })
-      .parse({ order: parseInt(opts.order) });
+      .parse({ order: opts.order });
 
     const result =
       (await getChapterBySlugAndOrderPrepared.execute({ slug, order })) ?? null;
@@ -40,7 +40,7 @@ export type GetChapterBySlugAndOrderReturn = Awaited<
 // ########################################
 
 export interface GetChapterManifestByProjectIdOptions {
-  projectId: Project["id"];
+  projectId: Chapter["projectId"];
 }
 
 export const getChapterManifestByProjectId = async (

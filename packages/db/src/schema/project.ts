@@ -15,6 +15,7 @@ import {
   follow,
   userChapterView,
   anonChapterView,
+  review,
 } from "./index";
 
 export const projectProgress = pgEnum("project_progress", [
@@ -53,6 +54,7 @@ export const projectRelations = relations(project, ({ many }) => ({
   users: many(userProject),
   userChapterViews: many(userChapterView),
   anonChapterViews: many(anonChapterView),
+  reviews: many(review),
 }));
 
 export type Project = InferModel<typeof project>;

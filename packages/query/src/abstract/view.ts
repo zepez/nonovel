@@ -1,4 +1,4 @@
-import { type Project, type User, type Chapter } from "@nonovel/db";
+import type { Project, User, Chapter } from "@nonovel/db";
 import { ServerError, ServerErrorType } from "@nonovel/lib";
 import {
   createUserChapterViewPrepared,

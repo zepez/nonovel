@@ -98,6 +98,16 @@ CREATE TABLE IF NOT EXISTS "project_genres" (
 	"updated_at" timestamp with time zone DEFAULT now() NOT NULL
 );
 --> statement-breakpoint
+CREATE TABLE IF NOT EXISTS "review" (
+	"id" uuid PRIMARY KEY DEFAULT gen_random_uuid() NOT NULL,
+	"user_id" uuid NOT NULL,
+	"project_id" uuid NOT NULL,
+	"score" numeric(2, 1) NOT NULL,
+	"comment" text,
+	"created_at" timestamp with time zone DEFAULT now() NOT NULL,
+	"updated_at" timestamp with time zone DEFAULT now() NOT NULL
+);
+--> statement-breakpoint
 CREATE TABLE IF NOT EXISTS "users" (
 	"id" uuid PRIMARY KEY DEFAULT gen_random_uuid() NOT NULL,
 	"name" text NOT NULL,
@@ -144,14 +154,17 @@ CREATE TABLE IF NOT EXISTS "verification_token" (
 );
 --> statement-breakpoint
 CREATE UNIQUE INDEX IF NOT EXISTS "unique_account_provider_provider_account_id" ON "account" ("provider","provider_account_id");--> statement-breakpoint
+CREATE INDEX IF NOT EXISTS "anon_view_project_index" ON "anon_chapter_view" ("project_id");--> statement-breakpoint
 CREATE UNIQUE INDEX IF NOT EXISTS "unique_follow_ids" ON "follow" ("user_id","project_id");--> statement-breakpoint
 CREATE UNIQUE INDEX IF NOT EXISTS "unique_genre_slug" ON "genre" ("slug");--> statement-breakpoint
 CREATE UNIQUE INDEX IF NOT EXISTS "unique_genre_name" ON "genre" ("name");--> statement-breakpoint
 CREATE UNIQUE INDEX IF NOT EXISTS "unique_profile_username" ON "profile" ("username");--> statement-breakpoint
 CREATE UNIQUE INDEX IF NOT EXISTS "unique_project_slug" ON "project" ("slug");--> statement-breakpoint
 CREATE UNIQUE INDEX IF NOT EXISTS "unique_project_genre_ids" ON "project_genres" ("project_id","genre_id");--> statement-breakpoint
+CREATE UNIQUE INDEX IF NOT EXISTS "unique_review_ids" ON "review" ("user_id","project_id");--> statement-breakpoint
 CREATE UNIQUE INDEX IF NOT EXISTS "unique_user_email" ON "users" ("email");--> statement-breakpoint
 CREATE UNIQUE INDEX IF NOT EXISTS "unique_user_view" ON "user_chapter_view" ("user_id","project_id","chapter_id");--> statement-breakpoint
+CREATE INDEX IF NOT EXISTS "user_view_project_index" ON "user_chapter_view" ("project_id");--> statement-breakpoint
 CREATE UNIQUE INDEX IF NOT EXISTS "unique_user_project_ids" ON "user_projects" ("user_id","project_id");--> statement-breakpoint
 CREATE UNIQUE INDEX IF NOT EXISTS "unique_session_token" ON "session" ("session_token");--> statement-breakpoint
 CREATE UNIQUE INDEX IF NOT EXISTS "unique_verification_token_identifier_token" ON "verification_token" ("identifier","token");--> statement-breakpoint
@@ -206,6 +219,18 @@ END $$;
 --> statement-breakpoint
 DO $$ BEGIN
  ALTER TABLE "project_genres" ADD CONSTRAINT "project_genres_genre_id_genre_id_fk" FOREIGN KEY ("genre_id") REFERENCES "genre"("id") ON DELETE no action ON UPDATE no action;
+EXCEPTION
+ WHEN duplicate_object THEN null;
+END $$;
+--> statement-breakpoint
+DO $$ BEGIN
+ ALTER TABLE "review" ADD CONSTRAINT "review_user_id_users_id_fk" FOREIGN KEY ("user_id") REFERENCES "users"("id") ON DELETE no action ON UPDATE no action;
+EXCEPTION
+ WHEN duplicate_object THEN null;
+END $$;
+--> statement-breakpoint
+DO $$ BEGIN
+ ALTER TABLE "review" ADD CONSTRAINT "review_project_id_project_id_fk" FOREIGN KEY ("project_id") REFERENCES "project"("id") ON DELETE no action ON UPDATE no action;
 EXCEPTION
  WHEN duplicate_object THEN null;
 END $$;

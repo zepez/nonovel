@@ -3,11 +3,10 @@ import * as z from "zod";
 export const profile = z.object({
   id: z.string(),
   userId: z.string(),
-  image: z
-    .string()
-    .url()
-    .nullable()
-    .transform((val) => (val === "" ? null : val)),
+  image: z.preprocess(
+    (v) => (v === "" ? null : v),
+    z.string().url().nullable()
+  ),
   username: z
     .string()
     .min(2, {
@@ -29,13 +28,15 @@ export const profile = z.object({
   bio: z.string().max(160, {
     message: "User bios can not exceed 160 characters.",
   }),
-  countryCode: z
-    .string()
-    .length(2, {
-      message: "Country code must be 2 characters.",
-    })
-    .nullable()
-    .transform((val) => (val === "" ? null : val)),
+  countryCode: z.preprocess(
+    (v) => (v === "" ? null : v),
+    z
+      .string()
+      .length(2, {
+        message: "Country code must be 2 characters.",
+      })
+      .nullable()
+  ),
   createdAt: z.string().datetime(),
   updatedAt: z.string().datetime(),
 });

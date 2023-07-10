@@ -22,4 +22,4 @@ export const getChapterManifestByProjectIdPrepared = db.query.chapter
       order: true,
     },
   })
-  .prepare("get_chapter_manifest_by_project_id");
+  .prepare("get_chapter_manifest_by_project_id_prepared");

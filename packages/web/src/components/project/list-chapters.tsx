@@ -14,7 +14,7 @@ import { Input } from "~/components/ui/input";
 interface ListItemProps {
   href: string;
   name: string;
-  symbol: string;
+  symbol: string | number;
   height?: string | number;
   isRead?: boolean;
 }
@@ -83,7 +83,8 @@ export const ListChapters = ({
     const searchRegex = new RegExp(search, "i");
     const filteredChapters = processedChapters.filter(
       (chapter) =>
-        searchRegex.test(chapter.name) || searchRegex.test(chapter.order)
+        searchRegex.test(chapter.name) ||
+        searchRegex.test(chapter.order.toString())
     );
 
     setList(filteredChapters);

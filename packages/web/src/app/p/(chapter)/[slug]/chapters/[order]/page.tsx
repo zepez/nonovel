@@ -7,7 +7,10 @@ interface ChapterPageProps {
 }
 
 export default async function ChapterPage({ params }: ChapterPageProps) {
-  const [, project] = await getChapterBySlugAndOrder(params);
+  const [, project] = await getChapterBySlugAndOrder({
+    ...params,
+    order: parseFloat(params.order),
+  });
   if (!project) notFound();
 
   const chapter = project.chapters[0];

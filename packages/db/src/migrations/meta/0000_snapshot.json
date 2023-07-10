@@ -1,7 +1,7 @@
 {
   "version": "5",
   "dialect": "pg",
-  "id": "3bb5a536-e76e-41f9-b3e3-9afa929aacd6",
+  "id": "c26388e0-e3a2-43a3-9c2a-f862a4cef33e",
   "prevId": "00000000-0000-0000-0000-000000000000",
   "tables": {
     "account": {
@@ -154,7 +154,15 @@
           "default": "now()"
         }
       },
-      "indexes": {},
+      "indexes": {
+        "anon_view_project_index": {
+          "name": "anon_view_project_index",
+          "columns": [
+            "project_id"
+          ],
+          "isUnique": false
+        }
+      },
       "foreignKeys": {
         "anon_chapter_view_project_id_project_id_fk": {
           "name": "anon_chapter_view_project_id_project_id_fk",
@@ -630,6 +638,96 @@
       },
       "compositePrimaryKeys": {}
     },
+    "review": {
+      "name": "review",
+      "schema": "",
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "uuid",
+          "primaryKey": true,
+          "notNull": true,
+          "default": "gen_random_uuid()"
+        },
+        "user_id": {
+          "name": "user_id",
+          "type": "uuid",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "project_id": {
+          "name": "project_id",
+          "type": "uuid",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "score": {
+          "name": "score",
+          "type": "numeric(2, 1)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "comment": {
+          "name": "comment",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "created_at": {
+          "name": "created_at",
+          "type": "timestamp with time zone",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "now()"
+        },
+        "updated_at": {
+          "name": "updated_at",
+          "type": "timestamp with time zone",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "now()"
+        }
+      },
+      "indexes": {
+        "unique_review_ids": {
+          "name": "unique_review_ids",
+          "columns": [
+            "user_id",
+            "project_id"
+          ],
+          "isUnique": true
+        }
+      },
+      "foreignKeys": {
+        "review_user_id_users_id_fk": {
+          "name": "review_user_id_users_id_fk",
+          "tableFrom": "review",
+          "tableTo": "users",
+          "columnsFrom": [
+            "user_id"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "no action",
+          "onUpdate": "no action"
+        },
+        "review_project_id_project_id_fk": {
+          "name": "review_project_id_project_id_fk",
+          "tableFrom": "review",
+          "tableTo": "project",
+          "columnsFrom": [
+            "project_id"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "no action",
+          "onUpdate": "no action"
+        }
+      },
+      "compositePrimaryKeys": {}
+    },
     "users": {
       "name": "users",
       "schema": "",
@@ -732,6 +830,13 @@
             "chapter_id"
           ],
           "isUnique": true
+        },
+        "user_view_project_index": {
+          "name": "user_view_project_index",
+          "columns": [
+            "project_id"
+          ],
+          "isUnique": false
         }
       },
       "foreignKeys": {

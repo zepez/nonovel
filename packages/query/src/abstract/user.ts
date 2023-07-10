@@ -1,4 +1,4 @@
-import { type User } from "@nonovel/db";
+import type { User } from "@nonovel/db";
 import { ServerError, ServerErrorType } from "@nonovel/lib";
 import { getUserByIdPrepared, updateUserByIdPrepared } from "../prepared";
 import { user as validator } from "@nonovel/validator";

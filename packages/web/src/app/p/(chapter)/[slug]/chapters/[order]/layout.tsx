@@ -21,7 +21,10 @@ export default async function ChapterLayout({
   children,
 }: ChapterPageProps) {
   const [, session] = await getSession();
-  const [, project] = await getChapterBySlugAndOrder(params);
+  const [, project] = await getChapterBySlugAndOrder({
+    ...params,
+    order: parseFloat(params.order),
+  });
   if (!project) notFound();
 
   const chapter = project.chapters[0];

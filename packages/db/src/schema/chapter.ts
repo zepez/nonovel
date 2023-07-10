@@ -1,14 +1,8 @@
-import {
-  pgTable,
-  uuid,
-  timestamp,
-  text,
-  pgEnum,
-  numeric,
-} from "drizzle-orm/pg-core";
+import { pgTable, uuid, timestamp, text, pgEnum } from "drizzle-orm/pg-core";
 import { InferModel, relations } from "drizzle-orm";
 
 import { project, userChapterView, anonChapterView } from "./index";
+import { numberNumeric } from "../columns";
 
 export const chapterContentType = pgEnum("chapter_content_type", [
   "html",
@@ -22,7 +16,7 @@ export const chapter = pgTable("chapter", {
     .references(() => project.id)
     .notNull(),
   name: text("name").notNull(),
-  order: numeric("order", { precision: 9, scale: 3 }).notNull(),
+  order: numberNumeric("order", { precision: 9, scale: 3 }).notNull(),
   contentType: chapterContentType("content_type").default("html").notNull(),
   content: text("content"),
 

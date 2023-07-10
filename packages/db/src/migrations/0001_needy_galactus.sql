@@ -1,2 +1,0 @@
-CREATE INDEX IF NOT EXISTS "anon_view_project_index" ON "anon_chapter_view" ("project_id");--> statement-breakpoint
-CREATE INDEX IF NOT EXISTS "user_view_project_index" ON "user_chapter_view" ("project_id");

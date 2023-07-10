@@ -6,6 +6,7 @@ export * from "./genre";
 export * from "./profile";
 export * from "./project";
 export * from "./project-genre";
+export * from "./review";
 export * from "./user";
 export * from "./user-chapter-view";
 export * from "./user-project";

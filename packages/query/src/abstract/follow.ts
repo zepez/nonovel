@@ -1,4 +1,4 @@
-import type { Project, User } from "@nonovel/db";
+import type { Follow } from "@nonovel/db";
 import { ServerError, ServerErrorType } from "@nonovel/lib";
 import {
   createFollowPrepared,
@@ -9,8 +9,8 @@ import {
 import { follow as followValidator } from "@nonovel/validator";
 
 export interface CreateFollowOptions {
-  userId: User["id"];
-  projectId: Project["id"];
+  userId: Follow["userId"];
+  projectId: Follow["projectId"];
 }
 
 export const createFollow = async (opts: CreateFollowOptions) => {
@@ -36,8 +36,8 @@ export type CreateFollowReturn = Awaited<ReturnType<typeof createFollow>>;
 // ########################################################
 
 export interface DeleteFollowOptions {
-  userId: User["id"];
-  projectId: Project["id"];
+  userId: Follow["userId"];
+  projectId: Follow["projectId"];
 }
 
 export const deleteFollow = async (opts: DeleteFollowOptions) => {
@@ -63,7 +63,7 @@ export type DeleteFollowReturn = Awaited<ReturnType<typeof deleteFollow>>;
 // ########################################################
 
 export interface GetFollowCountByProjectIdOptions {
-  projectId: Project["id"];
+  projectId: Follow["projectId"];
 }
 
 export const getFollowCountByProjectId = async (
@@ -90,8 +90,8 @@ export type GetFollowCountByProjectIdReturn = Awaited<
 // ########################################################
 
 export interface GetFollowStatusByIdsOptions {
-  userId?: User["id"];
-  projectId: Project["id"];
+  userId?: Follow["userId"];
+  projectId: Follow["projectId"];
 }
 
 export const getFollowStatusByIds = async (
