@@ -28,18 +28,15 @@ export default async function ProjectPage({ params }: ProjectPageProps) {
   return (
     <>
       {userChapterViews?.length ? (
-        <>
+        <div className="mt-8 mb-4">
           <Link
             href={`/p/${project.slug}/chapters/${userChapterViews[0].chapter.order}`}
+            className="block w-full px-3 py-2 text-center border-dashed rounded-md nn-text-secondary nn-interactive nn-border"
           >
-            <section className="w-full px-3 py-2 mt-8 mb-3 text-center border-dashed rounded-md nn-interactive nn-border">
-              <p className="nn-text-secondary">
-                Resume reading chapter {userChapterViews[0].chapter.order}:{" "}
-                {userChapterViews[0].chapter.name}
-              </p>
-            </section>
+            Resume reading chapter {userChapterViews[0].chapter.order}:{" "}
+            {userChapterViews[0].chapter.name}
           </Link>
-        </>
+        </div>
       ) : null}
 
       <SectionHeading className="mt-8 mb-3">Synopsis</SectionHeading>
@@ -51,7 +48,7 @@ export default async function ProjectPage({ params }: ProjectPageProps) {
         )}
       </section>
 
-      <SectionHeading className="mt-8 mb-3">
+      <SectionHeading className="mt-12 mb-3">
         Genre{project.genres.length !== 1 ? "s" : ""}
       </SectionHeading>
       <section className="flex">
@@ -66,7 +63,7 @@ export default async function ProjectPage({ params }: ProjectPageProps) {
         ))}
       </section>
 
-      <SectionHeading className="my-8">Recent Chapters</SectionHeading>
+      <SectionHeading className="mt-12 mb-3">Recent Chapters</SectionHeading>
       <ListChapters
         chapters={project.chapters.slice(-3).reverse()}
         userChapterViews={userChapterViews}

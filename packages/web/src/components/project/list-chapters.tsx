@@ -121,13 +121,14 @@ export const ListChapters = ({
           />
         ))}
         {additionalItems.map((item, itemIdx) => (
-          <ListItem
-            key={itemIdx}
-            href={item.href}
-            name={item.name}
-            symbol={item.symbol}
-            height={itemHeight}
-          />
+          <span key={itemIdx} className="opacity-50">
+            <ListItem
+              href={item.href}
+              name={item.name}
+              symbol={item.symbol}
+              height={itemHeight}
+            />
+          </span>
         ))}
       </section>
     </>

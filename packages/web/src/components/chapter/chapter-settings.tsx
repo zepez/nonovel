@@ -48,7 +48,7 @@ const IncrementalChange = ({
   };
 
   return (
-    <div className="mb-4 flex w-full select-none items-center justify-between">
+    <div className="flex items-center justify-between w-full mb-4 select-none">
       <Button
         variant="outline"
         disabled={stored[storedKey] <= min}
@@ -110,7 +110,7 @@ export const ChapterSettings = ({ className }: ChapterSettingsProps) => {
       <Popover>
         <PopoverTrigger className={cn(className)}>
           <MixerHorizontalIcon
-            className="m-2 hidden md:block"
+            className="hidden m-2 md:block"
             width="32"
             height="32"
           />
@@ -150,7 +150,7 @@ export const ChapterSettings = ({ className }: ChapterSettingsProps) => {
 
           <Button
             size="sm"
-            className="h-8 w-full text-xs"
+            className="w-full h-8 text-xs font-bold leading-tight uppercase"
             variant="contrast"
             onClick={() => setStored(defaultSettings)}
           >

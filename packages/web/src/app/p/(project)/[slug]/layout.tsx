@@ -129,7 +129,10 @@ export default async function ProjectLayout({
                 </div>
               </div>
 
-              <Blurb className="flex-grow mt-8" slug={params.slug} />
+              <Blurb
+                className="flex-grow mt-8 nn-text-secondary"
+                slug={params.slug}
+              />
               <div className="grid grid-cols-2 gap-8 mt-8">
                 <ButtonFollow
                   className="px-4 py-4 text-white border border-zinc-100/20 bg-zinc-950/40"

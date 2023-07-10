@@ -17,6 +17,7 @@ import {
   PopoverContent,
   PopoverTrigger,
 } from "~/components/ui/popover";
+import { ScrollArea } from "~/components/ui/scroll-area";
 
 interface DirectionalButtonProps {
   chapter: string | null;
@@ -66,26 +67,35 @@ const ChapterManifest = ({
 }: ChapterNavigationProps) => {
   return (
     <Popover>
-      <PopoverTrigger className={className}>
+      <PopoverTrigger className={cn(className, "nn-interactive")}>
         <HamburgerMenuIcon width={22} height={22} className="mr-3" /> Table of
         Contents
       </PopoverTrigger>
       <PopoverContent className="text-xs nn-bg-background">
-        <div className="flex flex-col divide-y nn-divide">
-          {manifest.map((c) => (
+        <ScrollArea className="h-[250px] rounded-md">
+          <div className="nn-divide flex min-h-[250px] flex-col divide-y">
+            {manifest.map((c) => (
+              <Link
+                key={c.id}
+                href={`/p/${project.slug}/chapters/${parseInt(c.order)}`}
+                className={cn(
+                  parseInt(chapter.order) == parseInt(c.order) &&
+                    "nn-bg-foreground",
+                  "nn-interactive p-2"
+                )}
+              >
+                Chapter {parseInt(c.order)} - {c.name.substring(0, 25)}...
+              </Link>
+            ))}
+            <div className="flex-grow" />
             <Link
-              key={c.id}
-              href={`/p/${project.slug}/chapters/${parseInt(c.order)}`}
-              className={cn(
-                parseInt(chapter.order) == parseInt(c.order) &&
-                  "nn-bg-foreground",
-                "nn-interactive p-2"
-              )}
+              className="flex items-center justify-center p-2 px-4 mx-2 mt-4 mb-2 text-xs font-bold leading-tight uppercase rounded-md nn-bg-contrast nn-interactive"
+              href={`/p/${project.slug}/chapters`}
             >
-              Chapter {parseInt(c.order)} - {c.name.substring(0, 25)}...
+              View all
             </Link>
-          ))}
-        </div>
+          </div>
+        </ScrollArea>
       </PopoverContent>
     </Popover>
   );
