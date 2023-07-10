@@ -1,22 +1,12 @@
-import { Skeleton } from "~/components/ui/skeleton";
-
-const Paragraph = ({ lines }: { lines: number }) => {
-  return (
-    <div className="mb-12">
-      {Array.from({ length: lines }, () => null).map((_, idx) => (
-        <Skeleton key={idx} className="my-4 h-[25px] w-full rounded-full" />
-      ))}
-    </div>
-  );
-};
+import { SkeletonParagraph } from "~/components/ui/skeleton-paragraph";
 
 export default function ChapterLoading() {
   return (
-    <div className="my-12">
-      <Paragraph lines={4} />
-      <Paragraph lines={4} />
-      <Paragraph lines={4} />
-      <Paragraph lines={4} />
+    <div className="my-12 space-y-12">
+      <SkeletonParagraph lines={4} height={6} />
+      <SkeletonParagraph lines={4} height={6} />
+      <SkeletonParagraph lines={4} height={6} />
+      <SkeletonParagraph lines={4} height={6} />
     </div>
   );
 }
