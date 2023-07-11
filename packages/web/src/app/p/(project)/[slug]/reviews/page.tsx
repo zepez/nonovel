@@ -46,11 +46,11 @@ export default async function ProjectReviewPage({
           reviews.map((review) => (
             <div
               key={review.id}
-              className="items-top nn-border nn-bg-background flex justify-start space-x-6 rounded-md p-4 sm:px-8 sm:py-6"
+              className="nn-border nn-bg-background flex items-start justify-start rounded-md p-4 sm:space-x-6 sm:px-8 sm:py-6"
             >
               <AspectImage
                 width={50}
-                className="flex-shrink-0"
+                className="hidden flex-shrink-0 sm:block"
                 src={review.user?.profile?.image ?? "/profile.png"}
                 alt={`${review.user?.profile?.username ?? ""} profile picture`}
               />

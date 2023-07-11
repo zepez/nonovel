@@ -5,6 +5,8 @@ import {
   upsertReviewPrepared,
   getReviewByIdsPrepared,
   getReviewPageByProjectIdPrepared,
+  getReviewTotalByProjectIdPrepared,
+  deleteReviewByIdPrepared,
 } from "../prepared";
 import { review as reviewValidator } from "@nonovel/validator";
 
@@ -96,4 +98,57 @@ export const getReviewPageByProjectId = async (
 
 export type GetReviewPageByProjectIdReturn = Awaited<
   ReturnType<typeof getReviewPageByProjectId>
+>;
+
+// ########################################################
+
+export interface GetReviewTotalByProjectIdOptions {
+  projectId: Review["projectId"];
+}
+
+export const getReviewTotalByProjectId = async (
+  opts: GetReviewTotalByProjectIdOptions
+) => {
+  const defaultValue = { count: 0, average: 0 };
+  try {
+    const parsed = reviewValidator.pick({ projectId: true }).parse(opts);
+
+    const query = await getReviewTotalByProjectIdPrepared.execute(parsed);
+    const result = query?.[0] ?? defaultValue;
+
+    return [null, result] as const;
+  } catch (err) {
+    const error = new ServerError("GetResourceError", err as ServerErrorType);
+    return [error, defaultValue] as const;
+  }
+};
+
+export type GetReviewTotalByProjectIdReturn = Awaited<
+  ReturnType<typeof getReviewTotalByProjectId>
+>;
+
+// ########################################################
+
+export interface DeleteReviewByIdOptions {
+  id: Review["id"];
+}
+
+export const deleteReviewById = async (opts: DeleteReviewByIdOptions) => {
+  try {
+    const parsed = reviewValidator.pick({ id: true }).parse(opts);
+
+    await deleteReviewByIdPrepared.execute(parsed);
+
+    return [null, null] as const;
+  } catch (err) {
+    const error = new ServerError(
+      "DeleteResourceError",
+      err as ServerErrorType
+    );
+    return [error, null] as const;
+  }
+};
+
+export type DeleteReviewByIdReturn = Awaited<
+  ReturnType<typeof deleteReviewById>
 >;

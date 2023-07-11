@@ -9,7 +9,7 @@ import { useForm } from "react-hook-form";
 import { review as reviewSchema } from "@nonovel/validator";
 import type { Review } from "@nonovel/db";
 
-import { doReview } from "~/actions";
+import { doReview, deleteReview } from "~/actions";
 import {
   Form,
   FormControl,
@@ -27,7 +27,7 @@ import { ReviewScore } from "~/components/project/review-score";
 interface EditReviewProps {
   projectId: Review["projectId"];
   userId?: Review["userId"];
-  review?: Pick<Review, "score" | "comment"> | null;
+  review?: Pick<Review, "id" | "score" | "comment"> | null;
 }
 
 const schema = reviewSchema.pick({
@@ -41,7 +41,8 @@ export type EditReviewSchema = z.infer<typeof schema>;
 
 export const EditReview = ({ userId, projectId, review }: EditReviewProps) => {
   const { toast } = useToast();
-  const [loading, setLoading] = useState<boolean>(false);
+  const [saving, setSaving] = useState<boolean>(false);
+  const [deleting, setDeleting] = useState<boolean>(false);
 
   const defaultSubmitText = review?.score ? "Update review" : "Submit review";
   const successVerb = review?.score ? "updated" : "submitted";
@@ -57,12 +58,12 @@ export const EditReview = ({ userId, projectId, review }: EditReviewProps) => {
   });
 
   const handleSubmit = async (values: EditReviewSchema) => {
-    setLoading(true);
+    setSaving(true);
     const [submitError] = await doReview({
       ...values,
       revalidate: window.location.pathname,
     });
-    setLoading(false);
+    setSaving(false);
 
     if (submitError) {
       console.error(submitError);
@@ -74,7 +75,33 @@ export const EditReview = ({ userId, projectId, review }: EditReviewProps) => {
 
     if (!submitError) {
       toast({
-        description: `Your reivew has been ${successVerb}.`,
+        description: `Your review has been ${successVerb}.`,
+      });
+    }
+  };
+
+  const handleDelete = async () => {
+    if (!review?.id || !userId) return;
+
+    setDeleting(true);
+    const [deleteError] = await deleteReview({
+      id: review.id,
+      userId,
+      revalidate: window.location.pathname,
+    });
+    setDeleting(false);
+
+    if (deleteError) {
+      console.error(deleteError);
+      form.setError("root.serverError", {
+        type: "submit",
+        message: deleteError.message,
+      });
+    }
+
+    if (!deleteError) {
+      toast({
+        description: "Your review has been deleted.",
       });
     }
   };
@@ -139,15 +166,29 @@ export const EditReview = ({ userId, projectId, review }: EditReviewProps) => {
           </div>
         )}
 
-        {/* submit */}
-        <Button
-          className="mt-8"
-          type="submit"
-          variant="primary"
-          disabled={loading}
-        >
-          {loading ? "Saving..." : defaultSubmitText}
-        </Button>
+        <div className="mt-2 flex flex-col-reverse flex-wrap items-center justify-between sm:flex-row">
+          {review?.id ? (
+            <Button
+              className="mt-3 w-full sm:w-auto"
+              type="button"
+              variant="destructive"
+              disabled={deleting}
+              onClick={handleDelete}
+            >
+              Delete review
+            </Button>
+          ) : null}
+          <div className="flex-grow" />
+          {/* submit */}
+          <Button
+            className="mt-3 w-full sm:w-auto"
+            type="submit"
+            variant="primary"
+            disabled={saving}
+          >
+            {saving ? "Saving..." : defaultSubmitText}
+          </Button>
+        </div>
       </form>
     </Form>
   );

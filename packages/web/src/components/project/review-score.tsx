@@ -4,14 +4,19 @@ import * as React from "react";
 import { Rating, RatingProps, ThinRoundedStar } from "@smastrom/react-rating";
 import { cn } from "~/lib/utils";
 
+interface ReviewScoreProps extends RatingProps {
+  hideHint?: boolean;
+  count?: number;
+}
+
 const defaultStyles = {
   itemShapes: ThinRoundedStar,
   activeFillColor: "rgb(252 211 77)",
   inactiveFillColor: "#FFFFFF",
 };
 
-export const ReviewScore = React.forwardRef<HTMLDivElement, RatingProps>(
-  ({ className, value, style, itemStyles, ...props }, ref) => {
+export const ReviewScore = React.forwardRef<HTMLDivElement, ReviewScoreProps>(
+  ({ className, value, style, itemStyles, count, hideHint, ...props }, ref) => {
     return (
       <div className="flex items-center">
         <Rating
@@ -22,7 +27,8 @@ export const ReviewScore = React.forwardRef<HTMLDivElement, RatingProps>(
           {...props}
           ref={ref}
         />
-        <p className="mt-3 text-xs font-bold sm:mt-4">({value}/5)</p>
+        {!hideHint && <p className="ml-1 text-xs font-bold">({value}/5)</p>}
+        {count && <p className="ml-1 text-xs font-bold">({count})</p>}
       </div>
     );
   }

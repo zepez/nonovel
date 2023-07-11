@@ -31,11 +31,11 @@ export const review = pgTable(
       .defaultNow()
       .notNull(),
   },
-  (f) => {
+  (r) => {
     return {
       uniqueReviewIds: uniqueIndex("unique_review_ids").on(
-        f.userId,
-        f.projectId
+        r.userId,
+        r.projectId
       ),
     };
   }

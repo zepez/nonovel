@@ -5,6 +5,8 @@ import {
   type GetReviewByIdsOptions,
   getReviewPageByProjectId as getReviewPageByProjectIdQuery,
   type GetReviewPageByProjectIdOptions,
+  getReviewTotalByProjectId as getReviewTotalByProjectIdQuery,
+  type GetReviewTotalByProjectIdOptions,
 } from "@nonovel/query";
 
 export const getReviewByIds = cache(
@@ -14,4 +16,9 @@ export const getReviewByIds = cache(
 export const getReviewPageByProjectId = cache(
   async (opts: GetReviewPageByProjectIdOptions) =>
     await getReviewPageByProjectIdQuery(opts)
+);
+
+export const getReviewTotalByProjectId = cache(
+  async (opts: GetReviewTotalByProjectIdOptions) =>
+    await getReviewTotalByProjectIdQuery(opts)
 );

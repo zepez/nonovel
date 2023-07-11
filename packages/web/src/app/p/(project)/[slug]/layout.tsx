@@ -8,9 +8,10 @@ import {
   getFollowStatusByIds,
   getTotalViewCountByProjectId,
   getUserChapterViewsByProjectId,
+  getReviewTotalByProjectId,
 } from "~/lib/request";
 import { LayoutWrapper, AspectImage } from "~/components/shared";
-import { ButtonFollow, Blurb } from "~/components/project";
+import { ButtonFollow, Blurb, ReviewScore } from "~/components/project";
 import { summarizeNumber } from "~/lib/number";
 import { toTitleCase, naturalListJoin } from "~/lib/string";
 
@@ -47,6 +48,10 @@ export default async function ProjectLayout({
   });
 
   const [, viewCount] = await getTotalViewCountByProjectId({
+    projectId: project.id,
+  });
+
+  const [, reviewTotal] = await getReviewTotalByProjectId({
     projectId: project.id,
   });
 
@@ -102,6 +107,17 @@ export default async function ProjectLayout({
                 {formatDistanceToNow(latest.createdAt, { addSuffix: true })}
               </p>
 
+              <div className="flex items-center">
+                <ReviewScore
+                  readOnly
+                  value={reviewTotal.average}
+                  style={{ maxWidth: 175 }}
+                  className="mt-4"
+                  hideHint
+                  count={reviewTotal.count}
+                />
+              </div>
+
               <div className="nn-divide mt-8 grid w-auto grid-cols-2 gap-4 sm:grid-cols-4 sm:divide-x">
                 <div className="pl-4">
                   <p className="text-xs">Chapters</p>
@@ -110,7 +126,7 @@ export default async function ProjectLayout({
                   </p>
                 </div>
                 <div className="pl-4">
-                  <p className="text-xs">Total Views</p>
+                  <p className="text-xs">Views</p>
                   <p className="mt-2 text-xl font-bold leading-tight">
                     {summarizeNumber(viewCount)}
                   </p>
@@ -122,20 +138,19 @@ export default async function ProjectLayout({
                   </p>
                 </div>
                 <div className="pl-4">
-                  <p className="text-xs">Status</p>
+                  <p className="text-xs">Reviews</p>
                   <p className="mt-2 text-xl font-bold leading-tight">
-                    {toTitleCase(project.progress)}
+                    {summarizeNumber(reviewTotal.count)}
                   </p>
                 </div>
               </div>
-
               <Blurb
                 className="nn-text-secondary mt-8 flex-grow"
                 slug={params.slug}
               />
-              <div className="mt-8 grid grid-cols-2 gap-8">
+              <div className="mt-8 flex flex-wrap gap-4">
                 <ButtonFollow
-                  className="border border-zinc-100/20 bg-zinc-950/40 px-4 py-4 text-white"
+                  className="nn-border flex-grow border bg-zinc-950/40 px-4 py-4 text-white"
                   followId={follow?.id}
                   userId={session?.user?.id}
                   projectId={project.id}
@@ -143,7 +158,7 @@ export default async function ProjectLayout({
                 />
                 <Link
                   href={readButton.href}
-                  className="nn-interactive nn-bg-primary rounded-md border border-zinc-100/10 px-4 py-4 text-center text-sm font-semibold leading-tight"
+                  className="nn-interactive nn-bg-primary flex-grow rounded-md border border-zinc-100/10 px-4 py-4 text-center text-sm font-semibold leading-tight"
                 >
                   {readButton.text}
                 </Link>
@@ -153,22 +168,22 @@ export default async function ProjectLayout({
         </div>
       </div>
       <LayoutWrapper className="nn-bg-foreground rounded-b-md py-12 md:px-16 lg:px-16">
-        <nav className="grid grid-cols-3 gap-4 text-center text-xs font-bold leading-tight">
+        <nav className="flex flex-col gap-4 text-center text-xs font-bold leading-tight sm:flex-row">
           <Link
             href={`/p/${project.slug}`}
-            className="nn-bg-background nn-interactive nn-border rounded-md py-3"
+            className="nn-bg-background nn-interactive nn-border flex-grow rounded-md py-3"
           >
             ABOUT
           </Link>
           <Link
             href={`/p/${project.slug}/reviews`}
-            className="nn-bg-background nn-interactive nn-border rounded-md py-3"
+            className="nn-bg-background nn-interactive nn-border flex-grow rounded-md py-3"
           >
             REVIEWS
           </Link>
           <Link
             href={`/p/${project.slug}/chapters`}
-            className="nn-bg-background nn-interactive nn-border rounded-md py-3"
+            className="nn-bg-background nn-interactive nn-border flex-grow rounded-md py-3"
           >
             CHAPTERS
           </Link>

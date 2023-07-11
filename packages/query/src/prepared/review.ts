@@ -1,5 +1,5 @@
 import { db, review } from "@nonovel/db";
-import { placeholder } from "drizzle-orm";
+import { placeholder, sql, eq } from "drizzle-orm";
 
 export const upsertReviewPrepared = db
   .insert(review)
@@ -26,6 +26,7 @@ export const getReviewByIdsPrepared = db.query.review
         eq(review.userId, placeholder("userId"))
       ),
     columns: {
+      id: true,
       score: true,
       comment: true,
     },
@@ -60,3 +61,17 @@ export const getReviewPageByProjectIdPrepared = db.query.review
     },
   })
   .prepare("get_review_page_by_project_id_prepared");
+
+export const getReviewTotalByProjectIdPrepared = db
+  .select({
+    count: sql<number>`count(score)`,
+    average: sql<number>`COALESCE(ROUND(AVG(score)::numeric, 1), 0)`,
+  })
+  .from(review)
+  .where(eq(review.projectId, placeholder("projectId")))
+  .prepare("get_review_total_by_project_id_prepared");
+
+export const deleteReviewByIdPrepared = db
+  .delete(review)
+  .where(eq(review.id, placeholder("id")))
+  .prepare("delete_review_by_id_prepared");
