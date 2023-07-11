@@ -5,7 +5,7 @@ import { LayoutFooter, ThemeProvider } from "~/components/shared";
 import { Toaster } from "~/components/ui/toaster";
 import { Skeleton } from "~/components/ui/skeleton";
 
-import "@fontsource/inknut-antiqua";
+import "@smastrom/react-rating/style.css";
 import "../globals.css";
 
 const inter = Inter({ subsets: ["latin"] });

@@ -31,3 +31,32 @@ export const getReviewByIdsPrepared = db.query.review
     },
   })
   .prepare("get_review_by_ids_prepared");
+
+export const getReviewPageByProjectIdPrepared = db.query.review
+  .findMany({
+    where: (review, { eq }) => eq(review.projectId, placeholder("projectId")),
+    limit: placeholder("limit"),
+    offset: placeholder("offset"),
+    columns: {
+      id: true,
+      score: true,
+      comment: true,
+    },
+    with: {
+      user: {
+        columns: {
+          id: true,
+        },
+        with: {
+          profile: {
+            columns: {
+              id: true,
+              username: true,
+              image: true,
+            },
+          },
+        },
+      },
+    },
+  })
+  .prepare("get_review_page_by_project_id_prepared");

@@ -19,10 +19,10 @@ import {
   FormLabel,
   FormMessage,
 } from "~/components/ui/form";
-import { Input } from "~/components/ui/input";
 import { Textarea } from "~/components/ui/textarea";
 import { Button } from "~/components/ui/button";
 import { useToast } from "~/components/ui/use-toast";
+import { ReviewScore } from "~/components/project/review-score";
 
 interface EditReviewProps {
   projectId: Review["projectId"];
@@ -51,7 +51,7 @@ export const EditReview = ({ userId, projectId, review }: EditReviewProps) => {
     defaultValues: {
       userId,
       projectId,
-      score: review?.score ?? 0,
+      score: review?.score ?? 5,
       comment: review?.comment ?? "",
     },
   });
@@ -83,7 +83,7 @@ export const EditReview = ({ userId, projectId, review }: EditReviewProps) => {
     return (
       <Link
         href="/api/auth/signin"
-        className="block p-4 text-center rounded-md nn-interactive nn-bg-background nn-border nn-text-secondary"
+        className="nn-interactive nn-bg-background nn-border nn-text-secondary block rounded-md p-4 text-center"
       >
         Login to submit your own review.
       </Link>
@@ -96,14 +96,14 @@ export const EditReview = ({ userId, projectId, review }: EditReviewProps) => {
         <FormField
           control={form.control}
           name="score"
-          render={({ field }) => (
-            <FormItem>
-              <FormLabel className="sr-only">Score</FormLabel>
-              <FormControl>
-                <Input placeholder="score" type="number" {...field} />
-              </FormControl>
-              <FormMessage />
-            </FormItem>
+          render={({ field: { onChange, onBlur, value } }) => (
+            <ReviewScore
+              value={value}
+              onChange={onChange}
+              onBlur={onBlur}
+              className="mb-1"
+              style={{ maxWidth: 175 }}
+            />
           )}
         />
 
@@ -115,7 +115,12 @@ export const EditReview = ({ userId, projectId, review }: EditReviewProps) => {
             <FormItem>
               <FormLabel className="sr-only">Comment</FormLabel>
               <FormControl>
-                <Textarea placeholder="I really liked..." {...field} rows={6} />
+                <Textarea
+                  className="nn-bg-background"
+                  placeholder="I really liked..."
+                  {...field}
+                  rows={6}
+                />
               </FormControl>
               <FormDescription>
                 Please provide a message explaining your review.
@@ -126,7 +131,7 @@ export const EditReview = ({ userId, projectId, review }: EditReviewProps) => {
         />
 
         {form.formState.errors.root?.serverError && (
-          <div className="p-4 bg-red-500 rounded-md">
+          <div className="rounded-md bg-red-500 p-4">
             <FormMessage className="text-white dark:text-white">
               Error: {form.formState.errors.root.serverError.message}. If the
               problem persists, please contact support.

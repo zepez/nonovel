@@ -26,11 +26,11 @@ NoNovel can only be used to read public domain books. There are no options to se
 - [ ] Service Account with email, password auth
 - [ ] Project tags (?)
 - [ ] Upload a lot of public domain books
+- [ ] Browse by category and ranking pages
+- [ ] Home and about pages
 - [ ] Report system (profile, project, chapter, comment)
 - [ ] Custom login / register / logout pages
 - [ ] Callback URL on successful login/register/logout
-- [ ] Browse by category and ranking pages
-- [ ] Home and about pages
 
 ### Phase 2
 

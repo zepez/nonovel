@@ -1,8 +1,12 @@
 import { notFound } from "next/navigation";
 import { getSession } from "~/lib/auth";
-import { getProjectBySlug, getReviewByIds } from "~/lib/request";
-import { SectionHeading } from "~/components/shared";
-import { EditReview } from "~/components/project";
+import {
+  getProjectBySlug,
+  getReviewByIds,
+  getReviewPageByProjectId,
+} from "~/lib/request";
+import { SectionHeading, AspectImage } from "~/components/shared";
+import { EditReview, ReviewScore } from "~/components/project";
 
 interface ProjectReviewPageProps {
   params: { slug: string };
@@ -13,12 +17,18 @@ export default async function ProjectReviewPage({
 }: ProjectReviewPageProps) {
   const [, session] = await getSession();
 
-  const [_projectErr, project] = await getProjectBySlug(params);
+  const [, project] = await getProjectBySlug(params);
   if (!project) notFound();
 
-  const [_reviewErr, review] = await getReviewByIds({
+  const [, review] = await getReviewByIds({
     userId: session?.user?.id,
     projectId: project.id,
+  });
+
+  const [, reviews] = await getReviewPageByProjectId({
+    projectId: project.id,
+    page: 1,
+    pageSize: 10,
   });
 
   return (
@@ -31,9 +41,38 @@ export default async function ProjectReviewPage({
       />
 
       <SectionHeading>All reviews</SectionHeading>
-      <div className="p-4 text-center rounded-md nn-bg-background nn-border nn-text-secondary">
-        This project does not have any reviews. Be the first to review it!
-      </div>
+      <section className="space-y-6">
+        {reviews?.length ? (
+          reviews.map((review) => (
+            <div
+              key={review.id}
+              className="items-top nn-border nn-bg-background flex justify-start space-x-6 rounded-md p-4 sm:px-8 sm:py-6"
+            >
+              <AspectImage
+                width={50}
+                className="flex-shrink-0"
+                src={review.user?.profile?.image ?? "/profile.png"}
+                alt={`${review.user?.profile?.username ?? ""} profile picture`}
+              />
+              <div>
+                <p className="text-md font-bold leading-tight">
+                  @{review.user?.profile?.username}
+                </p>
+                <ReviewScore
+                  className="my-3 text-xs"
+                  value={review.score}
+                  readOnly
+                />
+                <p className="whitespace-pre-wrap text-sm">{review.comment}</p>
+              </div>
+            </div>
+          ))
+        ) : (
+          <div className="nn-bg-background nn-border nn-text-secondary rounded-md p-4 text-center">
+            This project does not have any reviews. Be the first to review it!
+          </div>
+        )}
+      </section>
     </>
   );
 }
