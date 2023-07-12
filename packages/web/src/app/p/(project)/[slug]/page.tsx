@@ -28,10 +28,10 @@ export default async function ProjectPage({ params }: ProjectPageProps) {
   return (
     <>
       {userChapterViews?.length ? (
-        <div className="mt-12 mb-4">
+        <div className="mb-4 mt-12">
           <Link
             href={`/p/${project.slug}/chapters/${userChapterViews[0].chapter.order}`}
-            className="block w-full px-3 py-2 text-center border-dashed rounded-md nn-text-secondary nn-interactive nn-border"
+            className="nn-text-secondary nn-interactive nn-border block w-full rounded-md border-dashed px-3 py-2 text-center"
           >
             Resume reading chapter {userChapterViews[0].chapter.order}:{" "}
             {userChapterViews[0].chapter.name}
@@ -56,7 +56,7 @@ export default async function ProjectPage({ params }: ProjectPageProps) {
           <Link
             key={genre.id}
             href={`/browse/category/${genre.slug}`}
-            className="nn-interactive nn-bg-background nn-border mx-1 rounded-sm bg-zinc-950 p-[2px] px-3 py-1 text-sm"
+            className="nn-interactive nn-bg-background nn-border-50 mx-1 rounded-sm bg-zinc-950 px-4 py-2 text-xs font-bold uppercase leading-tight"
           >
             {genre.name.toLowerCase()}
           </Link>

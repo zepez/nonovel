@@ -111,8 +111,8 @@ export default async function ProjectLayout({
                 <ReviewScore
                   readOnly
                   value={reviewTotal.average}
-                  style={{ maxWidth: 175 }}
-                  className="mt-4"
+                  style={{ maxWidth: 150 }}
+                  className="mt-5"
                   hideHint
                   count={reviewTotal.count}
                 />
@@ -171,19 +171,19 @@ export default async function ProjectLayout({
         <nav className="flex flex-col gap-4 text-center text-xs font-bold leading-tight sm:flex-row">
           <Link
             href={`/p/${project.slug}`}
-            className="nn-bg-background nn-interactive nn-border flex-grow rounded-md py-3"
+            className="nn-bg-background nn-interactive nn-border-50 flex-grow rounded-md py-3"
           >
             ABOUT
           </Link>
           <Link
             href={`/p/${project.slug}/reviews`}
-            className="nn-bg-background nn-interactive nn-border flex-grow rounded-md py-3"
+            className="nn-bg-background nn-interactive nn-border-50 flex-grow rounded-md py-3"
           >
             REVIEWS
           </Link>
           <Link
             href={`/p/${project.slug}/chapters`}
-            className="nn-bg-background nn-interactive nn-border flex-grow rounded-md py-3"
+            className="nn-bg-background nn-interactive nn-border-50 flex-grow rounded-md py-3"
           >
             CHAPTERS
           </Link>

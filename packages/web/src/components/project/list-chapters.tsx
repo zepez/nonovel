@@ -28,8 +28,8 @@ const ListItem = ({ href, name, symbol, height, isRead }: ListItemProps) => {
         "nn-interactive flex items-center odd:bg-white dark:odd:bg-zinc-900"
       )}
     >
-      <div className="flex flex-shrink-0 w-12 mx-8 font-bold sm:w-14">
-        <div className="flex-shrink-0 w-4 mr-2">{isRead && "✔"}</div>
+      <div className="mx-8 flex w-12 flex-shrink-0 font-bold sm:w-14">
+        <div className="mr-2 w-4 flex-shrink-0">{isRead && "✔"}</div>
         <span className="">{symbol}</span>
       </div>
       <h3 className={cn(height ? `py-${height}` : "py-3", "flex-grow pr-4")}>
@@ -93,7 +93,7 @@ export const ListChapters = ({
 
   if (!chapters.length)
     return (
-      <div className="flex items-center justify-center h-32 rounded-md nn-bg-background">
+      <div className="nn-bg-background flex h-32 items-center justify-center rounded-md">
         <p className="nn-text-secondary">
           This novel does not have any chapters.
         </p>
@@ -104,7 +104,7 @@ export const ListChapters = ({
     <>
       {!disabledSearch && (
         <Input
-          className="w-full mb-8"
+          className="nn-bg-background mb-8 w-full"
           placeholder="Filter chapters"
           value={search}
           onChange={(e) => setSearch(e.target.value)}

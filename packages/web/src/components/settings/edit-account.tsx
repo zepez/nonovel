@@ -83,7 +83,11 @@ export const EditAccount = ({ session }: EditAccountProps) => {
             <FormItem>
               <FormLabel>Full Name</FormLabel>
               <FormControl>
-                <Input placeholder="name" {...field} />
+                <Input
+                  placeholder="name"
+                  className="nn-bg-background"
+                  {...field}
+                />
               </FormControl>
               <FormDescription>
                 This will not be publicly visible.
@@ -101,7 +105,12 @@ export const EditAccount = ({ session }: EditAccountProps) => {
             <FormItem>
               <FormLabel>Email</FormLabel>
               <FormControl>
-                <Input placeholder="email" readOnly {...field} />
+                <Input
+                  placeholder="email"
+                  className="nn-bg-background"
+                  readOnly
+                  {...field}
+                />
               </FormControl>
               <FormDescription>
                 This email will be used to send you important notifications and
@@ -113,7 +122,7 @@ export const EditAccount = ({ session }: EditAccountProps) => {
         />
 
         {form.formState.errors.root?.serverError && (
-          <div className="p-4 bg-red-500 rounded-md">
+          <div className="rounded-md bg-red-500 p-4">
             <FormMessage className="text-white dark:text-white">
               Error: {form.formState.errors.root.serverError.message}. If the
               problem persists, please contact support.

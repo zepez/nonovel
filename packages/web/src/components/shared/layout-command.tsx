@@ -14,6 +14,7 @@ import {
   CommandLoading,
   CommandSeparator,
 } from "~/components/ui/command";
+import { toTitleCase } from "~/lib/string";
 
 const suggestions = (router: ReturnType<typeof useRouter>) => [
   {
@@ -41,6 +42,8 @@ export const LayoutCommand = ({ open, setOpen }: LayoutCommandProps) => {
     NonNullable<GetOmniSearchResultReturn[1]>
   >([]);
 
+  const minQueryLength = 4;
+
   useEffect(() => {
     const down = (e: KeyboardEvent) => {
       if (e.key === "k" && e.metaKey) {
@@ -55,7 +58,7 @@ export const LayoutCommand = ({ open, setOpen }: LayoutCommandProps) => {
     async () => {
       if (!open) return;
 
-      if (query.length > 2) {
+      if (query.length >= minQueryLength) {
         const [, r] = await getSearch({ query });
         if (r) setResult(r);
       }
@@ -69,7 +72,7 @@ export const LayoutCommand = ({ open, setOpen }: LayoutCommandProps) => {
   const handleValueChange = (q: string) => {
     setQuery(q);
 
-    if (q.length > 2) {
+    if (q.length >= minQueryLength) {
       setLoading(true);
       setResult([]);
     }
@@ -101,41 +104,36 @@ export const LayoutCommand = ({ open, setOpen }: LayoutCommandProps) => {
         placeholder="Search for projects or actions"
       />
       <CommandList>
-        {/* no query */}
-        {!loading && !query && result.length === 0 && (
-          <p className="nn-text-secondary nn-border block p-4 text-center">
-            Search something!
-          </p>
-        )}
-
         {/* loading */}
         {loading && (
           <CommandLoading>
             <p className="nn-text-secondary nn-border block p-4 text-center">
-              Searching...
+              Searching for projects...
             </p>
           </CommandLoading>
         )}
 
         {/* no result */}
-        {!loading && query && result.length === 0 && (
+        {!loading && query.length >= minQueryLength && result.length === 0 && (
           <p className="nn-text-secondary nn-border block p-4 text-center">
             No projects found with query {query}.
           </p>
         )}
 
         {/* project results */}
-        <CommandGroup heading="Projects">
-          {result.map((r) => (
-            <CommandItem
-              key={`${r.type}/${r.slug}/${r.name}`}
-              value={`${r.type}/${r.slug}/${r.name}`}
-              onSelect={() => handleSelect(() => router.push(`/p/${r.slug}`))}
-            >
-              {r.name}
-            </CommandItem>
-          ))}
-        </CommandGroup>
+        {result.length > 0 && (
+          <CommandGroup heading="Projects">
+            {result.map((r) => (
+              <CommandItem
+                key={`${r.type}/${r.slug}/${r.name}`}
+                value={`${r.type}/${r.slug}/${r.name}`}
+                onSelect={() => handleSelect(() => router.push(`/p/${r.slug}`))}
+              >
+                {toTitleCase(r.name)}
+              </CommandItem>
+            ))}
+          </CommandGroup>
+        )}
 
         <CommandSeparator />
         <CommandGroup heading="Suggestions">

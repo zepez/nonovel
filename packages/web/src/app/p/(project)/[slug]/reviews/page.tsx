@@ -46,7 +46,7 @@ export default async function ProjectReviewPage({
           reviews.map((review) => (
             <div
               key={review.id}
-              className="nn-border nn-bg-background flex items-start justify-start rounded-md p-4 sm:space-x-6 sm:px-8 sm:py-6"
+              className="nn-border-50 nn-bg-background flex items-start justify-start rounded-md p-4 sm:space-x-6 sm:px-8 sm:py-6"
             >
               <AspectImage
                 width={50}

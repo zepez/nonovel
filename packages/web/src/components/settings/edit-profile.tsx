@@ -97,7 +97,11 @@ export const EditProfile = ({ session }: EditProfileProps) => {
             <FormItem>
               <FormLabel>Username</FormLabel>
               <FormControl>
-                <Input placeholder="username" {...field} />
+                <Input
+                  placeholder="username"
+                  className="nn-bg-background"
+                  {...field}
+                />
               </FormControl>
               <FormDescription>
                 Usernames must be unique and can only contain alphanumeric and
@@ -118,6 +122,7 @@ export const EditProfile = ({ session }: EditProfileProps) => {
               <FormControl>
                 <Input
                   placeholder="Link to any image"
+                  className="nn-bg-background"
                   {...field}
                   value={field.value ?? ""}
                 />
@@ -142,11 +147,11 @@ export const EditProfile = ({ session }: EditProfileProps) => {
                 value={field.value ?? undefined}
               >
                 <FormControl>
-                  <SelectTrigger>
+                  <SelectTrigger className="nn-bg-background">
                     <SelectValue placeholder="Choose a country" />
                   </SelectTrigger>
                 </FormControl>
-                <SelectContent className="w-64 h-64 sm:w-auto">
+                <SelectContent className="nn-bg-background h-64 w-64 sm:w-auto">
                   {Object.entries(locations).map(([code, name]) => (
                     <SelectItem key={code} value={code}>
                       {name}
@@ -163,7 +168,7 @@ export const EditProfile = ({ session }: EditProfileProps) => {
         />
 
         {form.formState.errors.root?.serverError && (
-          <div className="p-4 bg-red-500 rounded-md">
+          <div className="rounded-md bg-red-500 p-4">
             <FormMessage className="text-white dark:text-white">
               Error: {form.formState.errors.root.serverError.message}. If the
               problem persists, please contact support.
