@@ -1,10 +1,7 @@
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { getSession } from "~/lib/auth";
-import {
-  getProjectBySlug,
-  getUserChapterViewsByProjectId,
-} from "~/lib/request";
+import { getProjectBySlug, getChapterManifestByIds } from "~/lib/request";
 import { SectionHeading } from "~/components/shared";
 import { Blurb, ListChapters } from "~/components/project";
 
@@ -16,25 +13,29 @@ export default async function ProjectPage({ params }: ProjectPageProps) {
   const [, session] = await getSession();
   const { user } = session ?? {};
 
-  const [_projectErr, project] = await getProjectBySlug(params);
-
+  const [, project] = await getProjectBySlug(params);
   if (!project) notFound();
 
-  const [, userChapterViews] = await getUserChapterViewsByProjectId({
+  const [, manifest] = await getChapterManifestByIds({
     userId: user?.id,
     projectId: project.id,
   });
+  if (!manifest) notFound();
+
+  const latestChapterRead = manifest
+    .filter((item) => item.userChapterViews.length > 0)
+    .reverse()[0];
 
   return (
     <>
-      {userChapterViews?.length ? (
+      {latestChapterRead ? (
         <div className="mb-4 mt-12">
           <Link
-            href={`/p/${project.slug}/chapters/${userChapterViews[0].chapter.order}`}
+            href={`/p/${project.slug}/chapters/${latestChapterRead.order}`}
             className="nn-text-secondary nn-interactive nn-border block w-full rounded-md border-dashed px-3 py-2 text-center"
           >
-            Resume reading chapter {userChapterViews[0].chapter.order}:{" "}
-            {userChapterViews[0].chapter.name}
+            Resume reading chapter {latestChapterRead.order}:{" "}
+            {latestChapterRead.name}
           </Link>
         </div>
       ) : null}
@@ -65,8 +66,7 @@ export default async function ProjectPage({ params }: ProjectPageProps) {
 
       <SectionHeading>Recent Chapters</SectionHeading>
       <ListChapters
-        chapters={project.chapters.slice(-3).reverse()}
-        userChapterViews={userChapterViews}
+        chapters={manifest.slice(-3).reverse()}
         disabledSearch
         itemHeight={1}
         projectSlug={project.slug}

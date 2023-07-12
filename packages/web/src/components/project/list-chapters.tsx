@@ -2,10 +2,7 @@
 
 import { useState, useEffect } from "react";
 import Link from "next/link";
-import type {
-  GetProjectBySlugReturn,
-  GetUserChapterViewsByProjectIdReturn,
-} from "@nonovel/query";
+import type { GetChapterManifestByIdsReturn } from "@nonovel/query";
 
 import { cn } from "~/lib/utils";
 import { toTitleCase } from "~/lib/string";
@@ -39,49 +36,33 @@ const ListItem = ({ href, name, symbol, height, isRead }: ListItemProps) => {
   );
 };
 
-interface AdditionItemProps {
-  href: string;
-  name: string;
-  symbol: string;
-}
-
-type extendedChapter = NonNullable<GetProjectBySlugReturn[1]>["chapters"][0] & {
-  isRead?: boolean;
-};
-
 interface ListChaptersProps {
   className?: string;
-  chapters: extendedChapter[];
-  userChapterViews: GetUserChapterViewsByProjectIdReturn[1];
+  chapters: NonNullable<GetChapterManifestByIdsReturn[1]>;
   projectSlug: string;
   disabledSearch?: boolean;
   itemHeight?: string | number;
-  additionalItems?: AdditionItemProps[];
+  additionalItems?: {
+    href: string;
+    name: string;
+    symbol: string;
+  }[];
 }
 
 export const ListChapters = ({
   className,
   chapters,
-  userChapterViews = [],
   projectSlug,
   disabledSearch,
   itemHeight,
   additionalItems = [],
 }: ListChaptersProps) => {
-  const processedChapters = chapters.map((chapter) => {
-    const isRead = userChapterViews?.some(
-      (view) => view.chapterId === chapter.id
-    );
-
-    return { ...chapter, isRead: !!isRead };
-  });
-
-  const [list, setList] = useState(processedChapters);
+  const [list, setList] = useState(chapters);
   const [search, setSearch] = useState("");
 
   useEffect(() => {
     const searchRegex = new RegExp(search, "i");
-    const filteredChapters = processedChapters.filter(
+    const filteredChapters = chapters.filter(
       (chapter) =>
         searchRegex.test(chapter.name) ||
         searchRegex.test(chapter.order.toString())
@@ -118,7 +99,7 @@ export const ListChapters = ({
             name={chapter.name}
             symbol={chapter.order}
             height={itemHeight}
-            isRead={chapter.isRead}
+            isRead={chapter.userChapterViews.length > 0}
           />
         ))}
         {additionalItems.map((item, itemIdx) => (

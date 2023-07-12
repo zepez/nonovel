@@ -1,8 +1,8 @@
-import type { Project, Chapter } from "@nonovel/db";
+import type { Project, Chapter, User } from "@nonovel/db";
 import { ServerError, ServerErrorType } from "@nonovel/lib";
 import {
   getChapterBySlugAndOrderPrepared,
-  getChapterManifestByProjectIdPrepared,
+  getChapterManifestByIdsPrepared,
 } from "../prepared";
 import {
   project as projectValidator,
@@ -39,18 +39,25 @@ export type GetChapterBySlugAndOrderReturn = Awaited<
 
 // ########################################
 
-export interface GetChapterManifestByProjectIdOptions {
+export interface GetChapterManifestByIdsOptions {
   projectId: Chapter["projectId"];
+  userId?: User["id"];
 }
 
-export const getChapterManifestByProjectId = async (
-  opts: GetChapterManifestByProjectIdOptions
+export const getChapterManifestByIds = async (
+  opts: GetChapterManifestByIdsOptions
 ) => {
   try {
-    const parsed = chapterValidator.pick({ projectId: true }).parse(opts);
+    const { projectId } = chapterValidator
+      .pick({ projectId: true })
+      .parse(opts);
+    const { userId = null } = opts;
 
     const result =
-      (await getChapterManifestByProjectIdPrepared.execute(parsed)) ?? null;
+      (await getChapterManifestByIdsPrepared.execute({
+        projectId,
+        userId,
+      })) ?? null;
 
     return [null, result] as const;
   } catch (err) {
@@ -59,6 +66,6 @@ export const getChapterManifestByProjectId = async (
   }
 };
 
-export type GetChapterManifestByProjectIdReturn = Awaited<
-  ReturnType<typeof getChapterManifestByProjectId>
+export type GetChapterManifestByIdsReturn = Awaited<
+  ReturnType<typeof getChapterManifestByIds>
 >;

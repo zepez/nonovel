@@ -35,15 +35,6 @@ export const getProjectBySlugPrepared = db.query.project
           },
         },
       },
-      chapters: {
-        orderBy: (chapters, { asc }) => [asc(chapters.order)],
-        columns: {
-          id: true,
-          name: true,
-          order: true,
-          createdAt: true,
-        },
-      },
     },
   })
   .prepare("get_project_by_slug_prepared");

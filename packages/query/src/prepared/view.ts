@@ -38,25 +38,3 @@ export const getTotalChapterViewCountByProjectIdPrepared = db
     ) AS total_views`
   )
   .prepare("get_total_chapter_view_count_by_project_id_prepared");
-
-export const getUserChapterViewsByProjectIdPrepared = db.query.userChapterView
-  .findMany({
-    orderBy: (userChapterView, { desc }) => [desc(userChapterView.createdAt)],
-    where: (userChapterView, { eq, and }) =>
-      and(
-        eq(userChapterView.projectId, placeholder("projectId")),
-        eq(userChapterView.userId, placeholder("userId"))
-      ),
-    columns: {
-      chapterId: true,
-    },
-    with: {
-      chapter: {
-        columns: {
-          order: true,
-          name: true,
-        },
-      },
-    },
-  })
-  .prepare("get_user_chapter_views_by_project_id_prepared");

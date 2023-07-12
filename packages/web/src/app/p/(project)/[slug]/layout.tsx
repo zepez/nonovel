@@ -7,8 +7,8 @@ import {
   getFollowCountByProjectId,
   getFollowStatusByIds,
   getTotalViewCountByProjectId,
-  getUserChapterViewsByProjectId,
   getReviewTotalByProjectId,
+  getChapterManifestByIds,
 } from "~/lib/request";
 import { LayoutWrapper, AspectImage } from "~/components/shared";
 import {
@@ -35,15 +35,15 @@ export default async function ProjectLayout({
   const { user } = session ?? {};
 
   const [, project] = await getProjectBySlug(params);
-
   if (!project) notFound();
 
-  const [, follow] = await getFollowStatusByIds({
+  const [, manifest] = await getChapterManifestByIds({
     userId: user?.id,
     projectId: project.id,
   });
+  if (!manifest) notFound();
 
-  const [, userChapterViews] = await getUserChapterViewsByProjectId({
+  const [, follow] = await getFollowStatusByIds({
     userId: user?.id,
     projectId: project.id,
   });
@@ -60,17 +60,21 @@ export default async function ProjectLayout({
     projectId: project.id,
   });
 
-  const latest = project.chapters[project.chapters.length - 1];
   const authors = project.users.filter((user) => user.role === "author");
 
-  const readButton = userChapterViews?.length
+  const latestChapter = manifest[manifest.length - 1];
+  const latestChapterRead = manifest
+    .filter((item) => item.userChapterViews.length > 0)
+    .reverse()[0];
+
+  const readButton = latestChapterRead
     ? {
         text: "CONTINUE READING",
-        href: `/p/${project.slug}/chapters/${userChapterViews[0].chapter.order}`,
+        href: `/p/${project.slug}/chapters/${latestChapterRead.order}`,
       }
     : {
         text: "START READING",
-        href: `/p/${project.slug}/chapters/${project.chapters[0].order}`,
+        href: `/p/${project.slug}/chapters/${manifest[0].order}`,
       };
 
   return (
@@ -109,7 +113,9 @@ export default async function ProjectLayout({
               </p>
               <p className="nn-text-secondary mt-1">
                 Updated{" "}
-                {formatDistanceToNow(latest.createdAt, { addSuffix: true })}
+                {formatDistanceToNow(latestChapter.createdAt, {
+                  addSuffix: true,
+                })}
               </p>
 
               <div className="flex items-center">
@@ -127,7 +133,7 @@ export default async function ProjectLayout({
                 <div className="pl-4">
                   <p className="text-xs">Chapters</p>
                   <p className="mt-2 text-xl font-bold leading-tight">
-                    {summarizeNumber(project.chapters.length)}
+                    {summarizeNumber(manifest.length)}
                   </p>
                 </div>
                 <div className="pl-4">

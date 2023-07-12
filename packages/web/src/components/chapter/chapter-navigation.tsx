@@ -9,7 +9,7 @@ import {
 
 import type {
   GetChapterBySlugAndOrderReturn,
-  GetChapterManifestByProjectIdReturn,
+  GetChapterManifestByIdsReturn,
 } from "@nonovel/query";
 import { cn } from "~/lib/utils";
 import {
@@ -56,7 +56,7 @@ interface ChapterNavigationProps {
   className?: string;
   project: NonNullable<GetChapterBySlugAndOrderReturn[1]>;
   chapter: NonNullable<GetChapterBySlugAndOrderReturn[1]>["chapters"][0];
-  manifest: NonNullable<GetChapterManifestByProjectIdReturn[1]>;
+  manifest: NonNullable<GetChapterManifestByIdsReturn[1]>;
 }
 
 const ChapterManifest = ({
@@ -105,7 +105,7 @@ const ChapterManifest = ({
 interface ChapterNavigationProps {
   project: NonNullable<GetChapterBySlugAndOrderReturn[1]>;
   chapter: NonNullable<GetChapterBySlugAndOrderReturn[1]>["chapters"][0];
-  manifest: NonNullable<GetChapterManifestByProjectIdReturn[1]>;
+  manifest: NonNullable<GetChapterManifestByIdsReturn[1]>;
 }
 
 export const ChapterNavigation = ({

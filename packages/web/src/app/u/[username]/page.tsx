@@ -16,10 +16,9 @@ interface ProfilePageProps {
 }
 
 export default async function ProfilePage({ params }: ProfilePageProps) {
-  const [_, profile] = await getProfileByUsername({
+  const [, profile] = await getProfileByUsername({
     username: params.username,
   });
-
   if (!profile) notFound();
 
   const { projects } = profile.user;
@@ -28,11 +27,11 @@ export default async function ProfilePage({ params }: ProfilePageProps) {
     <>
       <div className="relative h-64 overflow-hidden">
         <div
-          className="absolute inset-0 w-full h-full bg-cover nn-bg-blurred"
+          className="nn-bg-blurred absolute inset-0 h-full w-full bg-cover"
           style={{ backgroundImage: `url(${profile.image ?? "/profile.png"})` }}
         />
       </div>
-      <LayoutWrapper className="relative flex flex-wrap items-end -mt-32 md:flex-nowrap">
+      <LayoutWrapper className="relative -mt-32 flex flex-wrap items-end md:flex-nowrap">
         <Image
           src={profile.image ?? "/profile.png"}
           alt="Profile picture"
@@ -40,7 +39,7 @@ export default async function ProfilePage({ params }: ProfilePageProps) {
           height={256}
           className="nn-bg-foreground mx-auto w-64 rounded-md border-4 border-[#FFFFFF] dark:border-[#121212] md:mx-0"
         />
-        <div className="w-full mt-8 text-center md:mb-2 md:ml-8 md:mt-0 md:w-auto md:text-left">
+        <div className="mt-8 w-full text-center md:mb-2 md:ml-8 md:mt-0 md:w-auto md:text-left">
           <h1 className="mb-4 text-2xl font-bold leading-tight md:text-5xl">
             <span className="mr-1 text-xl font-normal">@</span>
             {profile.username.toLowerCase()}
@@ -63,9 +62,9 @@ export default async function ProfilePage({ params }: ProfilePageProps) {
       <LayoutWrapper className="mt-8 md:mt-12">
         <p className="px-0 md:px-8">{profile.bio}</p>
       </LayoutWrapper>
-      <LayoutWrapper className="grid grid-cols-1 gap-6 mt-12 md:grid-cols-2">
+      <LayoutWrapper className="mt-12 grid grid-cols-1 gap-6 md:grid-cols-2">
         {!projects.length ? (
-          <div className="col-span-2 p-4 text-sm text-center rounded-md nn-bg-foreground">
+          <div className="nn-bg-foreground col-span-2 rounded-md p-4 text-center text-sm">
             @{profile.username} is not a part of any projects.
           </div>
         ) : null}
@@ -88,10 +87,10 @@ export default async function ProfilePage({ params }: ProfilePageProps) {
                   className="mr-4 aspect-[2/3] h-full rounded-md bg-zinc-500"
                 />
                 <div className="p-4">
-                  <h3 className="text-xl font-bold leading-tight line-clamp-1">
+                  <h3 className="line-clamp-1 text-xl font-bold leading-tight">
                     {toTitleCase(project.name)}
                   </h3>
-                  <p className="mt-1 mb-4 nn-text-secondary">
+                  <p className="nn-text-secondary mb-4 mt-1">
                     {toTitleCase(relation.role)}
                   </p>
                   <p className="nn-text-secondary line-clamp-2">

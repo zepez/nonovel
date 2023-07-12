@@ -3,8 +3,8 @@ import { cache } from "react";
 import {
   getChapterBySlugAndOrder as getChapterBySlugAndOrderQuery,
   type GetChapterBySlugAndOrderOptions,
-  getChapterManifestByProjectId as getChapterManifestByProjectIdQuery,
-  type GetChapterManifestByProjectIdOptions,
+  getChapterManifestByIds as getChapterManifestByIdsQuery,
+  type GetChapterManifestByIdsOptions,
 } from "@nonovel/query";
 
 export const getChapterBySlugAndOrder = cache(
@@ -12,7 +12,7 @@ export const getChapterBySlugAndOrder = cache(
     await getChapterBySlugAndOrderQuery(opts)
 );
 
-export const getChapterManifestByProjectId = cache(
-  async (opts: GetChapterManifestByProjectIdOptions) =>
-    await getChapterManifestByProjectIdQuery(opts)
+export const getChapterManifestByIds = cache(
+  async (opts: GetChapterManifestByIdsOptions) =>
+    await getChapterManifestByIdsQuery(opts)
 );

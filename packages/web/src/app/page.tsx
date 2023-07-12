@@ -1,7 +1,7 @@
 import { getSession } from "~/lib/auth";
 
 export default async function Home() {
-  const [_, session] = await getSession();
+  const [, session] = await getSession();
 
   const { user } = session ?? {};
 

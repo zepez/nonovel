@@ -42,7 +42,7 @@ const components: {
 ];
 
 export async function LayoutDesktopHeader() {
-  const [_, session] = await getSession();
+  const [, session] = await getSession();
 
   return (
     <div className="nn-bg-foreground nn-border-bottom">

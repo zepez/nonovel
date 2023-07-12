@@ -2,7 +2,7 @@ import Link from "next/link";
 
 import { cn } from "~/lib/utils";
 import { toTitleCase, naturalListJoin } from "~/lib/string";
-import { getProjectBySlug } from "~/lib/request";
+import { getProjectBySlug, getChapterManifestByIds } from "~/lib/request";
 
 interface BlurbProps {
   className?: string;
@@ -10,9 +10,13 @@ interface BlurbProps {
 }
 
 export const Blurb = async ({ className, slug }: BlurbProps) => {
-  const [_projectErr, project] = await getProjectBySlug({ slug });
-
+  const [, project] = await getProjectBySlug({ slug });
   if (!project) return null;
+
+  const [, manifest] = await getChapterManifestByIds({
+    projectId: project.id,
+  });
+  if (!manifest) return null;
 
   const authors = project.users
     .filter((user) => user.role === "author")
@@ -38,8 +42,8 @@ export const Blurb = async ({ className, slug }: BlurbProps) => {
           {naturalListJoin(authorIdx, authors.length)}
         </Link>
       ))}
-      . {project.chapters.length} chapters have been published so far, and more
-      are on the way.
+      . {manifest.length} chapters have been published so far, and more are on
+      the way.
     </div>
   );
 };
