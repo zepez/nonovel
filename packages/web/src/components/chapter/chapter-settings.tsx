@@ -48,9 +48,10 @@ const IncrementalChange = ({
   };
 
   return (
-    <div className="flex items-center justify-between w-full mb-4 select-none">
+    <div className="mb-4 flex w-full select-none items-center justify-between">
       <Button
-        variant="outline"
+        variant="secondary"
+        className="nn-border-50"
         disabled={stored[storedKey] <= min}
         onClick={() => setStoredKey(storedKey, stored[storedKey] - increment)}
       >
@@ -60,7 +61,8 @@ const IncrementalChange = ({
         {name}: {stored[storedKey]}
       </p>
       <Button
-        variant="outline"
+        variant="secondary"
+        className="nn-border-50"
         disabled={stored[storedKey] >= max}
         onClick={() => setStoredKey(storedKey, stored[storedKey] + increment)}
       >
@@ -110,7 +112,7 @@ export const ChapterSettings = ({ className }: ChapterSettingsProps) => {
       <Popover>
         <PopoverTrigger className={cn(className)}>
           <MixerHorizontalIcon
-            className="hidden m-2 md:block"
+            className="m-2 hidden md:block"
             width="32"
             height="32"
           />
@@ -119,7 +121,7 @@ export const ChapterSettings = ({ className }: ChapterSettingsProps) => {
             Text settings
           </div>
         </PopoverTrigger>
-        <PopoverContent>
+        <PopoverContent align="end">
           <IncrementalChange
             name="Font Size"
             storedKey="fontSize"
@@ -141,7 +143,7 @@ export const ChapterSettings = ({ className }: ChapterSettingsProps) => {
           <IncrementalChange
             name="Paragraph Spacing"
             storedKey="paragraphSpacing"
-            increment={0.25}
+            increment={0.5}
             stored={stored}
             setStored={setStored}
             min={1}
@@ -150,7 +152,7 @@ export const ChapterSettings = ({ className }: ChapterSettingsProps) => {
 
           <Button
             size="sm"
-            className="w-full h-8 text-xs font-bold leading-tight uppercase"
+            className="h-8 w-full text-xs font-bold uppercase leading-tight"
             variant="contrast"
             onClick={() => setStored(defaultSettings)}
           >

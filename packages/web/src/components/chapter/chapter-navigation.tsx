@@ -40,7 +40,7 @@ const DirectionalButton = ({
       <div
         className={cn(
           className,
-          chapter ? "nn-interactive" : "opacity-50",
+          chapter ? "nn-interactive" : "cursor-not-allowed opacity-50",
           "nn-bg-background nn-border flex w-full items-center justify-center px-8 py-3 text-center"
         )}
       >
@@ -71,7 +71,7 @@ const ChapterManifest = ({
         <HamburgerMenuIcon width={22} height={22} className="mr-3" /> Table of
         Contents
       </PopoverTrigger>
-      <PopoverContent className="text-xs nn-bg-background">
+      <PopoverContent align="end" className="nn-bg-background text-xs">
         <ScrollArea className="h-[250px] rounded-md">
           <div className="nn-divide flex min-h-[250px] flex-col divide-y">
             {manifest.map((c) => (
@@ -88,7 +88,7 @@ const ChapterManifest = ({
             ))}
             <div className="flex-grow" />
             <Link
-              className="flex items-center justify-center p-2 px-4 mx-2 mt-4 mb-2 text-xs font-bold leading-tight uppercase rounded-md nn-bg-contrast nn-interactive"
+              className="nn-bg-contrast nn-interactive mx-2 mb-2 mt-4 flex items-center justify-center rounded-md p-2 px-4 text-xs font-bold uppercase leading-tight"
               href={`/p/${project.slug}/chapters`}
             >
               View all
@@ -120,7 +120,7 @@ export const ChapterNavigation = ({
   return (
     <>
       {/* mobile */}
-      <nav className="grid grid-cols-1 gap-4 my-8 md:hidden">
+      <nav className="my-8 grid grid-cols-1 gap-4 md:hidden">
         <div className="grid grid-cols-2">
           <DirectionalButton
             chapter={previousChapter}
@@ -137,7 +137,7 @@ export const ChapterNavigation = ({
         </div>
 
         <ChapterManifest
-          className="flex items-center justify-center px-4 py-3 text-xs font-bold leading-tight uppercase rounded-md nn-bg-background nn-border"
+          className="nn-bg-background nn-border flex items-center justify-center rounded-md px-4 py-3 text-xs font-bold uppercase leading-tight"
           project={project}
           manifest={manifest}
           chapter={chapter}
@@ -145,7 +145,7 @@ export const ChapterNavigation = ({
       </nav>
 
       {/* desktop */}
-      <nav className="flex-wrap items-center justify-between hidden my-8 md:flex">
+      <nav className="my-8 hidden flex-wrap items-center justify-between md:flex">
         <DirectionalButton
           chapter={previousChapter}
           slug={project.slug}
@@ -154,7 +154,7 @@ export const ChapterNavigation = ({
         />
         <div className="flex flex-wrap items-center justify-center">
           <ChapterManifest
-            className="flex items-center justify-center px-4 py-3 text-xs font-bold leading-tight uppercase border-t border-b border-l nn-bg-background nn-border rounded-l-md"
+            className="nn-bg-background nn-border flex items-center justify-center rounded-l-md border-b border-l border-t px-4 py-3 text-xs font-bold uppercase leading-tight"
             project={project}
             manifest={manifest}
             chapter={chapter}

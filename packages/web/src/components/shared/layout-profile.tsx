@@ -53,7 +53,7 @@ export const LayoutProfile = ({ session }: LayoutProfileProps) => {
           height={32}
         />
       </DropdownMenuTrigger>
-      <DropdownMenuContent className="w-48">
+      <DropdownMenuContent align="end" className="w-48">
         <div className="p-1">
           {profileNavItems.map(({ title, href, icon }, itemIdx) => (
             <Link key={itemIdx} href={href}>

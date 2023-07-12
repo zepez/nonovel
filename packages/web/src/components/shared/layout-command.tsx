@@ -3,6 +3,15 @@
 import { useEffect, useState, type SetStateAction, type Dispatch } from "react";
 import { useRouter } from "next/navigation";
 import { useDebounce } from "react-use";
+import { useTheme } from "next-themes";
+import { useSession } from "next-auth/react";
+import {
+  MoonIcon,
+  SunIcon,
+  GearIcon,
+  ThickArrowRightIcon,
+  LockClosedIcon,
+} from "@radix-ui/react-icons";
 import type { GetOmniSearchResultReturn } from "@nonovel/query";
 import { getSearch } from "~/actions";
 import {
@@ -16,19 +25,6 @@ import {
 } from "~/components/ui/command";
 import { toTitleCase } from "~/lib/string";
 
-const suggestions = (router: ReturnType<typeof useRouter>) => [
-  {
-    name: "Settings",
-    value: "/settings/account",
-    action: (v: string) => router.push(v),
-  },
-  {
-    name: "Logout",
-    value: "/api/auth/signout",
-    action: (v: string) => router.push(v),
-  },
-];
-
 interface LayoutCommandProps {
   open: boolean;
   setOpen: Dispatch<SetStateAction<boolean>>;
@@ -36,13 +32,53 @@ interface LayoutCommandProps {
 
 export const LayoutCommand = ({ open, setOpen }: LayoutCommandProps) => {
   const router = useRouter();
+  const { data: session } = useSession();
+
+  const { setTheme, theme } = useTheme();
   const [query, setQuery] = useState("");
   const [loading, setLoading] = useState(false);
   const [result, setResult] = useState<
     NonNullable<GetOmniSearchResultReturn[1]>
   >([]);
 
-  const minQueryLength = 4;
+  const minQueryLength = 3;
+  const iconClass = "mr-2 py-[2px]";
+
+  const suggestions = [
+    {
+      name: `${theme === "dark" ? "Light" : "Dark"} Theme`,
+      value: theme === "dark" ? "light" : "dark",
+      action: (v: string) => setTheme(v),
+      icon:
+        theme === "dark" ? (
+          <SunIcon className={iconClass} />
+        ) : (
+          <MoonIcon className={iconClass} />
+        ),
+    },
+    session
+      ? {
+          name: "Logout",
+          value: "/api/auth/signout",
+          action: (v: string) => router.push(v),
+          icon: <ThickArrowRightIcon className={iconClass} />,
+        }
+      : {
+          name: "Login",
+          value: "/api/auth/signin",
+          action: (v: string) => router.push(v),
+          icon: <LockClosedIcon className={iconClass} />,
+        },
+  ];
+
+  if (session) {
+    suggestions.unshift({
+      name: "Settings",
+      value: "/settings/account",
+      action: (v: string) => router.push(v),
+      icon: <GearIcon className={iconClass} />,
+    });
+  }
 
   useEffect(() => {
     const down = (e: KeyboardEvent) => {
@@ -88,8 +124,8 @@ export const LayoutCommand = ({ open, setOpen }: LayoutCommandProps) => {
   };
 
   const handleSelect = (callback: () => void) => {
-    setOpen(false);
     callback();
+    setOpen(false);
   };
 
   return (
@@ -107,7 +143,7 @@ export const LayoutCommand = ({ open, setOpen }: LayoutCommandProps) => {
         {/* loading */}
         {loading && (
           <CommandLoading>
-            <p className="nn-text-secondary nn-border block p-4 text-center">
+            <p className="nn-text-secondary nn-border-bottom block p-4 text-center">
               Searching for projects...
             </p>
           </CommandLoading>
@@ -115,7 +151,7 @@ export const LayoutCommand = ({ open, setOpen }: LayoutCommandProps) => {
 
         {/* no result */}
         {!loading && query.length >= minQueryLength && result.length === 0 && (
-          <p className="nn-text-secondary nn-border block p-4 text-center">
+          <p className="nn-text-secondary nn-border-bottom block p-4 text-center">
             No projects found with query {query}.
           </p>
         )}
@@ -137,13 +173,13 @@ export const LayoutCommand = ({ open, setOpen }: LayoutCommandProps) => {
 
         <CommandSeparator />
         <CommandGroup heading="Suggestions">
-          {suggestions(router).map((s) => (
+          {suggestions.map((s) => (
             <CommandItem
               key={`suggestions/${s.value}/${s.name}`}
               value={`suggestions/${s.value}/${s.name}`}
               onSelect={() => handleSelect(() => s.action(s.value))}
             >
-              {s.name}
+              {s.icon} {s.name}
             </CommandItem>
           ))}
         </CommandGroup>

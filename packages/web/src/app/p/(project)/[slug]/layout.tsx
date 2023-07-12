@@ -11,7 +11,12 @@ import {
   getReviewTotalByProjectId,
 } from "~/lib/request";
 import { LayoutWrapper, AspectImage } from "~/components/shared";
-import { ButtonFollow, Blurb, ReviewScore } from "~/components/project";
+import {
+  ButtonFollow,
+  Blurb,
+  ReviewScore,
+  LayoutNavigation,
+} from "~/components/project";
 import { summarizeNumber } from "~/lib/number";
 import { toTitleCase, naturalListJoin } from "~/lib/string";
 
@@ -168,27 +173,7 @@ export default async function ProjectLayout({
         </div>
       </div>
       <LayoutWrapper className="nn-bg-foreground rounded-b-md py-12 md:px-16 lg:px-16">
-        <nav className="flex flex-col gap-4 text-center text-xs font-bold leading-tight sm:flex-row">
-          <Link
-            href={`/p/${project.slug}`}
-            className="nn-bg-background nn-interactive nn-border-50 flex-grow rounded-md py-3"
-          >
-            ABOUT
-          </Link>
-          <Link
-            href={`/p/${project.slug}/reviews`}
-            className="nn-bg-background nn-interactive nn-border-50 flex-grow rounded-md py-3"
-          >
-            REVIEWS
-          </Link>
-          <Link
-            href={`/p/${project.slug}/chapters`}
-            className="nn-bg-background nn-interactive nn-border-50 flex-grow rounded-md py-3"
-          >
-            CHAPTERS
-          </Link>
-        </nav>
-
+        <LayoutNavigation slug={project.slug} />
         {children}
       </LayoutWrapper>
     </>

@@ -1,4 +1,5 @@
 export * from "./aspect-image";
+export * from "./auth-provider";
 export * from "./background-emoji";
 export * from "./brand-icon";
 export * from "./country-code-emoji";

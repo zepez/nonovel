@@ -1,7 +1,7 @@
 import { Suspense } from "react";
 import { Inter } from "next/font/google";
 import { LayoutDesktopHeader } from "~/components/default";
-import { LayoutFooter, ThemeProvider } from "~/components/shared";
+import { LayoutFooter, ThemeProvider, AuthProvider } from "~/components/shared";
 import { Toaster } from "~/components/ui/toaster";
 import { Skeleton } from "~/components/ui/skeleton";
 
@@ -26,16 +26,18 @@ export default function RootLayout({ children }: RootLayoutProps) {
   return (
     <html lang="en" suppressHydrationWarning>
       <body className={inter.className}>
-        <ThemeProvider attribute="class" defaultTheme="dark" enableSystem>
-          <div className="flex min-h-screen flex-col">
-            <Suspense fallback={<Skeleton className="h-14 w-full" />}>
-              <LayoutDesktopHeader />
-            </Suspense>
-            <main className="flex-grow">{children}</main>
-            <LayoutFooter />
-          </div>
-          <Toaster />
-        </ThemeProvider>
+        <AuthProvider>
+          <ThemeProvider attribute="class" defaultTheme="dark" enableSystem>
+            <div className="flex min-h-screen flex-col">
+              <Suspense fallback={<Skeleton className="h-14 w-full" />}>
+                <LayoutDesktopHeader />
+              </Suspense>
+              <main className="flex-grow">{children}</main>
+              <LayoutFooter />
+            </div>
+            <Toaster />
+          </ThemeProvider>
+        </AuthProvider>
       </body>
     </html>
   );
