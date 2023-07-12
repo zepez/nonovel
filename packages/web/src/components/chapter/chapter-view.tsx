@@ -1,7 +1,7 @@
 "use client";
 
 import { useTimeoutFn } from "react-use";
-import { markViewed } from "~/actions/view";
+import { markViewed } from "~/actions";
 
 interface ChapterViewProps {
   delay: number;
