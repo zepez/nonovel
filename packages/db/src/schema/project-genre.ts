@@ -9,12 +9,10 @@ export const projectGenre = pgTable(
     id: uuid("id").defaultRandom().primaryKey(),
     projectId: uuid("project_id")
       .notNull()
-      .references(() => project.id)
-      .notNull(),
+      .references(() => project.id),
     genreId: uuid("genre_id")
       .notNull()
-      .references(() => genre.id)
-      .notNull(),
+      .references(() => genre.id),
 
     createdAt: timestamp("created_at", { withTimezone: true })
       .defaultNow()

@@ -9,12 +9,10 @@ export const follow = pgTable(
     id: uuid("id").defaultRandom().primaryKey(),
     userId: uuid("user_id")
       .notNull()
-      .references(() => user.id)
-      .notNull(),
+      .references(() => user.id),
     projectId: uuid("project_id")
       .notNull()
-      .references(() => project.id)
-      .notNull(),
+      .references(() => project.id),
     createdAt: timestamp("created_at", { withTimezone: true })
       .defaultNow()
       .notNull(),

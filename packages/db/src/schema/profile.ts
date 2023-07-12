@@ -20,8 +20,7 @@ export const profile = pgTable(
     countryCode: varchar("country_code", { length: 2 }),
     userId: uuid("user_id")
       .notNull()
-      .references(() => user.id)
-      .notNull(),
+      .references(() => user.id),
 
     createdAt: timestamp("created_at", { withTimezone: true })
       .defaultNow()

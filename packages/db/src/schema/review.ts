@@ -16,12 +16,10 @@ export const review = pgTable(
     id: uuid("id").defaultRandom().primaryKey(),
     userId: uuid("user_id")
       .notNull()
-      .references(() => user.id)
-      .notNull(),
+      .references(() => user.id),
     projectId: uuid("project_id")
       .notNull()
-      .references(() => project.id)
-      .notNull(),
+      .references(() => project.id),
     score: numberNumeric("score", { precision: 2, scale: 1 }).notNull(),
     comment: text("comment"),
     createdAt: timestamp("created_at", { withTimezone: true })

@@ -22,12 +22,10 @@ export const userProject = pgTable(
     id: uuid("id").defaultRandom().primaryKey(),
     projectId: uuid("project_id")
       .notNull()
-      .references(() => project.id)
-      .notNull(),
+      .references(() => project.id),
     userId: uuid("user_id")
       .notNull()
-      .references(() => user.id)
-      .notNull(),
+      .references(() => user.id),
     role: userProjectRole("role").default("author").notNull(),
     owner: boolean("owner").default(true).notNull(),
 

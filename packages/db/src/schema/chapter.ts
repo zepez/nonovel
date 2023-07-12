@@ -13,8 +13,7 @@ export const chapter = pgTable("chapter", {
   id: uuid("id").defaultRandom().primaryKey(),
   projectId: uuid("project_id")
     .notNull()
-    .references(() => project.id)
-    .notNull(),
+    .references(() => project.id),
   name: text("name").notNull(),
   order: numberNumeric("order", { precision: 9, scale: 3 }).notNull(),
   contentType: chapterContentType("content_type").default("html").notNull(),
