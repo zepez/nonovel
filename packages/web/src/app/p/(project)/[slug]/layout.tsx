@@ -10,7 +10,7 @@ import {
   getReviewTotalByProjectId,
   getChapterManifestByIds,
 } from "~/lib/request";
-import { LayoutWrapper, AspectImage } from "~/components/shared";
+import { LayoutWrapper, AspectImage, CommentLayout } from "~/components/shared";
 import {
   ButtonFollow,
   Blurb,
@@ -181,6 +181,7 @@ export default async function ProjectLayout({
       <LayoutWrapper className="nn-bg-foreground rounded-b-md py-12 md:px-16 lg:px-16">
         <LayoutNavigation slug={project.slug} />
         {children}
+        <CommentLayout resourceId={project.id} />
       </LayoutWrapper>
     </>
   );

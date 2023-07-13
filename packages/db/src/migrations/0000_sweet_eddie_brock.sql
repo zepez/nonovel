@@ -51,6 +51,17 @@ CREATE TABLE IF NOT EXISTS "chapter" (
 	"updated_at" timestamp with time zone DEFAULT now() NOT NULL
 );
 --> statement-breakpoint
+CREATE TABLE IF NOT EXISTS "comment" (
+	"id" uuid PRIMARY KEY DEFAULT gen_random_uuid() NOT NULL,
+	"resource_id" uuid NOT NULL,
+	"user_id" uuid,
+	"parent_id" uuid,
+	"reply_count" integer DEFAULT 0 NOT NULL,
+	"content" text NOT NULL,
+	"created_at" timestamp with time zone DEFAULT now() NOT NULL,
+	"updated_at" timestamp with time zone DEFAULT now() NOT NULL
+);
+--> statement-breakpoint
 CREATE TABLE IF NOT EXISTS "follow" (
 	"id" uuid PRIMARY KEY DEFAULT gen_random_uuid() NOT NULL,
 	"user_id" uuid NOT NULL,
@@ -103,7 +114,7 @@ CREATE TABLE IF NOT EXISTS "review" (
 	"user_id" uuid NOT NULL,
 	"project_id" uuid NOT NULL,
 	"score" numeric(2, 1) NOT NULL,
-	"comment" text,
+	"comment" text NOT NULL,
 	"created_at" timestamp with time zone DEFAULT now() NOT NULL,
 	"updated_at" timestamp with time zone DEFAULT now() NOT NULL
 );
@@ -155,6 +166,9 @@ CREATE TABLE IF NOT EXISTS "verification_token" (
 --> statement-breakpoint
 CREATE UNIQUE INDEX IF NOT EXISTS "unique_account_provider_provider_account_id" ON "account" ("provider","provider_account_id");--> statement-breakpoint
 CREATE INDEX IF NOT EXISTS "anon_view_project_index" ON "anon_chapter_view" ("project_id");--> statement-breakpoint
+CREATE INDEX IF NOT EXISTS "comment_user_id_index" ON "comment" ("user_id");--> statement-breakpoint
+CREATE INDEX IF NOT EXISTS "comment_resource_id_index" ON "comment" ("resource_id");--> statement-breakpoint
+CREATE INDEX IF NOT EXISTS "comment_parent_id_index" ON "comment" ("parent_id");--> statement-breakpoint
 CREATE UNIQUE INDEX IF NOT EXISTS "unique_follow_ids" ON "follow" ("user_id","project_id");--> statement-breakpoint
 CREATE UNIQUE INDEX IF NOT EXISTS "unique_genre_slug" ON "genre" ("slug");--> statement-breakpoint
 CREATE UNIQUE INDEX IF NOT EXISTS "unique_genre_name" ON "genre" ("name");--> statement-breakpoint

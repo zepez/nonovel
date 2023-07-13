@@ -68,7 +68,7 @@ export default async function ProjectReviewPage({
             </div>
           ))
         ) : (
-          <div className="nn-bg-background nn-border nn-text-secondary rounded-md p-4 text-center">
+          <div className="nn-bg-background nn-border nn-text-secondary rounded-md border p-4 text-center">
             This project does not have any reviews. Be the first to review it!
           </div>
         )}

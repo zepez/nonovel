@@ -32,7 +32,7 @@ export default async function ProjectPage({ params }: ProjectPageProps) {
         <div className="mb-4 mt-12">
           <Link
             href={`/p/${project.slug}/chapters/${latestChapterRead.order}`}
-            className="nn-text-secondary nn-interactive nn-border block w-full rounded-md border-dashed px-3 py-2 text-center"
+            className="nn-text-secondary nn-interactive nn-border block w-full rounded-md border border-dashed px-3 py-2 text-center"
           >
             Resume reading chapter {latestChapterRead.order}:{" "}
             {latestChapterRead.name}

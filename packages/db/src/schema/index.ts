@@ -1,6 +1,7 @@
 export * from "./account";
 export * from "./anon-chapter-view";
 export * from "./chapter";
+export * from "./comment";
 export * from "./follow";
 export * from "./genre";
 export * from "./profile";

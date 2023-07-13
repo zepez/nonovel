@@ -1,3 +1,4 @@
+export * from "./comments";
 export * from "./aspect-image";
 export * from "./auth-provider";
 export * from "./background-emoji";

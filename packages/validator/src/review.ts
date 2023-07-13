@@ -20,7 +20,9 @@ export const review = z.object({
         message: "Review scores can not be over 5.",
       })
   ),
-  comment: z.string().max(1000),
+  comment: z.string().max(1000, {
+    message: "Reviews can not exceed 1000 characters.",
+  }),
 
   createdAt: z.string().datetime(),
   updatedAt: z.string().datetime(),

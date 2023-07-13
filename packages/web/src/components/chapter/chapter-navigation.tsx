@@ -41,7 +41,7 @@ const DirectionalButton = ({
         className={cn(
           className,
           chapter ? "nn-interactive" : "cursor-not-allowed opacity-50",
-          "nn-bg-background nn-border flex w-full items-center justify-center px-8 py-3 text-center"
+          "nn-bg-background nn-border flex w-full items-center justify-center border px-8 py-3 text-center"
         )}
       >
         {icon}
@@ -120,7 +120,7 @@ export const ChapterNavigation = ({
   return (
     <>
       {/* mobile */}
-      <nav className="my-8 grid grid-cols-1 gap-4 md:hidden">
+      <nav className="grid grid-cols-1 gap-4 md:hidden">
         <div className="grid grid-cols-2">
           <DirectionalButton
             chapter={previousChapter}
@@ -145,7 +145,7 @@ export const ChapterNavigation = ({
       </nav>
 
       {/* desktop */}
-      <nav className="my-8 hidden flex-wrap items-center justify-between md:flex">
+      <nav className="hidden flex-wrap items-center justify-between md:flex">
         <DirectionalButton
           chapter={previousChapter}
           slug={project.slug}
@@ -154,7 +154,7 @@ export const ChapterNavigation = ({
         />
         <div className="flex flex-wrap items-center justify-center">
           <ChapterManifest
-            className="nn-bg-background nn-border flex items-center justify-center rounded-l-md border-b border-l border-t px-4 py-3 text-xs font-bold uppercase leading-tight"
+            className="nn-bg-background nn-border flex items-center justify-center rounded-l-md border border-b border-l border-t px-4 py-3 text-xs font-bold uppercase leading-tight"
             project={project}
             manifest={manifest}
             chapter={chapter}

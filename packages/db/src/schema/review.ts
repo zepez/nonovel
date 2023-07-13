@@ -21,7 +21,7 @@ export const review = pgTable(
       .notNull()
       .references(() => project.id),
     score: numberNumeric("score", { precision: 2, scale: 1 }).notNull(),
-    comment: text("comment"),
+    comment: text("comment").notNull(),
     createdAt: timestamp("created_at", { withTimezone: true })
       .defaultNow()
       .notNull(),

@@ -65,7 +65,7 @@
 }
 
 .nn-border {
-  @apply border border-zinc-300 dark:border-zinc-700;
+  @apply border-zinc-300 dark:border-zinc-700;
 }
 
 .nn-border-50 {

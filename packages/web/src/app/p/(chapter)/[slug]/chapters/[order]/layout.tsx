@@ -8,7 +8,7 @@ import {
 } from "~/lib/request";
 import { toTitleCase } from "~/lib/string";
 import { ChapterNavigation } from "~/components/chapter";
-import { LayoutWrapper, AspectImage } from "~/components/shared";
+import { LayoutWrapper, AspectImage, CommentLayout } from "~/components/shared";
 import { ChapterSettings, ChapterView } from "~/components/chapter";
 
 interface ChapterPageProps {
@@ -79,7 +79,7 @@ export default async function ChapterLayout({
           </LayoutWrapper>
         </div>
       </div>
-      <LayoutWrapper className="nn-bg-foreground rounded-b-md py-6 lg:px-16">
+      <LayoutWrapper className="nn-bg-foreground rounded-b-md py-12 lg:px-16">
         <ChapterNavigation
           project={project}
           chapter={chapter}
@@ -91,6 +91,7 @@ export default async function ChapterLayout({
           chapter={chapter}
           manifest={manifest}
         />
+        <CommentLayout resourceId={chapter.id} />
       </LayoutWrapper>
     </>
   );
