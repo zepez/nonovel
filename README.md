@@ -19,13 +19,14 @@ NoNovel can only be used to read public domain books. There are no options to se
 - [ ] Make header responsive
 - [x] Review system (project)
 - [x] Omni-search profiles by username and project by name (\* only projects for now.)
-- [ ] Comment system (profile, project, chapter)
-- [ ] Voting system (comment, review)
-- [ ] Reaction system (?) ()
+- [x] Comment system (profile, project, chapter)
 - [ ] Epub parsing library
 - [ ] Epub CLI
 - [ ] File uploading via UploadThing
 - [ ] Service Account with email, password auth
+- [ ] Comment editing and delete
+- [ ] Voting system (comment, review)
+- [ ] Reaction system (?) ()
 - [ ] Project tags (?)
 - [ ] Upload a lot of public domain books
 - [ ] Browse by category and ranking pages
