@@ -62,7 +62,7 @@ export default async function ProjectLayout({
 
   const authors = project.users.filter((user) => user.role === "author");
 
-  const latestChapter = manifest[manifest.length - 1];
+  const latestChapter = manifest[manifest.length - 1] ?? null;
   const latestChapterRead = manifest
     .filter((item) => item.userChapterViews.length > 0)
     .reverse()[0];
@@ -72,10 +72,12 @@ export default async function ProjectLayout({
         text: "CONTINUE READING",
         href: `/p/${project.slug}/chapters/${latestChapterRead.order}`,
       }
-    : {
+    : manifest[0]
+    ? {
         text: "START READING",
-        href: `/p/${project.slug}/chapters/${manifest[0].order}`,
-      };
+        href: `/p/${project.slug}/chapters/${manifest[0]?.order ?? 0}`,
+      }
+    : null;
 
   return (
     <>
@@ -97,7 +99,7 @@ export default async function ProjectLayout({
                 {toTitleCase(project.name)}
               </h1>
               <p className="text-sm">
-                By{" "}
+                {authors.length > 0 && "By "}
                 {authors.map(({ user }, relationIdx) => (
                   <>
                     <Link
@@ -113,9 +115,12 @@ export default async function ProjectLayout({
               </p>
               <p className="nn-text-secondary mt-1">
                 Updated{" "}
-                {formatDistanceToNow(latestChapter.createdAt, {
-                  addSuffix: true,
-                })}
+                {formatDistanceToNow(
+                  latestChapter?.createdAt ?? project.updatedAt,
+                  {
+                    addSuffix: true,
+                  }
+                )}
               </p>
 
               <div className="flex items-center">
@@ -167,12 +172,14 @@ export default async function ProjectLayout({
                   projectId={project.id}
                   projectName={toTitleCase(project.name)}
                 />
-                <Link
-                  href={readButton.href}
-                  className="nn-interactive nn-bg-primary flex-grow rounded-md border border-zinc-100/10 px-4 py-4 text-center text-sm font-semibold leading-tight"
-                >
-                  {readButton.text}
-                </Link>
+                {readButton && (
+                  <Link
+                    href={readButton.href}
+                    className="nn-interactive nn-bg-primary flex-grow rounded-md border border-zinc-100/10 px-4 py-4 text-center text-sm font-semibold leading-tight"
+                  >
+                    {readButton.text}
+                  </Link>
+                )}
               </div>
             </div>
           </LayoutWrapper>
