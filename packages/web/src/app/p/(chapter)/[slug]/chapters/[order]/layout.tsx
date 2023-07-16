@@ -67,10 +67,10 @@ export default async function ChapterLayout({
                   {toTitleCase(project.name)}
                 </Link>
                 <h1 className="mt-2 text-2xl font-bold leading-tight">
-                  {chapter.order} - {chapter.name}
+                  {chapter.name}
                 </h1>
                 <p className="nn-text-secondary mt-2">
-                  Uploaded{" "}
+                  #{chapter.order} | Uploaded{" "}
                   {formatDistanceToNow(chapter.createdAt, { addSuffix: true })}
                 </p>
               </div>

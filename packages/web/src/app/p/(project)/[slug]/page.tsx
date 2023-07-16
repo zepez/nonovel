@@ -2,7 +2,7 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import { getSession } from "~/lib/auth";
 import { getProjectBySlug, getChapterManifestByIds } from "~/lib/request";
-import { SectionHeading } from "~/components/shared";
+import { SectionEmpty, SectionHeading } from "~/components/shared";
 import { Blurb, ListChapters } from "~/components/project";
 
 interface ProjectPageProps {
@@ -32,10 +32,10 @@ export default async function ProjectPage({ params }: ProjectPageProps) {
         <div className="mb-4 mt-12">
           <Link
             href={`/p/${project.slug}/chapters/${latestChapterRead.order}`}
-            className="nn-text-secondary nn-interactive nn-border block w-full rounded-md border border-dashed px-3 py-2 text-center"
+            className="nn-text-secondary nn-interactive nn-border flex w-full items-center justify-between rounded-md border border-dashed px-3 py-2"
           >
-            Resume reading chapter {latestChapterRead.order}:{" "}
-            {latestChapterRead.name}
+            Resume reading {latestChapterRead.name}{" "}
+            <span className="mx-4 text-xs">#{latestChapterRead.order}</span>
           </Link>
         </div>
       ) : null}
@@ -52,32 +52,42 @@ export default async function ProjectPage({ params }: ProjectPageProps) {
       <SectionHeading>
         Genre{project.genres.length !== 1 ? "s" : ""}
       </SectionHeading>
-      <section className="flex">
-        {project.genres.map(({ genre }) => (
-          <Link
-            key={genre.id}
-            href={`/browse/category/${genre.slug}`}
-            className="nn-interactive nn-bg-background nn-border-50 mx-1 rounded-sm bg-zinc-950 px-4 py-2 text-xs font-bold uppercase leading-tight"
-          >
-            {genre.name.toLowerCase()}
-          </Link>
-        ))}
-      </section>
+      {project.genres.length > 0 ? (
+        <section className="flex">
+          {project.genres.map(({ genre }) => (
+            <Link
+              key={genre.id}
+              href={`/browse/category/${genre.slug}`}
+              className="nn-interactive nn-bg-background nn-border-50 mx-1 rounded-sm bg-zinc-950 px-4 py-2 text-xs font-bold uppercase leading-tight"
+            >
+              {genre.name.toLowerCase()}
+            </Link>
+          ))}
+        </section>
+      ) : (
+        <SectionEmpty className="nn-bg-background">
+          This project does not have any known genres, yet.
+        </SectionEmpty>
+      )}
 
-      <SectionHeading>Recent Chapters</SectionHeading>
-      <ListChapters
-        chapters={manifest.slice(-3).reverse()}
-        disabledSearch
-        itemHeight={1}
-        projectSlug={project.slug}
-        additionalItems={[
-          {
-            name: "View All",
-            href: `/p/${project.slug}/chapters`,
-            symbol: "...",
-          },
-        ]}
-      />
+      {project.progress !== "finished" && (
+        <>
+          <SectionHeading>Recent Chapters</SectionHeading>
+          <ListChapters
+            chapters={manifest.slice(-3).reverse()}
+            disabledSearch
+            itemHeight={1}
+            projectSlug={project.slug}
+            additionalItems={[
+              {
+                name: "View All",
+                href: `/p/${project.slug}/chapters`,
+                symbol: "...",
+              },
+            ]}
+          />
+        </>
+      )}
     </>
   );
 }

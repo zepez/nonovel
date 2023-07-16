@@ -164,9 +164,9 @@ export default async function ProjectLayout({
                 className="nn-text-secondary mt-8 flex-grow"
                 slug={params.slug}
               />
-              <div className="mt-8 flex flex-wrap gap-4">
+              <div className="mt-8 flex flex-wrap gap-4 sm:flex-nowrap">
                 <ButtonFollow
-                  className="nn-border flex-grow border bg-zinc-950/40 px-4 py-4 text-white"
+                  className="nn-border w-full border bg-zinc-950/40 px-4 py-4 text-white "
                   followId={follow?.id}
                   userId={session?.user?.id}
                   projectId={project.id}
@@ -175,7 +175,7 @@ export default async function ProjectLayout({
                 {readButton && (
                   <Link
                     href={readButton.href}
-                    className="nn-interactive nn-bg-primary flex-grow rounded-md border border-zinc-100/10 px-4 py-4 text-center text-sm font-semibold leading-tight"
+                    className="nn-interactive nn-bg-primary w-full rounded-md border border-zinc-100/10 px-4 py-4 text-center text-sm font-semibold leading-tight "
                   >
                     {readButton.text}
                   </Link>

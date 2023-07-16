@@ -20,18 +20,19 @@ const ListItem = ({ href, name, symbol, height, isRead }: ListItemProps) => {
   return (
     <Link
       href={href}
-      className={cn(
-        isRead ? "opacity-50" : "",
-        "nn-interactive flex items-center odd:bg-white dark:odd:bg-zinc-900"
-      )}
+      className="nn-interactive flex items-center odd:bg-white dark:odd:bg-zinc-900"
     >
-      <div className="mx-8 flex w-12 flex-shrink-0 font-bold sm:w-14">
-        <div className="mr-2 w-4 flex-shrink-0">{isRead && "✔"}</div>
-        <span className="">{symbol}</span>
-      </div>
-      <h3 className={cn(height ? `py-${height}` : "py-3", "flex-grow pr-4")}>
+      <span className="mx-4 w-8 text-center opacity-30">{isRead && "✔"}</span>
+      <h3
+        className={cn(
+          height ? `py-${height}` : "py-3",
+          isRead ? "opacity-50" : "opacity-100",
+          "flex-grow pr-4"
+        )}
+      >
         {toTitleCase(name)}
       </h3>
+      <span className="mx-4 text-xs opacity-30">#{symbol}</span>
     </Link>
   );
 };

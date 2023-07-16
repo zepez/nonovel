@@ -11,4 +11,5 @@ export * from "./layout-profile";
 export * from "./layout-command";
 export * from "./theme-switcher";
 export * from "./theme-provider";
+export * from "./section-empty";
 export * from "./section-heading";

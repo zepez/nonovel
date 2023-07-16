@@ -10,6 +10,7 @@ import type {
 import { getCommentReplies } from "~/actions";
 import { CommentEdit } from "./edit";
 import { CommentBody } from "./body";
+import { SectionEmpty } from "../section-empty";
 import { Button } from "~/components/ui/button";
 import { cn } from "~/lib/utils";
 
@@ -63,9 +64,9 @@ export const CommentThread = ({ parent }: CommentThreadProps) => {
       )}
 
       {loading && (
-        <div className="nn-border nn-text-secondary my-4 mr-6 mt-6 rounded-md border py-6 text-center sm:ml-12">
+        <SectionEmpty className="nn-bg-foreground sm:ml-12">
           Loading replies...
-        </div>
+        </SectionEmpty>
       )}
 
       <div className="mt-6">

@@ -20,10 +20,16 @@ NoNovel can only be used to read public domain books. There are no options to se
 - [x] Review system (project)
 - [x] Omni-search profiles by username and project by name (\* only projects for now.)
 - [x] Comment system (profile, project, chapter)
-- [ ] Epub parsing library
-- [ ] Epub CLI
-- [ ] File uploading via UploadThing
-- [ ] Service Account with email, password auth
+- [x] Epub parsing library
+- [x] Epub CLI
+- [ ] Clean up epub / cli packages
+- [ ] Split seeding script into fake and real data. Seed genres for real, make idempotent (pre-generate ids with ON CONFLICT)
+  - [ ] seed genres
+- [ ] Add genre support to the CLI
+- [ ] AI generated synopsis for public domain books?
+- [ ] AI selected genres for public domain books?
+- [ ] Compress + convert cover images to jpg before converting to base64
+- [ ] File uploading via UploadThing (\* base64 for project cover, uploadthing for profile pictures)
 - [ ] Comment editing and delete
 - [ ] Voting system (comment, review)
 - [ ] Reaction system (?) ()

@@ -48,8 +48,8 @@ export const ButtonFollow = ({
       setText("Error");
       toast({
         description: followId
-          ? "Unable to unfollow project. Please try again later."
-          : "Unable to follow project. Please try again later.",
+          ? "Unable to un-bookmark project. Please try again later."
+          : "Unable to bookmark project. Please try again later.",
       });
     }
 

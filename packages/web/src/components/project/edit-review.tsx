@@ -1,7 +1,6 @@
 "use client";
 
 import { useState } from "react";
-import Link from "next/link";
 import * as z from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
@@ -10,6 +9,7 @@ import { review as reviewSchema } from "@nonovel/validator";
 import type { Review } from "@nonovel/db";
 
 import { doReview, deleteReview } from "~/actions";
+import { SectionEmpty } from "~/components/shared";
 import {
   Form,
   FormControl,
@@ -108,12 +108,9 @@ export const EditReview = ({ userId, projectId, review }: EditReviewProps) => {
 
   if (!userId)
     return (
-      <Link
-        href="/api/auth/signin"
-        className="nn-interactive nn-bg-background nn-border nn-text-secondary block rounded-md p-4 text-center"
-      >
+      <SectionEmpty className="nn-bg-background" href="/api/auth/signin">
         Login to submit your own review.
-      </Link>
+      </SectionEmpty>
     );
 
   return (

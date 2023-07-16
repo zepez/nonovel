@@ -5,7 +5,7 @@ import {
   getReviewByIds,
   getReviewPageByProjectId,
 } from "~/lib/request";
-import { SectionHeading, AspectImage } from "~/components/shared";
+import { SectionHeading, AspectImage, SectionEmpty } from "~/components/shared";
 import { EditReview, ReviewScore } from "~/components/project";
 
 interface ProjectReviewPageProps {
@@ -68,9 +68,9 @@ export default async function ProjectReviewPage({
             </div>
           ))
         ) : (
-          <div className="nn-bg-background nn-border nn-text-secondary rounded-md border p-4 text-center">
+          <SectionEmpty className="nn-bg-background">
             This project does not have any reviews. Be the first to review it!
-          </div>
+          </SectionEmpty>
         )}
       </section>
     </>

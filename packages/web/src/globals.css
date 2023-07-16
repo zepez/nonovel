@@ -8,7 +8,7 @@
   --chapter-paragraph-spacing: 2rem 0px;
 }
 
-.nn-content-wrapper p {
+.nn-content-wrapper p, td, table {
   transition: all 0.25s;
   transition-timing-function: ease-in-out;
   font-size: var(--chapter-text-size);
@@ -17,7 +17,21 @@
 }
 
 .nn-content-wrapper p:not(:first-child):not(:last-child) {
+  transition: all 0.25s;
+  transition-timing-function: ease-in-out;
   margin: var(--chapter-paragraph-spacing);
+}
+
+.nn-content-wrapper table {
+  @apply py-4 border nn-border;
+}
+
+.nn-content-wrapper tr:nth-child(odd) {
+  @apply nn-bg-background;
+}
+
+.nn-content-wrapper td {
+  padding: 0.5rem 1rem;
 }
 
 *:focus {

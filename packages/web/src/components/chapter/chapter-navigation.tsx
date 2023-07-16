@@ -80,10 +80,11 @@ const ChapterManifest = ({
                 href={`/p/${project.slug}/chapters/${c.order}`}
                 className={cn(
                   chapter.order == c.order && "nn-bg-foreground",
-                  "nn-interactive p-2"
+                  "nn-interactive flex items-center justify-center p-2"
                 )}
               >
-                Chapter {c.order} - {c.name.substring(0, 25)}...
+                <span className="flex-grow">{c.name} </span>
+                <span className="mx-2 text-xs opacity-30">#{c.order}</span>
               </Link>
             ))}
             <div className="flex-grow" />

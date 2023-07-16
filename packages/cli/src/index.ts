@@ -72,7 +72,10 @@ program
     const deselectedChapters = await checkbox({
       message: "Select which chapters to EXCLUDE from the project",
       choices: epub.cleanedTocItemContent.map((c) => {
-        return { name: `${c.name} ${c.html.length} chars`, value: c };
+        return {
+          name: `${c.name.substring(0, 50)} ${c.html.length} chars`,
+          value: c,
+        };
       }),
     });
 
@@ -116,12 +119,7 @@ program
             ""
           ),
         }),
-        order: parseFloat(
-          await input({
-            message: "Chapter order",
-            default: idx.toString(),
-          })
-        ),
+        order: parseFloat(idx.toString()),
         content: chapter.html,
         contentType,
       });

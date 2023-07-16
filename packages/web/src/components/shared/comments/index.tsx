@@ -7,6 +7,7 @@ import { useSession } from "next-auth/react";
 import { getCommentPage } from "~/actions";
 import type { GetCommentPageByResourceIdReturn } from "@nonovel/query";
 import { SectionHeading } from "../section-heading";
+import { SectionEmpty } from "../section-empty";
 import { CommentEdit } from "./edit";
 import { CommentThread } from "./thread";
 
@@ -64,15 +65,15 @@ export const CommentLayout = ({ resourceId }: LayoutCommentsProps) => {
       )}
 
       {!hasBeenFetched && (
-        <div className="nn-text-secondary nn-bg-background nn-border w-full rounded-md border py-8 text-center">
-          <p>Loading comments...</p>
-        </div>
+        <SectionEmpty className="nn-bg-background">
+          Loading comments...
+        </SectionEmpty>
       )}
 
       {hasBeenFetched && comments.length === 0 && (
-        <div className="nn-text-secondary nn-bg-background nn-border w-full rounded-md border py-8 text-center">
-          <p>No comments yet.</p>
-        </div>
+        <SectionEmpty className="nn-bg-background">
+          No comments yet.
+        </SectionEmpty>
       )}
 
       <div className="space-y-8">
