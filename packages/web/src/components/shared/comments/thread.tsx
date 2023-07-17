@@ -43,14 +43,14 @@ export const CommentThread = ({ refresh, parent }: CommentThreadProps) => {
         refresh={refresh}
         user={{
           userId: parent.user?.id ?? "",
-          username: parent.user?.profile?.username ?? "",
+          username: parent.user?.profile?.username ?? "deleted",
           image: parent.user?.profile?.image ?? null,
         }}
         comment={parent}
       />
 
       {replies.length > 0 && (
-        <div className="mt-6 space-y-6">
+        <div className="mb-6 mt-4 space-y-6">
           {replies.map((reply) => (
             <CommentBody
               key={reply.id}
@@ -58,7 +58,7 @@ export const CommentThread = ({ refresh, parent }: CommentThreadProps) => {
               className="nn-border nn-bg-foreground rounded-r-md border-l-[10px] p-4 sm:ml-12"
               user={{
                 userId: reply.user?.id ?? "",
-                username: reply.user?.profile?.username ?? "",
+                username: reply.user?.profile?.username ?? "deleted",
                 image: reply.user?.profile?.image ?? null,
               }}
               comment={reply}
@@ -68,59 +68,57 @@ export const CommentThread = ({ refresh, parent }: CommentThreadProps) => {
       )}
 
       {loading && (
-        <div className="nn-border nn-bg-foreground mt-6 border-l-[10px] p-4 sm:ml-12">
+        <div className="nn-border nn-bg-foreground mt-4 border-l-[10px] p-4 sm:ml-12">
           Loading replies...
         </div>
       )}
 
-      <div className="mt-4">
-        <div className="flex flex-wrap items-center justify-start gap-2">
-          {parent.replyCount > 0 ? (
-            <>
-              {replies.length > 0 ? (
-                <Button size="sm" onClick={() => setReplies([])}>
-                  Hide replies
-                </Button>
-              ) : (
-                <Button size="sm" onClick={getReplies}>
-                  Show {parent.replyCount}{" "}
-                  {parent.replyCount === 1 ? "reply" : "replies"}
-                </Button>
-              )}
-            </>
-          ) : (
-            <p className="rounded-md bg-zinc-500/10 p-2 text-xs text-zinc-500/70">
-              No replies yet
-            </p>
-          )}
-          {userId && parent.id !== selectedId && (
-            <Button size="sm" onClick={() => setSelectedId(parent.id)}>
-              Reply
-            </Button>
-          )}
-        </div>
-
-        {userId && parent.id === selectedId && (
-          <div className="mt-3 pb-3">
-            <CommentEdit
-              refresh={async () => {
-                setSelectedId(null);
-                await getReplies();
-              }}
-              cancel={() => setSelectedId(null)}
-              background="nn-bg-foreground"
-              defaultSubmitText="Post reply"
-              actionText={["Posting", "Posted"]}
-              comment={{
-                resourceId: parent.resourceId,
-                userId,
-                parentId: parent.id,
-                content: "",
-              }}
-            />
-          </div>
+      <div className="mt-4 flex flex-wrap items-center justify-start gap-2">
+        {parent.replyCount > 0 ? (
+          <>
+            {replies.length > 0 ? (
+              <Button size="sm" onClick={() => setReplies([])}>
+                Hide replies
+              </Button>
+            ) : (
+              <Button size="sm" onClick={getReplies}>
+                Show {parent.replyCount}{" "}
+                {parent.replyCount === 1 ? "reply" : "replies"}
+              </Button>
+            )}
+          </>
+        ) : (
+          <p className="rounded-md bg-zinc-500/10 p-2 text-xs text-zinc-500/70">
+            No replies yet
+          </p>
+        )}
+        {userId && parent.id !== selectedId && (
+          <Button size="sm" onClick={() => setSelectedId(parent.id)}>
+            Reply
+          </Button>
         )}
       </div>
+
+      {userId && parent.id === selectedId && (
+        <div className="mt-4">
+          <CommentEdit
+            refresh={async () => {
+              setSelectedId(null);
+              await getReplies();
+            }}
+            cancel={() => setSelectedId(null)}
+            background="nn-bg-foreground"
+            defaultSubmitText="Post reply"
+            actionText={["Posting", "Posted"]}
+            comment={{
+              resourceId: parent.resourceId,
+              userId,
+              parentId: parent.id,
+              content: "",
+            }}
+          />
+        </div>
+      )}
     </div>
   );
 };

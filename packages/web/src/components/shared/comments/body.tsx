@@ -22,6 +22,7 @@ interface CommentNavButtonProps {
   className?: string;
   size?: number;
   Icon: typeof Pencil1Icon;
+  disabled?: boolean;
 }
 
 const CommentNavButton = ({
@@ -29,12 +30,14 @@ const CommentNavButton = ({
   className,
   Icon,
   size = 20,
+  disabled = false,
 }: CommentNavButtonProps) => {
   return (
     <Button
       variant="ghost"
       size="fluid"
       onClick={onClick}
+      disabled={disabled}
       className={cn("px-2", className)}
     >
       <Icon width={size} height={size} />
@@ -79,9 +82,9 @@ export const CommentBody = (props: CommentBodyProps) => {
           <p className="mb-1 text-sm font-bold leading-tight">
             @{props.user.username}
           </p>
-          <p className="nn-text-secondary text-xs">Posted {createdAt}</p>
+          <p className="nn-text-secondary text-xs">{createdAt}</p>
           {createdAt !== updatedAt && (
-            <p className="nn-text-secondary text-xs">Updated {updatedAt}</p>
+            <p className="nn-text-secondary text-xs">*Updated {updatedAt}</p>
           )}
         </div>
       </div>
@@ -91,7 +94,7 @@ export const CommentBody = (props: CommentBodyProps) => {
             setIsEditing(false);
             props.refresh();
           }}
-          deleteFn={() => console.log("comment delted")}
+          deleteFn={() => null}
           comment={{ ...props.comment, userId: props.user.userId }}
           background={
             props.comment.parentId ? "nn-bg-background" : "nn-bg-foreground"
@@ -106,9 +109,18 @@ export const CommentBody = (props: CommentBodyProps) => {
         </p>
       )}
       <div className="flex">
-        <CommentNavButton Icon={ArrowUpIcon} />
-        <CommentNavButton Icon={ArrowDownIcon} />
-        <CommentNavButton Icon={ExclamationTriangleIcon} />
+        <CommentNavButton
+          Icon={ArrowUpIcon}
+          disabled={props.user.username === "deleted"}
+        />
+        <CommentNavButton
+          Icon={ArrowDownIcon}
+          disabled={props.user.username === "deleted"}
+        />
+        <CommentNavButton
+          Icon={ExclamationTriangleIcon}
+          disabled={props.user.username === "deleted"}
+        />
         {isCreator && (
           <>
             {isEditing ? (

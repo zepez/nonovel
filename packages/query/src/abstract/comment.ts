@@ -34,7 +34,6 @@ export const getCommentPageByResourceId = async (
 
     return [null, result] as const;
   } catch (err) {
-    console.log(err);
     const error = new ServerError("GetResourceError", err as ServerErrorType);
     return [error, null] as const;
   }
@@ -89,7 +88,6 @@ export const createComment = async (opts: CreateCommentOptions) => {
 
     return [null, null] as const;
   } catch (err) {
-    console.log(err);
     const error = new ServerError(
       "CreateResourceError",
       err as ServerErrorType
@@ -116,7 +114,6 @@ export const getCommentRepliesByParentId = async (
 
     return [null, result] as const;
   } catch (err) {
-    console.log(err);
     const error = new ServerError("GetResourceError", err as ServerErrorType);
     return [error, null] as const;
   }
@@ -125,3 +122,44 @@ export const getCommentRepliesByParentId = async (
 export type GetCommentRepliesByParentIdReturn = Awaited<
   ReturnType<typeof getCommentRepliesByParentId>
 >;
+
+// ########################################################
+
+export interface DeleteCommentOptions {
+  id: Comment["id"];
+  userId: NonNullable<Comment["userId"]>;
+}
+
+export const deleteComment = async (opts: DeleteCommentOptions) => {
+  try {
+    const parsed = validator
+      .pick({
+        userId: true,
+        id: true,
+      })
+      .parse(opts);
+
+    await db.transaction(async (tx) => {
+      const storedComment = await tx.query.comment.findFirst({
+        where: (comment, { eq }) => eq(comment.id, parsed.id),
+      });
+
+      if (!storedComment) throw new Error("Comment not found");
+
+      await tx
+        .update(comment)
+        .set({ content: "[deleted]", userId: null })
+        .where(eq(comment.id, storedComment.id));
+    });
+
+    return [null, null] as const;
+  } catch (err) {
+    const error = new ServerError(
+      "DeleteResourceError",
+      err as ServerErrorType
+    );
+    return [error, null] as const;
+  }
+};
+
+export type DeleteCommentReturn = Awaited<ReturnType<typeof deleteComment>>;

@@ -31,9 +31,9 @@ Before Launch:
 - [x] Compress + convert cover images to jpg before converting to base64
 - [ ] Clean up epub / cli packages
 - [ ] Comments:
-  - [ ] paginate
-  - [ ] editing
-  - [ ] delete
+  - [x] paginate
+  - [x] editing
+  - [x] delete
   - [ ] delete from settings/comments page
 - [ ] Reviews
   - [ ] paginate

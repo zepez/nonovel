@@ -4,10 +4,10 @@ import { useState } from "react";
 import * as z from "zod";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import type { Comment } from "@nonovel/db";
+import type { Comment, NewComment } from "@nonovel/db";
 import { comment as commentSchema } from "@nonovel/validator";
 import { NotUndefinedOrNull } from "~/types";
-import { createComment } from "~/actions";
+import { createComment, deleteComment } from "~/actions";
 import {
   Form,
   FormControl,
@@ -31,7 +31,8 @@ interface CommentEditProps {
   comment: NotUndefinedOrNull<
     Pick<Comment, "userId" | "resourceId" | "content">
   > &
-    Pick<Comment, "parentId">;
+    Pick<Comment, "parentId"> &
+    Pick<NewComment, "id">;
 }
 
 const schema = commentSchema.pick({
@@ -84,6 +85,26 @@ export const CommentEdit = ({
     }
   };
 
+  const handleDelete = async () => {
+    if (!comment.id) return;
+
+    const [deleteErr] = await deleteComment({
+      id: comment.id,
+      userId: comment.userId,
+      revalidate: window.location.pathname,
+    });
+
+    if (!deleteErr) {
+      toast({
+        description: "Your comment has been deleted.",
+      });
+      form.reset();
+      refresh();
+    }
+
+    if (deleteFn) deleteFn();
+  };
+
   return (
     <Form {...form}>
       <form onSubmit={form.handleSubmit(handleSubmit)} className={className}>
@@ -116,7 +137,7 @@ export const CommentEdit = ({
             <Button
               size="sm"
               variant="destructive"
-              onClick={deleteFn}
+              onClick={handleDelete}
               type="button"
             >
               Delete comment
