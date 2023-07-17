@@ -4,7 +4,9 @@ import { useState } from "react";
 import * as z from "zod";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
+import type { Comment } from "@nonovel/db";
 import { comment as commentSchema } from "@nonovel/validator";
+import { NotUndefinedOrNull } from "~/types";
 import { createComment } from "~/actions";
 import {
   Form,
@@ -19,13 +21,17 @@ import { Button } from "~/components/ui/button";
 import { useToast } from "~/components/ui/use-toast";
 
 interface CommentEditProps {
+  refresh: () => void;
   cancel?: () => void;
+  deleteFn?: () => void;
   className?: string;
   background?: string;
-  resourceId: string;
-  userId: string;
-  parentId: string | null;
-  refresh: () => void;
+  defaultSubmitText: string;
+  actionText: [string, string];
+  comment: NotUndefinedOrNull<
+    Pick<Comment, "userId" | "resourceId" | "content">
+  > &
+    Pick<Comment, "parentId">;
 }
 
 const schema = commentSchema.pick({
@@ -35,30 +41,30 @@ const schema = commentSchema.pick({
 export type CommentEditSchema = z.infer<typeof schema>;
 
 export const CommentEdit = ({
+  refresh,
   cancel,
+  deleteFn,
   className,
   background,
-  userId,
-  resourceId,
-  parentId,
-  refresh,
+  defaultSubmitText,
+  actionText,
+  comment,
 }: CommentEditProps) => {
   const { toast } = useToast();
   const [saving, setSaving] = useState(false);
   const form = useForm<CommentEditSchema>({
     resolver: zodResolver(schema),
     defaultValues: {
-      content: "",
+      ...comment,
     },
   });
 
   const handleSubmit = async (values: CommentEditSchema) => {
     setSaving(true);
+    console.log({ ...comment, ...values });
     const [submitError] = await createComment({
+      ...comment,
       ...values,
-      userId,
-      resourceId,
-      parentId,
       revalidate: window.location.pathname,
     });
     setSaving(false);
@@ -71,7 +77,7 @@ export const CommentEdit = ({
     }
     if (!submitError) {
       toast({
-        description: "Your comment has been posted.",
+        description: `Your comment has been ${actionText[1].toLowerCase()}.`,
       });
       form.reset();
       refresh();
@@ -106,9 +112,19 @@ export const CommentEdit = ({
               Cancel
             </Button>
           )}
+          {deleteFn && (
+            <Button
+              size="sm"
+              variant="destructive"
+              onClick={deleteFn}
+              type="button"
+            >
+              Delete comment
+            </Button>
+          )}
           <div className="flex-grow" />
           <Button size="sm" variant="primary" type="submit">
-            {saving ? "Posting..." : "Comment"}
+            {saving ? `${actionText[0]}...` : defaultSubmitText}
           </Button>
         </div>
       </form>

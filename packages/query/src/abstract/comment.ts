@@ -28,7 +28,7 @@ export const getCommentPageByResourceId = async (
 
     const result = await getCommentPageByResourceIdPrepared.execute({
       ...parsed,
-      limit: parsed.pageSize,
+      limit: parsed.pageSize + 1,
       offset: parsed.pageSize * (parsed.page - 1),
     });
 
@@ -47,6 +47,7 @@ export type GetCommentPageByResourceIdReturn = Awaited<
 // ########################################################
 
 export interface CreateCommentOptions {
+  id?: Comment["id"];
   resourceId: Comment["resourceId"];
   parentId?: Comment["parentId"];
   content: Comment["content"];
@@ -56,13 +57,27 @@ export interface CreateCommentOptions {
 export const createComment = async (opts: CreateCommentOptions) => {
   try {
     const parsed = validator
-      .pick({ userId: true, resourceId: true, parentId: true, content: true })
+      .pick({
+        userId: true,
+        resourceId: true,
+        parentId: true,
+        content: true,
+      })
       .parse(opts);
 
     await db.transaction(async (tx) => {
-      await tx.insert(comment).values(parsed);
+      await tx
+        .insert(comment)
+        .values({ ...parsed, id: opts.id ?? undefined })
+        .onConflictDoUpdate({
+          target: comment.id,
+          set: {
+            content: parsed.content,
+            updatedAt: sql`now()`,
+          },
+        });
 
-      if (parsed.parentId) {
+      if (parsed.parentId && !opts.id) {
         await tx
           .update(comment)
           .set({

@@ -10,7 +10,6 @@ import type {
 import { getCommentReplies } from "~/actions";
 import { CommentEdit } from "./edit";
 import { CommentBody } from "./body";
-import { SectionEmpty } from "../section-empty";
 import { Button } from "~/components/ui/button";
 import { cn } from "~/lib/utils";
 
@@ -18,10 +17,11 @@ type Comments = NonNullable<GetCommentPageByResourceIdReturn[1]>;
 type Replies = NonNullable<GetCommentRepliesByParentIdReturn[1]>;
 
 interface CommentThreadProps {
+  refresh: () => void;
   parent: Comments[0];
 }
 
-export const CommentThread = ({ parent }: CommentThreadProps) => {
+export const CommentThread = ({ refresh, parent }: CommentThreadProps) => {
   const [selectedId, setSelectedId] = useState<string | null>(null);
   const [replies, setReplies] = useState<Replies>([]);
   const [loading, setLoading] = useState(false);
@@ -40,52 +40,59 @@ export const CommentThread = ({ parent }: CommentThreadProps) => {
       className={cn("nn-border nn-bg-background w-full rounded-md border p-6")}
     >
       <CommentBody
-        username={parent.user?.profile?.username ?? ""}
-        image={parent.user?.profile?.image ?? null}
-        createdAt={parent.createdAt}
-        updatedAt={parent.updatedAt}
-        content={parent.content}
+        refresh={refresh}
+        user={{
+          userId: parent.user?.id ?? "",
+          username: parent.user?.profile?.username ?? "",
+          image: parent.user?.profile?.image ?? null,
+        }}
+        comment={parent}
       />
 
       {replies.length > 0 && (
-        <div className="mt-6 space-y-4 sm:ml-12">
+        <div className="mt-6 space-y-6">
           {replies.map((reply) => (
             <CommentBody
               key={reply.id}
-              username={reply.user?.profile?.username ?? ""}
-              image={reply.user?.profile?.image ?? null}
-              createdAt={reply.createdAt}
-              updatedAt={reply.updatedAt}
-              content={reply.content}
-              className="nn-border nn-bg-foreground rounded-md border p-4"
+              refresh={getReplies}
+              className="nn-border nn-bg-foreground rounded-r-md border-l-[10px] p-4 sm:ml-12"
+              user={{
+                userId: reply.user?.id ?? "",
+                username: reply.user?.profile?.username ?? "",
+                image: reply.user?.profile?.image ?? null,
+              }}
+              comment={reply}
             />
           ))}
         </div>
       )}
 
       {loading && (
-        <SectionEmpty className="nn-bg-foreground sm:ml-12">
+        <div className="nn-border nn-bg-foreground mt-6 border-l-[10px] p-4 sm:ml-12">
           Loading replies...
-        </SectionEmpty>
+        </div>
       )}
 
-      <div className="mt-6">
-        <div className="flex flex-wrap justify-between">
-          {replies.length === 0 && (
+      <div className="mt-4">
+        <div className="flex flex-wrap items-center justify-start gap-2">
+          {parent.replyCount > 0 ? (
             <>
-              {parent.replyCount > 0 ? (
+              {replies.length > 0 ? (
+                <Button size="sm" onClick={() => setReplies([])}>
+                  Hide replies
+                </Button>
+              ) : (
                 <Button size="sm" onClick={getReplies}>
                   Show {parent.replyCount}{" "}
                   {parent.replyCount === 1 ? "reply" : "replies"}
                 </Button>
-              ) : (
-                <p className="rounded-md bg-zinc-500/10 p-2 text-xs text-zinc-500/70">
-                  No replies yet
-                </p>
               )}
             </>
+          ) : (
+            <p className="rounded-md bg-zinc-500/10 p-2 text-xs text-zinc-500/70">
+              No replies yet
+            </p>
           )}
-          <div className="flex-grow" />
           {userId && parent.id !== selectedId && (
             <Button size="sm" onClick={() => setSelectedId(parent.id)}>
               Reply
@@ -96,14 +103,19 @@ export const CommentThread = ({ parent }: CommentThreadProps) => {
         {userId && parent.id === selectedId && (
           <div className="mt-3 pb-3">
             <CommentEdit
-              resourceId={parent.resourceId}
-              cancel={() => setSelectedId(null)}
-              background="nn-bg-foreground"
-              userId={userId}
-              parentId={parent.id}
               refresh={async () => {
                 setSelectedId(null);
                 await getReplies();
+              }}
+              cancel={() => setSelectedId(null)}
+              background="nn-bg-foreground"
+              defaultSubmitText="Post reply"
+              actionText={["Posting", "Posted"]}
+              comment={{
+                resourceId: parent.resourceId,
+                userId,
+                parentId: parent.id,
+                content: "",
               }}
             />
           </div>

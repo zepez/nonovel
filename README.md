@@ -30,7 +30,6 @@ Before Launch:
 - [x] AI selected genres for public domain books?
 - [x] Compress + convert cover images to jpg before converting to base64
 - [ ] Clean up epub / cli packages
-- [ ] Decide on header links and make responsive
 - [ ] Comments:
   - [ ] paginate
   - [ ] editing
@@ -41,14 +40,15 @@ Before Launch:
   - [ ] delete from settings/reviews page
 - [ ] Voting system (chapter (repurpose as a `like`?), comment, review)
 - [ ] Report system (profile, project, chapter, comment)
-- [ ] File uploading via UploadThing (\* base64 for project cover, uploadthing for profile pictures)
 - [ ] Upload a lot of public domain books
 - [ ] Browse by category and ranking pages
 - [ ] Home and about pages
 - [ ] Custom login / register / logout pages or modals
 - [ ] Callback URL on successful login/register/logout
-- [ ] Logo?
+- [ ] Decide on header links and make responsive
 - [ ] SEO / page metadata
+- [ ] Logo?
+- [ ] File uploading via UploadThing (\* base64 for project cover, uploadthing for profile pictures)
 
 After Launch:
 
