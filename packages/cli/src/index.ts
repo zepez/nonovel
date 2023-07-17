@@ -11,10 +11,12 @@ import {
   db,
   NewProject,
   project as projectTable,
+  projectGenre as projectGenreTable,
   NewChapter,
   chapter as chapterTable,
 } from "@nonovel/db";
 import { truncate } from "./lib/log";
+import { selectGenres, generateSynopsis } from "./lib/prompt";
 
 const program = new Command();
 
@@ -27,16 +29,25 @@ program
   .action(async (file: string) => {
     if (!file) throw new Error("No file path provided");
 
-    const epub = new Epub(file);
     console.log("Parsing epub file...");
+    const epub = new Epub(file);
     await epub.read();
 
     console.log("Epub file parsed successfully!");
 
     // #####################################
 
+    const projectDescription = await generateSynopsis({
+      title: epub.opfMetadata.title,
+      author: epub.opfMetadata.creator,
+    });
+
     const project: NewProject = {
       id: uuidv4(),
+      penName: await input({
+        message: "Pen name",
+        default: epub.opfMetadata.creator,
+      }),
       cover: epub.opfMetadata.cover,
       name: await input({
         message: "Project name",
@@ -48,7 +59,7 @@ program
       }),
       description: await input({
         message: "Project description",
-        default: `${epub.opfMetadata.title} by ${epub.opfMetadata.creator}`,
+        default: projectDescription,
       }),
       progress: await select({
         message: "Project progress",
@@ -90,6 +101,49 @@ program
 
     // #####################################
 
+    const availableGenres = await db.query.genre.findMany();
+    const availableGenreNames = availableGenres.map((g) => g.name);
+
+    console.log("AI Generating genres...");
+    const aiSelectedGenreNamesString = await selectGenres({
+      genres: availableGenreNames,
+      title: epub.opfMetadata.title,
+      author: epub.opfMetadata.creator,
+    });
+    console.log("AI Generated genres:", aiSelectedGenreNamesString);
+
+    const aiSelectedGenreNames = aiSelectedGenreNamesString
+      .split(",")
+      .map((s) => s.trim());
+
+    const aiSelectedGenres = availableGenres.filter((g) =>
+      aiSelectedGenreNames.includes(g.name)
+    );
+
+    const deselectedGenres = await checkbox({
+      message:
+        "These genres were selected by the AI. Please select which chapters to EXCLUDE.",
+      choices: aiSelectedGenres.map((g) => {
+        return {
+          name: g.name,
+          value: g,
+        };
+      }),
+    });
+
+    const selectedGenres = aiSelectedGenres.filter(
+      (g) => !deselectedGenres.includes(g)
+    );
+
+    const genres = selectedGenres.map((g) => {
+      return {
+        projectId: project.id as string,
+        genreId: g.id,
+      };
+    });
+
+    // #####################################
+
     const contentType: "html" | "md" = await select({
       message: "Chapter content type",
       choices: [
@@ -103,8 +157,6 @@ program
         },
       ],
     });
-
-    // #####################################
 
     const chapters: NewChapter[] = [];
     for (const chapter of selectedChapters) {
@@ -139,6 +191,9 @@ program
     await db.transaction(async (tx) => {
       console.log("Inserting project into database...");
       await tx.insert(projectTable).values(project);
+
+      console.log("Relating genres to project in database...");
+      await tx.insert(projectGenreTable).values(genres);
 
       console.log("Inserting chapters into database...");
       await tx.insert(chapterTable).values(chapters);

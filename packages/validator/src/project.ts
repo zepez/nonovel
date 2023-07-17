@@ -2,6 +2,7 @@ import * as z from "zod";
 
 export const project = z.object({
   id: z.string(),
+  penName: z.string().nullable(),
   cover: z.string().url().nullable(),
   name: z.string().min(2, {
     message: "Project names must be at least 2 characters.",

@@ -27,6 +27,7 @@ export const project = pgTable(
   "project",
   {
     id: uuid("id").defaultRandom().primaryKey(),
+    penName: text("pen_name"),
     cover: text("cover"),
     name: text("name").notNull(),
     slug: text("slug").notNull(),

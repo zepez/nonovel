@@ -53,12 +53,12 @@ export default async function ProjectPage({ params }: ProjectPageProps) {
         Genre{project.genres.length !== 1 ? "s" : ""}
       </SectionHeading>
       {project.genres.length > 0 ? (
-        <section className="flex">
+        <section className="flex flex-wrap gap-3">
           {project.genres.map(({ genre }) => (
             <Link
               key={genre.id}
               href={`/browse/category/${genre.slug}`}
-              className="nn-interactive nn-bg-background nn-border-50 mx-1 rounded-sm bg-zinc-950 px-4 py-2 text-xs font-bold uppercase leading-tight"
+              className="nn-interactive nn-bg-background nn-border-50 rounded-sm bg-zinc-950 px-4 py-2 text-xs font-bold uppercase leading-tight"
             >
               {genre.name.toLowerCase()}
             </Link>
