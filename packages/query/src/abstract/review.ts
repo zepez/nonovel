@@ -85,7 +85,7 @@ export const getReviewPageByProjectId = async (
 
     const result = await getReviewPageByProjectIdPrepared.execute({
       projectId: parsed.projectId,
-      limit: parsed.pageSize,
+      limit: parsed.pageSize + 1,
       offset: parsed.pageSize * (parsed.page - 1),
     });
 

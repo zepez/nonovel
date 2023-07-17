@@ -3,17 +3,13 @@
 import { useRef, useEffect, useState, useCallback } from "react";
 import { useIntersection } from "react-use";
 import { useSession } from "next-auth/react";
-import {
-  DoubleArrowRightIcon,
-  DoubleArrowLeftIcon,
-} from "@radix-ui/react-icons";
 
 import type { GetCommentPageByResourceIdReturn } from "@nonovel/query";
 import { getCommentPage } from "~/actions";
-import { Button } from "~/components/ui/button";
 import { Skeleton } from "~/components/ui/skeleton";
 import { SectionHeading } from "../section-heading";
 import { SectionEmpty } from "../section-empty";
+import { ClientPaginate } from "../client-paginate";
 import { CommentEdit } from "./edit";
 import { CommentThread } from "./thread";
 
@@ -115,32 +111,20 @@ export const CommentLayout = ({ resourceId }: LayoutCommentsProps) => {
       </div>
 
       {showPagination && (
-        <div className="mt-8 flex items-center justify-center gap-4">
-          <Button
-            variant="secondary"
-            disabled={currentPage <= 1}
-            className="nn-interactive text-xs"
-            onClick={() => {
-              setLoadingAnotherPage(true);
-              setComments([]);
-              setCurrentPage((c) => c - 1);
-            }}
-          >
-            <DoubleArrowLeftIcon className="mr-2" /> Previous
-          </Button>
-          <Button
-            variant="secondary"
-            disabled={!nextPageAvailable}
-            className="nn-interactive text-xs"
-            onClick={() => {
-              setLoadingAnotherPage(true);
-              setComments([]);
-              setCurrentPage((c) => c + 1);
-            }}
-          >
-            Next <DoubleArrowRightIcon className="ml-2" />
-          </Button>
-        </div>
+        <ClientPaginate
+          onPreviousClick={() => {
+            setLoadingAnotherPage(true);
+            setComments([]);
+            setCurrentPage((c) => c - 1);
+          }}
+          previousDisabled={currentPage <= 1}
+          onNextClick={() => {
+            setLoadingAnotherPage(true);
+            setComments([]);
+            setCurrentPage((c) => c + 1);
+          }}
+          nextDisabled={!nextPageAvailable}
+        />
       )}
     </section>
   );
