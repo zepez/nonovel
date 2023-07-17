@@ -112,6 +112,21 @@ export function getCleanedTocItemContent(this: TEpub) {
       }
     });
 
+    // Ensure text nodes are paragraphs
+    $.root()
+      .contents()
+      .each(function () {
+        if (this.type === "text") {
+          const text = $(this).text();
+          const split = text.split("\n");
+          const joined = split
+            .filter((s) => s.trim())
+            .map((s) => `<p>${s.trim()}</p>`)
+            .join("");
+          $(this).replaceWith(joined);
+        }
+      });
+
     return { ...item, html: $.html().trim() };
   });
 
