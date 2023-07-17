@@ -5,15 +5,23 @@ import {
   index,
   text,
   integer,
+  pgEnum,
 } from "drizzle-orm/pg-core";
 import { InferModel, relations } from "drizzle-orm";
 
 import { user } from "./index";
 
+export const commentResourceType = pgEnum("comment_resource_type", [
+  "profile",
+  "project",
+  "chapter",
+]);
+
 export const comment = pgTable(
   "comment",
   {
     id: uuid("id").defaultRandom().primaryKey(),
+    resourceType: commentResourceType("resource_type").notNull(),
     resourceId: uuid("resource_id").notNull(),
     userId: uuid("user_id"),
     parentId: uuid("parent_id"),

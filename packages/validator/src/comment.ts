@@ -4,6 +4,7 @@ export const comment = z.object({
   id: z.string(),
   userId: z.string(),
   resourceId: z.string(),
+  resourceType: z.enum(["profile", "project", "chapter"]),
   parentId: z.string().nullable(),
   content: z
     .string()

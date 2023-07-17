@@ -29,7 +29,7 @@ interface CommentEditProps {
   defaultSubmitText: string;
   actionText: [string, string];
   comment: NotUndefinedOrNull<
-    Pick<Comment, "userId" | "resourceId" | "content">
+    Pick<Comment, "userId" | "resourceId" | "content" | "resourceType">
   > &
     Pick<Comment, "parentId"> &
     Pick<NewComment, "id">;

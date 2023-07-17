@@ -6,6 +6,7 @@ import {
   LayoutWrapper,
   CountryCodeName,
   CountryCodeEmoji,
+  CommentLayout,
 } from "~/components/shared";
 
 interface ProfileLayoutProps {
@@ -33,7 +34,7 @@ export default async function ProfileLayout({
           }}
         />
       </div>
-      <LayoutWrapper className="nn-bg-foreground flex flex-wrap items-end md:flex-nowrap">
+      <LayoutWrapper className="nn-bg-foreground flex flex-wrap items-end md:flex-nowrap md:px-16 lg:px-16">
         <Image
           src={profile.image ?? "/profile.png"}
           alt="Profile picture"
@@ -63,6 +64,7 @@ export default async function ProfileLayout({
 
       <LayoutWrapper className="nn-bg-foreground py-12 md:px-16 lg:px-16">
         {children}
+        <CommentLayout resourceId={profile.id} resourceType="profile" />
       </LayoutWrapper>
     </>
   );

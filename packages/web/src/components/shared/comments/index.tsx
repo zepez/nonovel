@@ -4,6 +4,7 @@ import { useRef, useEffect, useState, useCallback } from "react";
 import { useIntersection } from "react-use";
 import { useSession } from "next-auth/react";
 
+import type { Comment } from "@nonovel/db";
 import type { GetCommentPageByResourceIdReturn } from "@nonovel/query";
 import { getCommentPage } from "~/actions";
 import { Skeleton } from "~/components/ui/skeleton";
@@ -16,10 +17,14 @@ import { CommentThread } from "./thread";
 type Comments = NonNullable<GetCommentPageByResourceIdReturn[1]>;
 
 interface LayoutCommentsProps {
-  resourceId: string;
+  resourceId: Comment["resourceId"];
+  resourceType: Comment["resourceType"];
 }
 
-export const CommentLayout = ({ resourceId }: LayoutCommentsProps) => {
+export const CommentLayout = ({
+  resourceId,
+  resourceType,
+}: LayoutCommentsProps) => {
   const pageSize = 10;
   const { data: session } = useSession();
   const [hasBeenFetched, setHasBeenFetched] = useState<boolean>(false);
@@ -83,6 +88,7 @@ export const CommentLayout = ({ resourceId }: LayoutCommentsProps) => {
           actionText={["Posting", "Posted"]}
           comment={{
             resourceId,
+            resourceType,
             userId: session?.user.id,
             parentId: null,
             content: "",

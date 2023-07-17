@@ -190,7 +190,7 @@ export default async function ProjectLayout({
       <LayoutWrapper className="nn-bg-foreground rounded-b-md py-12 md:px-16 lg:px-16">
         <LayoutNavigation slug={project.slug} />
         {children}
-        <CommentLayout resourceId={project.id} />
+        <CommentLayout resourceId={project.id} resourceType="project" />
       </LayoutWrapper>
     </>
   );

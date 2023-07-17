@@ -15,6 +15,13 @@
       "when": 1689564501906,
       "tag": "0001_absurd_satana",
       "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "5",
+      "when": 1689634912323,
+      "tag": "0002_orange_leech",
+      "breakpoints": true
     }
   ]
 }

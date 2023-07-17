@@ -112,6 +112,7 @@ export const CommentThread = ({ refresh, parent }: CommentThreadProps) => {
             actionText={["Posting", "Posted"]}
             comment={{
               resourceId: parent.resourceId,
+              resourceType: parent.resourceType,
               userId,
               parentId: parent.id,
               content: "",

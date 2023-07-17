@@ -91,7 +91,7 @@ export default async function ChapterLayout({
           chapter={chapter}
           manifest={manifest}
         />
-        <CommentLayout resourceId={chapter.id} />
+        <CommentLayout resourceId={chapter.id} resourceType="chapter" />
       </LayoutWrapper>
     </>
   );

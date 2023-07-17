@@ -48,6 +48,7 @@ export type GetCommentPageByResourceIdReturn = Awaited<
 export interface CreateCommentOptions {
   id?: Comment["id"];
   resourceId: Comment["resourceId"];
+  resourceType: Comment["resourceType"];
   parentId?: Comment["parentId"];
   content: Comment["content"];
   userId: NonNullable<Comment["userId"]>;
@@ -61,6 +62,7 @@ export const createComment = async (opts: CreateCommentOptions) => {
         resourceId: true,
         parentId: true,
         content: true,
+        resourceType: true,
       })
       .parse(opts);
 
