@@ -19,6 +19,7 @@
     "@nonovel/epub": "*",
     "ai-utils.js": "^0.0.32",
     "commander": "^11.0.0",
+    "sharp": "^0.32.3",
     "slugify": "^1.6.6",
     "uuid": "^9.0.0"
   },

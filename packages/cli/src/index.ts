@@ -17,6 +17,7 @@ import {
 } from "@nonovel/db";
 import { truncate } from "./lib/log";
 import { selectGenres, generateSynopsis } from "./lib/prompt";
+import { processImageBuffer } from "./lib/image";
 
 const program = new Command();
 
@@ -48,7 +49,7 @@ program
         message: "Pen name",
         default: epub.opfMetadata.creator,
       }),
-      cover: epub.opfMetadata.cover,
+      cover: await processImageBuffer(epub.opfMetadata.cover),
       name: await input({
         message: "Project name",
         default: epub.opfMetadata.title,

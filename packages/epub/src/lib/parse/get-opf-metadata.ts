@@ -18,11 +18,7 @@ export function getOpfMetadata(this: TEpub) {
 
   const coverPath = this.getPath(coverRelativePath);
 
-  const coverBuffer = coverPath ? this.get(coverPath) : null;
-
-  const cover = coverBuffer
-    ? `data:image/jpeg;base64,${coverBuffer.toString("base64")}`
-    : null;
+  const cover = coverPath ? this.get(coverPath) ?? null : null;
 
   return { cover, title, creator };
 }
