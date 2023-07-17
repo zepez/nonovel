@@ -95,24 +95,26 @@ export default async function ProjectLayout({
               className="mx-auto w-48 flex-shrink-0 md:mx-0 md:w-72"
             />
             <div className="ml-0 mt-12 flex flex-col md:ml-16 md:mt-0">
-              <h1 className="mb-4 text-4xl font-bold leading-tight">
+              <h1 className="mb-1 text-4xl font-bold leading-tight">
                 {toTitleCase(project.name)}
               </h1>
-              <p className="text-sm">
-                {authors.length > 0 && "By "}
-                {authors.map(({ user }, relationIdx) => (
-                  <>
-                    <Link
-                      key={user.id}
-                      href={`/u/${user?.profile?.username ?? ""}`}
-                      className="nn-interactive"
-                    >
-                      @{user?.profile?.username.toLowerCase()}
-                    </Link>
-                    {naturalListJoin(relationIdx, authors.length)}
-                  </>
-                ))}
-              </p>
+              {authors.length > 0 && (
+                <p className="mt-3 text-sm">
+                  By{" "}
+                  {authors.map(({ user }, relationIdx) => (
+                    <>
+                      <Link
+                        key={user.id}
+                        href={`/u/${user?.profile?.username ?? ""}`}
+                        className="nn-interactive"
+                      >
+                        @{user?.profile?.username.toLowerCase()}
+                      </Link>
+                      {naturalListJoin(relationIdx, authors.length)}
+                    </>
+                  ))}
+                </p>
+              )}
               <p className="nn-text-secondary mt-1">
                 Updated{" "}
                 {formatDistanceToNow(

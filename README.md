@@ -6,6 +6,8 @@ The launch of NoNovel can be split into three phases.
 
 NoNovel can only be used to read public domain books. There are no options to self publish or monetize books. Users can create accounts and NoNovel will track their progress for each project.
 
+Before Launch:
+
 - [x] Basic schema (profile, user, project, chapter)
 - [ ] OAuth
   - [x] Github
@@ -16,30 +18,42 @@ NoNovel can only be used to read public domain books. There are no options to se
 - [x] Profile country code
 - [x] View tracking
 - [x] Chapter navigation
-- [ ] Make header responsive
 - [x] Review system (project)
 - [x] Omni-search profiles by username and project by name (\* only projects for now.)
 - [x] Comment system (profile, project, chapter)
 - [x] Epub parsing library
 - [x] Epub CLI
-- [ ] Clean up epub / cli packages
 - [x] Split seeding script into fake and real data. Seed genres for real, make idempotent (pre-generate ids with ON CONFLICT)
   - [x] seed genres
-- [ ] Add genre support to the CLI
-- [ ] AI generated synopsis for public domain books?
-- [ ] AI selected genres for public domain books?
-- [ ] Compress + convert cover images to jpg before converting to base64
+- [x] Add genre support to the CLI
+- [x] AI generated synopsis for public domain books?
+- [x] AI selected genres for public domain books?
+- [x] Compress + convert cover images to jpg before converting to base64
+- [ ] Clean up epub / cli packages
+- [ ] Decide on header links and make responsive
+- [ ] Comments:
+  - [ ] paginate
+  - [ ] editing
+  - [ ] delete
+  - [ ] delete from settings/comments page
+- [ ] Reviews
+  - [ ] paginate
+  - [ ] delete from settings/reviews page
+- [ ] Voting system (chapter (repurpose as a `like`?), comment, review)
+- [ ] Report system (profile, project, chapter, comment)
 - [ ] File uploading via UploadThing (\* base64 for project cover, uploadthing for profile pictures)
-- [ ] Comment editing and delete
-- [ ] Voting system (comment, review)
-- [ ] Reaction system (?) ()
-- [ ] Project tags (?)
 - [ ] Upload a lot of public domain books
 - [ ] Browse by category and ranking pages
 - [ ] Home and about pages
-- [ ] Report system (profile, project, chapter, comment)
-- [ ] Custom login / register / logout pages
+- [ ] Custom login / register / logout pages or modals
 - [ ] Callback URL on successful login/register/logout
+- [ ] Logo?
+- [ ] SEO / page metadata
+
+After Launch:
+
+- [ ] Reaction system (?) (chapter)
+- [ ] Project tags (?)
 
 ### Phase 2
 

@@ -30,7 +30,8 @@ export const Blurb = async ({ className, slug }: BlurbProps) => {
 
   return (
     <div className={cn(className)}>
-      {toTitleCase(project.name)} is a work of{" "}
+      {toTitleCase(project.name)} is a written body of work containing elements
+      of{" "}
       {project.genres.map(({ genre }, genreIdx) => (
         <Fragment key={genre.id}>
           <Link
@@ -41,8 +42,8 @@ export const Blurb = async ({ className, slug }: BlurbProps) => {
           </Link>
           {naturalListJoin(genreIdx, project.genres.length)}
         </Fragment>
-      ))}{" "}
-      written by{" "}
+      ))}
+      . Written by{" "}
       {project.penName
         ? project.penName
         : authors.map((author, authorIdx) => (

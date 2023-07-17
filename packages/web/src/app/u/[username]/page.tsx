@@ -1,15 +1,10 @@
 import Link from "next/link";
 import Image from "next/image";
 import { notFound } from "next/navigation";
-import { formatDistanceToNow } from "date-fns";
 import { getProfileByUsername } from "~/lib/request";
 import { toTitleCase } from "~/lib/string";
 import { cn } from "~/lib/utils";
-import {
-  LayoutWrapper,
-  CountryCodeName,
-  CountryCodeEmoji,
-} from "~/components/shared";
+import { SectionHeading, SectionEmpty } from "~/components/shared";
 
 interface ProfilePageProps {
   params: { username: string };
@@ -25,48 +20,20 @@ export default async function ProfilePage({ params }: ProfilePageProps) {
 
   return (
     <>
-      <div className="relative h-64 overflow-hidden">
-        <div
-          className="nn-bg-blurred absolute inset-0 h-full w-full bg-cover"
-          style={{ backgroundImage: `url(${profile.image ?? "/profile.png"})` }}
-        />
-      </div>
-      <LayoutWrapper className="relative -mt-32 flex flex-wrap items-end md:flex-nowrap">
-        <Image
-          src={profile.image ?? "/profile.png"}
-          alt="Profile picture"
-          width={256}
-          height={256}
-          className="nn-bg-foreground mx-auto w-64 rounded-md border-4 border-[#FFFFFF] dark:border-[#121212] md:mx-0"
-        />
-        <div className="mt-8 w-full text-center md:mb-2 md:ml-8 md:mt-0 md:w-auto md:text-left">
-          <h1 className="mb-4 text-2xl font-bold leading-tight md:text-5xl">
-            <span className="mr-1 text-xl font-normal">@</span>
-            {profile.username.toLowerCase()}
-          </h1>
-          <p className="nn-text-secondary">
-            Joined {formatDistanceToNow(profile.createdAt, { addSuffix: true })}{" "}
-            <CountryCodeName code={profile.countryCode}>
-              {(countryName) => (
-                <span>
-                  | Located in {countryName}{" "}
-                  <CountryCodeEmoji code={profile.countryCode} />
-                </span>
-              )}
-            </CountryCodeName>
-          </p>
-          <p className="nn-text-secondary"></p>
-        </div>
-      </LayoutWrapper>
-
-      <LayoutWrapper className="mt-8 md:mt-12">
-        <p className="px-0 md:px-8">{profile.bio}</p>
-      </LayoutWrapper>
-      <LayoutWrapper className="mt-12 grid grid-cols-1 gap-6 md:grid-cols-2">
+      <SectionHeading className="mt-0">About</SectionHeading>
+      {profile.bio ? (
+        <section>{profile.bio}</section>
+      ) : (
+        <SectionEmpty className="nn-bg-background">
+          @{profile.username} does not have a bio.
+        </SectionEmpty>
+      )}
+      <SectionHeading>Projects</SectionHeading>
+      <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
         {!projects.length ? (
-          <div className="nn-bg-foreground col-span-2 rounded-md p-4 text-center text-sm">
+          <SectionEmpty className="nn-bg-background col-span-2 rounded-md p-4 text-center text-sm">
             @{profile.username} is not a part of any projects.
-          </div>
+          </SectionEmpty>
         ) : null}
 
         {projects.length
@@ -76,7 +43,7 @@ export default async function ProfilePage({ params }: ProfilePageProps) {
                 href={`/p/${project.slug}`}
                 className={cn(
                   projects.length % 2 !== 0 ? "last:col-span-2" : null,
-                  "nn-interactive nn-bg-foreground flex rounded-md"
+                  "nn-interactive nn-bg-background nn-border flex rounded-md border"
                 )}
               >
                 <Image
@@ -100,7 +67,7 @@ export default async function ProfilePage({ params }: ProfilePageProps) {
               </Link>
             ))
           : null}
-      </LayoutWrapper>
+      </div>
     </>
   );
 }
