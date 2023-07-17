@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { Fragment } from "react";
 
 import { cn } from "~/lib/utils";
 import { toTitleCase, naturalListJoin } from "~/lib/string";
@@ -31,23 +32,26 @@ export const Blurb = async ({ className, slug }: BlurbProps) => {
     <div className={cn(className)}>
       {toTitleCase(project.name)} is a work of{" "}
       {project.genres.map(({ genre }, genreIdx) => (
-        <Link
-          href={`/browse/category/${genre.slug}`}
-          key={genre.id}
-          className="nn-interactive"
-        >
-          {genre.name.toLowerCase()}
+        <Fragment key={genre.id}>
+          <Link
+            href={`/browse/category/${genre.slug}`}
+            className="nn-interactive"
+          >
+            {genre.name.toLowerCase()}
+          </Link>
           {naturalListJoin(genreIdx, project.genres.length)}
-        </Link>
+        </Fragment>
       ))}{" "}
       written by{" "}
       {project.penName
         ? project.penName
         : authors.map((author, authorIdx) => (
-            <Link href={`/u/${author}`} key={author} className="nn-interactive">
-              @{author}
+            <Fragment key={author}>
+              <Link href={`/u/${author}`} className="nn-interactive">
+                @{author}
+              </Link>
               {naturalListJoin(authorIdx, authors.length)}
-            </Link>
+            </Fragment>
           ))}
       . {manifest.length} chapters {projectProgressText}
     </div>
