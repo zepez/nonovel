@@ -3,7 +3,7 @@ import { cookies, headers } from "next/headers";
 import { NextAuthOptions } from "next-auth";
 import { getServerSession } from "next-auth/next";
 import GithubProvider from "next-auth/providers/github";
-import GoogleProvider from "next-auth/providers/google";
+import DiscordProvider from "next-auth/providers/discord";
 import config from "@nonovel/config-server";
 import { db } from "@nonovel/db";
 import adapter from "@nonovel/drizzle-adapter";
@@ -86,12 +86,12 @@ export const options: NextAuthOptions = {
   },
   providers: [
     GithubProvider({
-      clientId: config.NEXTAUTH_GITHUB_ID,
-      clientSecret: config.NEXTAUTH_GITHUB_SECRET,
+      clientId: config.NEXTAUTH_GITHUB_CLIENT_ID,
+      clientSecret: config.NEXTAUTH_GITHUB_CLIENT_SECRET,
     }),
-    GoogleProvider({
-      clientId: process.env.NEXTAUTH_GOOGLE_CLIENT_ID as string,
-      clientSecret: process.env.NEXTAUTH_GOOGLE_CLIENT_SECRET as string,
+    DiscordProvider({
+      clientId: config.NEXTAUTH_DISCORD_CLIENT_ID,
+      clientSecret: config.NEXTAUTH_DISCORD_CLIENT_SECRET,
     }),
   ],
   session: {

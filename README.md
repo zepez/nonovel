@@ -11,8 +11,8 @@ Before Launch:
 - [x] Basic schema (profile, user, project, chapter)
 - [ ] OAuth
   - [x] Github
+  - [x] Discord
   - [ ] Google
-  - [ ] Discord
 - [x] Basic Chapter Reading Settings
 - [x] Project genres
 - [x] Profile country code
@@ -30,14 +30,12 @@ Before Launch:
 - [x] AI selected genres for public domain books?
 - [x] Compress + convert cover images to jpg before converting to base64
 - [ ] Clean up epub / cli packages
-- [ ] Comments:
+- [x] Comments:
   - [x] paginate
   - [x] editing
   - [x] delete
-  - [ ] delete from settings/comments page
-- [ ] Reviews
+- [x] Reviews
   - [x] paginate
-  - [ ] delete from settings/reviews page
 - [ ] Voting system
   - [ ] review
   - [ ] chapter (repurpose as a `like`?)
@@ -60,6 +58,8 @@ Before Launch:
 
 After Launch:
 
+- [ ] link and delete comments from settings/comments page
+- [ ] link and delete reviews from settings/reviews page
 - [ ] Reaction system (?) (chapter)
 - [ ] Project tags (?)
 

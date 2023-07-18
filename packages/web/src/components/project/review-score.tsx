@@ -28,7 +28,7 @@ export const ReviewScore = React.forwardRef<HTMLDivElement, ReviewScoreProps>(
           ref={ref}
         />
         {!hideHint && <p className="ml-1 text-xs font-bold">({value}/5)</p>}
-        {count && <p className="ml-1 text-xs font-bold">({count})</p>}
+        {count && <p className="ml-1 text-xs font-bold">*{count}</p>}
       </div>
     );
   }
