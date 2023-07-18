@@ -9,7 +9,7 @@ import {
 } from "drizzle-orm/pg-core";
 import { InferModel, relations } from "drizzle-orm";
 
-import { user } from "./index";
+import { user, vote } from "./index";
 
 export const commentResourceType = pgEnum("comment_resource_type", [
   "profile",
@@ -45,11 +45,12 @@ export const comment = pgTable(
   }
 );
 
-export const commentRelations = relations(comment, ({ one }) => ({
+export const commentRelations = relations(comment, ({ one, many }) => ({
   user: one(user, {
     fields: [comment.userId],
     references: [user.id],
   }),
+  votes: many(vote),
 }));
 
 export type Comment = InferModel<typeof comment>;

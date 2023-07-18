@@ -5,6 +5,12 @@ EXCEPTION
 END $$;
 --> statement-breakpoint
 DO $$ BEGIN
+ CREATE TYPE "comment_resource_type" AS ENUM('profile', 'project', 'chapter');
+EXCEPTION
+ WHEN duplicate_object THEN null;
+END $$;
+--> statement-breakpoint
+DO $$ BEGIN
  CREATE TYPE "project_progress" AS ENUM('finished', 'ongoing');
 EXCEPTION
  WHEN duplicate_object THEN null;
@@ -12,6 +18,12 @@ END $$;
 --> statement-breakpoint
 DO $$ BEGIN
  CREATE TYPE "project_role" AS ENUM('author', 'editor', 'moderator');
+EXCEPTION
+ WHEN duplicate_object THEN null;
+END $$;
+--> statement-breakpoint
+DO $$ BEGIN
+ CREATE TYPE "voteResourcetype" AS ENUM('review', 'chapter', 'comment');
 EXCEPTION
  WHEN duplicate_object THEN null;
 END $$;
@@ -53,6 +65,7 @@ CREATE TABLE IF NOT EXISTS "chapter" (
 --> statement-breakpoint
 CREATE TABLE IF NOT EXISTS "comment" (
 	"id" uuid PRIMARY KEY DEFAULT gen_random_uuid() NOT NULL,
+	"resource_type" "comment_resource_type" NOT NULL,
 	"resource_id" uuid NOT NULL,
 	"user_id" uuid,
 	"parent_id" uuid,
@@ -92,6 +105,7 @@ CREATE TABLE IF NOT EXISTS "profile" (
 --> statement-breakpoint
 CREATE TABLE IF NOT EXISTS "project" (
 	"id" uuid PRIMARY KEY DEFAULT gen_random_uuid() NOT NULL,
+	"pen_name" text,
 	"cover" text,
 	"name" text NOT NULL,
 	"slug" text NOT NULL,
@@ -164,6 +178,16 @@ CREATE TABLE IF NOT EXISTS "verification_token" (
 	"updated_at" timestamp with time zone DEFAULT now() NOT NULL
 );
 --> statement-breakpoint
+CREATE TABLE IF NOT EXISTS "vote" (
+	"id" uuid PRIMARY KEY DEFAULT gen_random_uuid() NOT NULL,
+	"resource_type" "voteResourcetype" NOT NULL,
+	"resource_id" uuid NOT NULL,
+	"user_id" uuid NOT NULL,
+	"value" integer DEFAULT 0 NOT NULL,
+	"created_at" timestamp with time zone DEFAULT now() NOT NULL,
+	"updated_at" timestamp with time zone DEFAULT now() NOT NULL
+);
+--> statement-breakpoint
 CREATE UNIQUE INDEX IF NOT EXISTS "unique_account_provider_provider_account_id" ON "account" ("provider","provider_account_id");--> statement-breakpoint
 CREATE INDEX IF NOT EXISTS "anon_view_project_index" ON "anon_chapter_view" ("project_id");--> statement-breakpoint
 CREATE INDEX IF NOT EXISTS "comment_user_id_index" ON "comment" ("user_id");--> statement-breakpoint
@@ -183,6 +207,9 @@ CREATE UNIQUE INDEX IF NOT EXISTS "unique_user_project_ids" ON "user_projects" (
 CREATE UNIQUE INDEX IF NOT EXISTS "unique_session_token" ON "session" ("session_token");--> statement-breakpoint
 CREATE UNIQUE INDEX IF NOT EXISTS "unique_verification_token_identifier_token" ON "verification_token" ("identifier","token");--> statement-breakpoint
 CREATE UNIQUE INDEX IF NOT EXISTS "unique_verification_token_token" ON "verification_token" ("token");--> statement-breakpoint
+CREATE INDEX IF NOT EXISTS "vote_user_id_index" ON "vote" ("user_id");--> statement-breakpoint
+CREATE INDEX IF NOT EXISTS "vote_resource_id_index" ON "vote" ("resource_id");--> statement-breakpoint
+CREATE UNIQUE INDEX IF NOT EXISTS "vote_ids_index" ON "vote" ("user_id","resource_id");--> statement-breakpoint
 DO $$ BEGIN
  ALTER TABLE "account" ADD CONSTRAINT "account_user_id_users_id_fk" FOREIGN KEY ("user_id") REFERENCES "users"("id") ON DELETE no action ON UPDATE no action;
 EXCEPTION

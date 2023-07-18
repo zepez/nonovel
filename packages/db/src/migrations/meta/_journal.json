@@ -5,22 +5,8 @@
     {
       "idx": 0,
       "version": "5",
-      "when": 1689275631217,
-      "tag": "0000_sweet_eddie_brock",
-      "breakpoints": true
-    },
-    {
-      "idx": 1,
-      "version": "5",
-      "when": 1689564501906,
-      "tag": "0001_absurd_satana",
-      "breakpoints": true
-    },
-    {
-      "idx": 2,
-      "version": "5",
-      "when": 1689634912323,
-      "tag": "0002_orange_leech",
+      "when": 1689651642419,
+      "tag": "0000_boring_mindworm",
       "breakpoints": true
     }
   ]

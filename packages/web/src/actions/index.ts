@@ -5,3 +5,4 @@ export * from "./review";
 export * from "./search";
 export * from "./user";
 export * from "./view";
+export * from "./vote";

@@ -43,8 +43,8 @@ export const CommentThread = ({ refresh, parent }: CommentThreadProps) => {
         refresh={refresh}
         user={{
           userId: parent.user?.id ?? "",
-          username: parent.user?.profile?.username ?? "deleted",
-          image: parent.user?.profile?.image ?? null,
+          username: parent?.profile?.username ?? "deleted",
+          image: parent?.profile?.image ?? null,
         }}
         comment={parent}
       />
@@ -58,8 +58,8 @@ export const CommentThread = ({ refresh, parent }: CommentThreadProps) => {
               className="nn-border nn-bg-foreground rounded-r-md border-l-[10px] p-4 sm:ml-12"
               user={{
                 userId: reply.user?.id ?? "",
-                username: reply.user?.profile?.username ?? "deleted",
-                image: reply.user?.profile?.image ?? null,
+                username: reply?.profile?.username ?? "deleted",
+                image: reply?.profile?.image ?? null,
               }}
               comment={reply}
             />

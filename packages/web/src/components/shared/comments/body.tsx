@@ -12,6 +12,7 @@ import {
 } from "@radix-ui/react-icons";
 
 import type { GetCommentPageByResourceIdReturn } from "@nonovel/query";
+import { upsertVote } from "~/actions";
 import { cn } from "~/lib/utils";
 import { Button } from "~/components/ui/button";
 import { AspectImage } from "../aspect-image";
@@ -108,14 +109,40 @@ export const CommentBody = (props: CommentBodyProps) => {
           {props.comment.content}
         </p>
       )}
-      <div className="flex">
+      <div className="flex items-center">
+        <span className="nn-text-secondary mx-2 text-center">
+          {props.comment.voteTotal} point
+          {props.comment.voteTotal !== 1 && "s"}
+        </span>
         <CommentNavButton
           Icon={ArrowUpIcon}
           disabled={props.user.username === "deleted"}
+          onClick={async () => {
+            await upsertVote({
+              userId: props.user.userId,
+              resourceId: props.comment.id,
+              value: 1,
+              resourceType: "comment",
+              revalidate: window.location.pathname,
+            });
+
+            props.refresh();
+          }}
         />
         <CommentNavButton
           Icon={ArrowDownIcon}
           disabled={props.user.username === "deleted"}
+          onClick={async () => {
+            await upsertVote({
+              userId: props.user.userId,
+              resourceId: props.comment.id,
+              value: -1,
+              resourceType: "comment",
+              revalidate: window.location.pathname,
+            });
+
+            props.refresh();
+          }}
         />
         <CommentNavButton
           Icon={ExclamationTriangleIcon}

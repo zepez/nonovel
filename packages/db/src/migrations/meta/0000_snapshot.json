@@ -1,7 +1,7 @@
 {
   "version": "5",
   "dialect": "pg",
-  "id": "860cff48-dcae-4c19-82ed-7a07b7b84138",
+  "id": "f345a294-560c-4948-ae00-288172a87f3c",
   "prevId": "00000000-0000-0000-0000-000000000000",
   "tables": {
     "account": {
@@ -278,6 +278,12 @@
           "primaryKey": true,
           "notNull": true,
           "default": "gen_random_uuid()"
+        },
+        "resource_type": {
+          "name": "resource_type",
+          "type": "comment_resource_type",
+          "primaryKey": false,
+          "notNull": true
         },
         "resource_id": {
           "name": "resource_id",
@@ -584,6 +590,12 @@
           "primaryKey": true,
           "notNull": true,
           "default": "gen_random_uuid()"
+        },
+        "pen_name": {
+          "name": "pen_name",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
         },
         "cover": {
           "name": "cover",
@@ -1190,6 +1202,84 @@
       },
       "foreignKeys": {},
       "compositePrimaryKeys": {}
+    },
+    "vote": {
+      "name": "vote",
+      "schema": "",
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "uuid",
+          "primaryKey": true,
+          "notNull": true,
+          "default": "gen_random_uuid()"
+        },
+        "resource_type": {
+          "name": "resource_type",
+          "type": "voteResourcetype",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "resource_id": {
+          "name": "resource_id",
+          "type": "uuid",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "user_id": {
+          "name": "user_id",
+          "type": "uuid",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "value": {
+          "name": "value",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true,
+          "default": 0
+        },
+        "created_at": {
+          "name": "created_at",
+          "type": "timestamp with time zone",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "now()"
+        },
+        "updated_at": {
+          "name": "updated_at",
+          "type": "timestamp with time zone",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "now()"
+        }
+      },
+      "indexes": {
+        "vote_user_id_index": {
+          "name": "vote_user_id_index",
+          "columns": [
+            "user_id"
+          ],
+          "isUnique": false
+        },
+        "vote_resource_id_index": {
+          "name": "vote_resource_id_index",
+          "columns": [
+            "resource_id"
+          ],
+          "isUnique": false
+        },
+        "vote_ids_index": {
+          "name": "vote_ids_index",
+          "columns": [
+            "user_id",
+            "resource_id"
+          ],
+          "isUnique": true
+        }
+      },
+      "foreignKeys": {},
+      "compositePrimaryKeys": {}
     }
   },
   "enums": {
@@ -1198,6 +1288,14 @@
       "values": {
         "html": "html",
         "md": "md"
+      }
+    },
+    "comment_resource_type": {
+      "name": "comment_resource_type",
+      "values": {
+        "profile": "profile",
+        "project": "project",
+        "chapter": "chapter"
       }
     },
     "project_progress": {
@@ -1213,6 +1311,14 @@
         "author": "author",
         "editor": "editor",
         "moderator": "moderator"
+      }
+    },
+    "voteResourcetype": {
+      "name": "voteResourcetype",
+      "values": {
+        "review": "review",
+        "chapter": "chapter",
+        "comment": "comment"
       }
     }
   },
