@@ -49,7 +49,7 @@ export default async function ChapterLayout({
           style={{ backgroundImage: `url(${project.cover ?? ""})` }}
         />
         <div className="relative z-10">
-          <LayoutWrapper className="my-12 flex flex-wrap items-center justify-between md:flex-nowrap">
+          <LayoutWrapper className="my-12 flex flex-wrap items-center justify-between md:flex-nowrap lg:px-16">
             <div className="mb-8 flex w-full flex-wrap items-center md:mb-0 md:w-auto md:flex-nowrap">
               <Link
                 href={`/p/${project.slug}`}

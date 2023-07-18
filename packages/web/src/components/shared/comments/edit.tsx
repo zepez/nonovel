@@ -62,7 +62,6 @@ export const CommentEdit = ({
 
   const handleSubmit = async (values: CommentEditSchema) => {
     setSaving(true);
-    console.log({ ...comment, ...values });
     const [submitError] = await createComment({
       ...comment,
       ...values,

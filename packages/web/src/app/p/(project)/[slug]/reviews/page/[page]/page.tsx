@@ -28,11 +28,13 @@ export default async function ProjectReviewPagePage({
     projectId: project.id,
   });
 
-  const [, reviews] = await getReviewPageByProjectId({
+  const [, allReviews] = await getReviewPageByProjectId({
     projectId: project.id,
     page,
     pageSize,
   });
+
+  const reviews = allReviews?.slice(0, pageSize) ?? [];
 
   return (
     <>

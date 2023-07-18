@@ -1,5 +1,14 @@
 import { db, comment, user, profile, vote } from "@nonovel/db";
-import { placeholder, desc, asc, eq, and, isNull, sql } from "drizzle-orm";
+import {
+  placeholder,
+  desc,
+  asc,
+  eq,
+  and,
+  isNull,
+  sql,
+  isNotNull,
+} from "drizzle-orm";
 
 export const getCommentPageByResourceIdPrepared = db
   .select({
@@ -38,6 +47,7 @@ export const getCommentPageByResourceIdPrepared = db
   .leftJoin(user, eq(comment.userId, user.id))
   .leftJoin(profile, eq(user.id, profile.userId))
   .orderBy(
+    desc(isNotNull(comment.userId)),
     desc(sql<number>`COALESCE(sum(${vote.value}), 0)`),
     desc(comment.createdAt)
   )

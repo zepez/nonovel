@@ -67,12 +67,6 @@ export const CommentThread = ({ refresh, parent }: CommentThreadProps) => {
         </div>
       )}
 
-      {loading && (
-        <div className="nn-border nn-bg-foreground mt-4 border-l-[10px] p-4 sm:ml-12">
-          Loading replies...
-        </div>
-      )}
-
       <div className="mt-4 flex flex-wrap items-center justify-start gap-2">
         {parent.replyCount > 0 ? (
           <>
@@ -82,8 +76,14 @@ export const CommentThread = ({ refresh, parent }: CommentThreadProps) => {
               </Button>
             ) : (
               <Button size="sm" onClick={getReplies}>
-                Show {parent.replyCount}{" "}
-                {parent.replyCount === 1 ? "reply" : "replies"}
+                {loading ? (
+                  <>Loading...</>
+                ) : (
+                  <>
+                    Show {parent.replyCount}{" "}
+                    {parent.replyCount === 1 ? "reply" : "replies"}
+                  </>
+                )}
               </Button>
             )}
           </>

@@ -36,10 +36,18 @@ Before Launch:
   - [x] delete
   - [ ] delete from settings/comments page
 - [ ] Reviews
-  - [ ] paginate
+  - [x] paginate
   - [ ] delete from settings/reviews page
-- [ ] Voting system (chapter (repurpose as a `like`?), comment, review)
-- [ ] Report system (profile, project, chapter, comment)
+- [ ] Voting system
+  - [ ] review
+  - [ ] chapter (repurpose as a `like`?)
+  - [x] comment
+- [ ] Report system
+  - [ ] global
+  - [ ] profile
+  - [ ] project
+  - [ ] chapter
+  - [ ] comment
 - [ ] Upload a lot of public domain books
 - [ ] Browse by category and ranking pages
 - [ ] Home and about pages

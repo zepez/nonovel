@@ -87,7 +87,7 @@ export default async function ProjectLayout({
           style={{ backgroundImage: `url(${project.cover ?? ""})` }}
         />
         <div className="relative z-10">
-          <LayoutWrapper className="flex flex-wrap py-12 md:flex-nowrap">
+          <LayoutWrapper className="flex flex-wrap py-12 md:flex-nowrap md:px-16 lg:px-16">
             <AspectImage
               src={project.cover}
               alt={project.name}

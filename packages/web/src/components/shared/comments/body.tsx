@@ -24,6 +24,7 @@ interface CommentNavButtonProps {
   size?: number;
   Icon: typeof Pencil1Icon;
   disabled?: boolean;
+  text?: string;
 }
 
 const CommentNavButton = ({
@@ -32,6 +33,7 @@ const CommentNavButton = ({
   Icon,
   size = 20,
   disabled = false,
+  text,
 }: CommentNavButtonProps) => {
   return (
     <Button
@@ -42,6 +44,7 @@ const CommentNavButton = ({
       className={cn("px-2", className)}
     >
       <Icon width={size} height={size} />
+      {text && <span className="nn-text-secondary ml-2">{text}</span>}
     </Button>
   );
 };
@@ -59,29 +62,50 @@ interface CommentBodyProps {
   comment: Comments[0];
 }
 
-export const CommentBody = (props: CommentBodyProps) => {
+export const CommentBody = ({
+  refresh,
+  className,
+  user,
+  comment,
+}: CommentBodyProps) => {
   const { data: session } = useSession();
 
-  const isCreator = props.user.userId === session?.user.id;
+  const isCreator = user.userId === session?.user.id;
   const [isEditing, setIsEditing] = useState(false);
 
-  const createdAt = formatDistanceToNow(new Date(props.comment.createdAt), {
+  const createdAt = formatDistanceToNow(new Date(comment.createdAt), {
     addSuffix: true,
   });
-  const updatedAt = formatDistanceToNow(new Date(props.comment.updatedAt), {
+  const updatedAt = formatDistanceToNow(new Date(comment.updatedAt), {
     addSuffix: true,
   });
+
+  const handleVote = async (direction: "up" | "down") => {
+    if (!session?.user.id) return;
+
+    await upsertVote({
+      userId: session?.user.id,
+      resourceId: comment.id,
+      value: direction === "down" ? -1 : 1,
+      resourceType: "comment",
+      revalidate: window.location.pathname,
+    });
+
+    refresh();
+  };
+
   return (
-    <div className={cn(props.className)}>
+    <div className={cn(className)}>
+      {/* meat of the comment */}
       <div className="flex gap-4">
         <AspectImage
-          src={props.user.image}
+          src={user.image}
           width={35}
-          alt={`${props.user.username} profile image`}
+          alt={`${user.username} profile image`}
         />
         <div className="flex-grow">
           <p className="mb-1 text-sm font-bold leading-tight">
-            @{props.user.username}
+            @{user.username}
           </p>
           <p className="nn-text-secondary text-xs">{createdAt}</p>
           {createdAt !== updatedAt && (
@@ -89,80 +113,69 @@ export const CommentBody = (props: CommentBodyProps) => {
           )}
         </div>
       </div>
+
+      {/* editing */}
       {isEditing ? (
         <CommentEdit
           refresh={() => {
             setIsEditing(false);
-            props.refresh();
+            refresh();
           }}
           deleteFn={() => null}
-          comment={{ ...props.comment, userId: props.user.userId }}
+          comment={{ ...comment, userId: user.userId }}
           background={
-            props.comment.parentId ? "nn-bg-background" : "nn-bg-foreground"
+            comment.parentId ? "nn-bg-background" : "nn-bg-foreground"
           }
           className="mb-4"
           defaultSubmitText="Update comment"
           actionText={["Updating", "Updated"]}
         />
       ) : (
-        <p className="text-md my-4 whitespace-pre-wrap">
-          {props.comment.content}
-        </p>
+        <p className="text-md my-4 whitespace-pre-wrap">{comment.content}</p>
       )}
-      <div className="flex items-center">
-        <span className="nn-text-secondary mx-2 text-center">
-          {props.comment.voteTotal} point
-          {props.comment.voteTotal !== 1 && "s"}
-        </span>
-        <CommentNavButton
-          Icon={ArrowUpIcon}
-          disabled={props.user.username === "deleted"}
-          onClick={async () => {
-            await upsertVote({
-              userId: props.user.userId,
-              resourceId: props.comment.id,
-              value: 1,
-              resourceType: "comment",
-              revalidate: window.location.pathname,
-            });
 
-            props.refresh();
-          }}
-        />
-        <CommentNavButton
-          Icon={ArrowDownIcon}
-          disabled={props.user.username === "deleted"}
-          onClick={async () => {
-            await upsertVote({
-              userId: props.user.userId,
-              resourceId: props.comment.id,
-              value: -1,
-              resourceType: "comment",
-              revalidate: window.location.pathname,
-            });
-
-            props.refresh();
-          }}
-        />
-        <CommentNavButton
-          Icon={ExclamationTriangleIcon}
-          disabled={props.user.username === "deleted"}
-        />
-        {isCreator && (
-          <>
-            {isEditing ? (
-              <CommentNavButton
-                Icon={Cross1Icon}
-                onClick={() => setIsEditing(false)}
-              />
-            ) : (
-              <CommentNavButton
-                Icon={Pencil1Icon}
-                onClick={() => setIsEditing(true)}
-              />
-            )}
-          </>
-        )}
+      {/* comment actions */}
+      <div className="flex">
+        <div className="flex items-center">
+          <CommentNavButton
+            Icon={ArrowUpIcon}
+            disabled={!session?.user.id || user.username === "deleted"}
+            onClick={async () => await handleVote("up")}
+          />
+          <CommentNavButton
+            Icon={ArrowDownIcon}
+            disabled={!session?.user.id || user.username === "deleted"}
+            onClick={async () => await handleVote("down")}
+          />
+          <span className="nn-text-secondary mx-2 text-center">
+            {comment.voteTotal} vote
+            {comment.voteTotal.toString() !== "1" &&
+              comment.voteTotal.toString() !== "-1" &&
+              "s"}
+          </span>
+        </div>
+        <div className="nn-border ml-2 border-l-2 pl-2">
+          {isCreator ? (
+            <>
+              {isEditing ? (
+                <CommentNavButton
+                  Icon={Cross1Icon}
+                  onClick={() => setIsEditing(false)}
+                />
+              ) : (
+                <CommentNavButton
+                  Icon={Pencil1Icon}
+                  onClick={() => setIsEditing(true)}
+                />
+              )}
+            </>
+          ) : (
+            <CommentNavButton
+              Icon={ExclamationTriangleIcon}
+              disabled={!session?.user.id || user.username === "deleted"}
+            />
+          )}
+        </div>
       </div>
     </div>
   );

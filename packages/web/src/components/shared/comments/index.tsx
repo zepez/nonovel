@@ -48,6 +48,8 @@ export const CommentLayout = ({
         pageSize,
       });
 
+      console.log(comm);
+
       if (!err && comm && comm.length > 0) {
         setComments(comm.slice(0, pageSize));
         setNextPageAvailable(comm.length > pageSize);
