@@ -108,9 +108,6 @@ export const CommentBody = ({
             @{user.username}
           </p>
           <p className="nn-text-secondary text-xs">{createdAt}</p>
-          {createdAt !== updatedAt && (
-            <p className="nn-text-secondary text-xs">*Updated {updatedAt}</p>
-          )}
         </div>
       </div>
 
@@ -131,7 +128,14 @@ export const CommentBody = ({
           actionText={["Updating", "Updated"]}
         />
       ) : (
-        <p className="text-md my-4 whitespace-pre-wrap">{comment.content}</p>
+        <>
+          {createdAt !== updatedAt && (
+            <span className="nn-text-secondary nn-bg-foreground nn-border mt-2 inline-block rounded-sm border px-2 py-1 text-xs">
+              Edited {updatedAt}
+            </span>
+          )}
+          <p className="text-md my-4 whitespace-pre-wrap">{comment.content}</p>
+        </>
       )}
 
       {/* comment actions */}

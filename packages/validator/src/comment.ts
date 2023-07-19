@@ -2,7 +2,7 @@ import * as z from "zod";
 
 export const comment = z.object({
   id: z.string(),
-  userId: z.string(),
+  userId: z.string().nullable(),
   resourceId: z.string(),
   resourceType: z.enum(["profile", "project", "chapter"]),
   parentId: z.string().nullable(),

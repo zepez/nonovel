@@ -43,12 +43,11 @@ export const CommentLayout = ({
   const getComments = useCallback(
     async (page = 1) => {
       const [err, comm] = await getCommentPage({
+        userId: session?.user.id ?? null,
         resourceId,
         page,
         pageSize,
       });
-
-      console.log(comm);
 
       if (!err && comm && comm.length > 0) {
         setComments(comm.slice(0, pageSize));
@@ -57,7 +56,7 @@ export const CommentLayout = ({
       }
       setHasBeenFetched(true);
     },
-    [resourceId]
+    [resourceId, session]
   );
 
   useEffect(() => {
@@ -78,14 +77,17 @@ export const CommentLayout = ({
   const showPagination = Boolean(comments.length > 0 || loadingAnotherPage);
 
   return (
-    <section ref={intersectionRef}>
-      <SectionHeading>Comments</SectionHeading>
+    <section
+      ref={intersectionRef}
+      className="nn-bg-background nn-border mt-12 rounded-md border px-6 pb-8 pt-10 md:px-12"
+    >
+      <SectionHeading className="mt-0">Comments</SectionHeading>
 
       {session?.user.id && (
         <CommentEdit
           refresh={getComments}
           className="mb-8"
-          background="nn-bg-background"
+          background="nn-bg-foreground"
           defaultSubmitText="Post comment"
           actionText={["Posting", "Posted"]}
           comment={{
@@ -99,24 +101,26 @@ export const CommentLayout = ({
       )}
 
       {showBaseLoading && (
-        <SectionEmpty className="nn-bg-background">
+        <SectionEmpty className="nn-bg-foreground">
           Loading comments...
         </SectionEmpty>
       )}
 
       {showNoComments && (
-        <SectionEmpty className="nn-bg-background">
+        <SectionEmpty className="nn-bg-foreground">
           No comments yet.
         </SectionEmpty>
       )}
 
       {showPageLoading && <Skeleton className="h-screen w-full" />}
 
-      <div className="space-y-8">
-        {comments.map((c) => (
-          <CommentThread key={c.id} parent={c} refresh={getComments} />
-        ))}
-      </div>
+      {comments.length > 0 && (
+        <div className={"nn-bg-background rounded-md"}>
+          {comments.map((c) => (
+            <CommentThread key={c.id} parent={c} refresh={getComments} />
+          ))}
+        </div>
+      )}
 
       {showPagination && (
         <ClientPaginate

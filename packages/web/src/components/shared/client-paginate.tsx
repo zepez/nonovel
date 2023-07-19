@@ -22,7 +22,7 @@ export const ClientPaginate = ({
   return (
     <div className="mt-8 flex items-center justify-center gap-4">
       <Button
-        variant="secondary"
+        variant="default"
         disabled={previousDisabled}
         className="nn-interactive text-xs"
         onClick={onPreviousClick}
@@ -30,7 +30,7 @@ export const ClientPaginate = ({
         <DoubleArrowLeftIcon className="mr-2" /> Previous
       </Button>
       <Button
-        variant="secondary"
+        variant="default"
         disabled={nextDisabled}
         className="nn-interactive text-xs"
         onClick={onNextClick}

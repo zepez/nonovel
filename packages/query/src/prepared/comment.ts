@@ -28,10 +28,6 @@ export const getCommentPageByResourceIdPrepared = db
       username: profile.username,
       image: profile.image,
     },
-    votes: {
-      id: vote.id,
-      userId: vote.userId,
-    },
     voteTotal: sql<number>`COALESCE(sum(${vote.value}), 0)`,
   })
   .from(comment)
@@ -47,11 +43,20 @@ export const getCommentPageByResourceIdPrepared = db
   .leftJoin(user, eq(comment.userId, user.id))
   .leftJoin(profile, eq(user.id, profile.userId))
   .orderBy(
+    desc(
+      sql`CASE WHEN ${comment.userId} = ${placeholder(
+        "userId"
+      )} THEN 1 ELSE 0 END`
+    ),
+    desc(
+      sql`CASE WHEN ${comment.userId} = ${placeholder("userId")} THEN ${
+        comment.createdAt
+      } END`
+    ),
     desc(isNotNull(comment.userId)),
-    desc(sql<number>`COALESCE(sum(${vote.value}), 0)`),
-    desc(comment.createdAt)
+    desc(sql<number>`COALESCE(sum(${vote.value}), 0)`)
   )
-  .groupBy(comment.id, user.id, profile.id, vote.id)
+  .groupBy(comment.id, user.id, profile.id)
   .prepare("get_comment_page_by_resource_id_prepared");
 
 export const getCommentRepliesByParentIdPrepared = db
@@ -72,10 +77,6 @@ export const getCommentRepliesByParentIdPrepared = db
       username: profile.username,
       image: profile.image,
     },
-    votes: {
-      id: vote.id,
-      userId: vote.userId,
-    },
     voteTotal: sql<number>`COALESCE(sum(${vote.value}), 0)`,
   })
   .from(comment)
@@ -84,5 +85,5 @@ export const getCommentRepliesByParentIdPrepared = db
   .leftJoin(user, eq(comment.userId, user.id))
   .leftJoin(profile, eq(user.id, profile.userId))
   .orderBy(asc(comment.createdAt))
-  .groupBy(comment.id, user.id, profile.id, vote.id)
+  .groupBy(comment.id, user.id, profile.id)
   .prepare("get_comment_replies_by_parent_id_prepared");

@@ -10,6 +10,7 @@ import {
 
 export interface GetCommentPageByResourceIdOptions {
   resourceId: Comment["resourceId"];
+  userId: Comment["userId"] | null;
   page: number;
   pageSize: number;
 }
@@ -23,7 +24,7 @@ export const getCommentPageByResourceId = async (
         page: z.number().int().positive(),
         pageSize: z.number().int().positive(),
       })
-      .pick({ resourceId: true, page: true, pageSize: true })
+      .pick({ resourceId: true, page: true, pageSize: true, userId: true })
       .parse(opts);
 
     const result = await getCommentPageByResourceIdPrepared.execute({
