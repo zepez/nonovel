@@ -29,17 +29,16 @@ Before Launch:
 - [x] AI generated synopsis for public domain books?
 - [x] AI selected genres for public domain books?
 - [x] Compress + convert cover images to jpg before converting to base64
-- [ ] Clean up epub / cli packages
 - [x] Comments:
   - [x] paginate
   - [x] editing
   - [x] delete
 - [x] Reviews
   - [x] paginate
-- [ ] Voting system
-  - [ ] review
-  - [ ] chapter (repurpose as a `like`?)
+- [x] Voting system
+  - [x] review
   - [x] comment
+- [ ] Clean up epub / cli packages
 - [ ] Report system
   - [ ] global
   - [ ] profile
@@ -58,6 +57,7 @@ Before Launch:
 
 After Launch:
 
+- [ ] vote on chapter as `like`
 - [ ] link and delete comments from settings/comments page
 - [ ] link and delete reviews from settings/reviews page
 - [ ] Reaction system (?) (chapter)

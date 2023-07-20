@@ -58,9 +58,12 @@ export const EditReview = ({ userId, projectId, review }: EditReviewProps) => {
   });
 
   const handleSubmit = async (values: EditReviewSchema) => {
+    if (!userId) return;
+
     setSaving(true);
     const [submitError] = await doReview({
       ...values,
+      userId,
       revalidate: window.location.pathname,
     });
     setSaving(false);

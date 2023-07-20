@@ -34,8 +34,10 @@ export default async function ProjectReviewPagePage({
     page,
     pageSize,
   });
+  if (!allReviews?.length) notFound();
 
   const reviews = allReviews?.slice(0, pageSize) ?? [];
+  if (!reviews.length) notFound();
 
   return (
     <>
