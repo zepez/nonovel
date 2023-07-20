@@ -2,28 +2,10 @@ import { db, genre } from "./index";
 
 const genres = [
   {
-    name: "Fiction",
-    slug: "fiction",
-    description:
-      "Fiction is any creative work, chiefly any narrative work, portraying individuals, events, or places that are imaginary, or in ways that are imaginary. Fictional portrayals are thus inconsistent with history, fact, or plausibility. <a href='https://en.wikipedia.org/wiki/Fiction' target='_blank' rel='noreferrer'>Wikipedia</a>",
-  },
-  {
-    name: "Narrative",
-    slug: "narrative",
-    description:
-      "A narrative, story, or tale is any account of a series of related events or experiences, whether nonfictional or fictional. Narratives can be presented through a sequence of written or spoken words, through still or moving images, or through any combination of these. <a href='https://en.wikipedia.org/wiki/Narrative' target='_blank' rel='noreferrer'>Wikipedia</a>",
-  },
-  {
     name: "Science Fiction",
     slug: "science-fiction",
     description:
       "Science fiction is a genre of speculative fiction, which typically deals with imaginative and futuristic concepts such as advanced science and technology, space exploration, time travel, parallel universes, and extraterrestrial life. Science fiction can trace its roots to ancient mythology. <a href='https://en.wikipedia.org/wiki/Science_fiction' target='_blank' rel='noreferrer'>Wikipedia</a>",
-  },
-  {
-    name: "Non-fiction",
-    slug: "non-fiction",
-    description:
-      "Non-fiction is any document or media content that attempts, in good faith, to convey information only about the real world, rather than being grounded in imagination. Non-fiction typically aims to present topics objectively based on historical, scientific, and empirical information. <a href='https://en.wikipedia.org/wiki/Non-fiction' target='_blank' rel='noreferrer'>Wikipedia</a>",
   },
   {
     name: "Mystery",
@@ -68,52 +50,22 @@ const genres = [
       "Horror is a genre of fiction that is intended to disturb, frighten or scare. Horror is often divided into the sub-genres of psychological horror and supernatural horror, which are in the realm of speculative fiction. <a href='https://en.wikipedia.org/wiki/Horror_fiction' target='_blank' rel='noreferrer'>Wikipedia</a>",
   },
   {
-    name: "Memoir",
-    slug: "memoir",
-    description:
-      "A memoir is any nonfiction narrative writing based on the author's personal memories. The assertions made in the work are thus understood to be factual. <a href='https://en.wikipedia.org/wiki/Memoir' target='_blank' rel='noreferrer'>Wikipedia</a>",
-  },
-  {
-    name: "Self-help",
-    slug: "self-help",
-    description:
-      "A self-help book is one that is written with the intention to instruct its readers on solving personal problems. The books take their name from Self-Help, an 1859 best-seller by Samuel Smiles, but are also known and classified under 'self-improvement', a term that is a modernized version of self-help. <a href='https://en.wikipedia.org/wiki/Self-help_book' target='_blank' rel='noreferrer'>Wikipedia</a>",
-  },
-  {
-    name: "Autobiography",
-    slug: "autobiography",
-    description:
-      "An autobiography, sometimes informally called an autobio, is a self-written biography of one's own life. <a href='https://en.wikipedia.org/wiki/Autobiography' target='_blank' rel='noreferrer'>Wikipedia</a>",
-  },
-  {
     name: "Short story",
     slug: "short-story",
     description:
       "A short story, also known as a nouvelle, is a piece of prose fiction that can typically be read in a single sitting and focuses on a self-contained incident or series of linked incidents, with the intent of evoking a single effect or mood. <a href='https://en.wikipedia.org/wiki/Short_story' target='_blank' rel='noreferrer'>Wikipedia</a>",
   },
   {
-    name: "Humor",
-    slug: "humor",
+    name: "Comedy",
+    slug: "comedy",
     description:
-      "Humour or humor is the tendency of experiences to provoke laughter and provide amusement. The term derives from the humoral medicine of the ancient Greeks, which taught that the balance of fluids in the human body, known as humours, controlled human health and emotion. <a href='https://en.wikipedia.org/wiki/Humour' target='_blank' rel='noreferrer'>Wikipedia</a>",
+      "Comedy is a genre that prioritizes humor and laughter, aiming to entertain and amuse the audience. The stories often revolve around funny situations, comedic misunderstandings, witty dialogue, or humorous characters.",
   },
   {
     name: "Action",
     slug: "action",
     description:
       "Action fiction is a literary genre that focuses on stories that involve high-stakes, high-energy, and fast-paced events. This genre includes a wide range of subgenres, such as spy novels, adventure stories, tales of terror and intrigue and mysteries. <a href='https://en.wikipedia.org/wiki/Action_fiction' target='_blank' rel='noreferrer'>Wikipedia</a>",
-  },
-  {
-    name: "Children's Literature",
-    slug: "childrens-literature",
-    description:
-      "Children's literature or juvenile literature includes stories, books, magazines, and poems that are created for children. Modern children's literature is classified in two different ways: genre or the intended age of the reader. <a href='https://en.wikipedia.org/wiki/Children's_literature' target='_blank' rel='noreferrer'>Wikipedia</a>",
-  },
-  {
-    name: "Biography",
-    slug: "biography",
-    description:
-      "A biography, or simply bio, is a detailed description of a person's life. It involves more than just basic facts like education, work, relationships, and death; it portrays a person's experience of these life events. <a href='https://en.wikipedia.org/wiki/Biography' target='_blank' rel='noreferrer'>Wikipedia</a>",
   },
   {
     name: "Adventure",
@@ -128,22 +80,10 @@ const genres = [
       "A genre of literature that uses aesthetic and rhythmic qualities of language to evoke meanings in addition to, or in place of, prosaic ostensible meaning. It traditionally follows specific forms but can also be free-form.",
   },
   {
-    name: "Play",
-    slug: "play",
-    description:
-      "A genre that is intended to be performed in front of an audience. It involves the representation of the actions, deeds, and dialogue of characters in a dramatic structure.",
-  },
-  {
     name: "Philosophy",
     slug: "philosophy",
     description:
       "A genre that explores fundamental questions about existence, reality, knowledge, values, reason, mind, and ethics. It originates from the works of ancient philosophers.",
-  },
-  {
-    name: "Literary Criticism",
-    slug: "literary-criticism",
-    description:
-      "A genre encompassing works that analyze, interpret, or critique other works of literature. It focuses on studying, evaluating, and interpreting literary art.",
   },
   {
     name: "Spiritual",
@@ -158,22 +98,10 @@ const genres = [
       "A genre that includes works of high literary merit, widely studied in academic institutions, often originating from ancient or traditional literary canon.",
   },
   {
-    name: "Essay",
-    slug: "essay",
-    description:
-      "This genre is characterized by brief, non-fiction compositions that explore a particular topic or theme from the author's personal perspective.",
-  },
-  {
     name: "Political",
     slug: "Political",
     description:
       "A genre that explores political systems, ideologies, and movements.",
-  },
-  {
-    name: "Science",
-    slug: "science",
-    description:
-      "This genre includes works that systematically study the structure and behavior of the physical and natural world through observation and experiment.",
   },
   {
     name: "Satire",
@@ -194,12 +122,6 @@ const genres = [
       "A genre set in the American West during the late 18th to late 19th century. These stories often focus on rugged individualism and the frontier spirit.",
   },
   {
-    name: "Gothic",
-    slug: "gothic",
-    description:
-      "A genre that combines elements of both horror and romance, often set against dark and brooding environments like old castles or manors, and featuring complex, sometimes supernatural, narratives.",
-  },
-  {
     name: "Crime",
     slug: "crime",
     description:
@@ -212,16 +134,34 @@ const genres = [
       "A genre of dramatic works that is characterized by its serious and dignified style, and typically presents the downfall of its main character(s) due to their own errors or flaws.",
   },
   {
-    name: "Educational",
-    slug: "educational",
-    description:
-      "This genre includes works primarily intended to educate the reader about a particular subject or skill.",
-  },
-  {
     name: "Magical Realism",
     slug: "magical-realism",
     description:
       "A genre in which fantastical elements blend with the real world. The narrative remains grounded in reality, but expands to incorporate aspects of the magical or the extraordinary.",
+  },
+  {
+    name: "Dystopian",
+    slug: "dystopian",
+    description:
+      "Dystopian and Utopian genres are characterized by their exploration of hypothetical societies, with dystopian narratives typically featuring oppressive, nightmarish settings, and utopian narratives presenting idyllic, harmonious environments.",
+  },
+  {
+    name: "Paranormal",
+    slug: "paranormal",
+    description:
+      "The Paranormal genre encompasses stories that introduce elements beyond scientific understanding, often involving supernatural creatures or occurrences, like ghosts, vampires, and werewolves.",
+  },
+  {
+    name: "Detective",
+    slug: "detective",
+    description:
+      "Detective genre revolves around a central character, often a detective or private investigator, who undertakes the task of solving a crime or unraveling a mystery.",
+  },
+  {
+    name: "Post-Apocalyptic",
+    slug: "post-apocalyptic",
+    description:
+      "Post-Apocalyptic genre features narratives set in the aftermath of a global catastrophe, exploring themes of survival, societal rebuilding, and human resilience.",
   },
 ];
 
