@@ -17,7 +17,7 @@ import {
 } from "@nonovel/db";
 import { truncate } from "./lib/log";
 import { selectGenres, generateSynopsis } from "./lib/prompt";
-import { processImageBuffer } from "./lib/image";
+import { processImageBuffer, generateCoverImage } from "./lib/image";
 
 const program = new Command();
 
@@ -38,6 +38,29 @@ program
 
     // #####################################
 
+    const generateNewCover = await select({
+      message: "Generate a new cover?",
+      choices: [
+        {
+          name: "Yes",
+          value: true,
+        },
+        {
+          name: "No",
+          value: false,
+        },
+      ],
+    });
+
+    const cover = generateNewCover
+      ? await generateCoverImage({
+          title: epub.opfMetadata.title,
+          author: epub.opfMetadata.creator,
+        })
+      : await processImageBuffer(epub.opfMetadata.cover);
+
+    // #####################################
+
     const projectDescription = await generateSynopsis({
       title: epub.opfMetadata.title,
       author: epub.opfMetadata.creator,
@@ -45,11 +68,7 @@ program
 
     const project: NewProject = {
       id: uuidv4(),
-      penName: await input({
-        message: "Pen name",
-        default: epub.opfMetadata.creator,
-      }),
-      cover: await processImageBuffer(epub.opfMetadata.cover),
+      cover,
       name: await input({
         message: "Project name",
         default: epub.opfMetadata.title,
@@ -57,6 +76,10 @@ program
       slug: await input({
         message: "Project slug",
         default: slugify(epub.opfMetadata.title).toLowerCase(),
+      }),
+      penName: await input({
+        message: "Pen name",
+        default: epub.opfMetadata.creator,
       }),
       description: await input({
         message: "Project description",

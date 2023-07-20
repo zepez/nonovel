@@ -52,6 +52,7 @@ Before Launch:
 - [ ] Callback URL on successful login/register/logout
 - [ ] Decide on header links and make responsive
 - [ ] SEO / page metadata
+- [ ] allow bots + request indexing by google
 - [ ] Logo?
 - [ ] File uploading via UploadThing (\* base64 for project cover, uploadthing for profile pictures)
 
