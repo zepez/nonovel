@@ -64,7 +64,6 @@ program
           await generateCoverImage({
             title: epub.opfMetadata.title,
             author: epub.opfMetadata.creator,
-            description: projectDescription,
           })
         )
       : await processImageBuffer(epub.opfMetadata.cover);

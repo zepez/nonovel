@@ -25,22 +25,20 @@ export const processImageBuffer = async (
 export const generateCoverImage = async ({
   title,
   author,
-  description,
 }: {
   title: string;
   author: string;
-  description: string;
 }): Promise<Buffer> => {
-  const aiImageBase64 = await generateStabilityImage([
+  const prompt = [
     {
       text: `beautiful book illustration, ${title}, ${author}`,
       weight: 1,
     },
-    {
-      text: description,
-      weight: 0.5,
-    },
-  ]);
+  ];
+
+  console.log("Trying with prompt:", prompt);
+
+  const aiImageBase64 = await generateStabilityImage(prompt);
 
   const browser = await puppeteer.launch({
     headless: "new",
