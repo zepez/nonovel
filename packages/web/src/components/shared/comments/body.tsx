@@ -6,10 +6,9 @@ import { formatDistanceToNow } from "date-fns";
 import {
   Pencil1Icon,
   Cross1Icon,
-  ArrowUpIcon,
-  ArrowDownIcon,
   ExclamationTriangleIcon,
 } from "@radix-ui/react-icons";
+import { FiThumbsUp, FiThumbsDown } from "react-icons/fi";
 
 import type { GetCommentPageByResourceIdReturn } from "@nonovel/query";
 import { upsertVote } from "~/actions";
@@ -22,7 +21,7 @@ interface CommentNavButtonProps {
   onClick?: () => void;
   className?: string;
   size?: number;
-  Icon: typeof Pencil1Icon;
+  Icon: typeof Pencil1Icon | typeof FiThumbsUp;
   disabled?: boolean;
   text?: string;
 }
@@ -86,7 +85,8 @@ export const CommentBody = ({
     await upsertVote({
       userId: session?.user.id,
       resourceId: comment.id,
-      value: direction === "down" ? -1 : 1,
+      direction,
+      voteCurrent: comment.voteCurrent,
       resourceType: "comment",
       revalidate: window.location.pathname,
     });
@@ -142,17 +142,19 @@ export const CommentBody = ({
       <div className="flex">
         <div className="flex items-center">
           <CommentNavButton
-            Icon={ArrowUpIcon}
+            Icon={FiThumbsUp}
             disabled={!session?.user.id || user.username === "deleted"}
             onClick={async () => await handleVote("up")}
+            className={cn(comment.voteCurrent > 0 && "bg-green-500/20")}
           />
           <CommentNavButton
-            Icon={ArrowDownIcon}
+            Icon={FiThumbsDown}
             disabled={!session?.user.id || user.username === "deleted"}
             onClick={async () => await handleVote("down")}
+            className={cn(comment.voteCurrent < 0 && "bg-red-500/20")}
           />
           <span className="nn-text-secondary mx-2 text-center">
-            {comment.voteTotal} vote
+            {comment.voteTotal} like
             {comment.voteTotal.toString() !== "1" &&
               comment.voteTotal.toString() !== "-1" &&
               "s"}

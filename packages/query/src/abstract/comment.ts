@@ -105,13 +105,14 @@ export type CreateCommentReturn = Awaited<ReturnType<typeof createComment>>;
 
 export interface GetCommentRepliesByParentIdOptions {
   parentId: Comment["parentId"];
+  userId: Comment["userId"] | null;
 }
 
 export const getCommentRepliesByParentId = async (
   opts: GetCommentRepliesByParentIdOptions
 ) => {
   try {
-    const parsed = validator.pick({ parentId: true }).parse(opts);
+    const parsed = validator.pick({ parentId: true, userId: true }).parse(opts);
 
     const result = await getCommentRepliesByParentIdPrepared.execute(parsed);
 

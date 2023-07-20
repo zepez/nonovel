@@ -7,7 +7,7 @@ import {
 } from "~/lib/request";
 import { SectionHeading, AspectImage, SectionEmpty } from "~/components/shared";
 import { LayoutPaginate } from "~/components/shared/layout-paginate";
-import { EditReview, ReviewScore } from "~/components/project";
+import { EditReview, ReviewScore, ReviewVote } from "~/components/project";
 
 interface ProjectReviewPagePageProps {
   params: { slug: string; page: string };
@@ -30,6 +30,7 @@ export default async function ProjectReviewPagePage({
 
   const [, allReviews] = await getReviewPageByProjectId({
     projectId: project.id,
+    userId: session?.user?.id ?? null,
     page,
     pageSize,
   });
@@ -52,29 +53,36 @@ export default async function ProjectReviewPagePage({
             {reviews.map((review) => (
               <div
                 key={review.id}
-                className="nn-border-50 nn-bg-background flex items-start justify-start rounded-md p-4 sm:space-x-6 sm:px-8 sm:py-6"
+                className="nn-border-50 nn-bg-background flex justify-between rounded-md p-4 pr-2 sm:items-center sm:py-6 sm:pl-8"
               >
-                <AspectImage
-                  width={50}
-                  className="hidden flex-shrink-0 sm:block"
-                  src={review.user?.profile?.image ?? "/profile.png"}
-                  alt={`${
-                    review.user?.profile?.username ?? ""
-                  } profile picture`}
-                />
-                <div>
-                  <p className="text-md font-bold leading-tight">
-                    @{review.user?.profile?.username}
-                  </p>
-                  <ReviewScore
-                    className="my-3 text-xs"
-                    value={review.score}
-                    readOnly
+                <div className="flex flex-grow sm:space-x-6">
+                  <AspectImage
+                    width={50}
+                    className="hidden flex-shrink-0 sm:block"
+                    src={review.profile?.image ?? "/profile.png"}
+                    alt={`${review.profile?.username ?? ""} profile picture`}
                   />
-                  <p className="whitespace-pre-wrap text-sm">
-                    {review.comment}
-                  </p>
+                  <div>
+                    <p className="text-md font-bold leading-tight">
+                      @{review.profile?.username}
+                    </p>
+                    <ReviewScore
+                      className="my-3 text-xs"
+                      value={review.score}
+                      readOnly
+                    />
+                    <p className="whitespace-pre-wrap text-sm">
+                      {review.comment}
+                    </p>
+                  </div>
                 </div>
+                <ReviewVote
+                  size={50}
+                  voteCurrent={review.voteCurrent}
+                  voteTotal={review.voteTotal}
+                  userId={session?.user?.id ?? null}
+                  resourceId={review.id}
+                />
               </div>
             ))}
             <LayoutPaginate

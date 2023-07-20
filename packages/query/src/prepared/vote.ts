@@ -1,5 +1,5 @@
 import { db, vote } from "@nonovel/db";
-import { placeholder } from "drizzle-orm";
+import { placeholder, and, eq } from "drizzle-orm";
 
 export const upsertVotePrepared = db
   .insert(vote)
@@ -16,3 +16,13 @@ export const upsertVotePrepared = db
     },
   })
   .prepare("upsert_vote_prepared");
+
+export const deleteVotePrepared = db
+  .delete(vote)
+  .where(
+    and(
+      eq(vote.userId, placeholder("userId")),
+      eq(vote.resourceId, placeholder("resourceId"))
+    )
+  )
+  .prepare("delete_vote_prepared");

@@ -2,7 +2,7 @@ import * as z from "zod";
 
 export const review = z.object({
   id: z.string(),
-  userId: z.string(),
+  userId: z.string().nullable(),
   projectId: z.string(),
   score: z.preprocess(
     (v) => {

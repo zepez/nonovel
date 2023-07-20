@@ -30,7 +30,10 @@ export const CommentThread = ({ refresh, parent }: CommentThreadProps) => {
 
   const getReplies = async () => {
     setLoading(true);
-    const [, replies] = await getCommentReplies({ parentId: parent.id });
+    const [, replies] = await getCommentReplies({
+      parentId: parent.id,
+      userId: session?.user.id ?? null,
+    });
     if (replies) setReplies(replies);
     setLoading(false);
   };

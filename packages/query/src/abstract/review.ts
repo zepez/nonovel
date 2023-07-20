@@ -67,6 +67,7 @@ export type GetReviewByIdsReturn = Awaited<ReturnType<typeof getReviewByIds>>;
 
 export interface GetReviewPageByProjectIdOptions {
   projectId: Review["projectId"];
+  userId: Review["userId"] | null;
   page: number;
   pageSize: number;
 }
@@ -80,11 +81,11 @@ export const getReviewPageByProjectId = async (
         page: z.number().int().positive(),
         pageSize: z.number().int().positive(),
       })
-      .pick({ projectId: true, page: true, pageSize: true })
+      .pick({ projectId: true, userId: true, page: true, pageSize: true })
       .parse(opts);
 
     const result = await getReviewPageByProjectIdPrepared.execute({
-      projectId: parsed.projectId,
+      ...parsed,
       limit: parsed.pageSize + 1,
       offset: parsed.pageSize * (parsed.page - 1),
     });
