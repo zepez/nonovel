@@ -1,0 +1,28 @@
+import { StabilityImageGenerationModel, generateImage } from "ai-utils.js";
+
+interface GenerateImageOptions {
+  prompt: string;
+}
+
+export const generateStabilityImage = async ({
+  prompt,
+}: GenerateImageOptions) => {
+  return await generateImage(
+    new StabilityImageGenerationModel({
+      model: "stable-diffusion-xl-beta-v2-2-2",
+      cfgScale: 7,
+      stylePreset: "digital-art",
+      height: 512,
+      width: 512,
+      samples: 1,
+      steps: 50,
+    }),
+    [
+      { text: prompt, weight: 1 },
+      {
+        text: "ugly, tiling, poorly drawn hands, poorly drawn feet, poorly drawn face, out of frame, extra limbs, disfigured, deformed, body out of frame, bad anatomy, watermark, signature, cut off, low contrast, underexposed, overexposed, bad art, beginner, amateur, distorted face",
+        weight: -1,
+      },
+    ]
+  );
+};

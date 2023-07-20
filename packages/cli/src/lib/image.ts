@@ -1,5 +1,7 @@
 import sharp from "sharp";
-import { createCanvas } from "canvas";
+import puppeteer from "puppeteer";
+
+import { generateStabilityImage } from "./prompt";
 
 export const processImageBuffer = async (
   imageBuffer: Buffer | null
@@ -20,31 +22,60 @@ export const processImageBuffer = async (
   return "data:image/webp;base64," + base64Image;
 };
 
-export const generateCoverImage = ({
+export const generateCoverImage = async ({
   title,
   author,
 }: {
   title: string;
   author: string;
-}) => {
-  const canvas = createCanvas(600, 900);
-  const context = canvas.getContext("2d");
+}): Promise<Buffer> => {
+  const aiImageBase64 = await generateStabilityImage({
+    prompt: `${title} by ${author}`,
+  });
 
-  // Background
-  context.fillStyle = "#FFEFD5";
-  context.fillRect(0, 0, canvas.width, canvas.height);
+  const browser = await puppeteer.launch({
+    headless: "new",
+  });
+  const page = await browser.newPage();
 
-  // Title
-  context.fillStyle = "#8B4513";
-  context.font = "bold 70px sans-serif";
-  context.textAlign = "center";
-  context.fillText(title, canvas.width / 2, canvas.height / 2); // Centered
+  const borderWidth = 4;
+  const padding = 20;
 
-  // Author
-  context.font = "40px sans-serif"; // Smaller font for author
-  context.fillText(author, canvas.width / 2, canvas.height / 2 + 100); // Positioned under title
+  await page.setViewport({
+    width: 600,
+    height: 900,
+  });
 
-  const buffer = canvas.toBuffer("image/png");
+  await page.setContent(`
+    <div style="
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      height: 100%;
+      width: 100%;
+      background-color: #FFEFD5;
+      color: #8B4513;
+      font-family: sans-serif;
+      text-align: center;
+      border: ${borderWidth}px solid #8B4513;
+      padding: ${padding}px;
+      margin: 0px;
+      box-sizing: border-box;
+    ">
+      <div>
+        <h1 style="font-size: 50px;">${title}</h1>
+        <h2 style="font-size: 35px;">${author}</h2>
+        <img src="data:image/jpeg;base64,${aiImageBase64}" style="width: 100%; height: 400px; background-size: cover; margin-top: 50px;" />
+      </div>
+      <h3 style="font-size: 25px;">
+        NoNovel.io
+      </h3>
+    </div>
+  `);
 
-  return processImageBuffer(buffer);
+  const screenshot = await page.screenshot({ encoding: "binary" });
+
+  await browser.close();
+
+  return screenshot;
 };

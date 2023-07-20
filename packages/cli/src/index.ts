@@ -53,10 +53,12 @@ program
     });
 
     const cover = generateNewCover
-      ? await generateCoverImage({
-          title: epub.opfMetadata.title,
-          author: epub.opfMetadata.creator,
-        })
+      ? await processImageBuffer(
+          await generateCoverImage({
+            title: epub.opfMetadata.title,
+            author: epub.opfMetadata.creator,
+          })
+        )
       : await processImageBuffer(epub.opfMetadata.cover);
 
     // #####################################
