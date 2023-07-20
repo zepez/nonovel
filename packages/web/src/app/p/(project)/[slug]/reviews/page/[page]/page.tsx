@@ -17,7 +17,7 @@ export default async function ProjectReviewPagePage({
   params,
 }: ProjectReviewPagePageProps) {
   const pageSize = 10;
-  const page = parseInt(params.page, 10);
+  const page = parseInt(params.page ?? "1", 10);
   const [, session] = await getSession();
 
   const [, project] = await getProjectBySlug(params);
@@ -89,6 +89,7 @@ export default async function ProjectReviewPagePage({
             ))}
             <LayoutPaginate
               currentPage={page}
+              currentPath={`/p/${project.slug}/reviews/page`}
               previousDisabled={page <= 1}
               nextDisabled={reviews.length <= pageSize}
             />
