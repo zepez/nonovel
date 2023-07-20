@@ -1,12 +1,8 @@
 import { StabilityImageGenerationModel, generateImage } from "ai-utils.js";
 
-interface GenerateImageOptions {
-  prompt: string;
-}
+type GenerateImageOptions = { text: string; weight: number }[];
 
-export const generateStabilityImage = async ({
-  prompt,
-}: GenerateImageOptions) => {
+export const generateStabilityImage = async (prompt: GenerateImageOptions) => {
   return await generateImage(
     new StabilityImageGenerationModel({
       model: "stable-diffusion-xl-beta-v2-2-2",
@@ -18,7 +14,7 @@ export const generateStabilityImage = async ({
       steps: 50,
     }),
     [
-      { text: prompt, weight: 1 },
+      ...prompt,
       {
         text: "ugly, tiling, poorly drawn hands, poorly drawn feet, poorly drawn face, out of frame, extra limbs, disfigured, deformed, body out of frame, bad anatomy, watermark, signature, cut off, low contrast, underexposed, overexposed, bad art, beginner, amateur, distorted face",
         weight: -1,

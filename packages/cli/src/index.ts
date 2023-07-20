@@ -38,6 +38,13 @@ program
 
     // #####################################
 
+    const projectDescription = await generateSynopsis({
+      title: epub.opfMetadata.title,
+      author: epub.opfMetadata.creator,
+    });
+
+    // #####################################
+
     const generateNewCover = await select({
       message: "Generate a new cover?",
       choices: [
@@ -57,16 +64,12 @@ program
           await generateCoverImage({
             title: epub.opfMetadata.title,
             author: epub.opfMetadata.creator,
+            description: projectDescription,
           })
         )
       : await processImageBuffer(epub.opfMetadata.cover);
 
     // #####################################
-
-    const projectDescription = await generateSynopsis({
-      title: epub.opfMetadata.title,
-      author: epub.opfMetadata.creator,
-    });
 
     const project: NewProject = {
       id: uuidv4(),
