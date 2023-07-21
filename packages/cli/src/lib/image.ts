@@ -25,13 +25,15 @@ export const processImageBuffer = async (
 export const generateCoverImage = async ({
   title,
   author,
+  prompt: p,
 }: {
   title: string;
   author: string;
+  prompt: string;
 }): Promise<Buffer> => {
   const prompt = [
     {
-      text: `beautiful book illustration, ${title}, ${author}`,
+      text: p,
       weight: 1,
     },
   ];
@@ -97,40 +99,6 @@ export const generateCoverImage = async ({
       }
     </style>
   `);
-
-  // await page.setContent(`
-  //   <div style="
-  //     display: flex;
-  //     flex-direction: column;
-  //     justify-content: space-between;
-  //     height: 100%;
-  //     width: 100%;
-  //     background-image: url(data:image/jpeg;base64,${aiImageBase64});
-  //     background-size: cover;
-  //     color: white;
-  //     font-family: sans-serif;
-  //     text-align: center;
-  //     border: ${borderWidth}px solid white;
-  //     padding: ${padding}px;
-  //     margin: 0px;
-  //     box-sizing: border-box;
-  //   ">
-  //     <div style="
-  //       background-color: rgba(255, 239, 213, 0.7);
-  //       height: 100%;
-  //       display: flex;
-  //       flex-direction: column;
-  //       justify-content: center;
-  //       align-items: center;
-  //     ">
-  //       <h1 style="font-size: 50px;">${title}</h1>
-  //       <h2 style="font-size: 35px;">${author}</h2>
-  //     </div>
-  //     <h3 style="font-size: 25px;">
-  //       NoNovel.io
-  //     </h3>
-  //   </div>
-  // `);
 
   const screenshot = await page.screenshot({ encoding: "binary" });
 

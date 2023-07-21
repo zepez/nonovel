@@ -59,11 +59,19 @@ program
       ],
     });
 
+    const coverImagePrompt = generateNewCover
+      ? await input({
+          message: "Cover iage prompt",
+          default: `beautiful book illustration, ${epub.opfMetadata.title}, ${epub.opfMetadata.creator}`,
+        })
+      : "";
+
     const cover = generateNewCover
       ? await processImageBuffer(
           await generateCoverImage({
             title: epub.opfMetadata.title,
             author: epub.opfMetadata.creator,
+            prompt: coverImagePrompt,
           })
         )
       : await processImageBuffer(epub.opfMetadata.cover);
@@ -172,36 +180,19 @@ program
 
     // #####################################
 
-    const contentType: "html" | "md" = await select({
-      message: "Chapter content type",
-      choices: [
-        {
-          name: "HTML",
-          value: "html",
-        },
-        {
-          name: "Markdown",
-          value: "md",
-        },
-      ],
-    });
-
     const chapters: NewChapter[] = [];
     for (const chapter of selectedChapters) {
       const idx = selectedChapters.indexOf(chapter) + 1;
       chapters.push({
         id: uuidv4(),
         projectId: project.id as string,
-        name: await input({
-          message: "Chapter name",
-          default: chapter.name.replace(
-            /^Chapter \d+\s*-\s*|^Chapter \d+\s*:\s*/,
-            ""
-          ),
-        }),
+        name: chapter.name.replace(
+          /^Chapter \d+\s*-\s*|^Chapter \d+\s*:\s*/,
+          ""
+        ),
         order: parseFloat(idx.toString()),
         content: chapter.html,
-        contentType,
+        contentType: "html",
       });
     }
 
