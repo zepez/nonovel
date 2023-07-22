@@ -4,7 +4,7 @@ interface UpdatesLayoutProps {
   children: React.ReactNode;
 }
 
-export default async function UpdatesLayout({ children }: UpdatesLayoutProps) {
+export default function UpdatesLayout({ children }: UpdatesLayoutProps) {
   return (
     <>
       <div className="relative overflow-hidden">
