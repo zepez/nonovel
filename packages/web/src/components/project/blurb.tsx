@@ -34,10 +34,7 @@ export const Blurb = async ({ className, slug }: BlurbProps) => {
       of{" "}
       {project.genres.map(({ genre }, genreIdx) => (
         <Fragment key={genre.id}>
-          <Link
-            href={`/browse/category/${genre.slug}`}
-            className="nn-interactive"
-          >
+          <Link href={`/browse/${genre.slug}`} className="nn-interactive">
             {genre.name.toLowerCase()}
           </Link>
           {naturalListJoin(genreIdx, project.genres.length)}
