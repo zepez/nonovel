@@ -20,7 +20,7 @@ export default async function BrowseLayout({ children }: BrowseLayoutProps) {
           className="nn-bg-blurred absolute inset-0 z-0 h-full w-full"
           tiled={false}
         />
-        <div className="relative z-10 flex h-64 items-center">
+        <div className="relative z-10 flex h-96 items-center sm:h-64">
           <LayoutWrapper className="lg:px-16">
             <LayoutNavigation genres={genres} />
           </LayoutWrapper>

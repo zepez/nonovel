@@ -2,7 +2,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import parse from "html-react-parser";
-import { AiFillStar } from "react-icons/ai";
+import { AiFillStar, AiTwotoneEye } from "react-icons/ai";
 import { getBrowsePageResult, getGenreBySlug } from "~/lib/request";
 import { SectionEmpty, SectionHeading } from "~/components/shared";
 
@@ -35,7 +35,7 @@ export default async function BrowsePage({
     sort,
     genre: genreSlug,
     query: q,
-    pageSize: 10,
+    pageSize: 20,
   });
 
   const results = rawResults?.splice(0, 10);
@@ -83,7 +83,11 @@ export default async function BrowsePage({
               <p className="nn-text-secondary flex-grow">
                 {result.description?.substring(0, 200).trim()}...
               </p>
-              <div className="flex h-8 items-center gap-1 overflow-x-scroll scrollbar-none">
+              <div className="mt-2 flex h-8 items-center gap-1 overflow-x-scroll scrollbar-none">
+                <div className="nn-text-secondary mr-2 flex items-center gap-1">
+                  <AiTwotoneEye />
+                  {result.views}
+                </div>
                 <div className="nn-text-secondary mr-2 flex items-center gap-1">
                   <AiFillStar />
                   {result.review}
