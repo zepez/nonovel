@@ -63,6 +63,7 @@
   },
   "devDependencies": {
     "@tailwindcss/aspect-ratio": "^0.4.2",
-    "dotenv-cli": "^7.2.1"
+    "dotenv-cli": "^7.2.1",
+    "tailwind-scrollbar": "^3.0.4"
   }
 }

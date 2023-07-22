@@ -57,7 +57,7 @@ export default async function ProjectPage({ params }: ProjectPageProps) {
           {project.genres.map(({ genre }) => (
             <Link
               key={genre.id}
-              href={`/browse/category/${genre.slug}`}
+              href={`/browse/${genre.slug}`}
               className="nn-interactive nn-bg-background nn-border-50 rounded-sm bg-zinc-950 px-4 py-2 text-xs font-bold uppercase leading-tight"
             >
               {genre.name.toLowerCase()}
