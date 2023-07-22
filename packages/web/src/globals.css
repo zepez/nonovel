@@ -110,10 +110,12 @@
 
 .nn-bg-blurred {
   filter: blur(50px);
+  transform: translate3d(0, 0, 0); /* force gpu accel for perf issues in safari  */
   @apply bg-center nn-bg-foreground opacity-70;
 }
 
 .nn-bg-blurred-2 {
   filter: blur(100px);
+  transform: translate3d(0, 0, 0); /* force gpu accel for perf issues in safari  */
   @apply bg-center opacity-50 nn-bg-foreground;
 }
