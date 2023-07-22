@@ -1,6 +1,6 @@
 import { Suspense } from "react";
 import { Inter } from "next/font/google";
-import { LayoutDesktopHeader } from "~/components/default";
+import { LayoutDesktopHeader, LayoutMobileHeader } from "~/components/default";
 import { LayoutFooter, ThemeProvider, AuthProvider } from "~/components/shared";
 import { Toaster } from "~/components/ui/toaster";
 import { Skeleton } from "~/components/ui/skeleton";
@@ -31,6 +31,7 @@ export default function RootLayout({ children }: RootLayoutProps) {
             <div className="flex min-h-screen flex-col">
               <Suspense fallback={<Skeleton className="h-14 w-full" />}>
                 <LayoutDesktopHeader />
+                <LayoutMobileHeader />
               </Suspense>
               <main className="flex-grow">{children}</main>
               <LayoutFooter />

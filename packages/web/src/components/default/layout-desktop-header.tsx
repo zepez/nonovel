@@ -13,46 +13,18 @@ import {
   NavigationMenuTrigger,
 } from "~/components/ui/navigation-menu";
 
-const components: {
-  title: string;
-  href: string;
-  description: string;
-  icon: string;
-}[] = [
-  {
-    title: "Fantasy",
-    icon: "🧙🏼‍♂️",
-    href: "/browse/fantasy",
-    description:
-      "Dive into our treasure trove of fantasy - no magic carpet required",
-  },
-  {
-    title: "Sci-Fi",
-    icon: "👽",
-    href: "/browse/sci-fi",
-    description: "Beam up to a universe of future-tech and alien worlds",
-  },
-  {
-    title: "Action",
-    icon: "🥊",
-    href: "/browse/action",
-    description:
-      "Dive into a whirlwind of thrilling chases, battles, and daring deeds",
-  },
-];
-
 export async function LayoutDesktopHeader() {
   const [, session] = await getSession();
 
   return (
-    <div className="nn-bg-foreground nn-border-bottom">
+    <div className="nn-bg-foreground nn-border-bottom hidden md:block">
       <LayoutWrapper className="flex flex-col flex-wrap justify-between px-4 py-2 md:flex-row">
         <NavigationMenu>
           <NavigationMenuList>
-            {/* sign up / account */}
+            {/* home */}
             <NavigationMenuItem>
               <Link href="/" legacyBehavior passHref>
-                <NavigationMenuLink className="nn-interactive group inline-flex h-9 w-max items-center justify-center rounded-md bg-inherit px-4 py-2 text-sm font-medium">
+                <NavigationMenuLink className="nn-interactive group mx-2 inline-flex h-9 w-max items-center justify-center rounded-md bg-inherit px-2 py-2 text-sm font-medium">
                   <BrandIcon className="my-1" />
                 </NavigationMenuLink>
               </Link>
@@ -71,17 +43,14 @@ export async function LayoutDesktopHeader() {
                         <BrandIcon className="mb-4 mr-4 text-center text-[5rem]" />
                         <div className="mb-2 text-lg font-medium">NoNovel</div>
                         <p className="nn-text-secondary">
-                          Immersive digital narratives beamed directly into your
-                          eye sockets
+                          Your destination for timeless classics and
+                          tomorrow&apos;s bestsellers.
                         </p>
                       </a>
                     </NavigationMenuLink>
                   </li>
-                  <ListItem href="/publish" title="Publish">
+                  <ListItem href="/articles" title="Articles">
                     Manage and share your creative brilliance with the world
-                  </ListItem>
-                  <ListItem href="/ranking" title="Ranking">
-                    Novels curated and ranked based on popularity
                   </ListItem>
                   <ListItem href="/updates" title="Updates">
                     Stay up to date with new features and site announcements
@@ -92,30 +61,11 @@ export async function LayoutDesktopHeader() {
 
             {/* browse */}
             <NavigationMenuItem>
-              <NavigationMenuTrigger>Browse</NavigationMenuTrigger>
-              <NavigationMenuContent>
-                <ul className="grid w-[400px] gap-3 p-4 md:w-[500px] md:grid-cols-2 lg:w-[600px] ">
-                  {components.map((component) => (
-                    <ListItem
-                      key={component.title}
-                      title={component.title}
-                      icon={component.icon}
-                      href={component.href}
-                    >
-                      {component.description}
-                    </ListItem>
-                  ))}
-                  <ListItem
-                    title="View More"
-                    icon="📚"
-                    href="/browse"
-                    className="nn-bg-primary nn-interactive"
-                  >
-                    Ready for more? Uncover endless stories across countless
-                    genres
-                  </ListItem>
-                </ul>
-              </NavigationMenuContent>
+              <Link href="/browse" legacyBehavior passHref>
+                <NavigationMenuLink className="nn-interactive group inline-flex h-9 w-max items-center justify-center rounded-md bg-inherit px-4 py-2 text-sm font-medium">
+                  Browse
+                </NavigationMenuLink>
+              </Link>
             </NavigationMenuItem>
           </NavigationMenuList>
         </NavigationMenu>
