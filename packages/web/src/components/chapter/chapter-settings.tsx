@@ -121,7 +121,7 @@ export const ChapterSettings = ({ className }: ChapterSettingsProps) => {
             Text settings
           </div>
         </PopoverTrigger>
-        <PopoverContent align="end">
+        <PopoverContent align="end" className="nn-bg-foreground">
           <IncrementalChange
             name="Font Size"
             storedKey="fontSize"
