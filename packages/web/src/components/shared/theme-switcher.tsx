@@ -1,37 +1,49 @@
 "use client";
 
 import * as React from "react";
-import { MoonIcon, SunIcon } from "@radix-ui/react-icons";
 import { useTheme } from "next-themes";
-
-import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuTrigger,
-} from "~/components/ui/dropdown-menu";
+import { ClientOnly } from "~/components/shared";
 import { Button } from "~/components/ui/button";
+import { cn } from "~/lib/utils";
 
-export function ThemeSwitcher() {
-  const { setTheme } = useTheme();
+interface ThemeSwitcherProps {
+  className?: string;
+  darkChildren: React.ReactNode;
+  lightChildren: React.ReactNode;
+}
+
+export function ThemeSwitcher({
+  className,
+  darkChildren,
+  lightChildren,
+}: ThemeSwitcherProps) {
+  const { setTheme, theme } = useTheme();
 
   return (
-    <DropdownMenu>
-      <DropdownMenuTrigger asChild>
-        <Button variant="ghost" size="icon">
-          <SunIcon className="h-[1.3rem] w-[1.3rem] rotate-0 scale-100 transition-all dark:-rotate-90 dark:scale-0" />
-          <MoonIcon className="absolute h-[1.3rem] w-[1.3rem] rotate-90 scale-0 transition-all dark:rotate-0 dark:scale-100" />
-          <span className="sr-only">Toggle theme</span>
+    <ClientOnly>
+      {theme === "light" || theme === "system" || !theme ? (
+        <Button
+          variant="ghost"
+          className={cn(
+            "text-md block h-auto w-full justify-start rounded-none px-0 py-2 text-left font-normal",
+            className
+          )}
+          onClick={() => setTheme("dark")}
+        >
+          {darkChildren}
         </Button>
-      </DropdownMenuTrigger>
-      <DropdownMenuContent align="center" className="min-w-[1rem]">
-        <DropdownMenuItem onClick={() => setTheme("light")}>
-          <SunIcon />
-        </DropdownMenuItem>
-        <DropdownMenuItem onClick={() => setTheme("dark")}>
-          <MoonIcon />
-        </DropdownMenuItem>
-      </DropdownMenuContent>
-    </DropdownMenu>
+      ) : (
+        <Button
+          variant="ghost"
+          className={cn(
+            "text-md block h-auto w-full justify-start rounded-none px-0 py-2 text-left font-normal",
+            className
+          )}
+          onClick={() => setTheme("light")}
+        >
+          {lightChildren}
+        </Button>
+      )}
+    </ClientOnly>
   );
 }

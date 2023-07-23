@@ -8,7 +8,7 @@ interface UpdateProps {
 export const Update = ({ children, date, emoji, title }: UpdateProps) => {
   return (
     <div>
-      <h2 className="mb-2 text-xl font-bold leading-tight">
+      <h2 className="mb-2 text-xl font-bold leading-loose">
         {emoji}
         <span className="nn-bg-background nn-border text-md ml-2 rounded-sm border px-2 py-1 font-normal">
           {date}

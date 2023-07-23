@@ -1,3 +1,4 @@
+import { MoonIcon, SunIcon } from "@radix-ui/react-icons";
 import { LayoutWrapper, ThemeSwitcher } from "~/components/shared";
 
 const navigation = [
@@ -31,7 +32,11 @@ export const LayoutFooter = () => {
       <LayoutWrapper className="mt-16 py-4 md:flex md:items-center md:justify-between">
         <div className="flex justify-center space-x-6 md:order-2">
           <div className="mt-[.15rem]">
-            <ThemeSwitcher />
+            <ThemeSwitcher
+              className="nn-interactive rounded-md p-2"
+              darkChildren={<MoonIcon width={20} height={20} />}
+              lightChildren={<SunIcon width={20} height={20} />}
+            />
           </div>
           {navigation.map((item) => (
             <a
