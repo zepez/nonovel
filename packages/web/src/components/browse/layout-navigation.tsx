@@ -55,6 +55,7 @@ export const LayoutNavigation = ({ genres }: LayoutNavigationProps) => {
     if (sorting === sort) return;
 
     handleRoutingChange();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [sorting, handleRoutingChange]);
 
   // genre change
@@ -62,6 +63,7 @@ export const LayoutNavigation = ({ genres }: LayoutNavigationProps) => {
     if (genre === currentGenre) return;
 
     handleRoutingChange();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [genre, handleRoutingChange]);
 
   const handleClearFilters = () => {
@@ -91,33 +93,35 @@ export const LayoutNavigation = ({ genres }: LayoutNavigationProps) => {
       </div>
 
       <div className="mt-12 flex flex-col items-center justify-between gap-4 sm:mt-4 sm:flex-row">
-        <div className="flex w-full flex-col items-center gap-4 sm:flex-row">
+        <div className="flex w-full items-center gap-2 sm:gap-4">
           <Button
             variant="ghost"
             size="sm"
-            className="w-full bg-white text-xs text-black sm:w-auto"
+            className="w-full bg-white px-2 text-xs text-black"
             disabled={sorting === "popular"}
             onClick={() => setSorting("popular")}
           >
-            <AiTwotoneEye className="mr-1 text-lg" /> Popularity
+            <AiTwotoneEye className="mr-1 hidden text-lg sm:inline" />{" "}
+            Popularity
           </Button>
           <Button
             variant="ghost"
             size="sm"
-            className="w-full bg-white text-xs text-black sm:w-auto"
+            className="w-full bg-white px-2 text-xs text-black"
             disabled={sorting === "rating"}
             onClick={() => setSorting("rating")}
           >
-            <AiFillStar className="mr-1 text-lg" /> Rating
+            <AiFillStar className="mr-1 hidden text-lg sm:inline" /> Rating
           </Button>
           <Button
             variant="ghost"
             size="sm"
-            className="w-full bg-white text-xs text-black sm:w-auto"
+            className="w-full bg-white px-2 text-xs text-black"
             disabled={sorting === "recent"}
             onClick={() => setSorting("recent")}
           >
-            <AiFillClockCircle className="mr-1 text-lg" /> Recently Added
+            <AiFillClockCircle className="mr-1 hidden text-lg sm:inline" /> Date
+            Added
           </Button>
         </div>
         <Button
