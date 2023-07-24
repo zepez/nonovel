@@ -25,9 +25,15 @@ export const profile = z.object({
           "Username can only contain alphanumeric, underscore, and period characters",
       }
     ),
-  bio: z.string().max(160, {
-    message: "User bios can not exceed 160 characters.",
-  }),
+  bio: z.preprocess(
+    (v) => (v === "" ? null : v),
+    z
+      .string()
+      .max(160, {
+        message: "User bios can not exceed 160 characters.",
+      })
+      .nullable()
+  ),
   countryCode: z.preprocess(
     (v) => (v === "" ? null : v),
     z

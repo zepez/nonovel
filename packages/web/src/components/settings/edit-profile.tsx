@@ -28,6 +28,7 @@ import {
   SelectValue,
 } from "~/components/ui/select";
 import { Input } from "~/components/ui/input";
+import { Textarea } from "~/components/ui/textarea";
 import { Button } from "~/components/ui/button";
 import { useToast } from "~/components/ui/use-toast";
 
@@ -42,6 +43,7 @@ const schema = profileSchema.pick({
   username: true,
   image: true,
   countryCode: true,
+  bio: true,
 });
 
 export type EditProfileSchema = z.infer<typeof schema> & {
@@ -161,6 +163,29 @@ export const EditProfile = ({ session }: EditProfileProps) => {
               </Select>
               <FormDescription>
                 Select a country code to display on your profile.
+              </FormDescription>
+              <FormMessage />
+            </FormItem>
+          )}
+        />
+
+        {/* bio */}
+        <FormField
+          control={form.control}
+          name="bio"
+          render={({ field }) => (
+            <FormItem>
+              <FormLabel>About</FormLabel>
+              <FormControl>
+                <Textarea
+                  placeholder="Super cool guy"
+                  className="nn-bg-background"
+                  {...field}
+                  value={field.value ?? ""}
+                />
+              </FormControl>
+              <FormDescription>
+                Tell the world a little bit about yourself.
               </FormDescription>
               <FormMessage />
             </FormItem>
