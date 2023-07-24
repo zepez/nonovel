@@ -71,7 +71,7 @@ export async function LayoutDesktopHeader() {
         </NavigationMenu>
 
         <NavigationMenu>
-          <NavigationMenuList>
+          <NavigationMenuList className="flex gap-3">
             {/* search */}
             <NavigationMenuItem>
               <LayoutSearch />
@@ -81,9 +81,9 @@ export async function LayoutDesktopHeader() {
             {session ? (
               <LayoutProfile session={session} />
             ) : (
-              <NavigationMenuItem className="py-1 pl-2">
+              <NavigationMenuItem>
                 <Link href="/api/auth/signin" legacyBehavior passHref>
-                  <NavigationMenuLink className="nn-bg-contrast rounded-md border p-2 text-sm">
+                  <NavigationMenuLink className="nn-bg-contrast nn-interactive rounded-md border p-2 text-xs font-bold uppercase">
                     Login
                   </NavigationMenuLink>
                 </Link>
