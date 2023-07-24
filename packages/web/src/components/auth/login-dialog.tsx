@@ -23,7 +23,7 @@ export function LoginDialog({ children }: LoginDialogProps) {
 
   return (
     <Dialog open={open} onOpenChange={cb}>
-      <DialogTrigger asChild>
+      <DialogTrigger asChild className="">
         {typeof children === "function" ? children(cb) : children}
       </DialogTrigger>
       <DialogContent className="sm:max-w-[425px]">

@@ -8,6 +8,7 @@ import type { Comment } from "@nonovel/db";
 import type { GetCommentPageByResourceIdReturn } from "@nonovel/query";
 import { getCommentPage } from "~/actions";
 import { Skeleton } from "~/components/ui/skeleton";
+import { LoginDialog } from "~/components/auth";
 import { SectionHeading } from "../section-heading";
 import { SectionEmpty } from "../section-empty";
 import { ClientPaginate } from "../client-paginate";
@@ -106,10 +107,21 @@ export const CommentLayout = ({
         </SectionEmpty>
       )}
 
-      {showNoComments && (
+      {showNoComments && session?.user.id && (
         <SectionEmpty className="nn-bg-foreground">
           No comments yet.
         </SectionEmpty>
+      )}
+
+      {showNoComments && !session?.user.id && (
+        <LoginDialog>
+          <SectionEmpty
+            as="button"
+            className="nn-bg-foreground nn-interactive w-full"
+          >
+            No comments yet. Login to be the first!
+          </SectionEmpty>
+        </LoginDialog>
       )}
 
       {showPageLoading && <Skeleton className="h-screen w-full" />}

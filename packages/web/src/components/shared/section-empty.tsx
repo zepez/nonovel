@@ -1,29 +1,49 @@
 import Link from "next/link";
 import { cn } from "~/lib/utils";
+import {
+  ElementType,
+  ReactNode,
+  ComponentPropsWithoutRef,
+  ForwardedRef,
+  forwardRef,
+} from "react";
 
-interface SectionEmptyProps {
+interface SectionEmptyBaseProps {
   className?: string;
-  children: React.ReactNode;
-  href?: string;
+  children: ReactNode;
+  as?: ElementType;
 }
 
-export const SectionEmpty = ({
-  className,
-  children,
-  href,
-}: SectionEmptyProps) => {
-  const Tag = href ? Link : "section";
+type SectionEmptyProps<T extends ElementType> = SectionEmptyBaseProps &
+  ComponentPropsWithoutRef<T>;
 
-  return (
-    <Tag
-      href={href as string}
-      className={cn(
-        className,
-        href && "nn-interactive",
-        "nn-border nn-text-secondary block rounded-md border py-8 text-center"
-      )}
-    >
-      {children}
-    </Tag>
-  );
-};
+const SectionEmpty = forwardRef(
+  <T extends ElementType = "section">(
+    {
+      className,
+      children,
+      as: Component = "section",
+      ...props
+    }: SectionEmptyProps<T>,
+    ref: ForwardedRef<ElementType>
+  ) => {
+    const ElementType = Component === "a" ? Link : Component;
+
+    return (
+      <ElementType
+        ref={ref}
+        className={cn(
+          className,
+          "nn-border nn-text-secondary block rounded-md border py-8 text-center"
+        )}
+        {...props}
+      >
+        {children}
+      </ElementType>
+    );
+  }
+);
+
+SectionEmpty.displayName = "SectionEmpty";
+
+export { SectionEmpty };

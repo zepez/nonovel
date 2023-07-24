@@ -11,12 +11,14 @@ import {
   getChapterManifestByIds,
 } from "~/lib/request";
 import { LayoutWrapper, AspectImage, CommentLayout } from "~/components/shared";
+import { LoginDialog } from "~/components/auth";
 import {
   ButtonFollow,
   Blurb,
   ReviewScore,
   LayoutNavigation,
 } from "~/components/project";
+import { Button } from "~/components/ui/button";
 import { summarizeNumber } from "~/lib/number";
 import { toTitleCase, naturalListJoin } from "~/lib/string";
 
@@ -167,17 +169,29 @@ export default async function ProjectLayout({
                 slug={params.slug}
               />
               <div className="mt-8 flex flex-wrap gap-4 sm:flex-nowrap">
-                <ButtonFollow
-                  className="nn-border w-full border bg-zinc-950/40 px-4 py-2 text-white "
-                  followId={follow?.id}
-                  userId={session?.user?.id}
-                  projectId={project.id}
-                  projectName={toTitleCase(project.name)}
-                />
+                {session?.user?.id ? (
+                  <ButtonFollow
+                    className="nn-border w-full border bg-zinc-950/40 px-4 py-2 text-center text-sm font-semibold uppercase leading-tight text-white"
+                    followId={follow?.id}
+                    userId={session?.user?.id}
+                    projectId={project.id}
+                    projectName={toTitleCase(project.name)}
+                  />
+                ) : (
+                  <LoginDialog>
+                    <Button
+                      variant="ghost"
+                      size="fluid"
+                      className="nn-border w-full border bg-zinc-950/40 px-4 py-2 text-center text-sm font-semibold uppercase leading-tight text-white"
+                    >
+                      Login to Bookmark
+                    </Button>
+                  </LoginDialog>
+                )}
                 {readButton && (
                   <Link
                     href={readButton.href}
-                    className="nn-interactive nn-bg-primary w-full rounded-md border border-zinc-100/10 px-4 py-2 text-center text-sm font-semibold leading-tight "
+                    className="nn-interactive nn-bg-primary flex w-full items-center justify-center rounded-md border border-zinc-100/10 px-4 py-2 text-center text-sm font-semibold leading-tight "
                   >
                     {readButton.text}
                   </Link>

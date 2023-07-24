@@ -23,6 +23,7 @@ import { Textarea } from "~/components/ui/textarea";
 import { Button } from "~/components/ui/button";
 import { useToast } from "~/components/ui/use-toast";
 import { ReviewScore } from "~/components/project/review-score";
+import { LoginDialog } from "~/components/auth";
 
 interface EditReviewProps {
   projectId: Review["projectId"];
@@ -111,9 +112,14 @@ export const EditReview = ({ userId, projectId, review }: EditReviewProps) => {
 
   if (!userId)
     return (
-      <SectionEmpty className="nn-bg-background" href="/api/auth/signin">
-        Login to submit your own review.
-      </SectionEmpty>
+      <LoginDialog>
+        <SectionEmpty
+          as="button"
+          className="nn-bg-background nn-interactive w-full cursor-pointer"
+        >
+          Login to submit your own review.
+        </SectionEmpty>
+      </LoginDialog>
     );
 
   return (

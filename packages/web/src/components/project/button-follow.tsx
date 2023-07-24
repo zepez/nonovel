@@ -1,7 +1,6 @@
 "use client";
 
 import { useState } from "react";
-import { useRouter } from "next/navigation";
 
 import { cn } from "~/lib/utils";
 import { follow } from "~/actions";
@@ -11,7 +10,7 @@ import { useToast } from "~/components/ui/use-toast";
 interface ButtonFollowProps {
   className?: string;
   followId?: string;
-  userId?: string;
+  userId: string;
   projectId: string;
   projectName: string;
 }
@@ -23,15 +22,10 @@ export const ButtonFollow = ({
   projectId,
   projectName,
 }: ButtonFollowProps) => {
-  const [text, setText] = useState(
-    !userId ? "SIGN IN TO BOOKMARK" : followId ? "REMOVE BOOKMARK" : "BOOKMARK"
-  );
+  const [text, setText] = useState(followId ? "remove bookmark" : "bookmark");
   const { toast } = useToast();
-  const router = useRouter();
 
   const toggleFollow = async () => {
-    if (!userId) return router.push("/api/auth/signin");
-
     setText("...");
 
     const action = followId ? "delete" : "create";
@@ -54,7 +48,7 @@ export const ButtonFollow = ({
     }
 
     if (!error) {
-      setText(followId ? "BOOKMARK" : "REMOVE BOOKMARK");
+      setText(followId ? "bookmark" : "remove bookmark");
       toast({
         description: followId
           ? `You have un-bookmarked ${projectName}.`
@@ -68,10 +62,7 @@ export const ButtonFollow = ({
       variant="ghost"
       size="fluid"
       disabled={text === "..." || text === "Error"}
-      className={cn(
-        className,
-        "text-center text-sm font-semibold leading-tight"
-      )}
+      className={cn(className)}
       onClick={() => toggleFollow()}
     >
       {text}
