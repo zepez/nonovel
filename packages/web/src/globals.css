@@ -35,7 +35,7 @@
 }
 
 *:focus {
-  @apply outline-none ring-2 ring-inset ring-green-500;
+  @apply outline-none ring-2 ring-inset ring-yellow-500;
 }
 
 *:disabled {
@@ -43,7 +43,7 @@
 }
 
 ::selection {
-  @apply text-white bg-green-600;
+  @apply text-white bg-yellow-600;
 }
 
 .nn-interactive {
@@ -51,7 +51,7 @@
 }
 
 .nn-interactive:hover {
-  @apply outline-none opacity-70 ring-2 ring-inset ring-green-500;
+  @apply outline-none opacity-70 ring-2 ring-inset ring-yellow-500;
 }
 
 .nn-no-select {
@@ -63,7 +63,7 @@
 }
 
 .nn-bg-primary {
-  @apply text-white bg-green-600 dark:bg-green-800 dark:text-white;
+  @apply text-white bg-yellow-600;
 }
 
 .nn-bg-contrast {
@@ -100,7 +100,7 @@
   cursor: pointer;
 
   &[data-selected="true"] {
-    @apply outline-none ring-2 ring-inset ring-green-500;
+    @apply outline-none ring-2 ring-inset ring-yellow-500;
   }
 
   &[data-disabled="true"] {
