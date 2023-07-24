@@ -2,7 +2,6 @@
 
 import Image from "next/image";
 import Link from "next/link";
-import { useTheme } from "next-themes";
 import {
   MoonIcon,
   SunIcon,
@@ -18,6 +17,8 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from "~/components/ui/dropdown-menu";
+import { ThemeSwitcher } from "./theme-switcher";
+import { Logout } from "~/components/auth";
 
 interface LayoutProfileProps {
   session: Session;
@@ -26,7 +27,6 @@ interface LayoutProfileProps {
 export const LayoutProfile = ({ session }: LayoutProfileProps) => {
   const { profile } = session;
 
-  const { setTheme, theme } = useTheme();
   const profilePicture = profile.image ?? "/profile.png";
 
   const profileNavItems = [
@@ -56,30 +56,43 @@ export const LayoutProfile = ({ session }: LayoutProfileProps) => {
       <DropdownMenuContent align="end" className="w-48">
         <div className="p-1">
           {profileNavItems.map(({ title, href, icon }, itemIdx) => (
-            <Link key={itemIdx} href={href}>
-              <DropdownMenuItem>
+            <DropdownMenuItem key={itemIdx} className="p-0">
+              <Link
+                href={href}
+                className="flex w-full items-center px-2 py-1.5"
+              >
                 {icon}
                 {title}
-              </DropdownMenuItem>
-            </Link>
+              </Link>
+            </DropdownMenuItem>
           ))}
-          {theme === "light" || theme === "system" || !theme ? (
-            <DropdownMenuItem onClick={() => setTheme("dark")}>
-              <MoonIcon className="mx-2" />
-              Dark Theme
-            </DropdownMenuItem>
-          ) : (
-            <DropdownMenuItem onClick={() => setTheme("light")}>
-              <SunIcon className="mx-2" />
-              Light Theme
-            </DropdownMenuItem>
-          )}
-          <Link href="/api/auth/signout">
-            <DropdownMenuItem>
-              <ThickArrowRightIcon className="mx-2" />
-              Logout
-            </DropdownMenuItem>
-          </Link>
+          <ThemeSwitcher
+            darkChildren={(cb) => (
+              <DropdownMenuItem className="p-0" onClick={cb}>
+                <button className="flex w-full items-center px-2 py-1.5">
+                  <MoonIcon className="mx-2" /> Dark Theme
+                </button>
+              </DropdownMenuItem>
+            )}
+            lightChildren={(cb) => (
+              <DropdownMenuItem
+                className="flex w-full items-center"
+                onClick={cb}
+              >
+                <SunIcon className="mx-2" /> Light Theme
+              </DropdownMenuItem>
+            )}
+          />
+          <Logout className="block w-full">
+            {(cb) => (
+              <DropdownMenuItem onClick={cb} className="p-0">
+                <button className="flex w-full items-center px-2 py-1.5">
+                  <ThickArrowRightIcon className="mx-2" />
+                  Logout
+                </button>
+              </DropdownMenuItem>
+            )}
+          </Logout>
         </div>
       </DropdownMenuContent>
     </DropdownMenu>

@@ -13,6 +13,7 @@ import {
 } from "~/components/ui/sheet";
 import { Separator } from "~/components/ui/separator";
 import { ThemeSwitcher } from "~/components/shared";
+import { Logout, LoginDialog } from "~/components/auth";
 
 interface SheetLinkProps {
   href: string;
@@ -70,8 +71,32 @@ export const LayoutMobileHeaderSheet = ({
                 Updates
               </SheetLink>
               <ThemeSwitcher
-                darkChildren="Dark Theme"
-                lightChildren="Light Theme"
+                darkChildren={(cb) => (
+                  <li>
+                    <button
+                      className="block w-full py-2 text-left"
+                      onClick={() => {
+                        cb();
+                        setOpen(false);
+                      }}
+                    >
+                      Dark Theme
+                    </button>
+                  </li>
+                )}
+                lightChildren={(cb) => (
+                  <li>
+                    <button
+                      className="block w-full py-2 text-left"
+                      onClick={() => {
+                        cb();
+                        setOpen(false);
+                      }}
+                    >
+                      Light Theme
+                    </button>
+                  </li>
+                )}
               />
               <Separator className="my-2" />
               {username ? (
@@ -88,20 +113,20 @@ export const LayoutMobileHeaderSheet = ({
                   >
                     Settings
                   </SheetLink>
-                  <SheetLink
-                    href="/api/auth/signout"
-                    onClick={() => setOpen(false)}
-                  >
-                    Logout
-                  </SheetLink>
+                  <li>
+                    <Logout className="block w-full py-2 text-left">
+                      Logout
+                    </Logout>
+                  </li>
                 </>
               ) : (
-                <SheetLink
-                  href="/api/auth/signin"
-                  onClick={() => setOpen(false)}
-                >
-                  Login
-                </SheetLink>
+                <LoginDialog>
+                  <li>
+                    <button className="nn-interactive block w-full py-2 text-left">
+                      Login
+                    </button>
+                  </li>
+                </LoginDialog>
               )}
             </ul>
           </nav>

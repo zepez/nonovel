@@ -1,4 +1,4 @@
-import { MoonIcon, SunIcon } from "@radix-ui/react-icons";
+import { MoonIcon, SunIcon, CircleBackslashIcon } from "@radix-ui/react-icons";
 import { LayoutWrapper, ThemeSwitcher } from "~/components/shared";
 
 const navigation = [
@@ -34,6 +34,7 @@ export const LayoutFooter = () => {
           <div className="mt-[.15rem]">
             <ThemeSwitcher
               className="nn-interactive rounded-md p-2"
+              loading={<CircleBackslashIcon width={20} height={20} />}
               darkChildren={<MoonIcon width={20} height={20} />}
               lightChildren={<SunIcon width={20} height={20} />}
             />

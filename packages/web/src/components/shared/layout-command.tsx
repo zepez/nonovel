@@ -3,7 +3,6 @@
 import { useEffect, useState, type SetStateAction, type Dispatch } from "react";
 import { useRouter } from "next/navigation";
 import { useDebounce } from "react-use";
-import { useTheme } from "next-themes";
 import { useSession } from "next-auth/react";
 import {
   MoonIcon,
@@ -23,6 +22,8 @@ import {
   CommandLoading,
   CommandSeparator,
 } from "~/components/ui/command";
+import { Logout, LoginDialog } from "~/components/auth";
+import { ThemeSwitcher } from "~/components/shared/theme-switcher";
 import { toTitleCase } from "~/lib/string";
 
 interface LayoutCommandProps {
@@ -34,7 +35,6 @@ export const LayoutCommand = ({ open, setOpen }: LayoutCommandProps) => {
   const router = useRouter();
   const { data: session } = useSession();
 
-  const { setTheme, theme } = useTheme();
   const [query, setQuery] = useState("");
   const [loading, setLoading] = useState(false);
   const [result, setResult] = useState<
@@ -44,41 +44,14 @@ export const LayoutCommand = ({ open, setOpen }: LayoutCommandProps) => {
   const minQueryLength = 3;
   const iconClass = "mr-2 py-[2px]";
 
-  const suggestions = [
+  const authedSuggestions = [
     {
-      name: `${theme === "dark" ? "Light" : "Dark"} Theme`,
-      value: theme === "dark" ? "light" : "dark",
-      action: (v: string) => setTheme(v),
-      icon:
-        theme === "dark" ? (
-          <SunIcon className={iconClass} />
-        ) : (
-          <MoonIcon className={iconClass} />
-        ),
-    },
-    session
-      ? {
-          name: "Logout",
-          value: "/api/auth/signout",
-          action: (v: string) => router.push(v),
-          icon: <ThickArrowRightIcon className={iconClass} />,
-        }
-      : {
-          name: "Login",
-          value: "/api/auth/signin",
-          action: (v: string) => router.push(v),
-          icon: <LockClosedIcon className={iconClass} />,
-        },
-  ];
-
-  if (session) {
-    suggestions.unshift({
       name: "Settings",
-      value: "/settings/account",
+      value: "settings/account",
       action: (v: string) => router.push(v),
       icon: <GearIcon className={iconClass} />,
-    });
-  }
+    },
+  ];
 
   useEffect(() => {
     const down = (e: KeyboardEvent) => {
@@ -173,15 +146,65 @@ export const LayoutCommand = ({ open, setOpen }: LayoutCommandProps) => {
 
         <CommandSeparator />
         <CommandGroup heading="Suggestions">
-          {suggestions.map((s) => (
-            <CommandItem
-              key={`suggestions/${s.value}/${s.name}`}
-              value={`suggestions/${s.value}/${s.name}`}
-              onSelect={() => handleSelect(() => s.action(s.value))}
-            >
-              {s.icon} {s.name}
-            </CommandItem>
-          ))}
+          <ThemeSwitcher
+            className="p-0"
+            darkChildren={(cb) => (
+              <CommandItem
+                key="suggestions/theme/dark"
+                value="suggestions/theme/dark"
+                onSelect={cb}
+              >
+                <MoonIcon className={iconClass} /> Dark Theme
+              </CommandItem>
+            )}
+            lightChildren={(cb) => (
+              <CommandItem
+                key="suggestions/theme/light"
+                value="suggestions/theme/light"
+                onSelect={cb}
+              >
+                <SunIcon className={iconClass} /> Light Theme
+              </CommandItem>
+            )}
+          />
+          {session ? (
+            <>
+              {authedSuggestions.map((s) => (
+                <CommandItem
+                  key={`suggestions/${s.value}/${s.name}`}
+                  value={`suggestions/${s.value}/${s.name}`}
+                  onSelect={() => handleSelect(() => s.action(s.value))}
+                >
+                  {s.icon} {s.name}
+                </CommandItem>
+              ))}
+              <Logout className="flex w-full items-center text-left">
+                {(cb) => (
+                  <CommandItem
+                    key="suggestions/logout"
+                    value="suggestions/logout"
+                    onSelect={() => cb()}
+                    className="w-full p-0"
+                  >
+                    <ThickArrowRightIcon className={iconClass} /> Logout
+                  </CommandItem>
+                )}
+              </Logout>
+            </>
+          ) : (
+            <LoginDialog>
+              {(cb) => (
+                <CommandItem
+                  key="suggestions/login"
+                  value="suggestions/login"
+                  onSelect={cb}
+                  className="w-full p-0"
+                >
+                  <LockClosedIcon className={iconClass} /> Login
+                </CommandItem>
+              )}
+            </LoginDialog>
+          )}
         </CommandGroup>
       </CommandList>
     </CommandDialog>

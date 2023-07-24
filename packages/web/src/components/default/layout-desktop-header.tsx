@@ -12,6 +12,7 @@ import {
   NavigationMenuList,
   NavigationMenuTrigger,
 } from "~/components/ui/navigation-menu";
+import { LoginDialog } from "~/components/auth";
 
 export async function LayoutDesktopHeader() {
   const [, session] = await getSession();
@@ -82,11 +83,11 @@ export async function LayoutDesktopHeader() {
               <LayoutProfile session={session} />
             ) : (
               <NavigationMenuItem>
-                <Link href="/api/auth/signin" legacyBehavior passHref>
-                  <NavigationMenuLink className="nn-bg-contrast nn-interactive rounded-md border p-2 text-xs font-bold uppercase">
+                <LoginDialog>
+                  <button className="nn-bg-contrast nn-interactive rounded-md border p-2 text-xs font-bold uppercase">
                     Login
-                  </NavigationMenuLink>
-                </Link>
+                  </button>
+                </LoginDialog>
               </NavigationMenuItem>
             )}
           </NavigationMenuList>

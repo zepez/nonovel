@@ -25,6 +25,7 @@ Command.displayName = CommandPrimitive.displayName;
 
 interface CommandDialogProps extends DialogProps {
   filter?: (value: string, search: string) => number;
+  onOpenAutoFocus?: (event: Event) => void;
 }
 
 const CommandDialog = ({ children, filter, ...props }: CommandDialogProps) => {
