@@ -1,13 +1,9 @@
-// import fs from "fs";
-// import path from "path";
 import puppeteer from "puppeteer";
 import { eq } from "drizzle-orm";
-// import Handlebars from "handlebars";
 import type { Job, DoneCallback } from "bull";
 import { db, project as projectTable } from "@nonovel/db";
-import { promptImage } from "../prompt";
+import { postProcessImage, promptImage } from "@nonovel/lib";
 import { compileCoverFromTemplate } from "../template/cover";
-import { postprocessImage } from "../postprocess";
 
 export const generateCoverJob = async (
   job: Job<{
@@ -81,7 +77,7 @@ export const generateCoverJob = async (
 
     await job.progress(80);
 
-    const processedImageBase64 = await postprocessImage(rawImageBuffer);
+    const processedImageBase64 = await postProcessImage(rawImageBuffer);
 
     await db
       .update(projectTable)

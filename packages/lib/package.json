@@ -10,7 +10,10 @@
     "clean": "../../scripts/clean.sh"
   },
   "dependencies": {
+    "ai-utils.js": "^0.0.38",
+    "false": "^0.0.4",
     "serialize-error": "^11.0.0",
+    "sharp": "^0.32.4",
     "zod": "^3.21.4"
   },
   "devDependencies": {

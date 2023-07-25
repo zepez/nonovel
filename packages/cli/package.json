@@ -5,7 +5,7 @@
   "main": "./src/index.ts",
   "types": "./src/index.ts",
   "scripts": {
-    "cli:dev": "yarn with-env ts-node src/index.ts",
+    "cli:dev": "yarn with-env esno src/index.ts",
     "lint": "eslint --ext .ts .",
     "lint:fix": "eslint --ext .ts . --fix",
     "clean": "../../scripts/clean.sh",
@@ -17,10 +17,11 @@
     "@inquirer/prompts": "^2.3.1",
     "@nonovel/db": "*",
     "@nonovel/epub": "*",
+    "@nonovel/kv": "*",
+    "@nonovel/lib": "*",
     "ai-utils.js": "^0.0.32",
     "commander": "^11.0.0",
     "puppeteer": "^20.9.0",
-    "sharp": "^0.32.3",
     "slugify": "^1.6.6",
     "uuid": "^9.0.0"
   },
@@ -28,7 +29,7 @@
     "@types/node": "^18.0.0",
     "@types/uuid": "^9.0.2",
     "dotenv-cli": "^7.2.1",
-    "ts-node": "^10.9.1",
+    "esno": "^0.17.0",
     "typescript": "^4.8.4"
   }
 }

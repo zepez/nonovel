@@ -1,7 +1,7 @@
 import { eq } from "drizzle-orm";
 import type { Job, DoneCallback } from "bull";
 import { db, project as projectTable } from "@nonovel/db";
-import { promptText } from "../prompt";
+import { promptText } from "@nonovel/lib";
 
 export const generateSynopsisJob = async (
   job: Job<{

@@ -9,7 +9,10 @@ type TruncatedObject = {
     | Date;
 };
 
-export function truncate(input: TruncatedObject, limit = 100): TruncatedObject {
+export function truncateLog(
+  input: TruncatedObject,
+  limit = 100
+): TruncatedObject {
   const output: TruncatedObject = {};
 
   for (const key in input) {
@@ -19,7 +22,7 @@ export function truncate(input: TruncatedObject, limit = 100): TruncatedObject {
           ? (input[key] as string).substr(0, limit) + "..."
           : input[key];
     } else if (typeof input[key] === "object" && input[key] !== null) {
-      output[key] = truncate(input[key] as TruncatedObject, limit);
+      output[key] = truncateLog(input[key] as TruncatedObject, limit);
     } else {
       output[key] = input[key];
     }
