@@ -15,6 +15,7 @@
   },
   "dependencies": {
     "@nonovel/config-server": "*",
+    "bull": "^4.10.4",
     "ioredis": "^5.3.1"
   }
 }

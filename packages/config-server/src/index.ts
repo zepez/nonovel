@@ -25,7 +25,7 @@ const schema = z
     PG_PORT: parseInt(obj.PG_PORT, 10),
     PG_URI: `postgres://${obj.PG_USERNAME}:${obj.PG_PASSWORD}@${obj.PG_HOST}:${obj.PG_PORT}/${obj.PG_DATABASE}?${obj.PG_OPTS}`,
     REDIS_PORT: parseInt(obj.REDIS_PORT, 10),
-    REDIS_URI: `redis://${obj.REDIS_USERNAME}:${obj.REDIS_PASSWORD}@${obj.REDIS_HOST}:${obj.REDIS_PORT}`,
+    REDIS_URI: `rediss://${obj.REDIS_USERNAME}:${obj.REDIS_PASSWORD}@${obj.REDIS_HOST}:${obj.REDIS_PORT}`,
   }));
 
 export default schema.parse(process.env);

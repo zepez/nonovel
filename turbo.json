@@ -31,14 +31,19 @@
     "db:generate": {
       "cache": false
     },
-    "db:introspect": {
-      "cache": false
-    },
     "db:migrate": {
       "cache": false
     },
     "db:reset": {
       "cache": false
+    },
+    "micro-gen:dev": {
+      "cache": false,
+      "persistent": true
+    },
+    "micro-gen:start": {
+      "cache": false,
+      "persistent": true
     }
   }
 }

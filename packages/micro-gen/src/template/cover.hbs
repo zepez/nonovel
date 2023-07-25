@@ -1,0 +1,57 @@
+<html>
+  <head>
+    <script src="https://cdn.tailwindcss.com"></script>
+  </head>
+  <body>
+    <div class="cover">
+      <div class="cover-inside">
+        <div style="padding: 0px 20px">
+          <h1 style="font-size: 75px; font-family: serif; padding-top: 150px">
+            {{title}}
+          </h1>
+          <h2 style="font-size: 35px">{{author}}</h2>
+        </div>
+        <h3 style="font-size: 25px; margin-bottom: 20px;">NoNovel.io</h3>
+      </div>
+    </div>
+
+    <style>
+      .cover { 
+        width: 100%;
+        height: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: white;
+        position: relative;
+        font-family: sans-serif; 
+        text-shadow: black 0px 1px 5px; 
+      } 
+      
+      .cover::before { 
+        content: "";
+        top: 0; 
+        left: 0; 
+        width: 100%; 
+        height: 100%; 
+        position: absolute;
+        background-image: url(data:image/jpeg;base64,{{{background}}});
+        background-size: cover; 
+        filter: grayscale(25%) blur(1px) brightness(0.5);
+      }
+      
+      .cover-inside { 
+        position: relative; 
+        text-align: center; 
+        display: flex;
+        align-items: center; 
+        justify-content: space-between; 
+        flex-direction: column;
+        height: 100%; 
+      }
+    </style>
+  </body>
+</html>
+
+
+    

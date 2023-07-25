@@ -85,6 +85,8 @@ Monetization. Potential revshare.
 - [Shadcn UI](https://ui.shadcn.com/)
 - [Radix](https://www.radix-ui.com/)
 - [TailwindCSS](https://tailwindcss.com/)
+- [Puppeteer](https://pptr.dev/)
+- [ai-utils.js](https://ai-utils.dev/guide/)
 
 ## Packages
 
@@ -97,3 +99,9 @@ Monetization. Potential revshare.
 - `query` - Prepared queries along with interface containing error handling and validation.
 - `validator` - Custom zod schemas for validating database and form entries. Used instead of `drizzle-zod` so that validator can be used on the server and client.
 - `web` - The primary NoNovel.io Next.js app.
+
+## Building (docker 🐳)
+
+1. docker buildx create --use
+2. docker buildx build --platform linux/amd64 --load -t nonovel .
+3. docker run --env-file ./.env -it nonovel micro-gen:dev --concurrency 20
