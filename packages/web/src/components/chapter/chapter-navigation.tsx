@@ -71,9 +71,12 @@ const ChapterManifest = ({
         <HamburgerMenuIcon width={22} height={22} className="mr-3" /> Table of
         Contents
       </PopoverTrigger>
-      <PopoverContent align="end" className="nn-bg-background text-xs">
-        <ScrollArea className="h-[250px] rounded-md">
-          <div className="nn-divide flex min-h-[250px] flex-col divide-y">
+      <PopoverContent
+        align="end"
+        className="nn-bg-background w-screen text-xs sm:w-[300px]"
+      >
+        <ScrollArea className="h-[300px] rounded-md">
+          <div className="nn-divide flex min-h-[300px] flex-col divide-y">
             {manifest.map((c) => (
               <Link
                 key={c.id}

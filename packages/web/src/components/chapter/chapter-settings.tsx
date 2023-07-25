@@ -53,7 +53,7 @@ const IncrementalChange = ({
         >
           -
         </Button>
-        <p className="text-[.7rem]">
+        <p className="text-[.8rem]">
           {name}: {value}
         </p>
         <Button

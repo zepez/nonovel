@@ -38,27 +38,28 @@ Before Launch:
 - [x] Voting system
   - [x] review
   - [x] comment
+- [x] Browse by category, genre and search
+- [x] Custom login / register / logout pages or modals
+- [x] Callback URL on successful login/register/logout (modal so not neccessary right now)
+- [x] Decide on header links and make responsive
+- [ ] File uploading via UploadThing (\* base64 for project cover, uploadthing for profile pictures)
+- [ ] Home page
+- [ ] SEO / page metadata
+- [ ] allow bots + request indexing by google
 - [ ] Clean up epub / cli packages
+- [ ] Logo?
+- [ ] Upload a lot of public domain books
+
+After Launch:
+
 - [ ] Report system
   - [ ] global
   - [ ] profile
   - [ ] project
   - [ ] chapter
   - [ ] comment
-- [ ] Upload a lot of public domain books
-- [ ] Browse by category and ranking pages
-- [ ] Home and about pages
-- [ ] Custom login / register / logout pages or modals
-- [ ] Callback URL on successful login/register/logout
-- [ ] Decide on header links and make responsive
-- [ ] SEO / page metadata
-- [ ] allow bots + request indexing by google
-- [ ] Logo?
-- [ ] File uploading via UploadThing (\* base64 for project cover, uploadthing for profile pictures)
-
-After Launch:
-
 - [ ] vote on chapter as `like`
+- [ ] explicit ranking page
 - [ ] link and delete comments from settings/comments page
 - [ ] link and delete reviews from settings/reviews page
 - [ ] Reaction system (?) (chapter)
