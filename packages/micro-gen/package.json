@@ -6,7 +6,7 @@
   "types": "./src/index.ts",
   "scripts": {
     "micro-gen:start": "yarn with-env esno src/index.ts",
-    "micro-gen:dev": "yarn with-env ts-node src/dev.ts",
+    "micro-gen:dev": "yarn with-env esno src/dev.ts",
     "lint": "eslint --ext .ts .",
     "lint:fix": "eslint --ext .ts . --fix",
     "clean": "../../scripts/clean.sh",
