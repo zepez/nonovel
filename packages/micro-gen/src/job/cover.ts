@@ -2,7 +2,7 @@ import puppeteer from "puppeteer";
 import { eq } from "drizzle-orm";
 import type { Job, DoneCallback } from "bull";
 import { db, project as projectTable } from "@nonovel/db";
-import { postProcessImage, promptImage } from "@nonovel/lib";
+import { postProcessImage, promptCover } from "@nonovel/lib";
 import { compileCoverFromTemplate } from "../template/cover";
 
 export const generateCoverJob = async (
@@ -35,12 +35,10 @@ export const generateCoverJob = async (
 
     await job.progress(20);
 
-    const coverBackgroundBase64 = await promptImage([
-      {
-        text: `beautiful book illustration, ${project.name}, ${project.penName}`,
-        weight: 1,
-      },
-    ]);
+    const coverBackgroundBase64 = await promptCover({
+      title: project.name,
+      author: project.penName,
+    });
 
     log = `${jobId}: generated background cover for project with id: ${projectId}`;
     console.log(log);

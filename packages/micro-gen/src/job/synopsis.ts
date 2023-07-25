@@ -1,7 +1,7 @@
 import { eq } from "drizzle-orm";
 import type { Job, DoneCallback } from "bull";
 import { db, project as projectTable } from "@nonovel/db";
-import { promptText } from "@nonovel/lib";
+import { promptSynopsis } from "@nonovel/lib";
 
 export const generateSynopsisJob = async (
   job: Job<{
@@ -33,9 +33,10 @@ export const generateSynopsisJob = async (
 
     await job.progress(30);
 
-    const synopsis = await promptText(
-      `Please generate a short, spoiler-free synopsis for ${project.name} by ${project.penName}`
-    );
+    const synopsis = await promptSynopsis({
+      title: project.name,
+      author: project.penName,
+    });
 
     log = `${jobId}: generated synopsis for project with id: ${projectId}`;
     console.log(log);

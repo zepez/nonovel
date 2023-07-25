@@ -1,6 +1,6 @@
 import { OpenAIChatModel, OpenAIChatMessage, generateText } from "ai-utils.js";
 
-export const promptText = (prompt: string) =>
+export const aiText = (prompt: string) =>
   generateText(
     new OpenAIChatModel({
       model: "gpt-4",

@@ -2,7 +2,7 @@ import { StabilityImageGenerationModel, generateImage } from "ai-utils.js";
 
 type PromptImageOptions = { text: string; weight: number }[];
 
-export const promptImage = async (prompt: PromptImageOptions) => {
+export const aiImage = async (prompt: PromptImageOptions) => {
   return await generateImage(
     new StabilityImageGenerationModel({
       model: "stable-diffusion-xl-beta-v2-2-2",
