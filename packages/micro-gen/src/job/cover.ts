@@ -1,11 +1,12 @@
-import fs from "fs";
-import path from "path";
+// import fs from "fs";
+// import path from "path";
 import puppeteer from "puppeteer";
 import { eq } from "drizzle-orm";
-import Handlebars from "handlebars";
+// import Handlebars from "handlebars";
 import type { Job, DoneCallback } from "bull";
 import { db, project as projectTable } from "@nonovel/db";
 import { promptImage } from "../prompt";
+import { compileCoverFromTemplate } from "../template/cover";
 import { postprocessImage } from "../postprocess";
 
 export const generateCoverJob = async (
@@ -51,16 +52,7 @@ export const generateCoverJob = async (
 
     await job.progress(50);
 
-    const coverTemplatePath = path.join(
-      __dirname,
-      "..",
-      "template",
-      "cover.hbs"
-    );
-    const coverTemplateFile = fs.readFileSync(coverTemplatePath, "utf-8");
-    const coverTemplate = Handlebars.compile(coverTemplateFile);
-
-    const coverCompiled = coverTemplate({
+    const compiledCoverHtml = compileCoverFromTemplate({
       title: project.name,
       author: project.penName,
       background: coverBackgroundBase64,
@@ -69,8 +61,8 @@ export const generateCoverJob = async (
     const puppeteerBrowser = await puppeteer.launch({
       args: ["--no-sandbox", "--disable-setuid-sandbox", "--single-process"],
       devtools: false,
-      headless: true,
-      dumpio: true,
+      headless: "new",
+      dumpio: false,
     });
     const puppeteerPage = await puppeteerBrowser.newPage();
 
@@ -79,7 +71,7 @@ export const generateCoverJob = async (
       height: 900,
     });
 
-    await puppeteerPage.setContent(coverCompiled);
+    await puppeteerPage.setContent(compiledCoverHtml);
 
     const rawImageBuffer = await puppeteerPage.screenshot({
       encoding: "binary",
