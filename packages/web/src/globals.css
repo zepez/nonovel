@@ -1,18 +1,28 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+@import url('https://fonts.googleapis.com/css2?family=PT+Mono&display=swap');
+
+@font-face {
+  font-family: 'open-dyslexic';
+  src: url('/fonts/OpenDyslexic3-Regular.ttf');
+ }
 
 :root {
   --chapter-text-size: 24px;
+  --chapter-font: sans-serif;
   --chapter-leading: 1.5;
   --chapter-paragraph-spacing: 2rem 0px;
+  --chapter-letter-spacing: 0px;
 }
 
 .nn-content-wrapper p, td, table {
   transition: all 0.25s;
   transition-timing-function: ease-in-out;
   font-size: var(--chapter-text-size);
+  font-family: var(--chapter-font);
   line-height: var(--chapter-leading);
+  letter-spacing: var(--chapter-letter-spacing);
   margin: 2rem 0px;
 }
 
