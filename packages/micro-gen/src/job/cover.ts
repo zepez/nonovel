@@ -2,7 +2,8 @@ import puppeteer from "puppeteer";
 import { eq } from "drizzle-orm";
 import type { Job, DoneCallback } from "bull";
 import { db, project as projectTable } from "@nonovel/db";
-import { postProcessImage, promptCover } from "@nonovel/lib";
+import { postProcessImage } from "@nonovel/lib";
+import { chainProjectCover } from "@nonovel/ai";
 import { upload } from "@nonovel/blob";
 import { compileCoverFromTemplate } from "../template/cover";
 
@@ -44,10 +45,16 @@ export const generateCoverJob = async (
 
     await job.progress(20);
 
-    const coverBackgroundBase64 = await promptCover({
+    const coverBackgroundBase64 = await chainProjectCover({
       title: project.name,
       author: project.penName,
     });
+
+    if (!coverBackgroundBase64) {
+      log = `${jobId}: AI failed to generate background cover`;
+      console.log(log);
+      return done(new Error(log));
+    }
 
     log = `${jobId}: AI generated background cover`;
     console.log(log);

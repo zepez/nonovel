@@ -13,6 +13,7 @@
     "with-env": "dotenv -e ../../.env --"
   },
   "dependencies": {
+    "@nonovel/ai": "*",
     "@nonovel/db": "*",
     "@nonovel/kv": "*",
     "@nonovel/lib": "*",

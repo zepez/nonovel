@@ -1,5 +1,5 @@
 {
-  "name": "@nonovel/lib",
+  "name": "@nonovel/ai",
   "version": "1.0.0",
   "private": true,
   "main": "./src/index.ts",
@@ -10,9 +10,7 @@
     "clean": "../../scripts/clean.sh"
   },
   "dependencies": {
-    "serialize-error": "^11.0.0",
-    "sharp": "^0.32.4",
-    "zod": "^3.21.4"
+    "ai-utils.js": "^0.0.38"
   },
   "devDependencies": {
     "@types/node": "^18.0.0",

@@ -16,12 +16,8 @@ import {
 import { coverGenerationQueue } from "@nonovel/kv";
 import { upload } from "@nonovel/blob";
 import { Epub } from "@nonovel/epub";
-import {
-  postProcessImage,
-  promptSelectGenre,
-  promptSynopsis,
-  truncateLog,
-} from "@nonovel/lib";
+import { chainProjectGenre, chainProjectSynopsis } from "@nonovel/ai";
+import { postProcessImage, truncateLog } from "@nonovel/lib";
 
 export const epubCommand = async (file: string | undefined) => {
   if (!file) throw new Error("No file path provided");
@@ -114,10 +110,11 @@ export const epubCommand = async (file: string | undefined) => {
   const synopsis = generateNewSynopsis
     ? await input({
         message: "AI generated synopsis",
-        default: await promptSynopsis({
-          title: epub.opfMetadata.title,
-          author: epub.opfMetadata.creator,
-        }),
+        default:
+          (await chainProjectSynopsis({
+            title: epub.opfMetadata.title,
+            author: epub.opfMetadata.creator,
+          })) || "",
       })
     : await input({
         message: "Custom synopsis",
@@ -152,19 +149,15 @@ export const epubCommand = async (file: string | undefined) => {
   const availableGenreNames = availableGenres.map((g) => g.name);
 
   console.log("AI Generating genres...");
-  const aiSelectedGenreNamesString = await promptSelectGenre({
+  const aiSelectedGenreNames = await chainProjectGenre({
     title: epub.opfMetadata.title,
     author: epub.opfMetadata.creator,
     genres: availableGenreNames,
   });
-  console.log("AI Generated genres:", aiSelectedGenreNamesString);
-
-  const aiSelectedGenreNames = aiSelectedGenreNamesString
-    .split(",")
-    .map((s) => s.trim());
+  console.log("AI Generated genres:", aiSelectedGenreNames.join(", "));
 
   const aiSelectedGenres = availableGenres.filter((g) =>
-    aiSelectedGenreNames.includes(g.name)
+    aiSelectedGenreNames.includes(g.name.toLowerCase())
   );
 
   const deselectedGenres = await checkbox({

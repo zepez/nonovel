@@ -1,12 +1,15 @@
-import { aiImage } from "../ai";
+import { aiImage } from "../medium";
 
 export interface PromptCoverOptions {
   title: string;
   author: string;
 }
 
-export const promptCover = ({ title, author }: PromptCoverOptions) => {
-  return aiImage([
+export const promptProjectCoverKnown = ({
+  title,
+  author,
+}: PromptCoverOptions) => {
+  return aiImage("digital-art", [
     {
       text: `beautiful book illustration, ${title}, ${author}`,
       weight: 1,
