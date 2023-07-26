@@ -17,8 +17,3 @@ export const coverGenerationQueue = new Queue<{ projectId: string }>(
   "cover generation",
   qConnection
 );
-
-export const synopsisGenerationQueue = new Queue<{ projectId: string }>(
-  "synopsis generation",
-  qConnection
-);

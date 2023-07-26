@@ -13,6 +13,8 @@ import {
   NewChapter,
   chapter as chapterTable,
 } from "@nonovel/db";
+import { coverGenerationQueue } from "@nonovel/kv";
+import { upload } from "@nonovel/blob";
 import { Epub } from "@nonovel/epub";
 import {
   postProcessImage,
@@ -20,7 +22,6 @@ import {
   promptSynopsis,
   truncateLog,
 } from "@nonovel/lib";
-import { coverGenerationQueue } from "@nonovel/kv";
 
 export const epubCommand = async (file: string | undefined) => {
   if (!file) throw new Error("No file path provided");
@@ -81,8 +82,15 @@ export const epubCommand = async (file: string | undefined) => {
     ],
   });
 
-  if (!generateNewCover) {
-    const cover = await postProcessImage(epub.opfMetadata.cover);
+  if (!generateNewCover && epub.opfMetadata.cover) {
+    const coverBuffer = await postProcessImage(epub.opfMetadata.cover);
+    const cover = await upload({
+      buffer: coverBuffer,
+      group: project.slug,
+      category: "cover",
+      extOrFileName: "webp",
+    });
+
     Object.assign(project, { cover });
   }
 

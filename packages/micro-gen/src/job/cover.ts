@@ -3,6 +3,7 @@ import { eq } from "drizzle-orm";
 import type { Job, DoneCallback } from "bull";
 import { db, project as projectTable } from "@nonovel/db";
 import { postProcessImage, promptCover } from "@nonovel/lib";
+import { upload } from "@nonovel/blob";
 import { compileCoverFromTemplate } from "../template/cover";
 
 export const generateCoverJob = async (
@@ -17,21 +18,29 @@ export const generateCoverJob = async (
   try {
     const { projectId } = job.data;
 
+    log = `${jobId}: starting cover generation job for project ${projectId}`;
+    console.log(log);
+    await job.log(log);
+
     const project = await db.query.project.findFirst({
       where: (project, { eq }) => eq(project.id, projectId),
     });
 
-    log = `${jobId}: project found with id: ${projectId}`;
+    if (!project) {
+      log = `${jobId}: project not found in database`;
+      console.log(log);
+      return done(new Error(log));
+    }
+
+    if (!project.penName) {
+      log = `${jobId}: project does not have a penName`;
+      console.log(log);
+      return done(new Error(log));
+    }
+
+    log = `${jobId}: project found in database`;
     console.log(log);
     await job.log(log);
-
-    if (!project)
-      return done(new Error(`project not found with id: ${projectId}`));
-
-    if (!project.penName)
-      return done(
-        new Error(`project does not have a penName with id: ${projectId}`)
-      );
 
     await job.progress(20);
 
@@ -40,7 +49,7 @@ export const generateCoverJob = async (
       author: project.penName,
     });
 
-    log = `${jobId}: generated background cover for project with id: ${projectId}`;
+    log = `${jobId}: AI generated background cover`;
     console.log(log);
     await job.log(log);
 
@@ -75,18 +84,28 @@ export const generateCoverJob = async (
 
     await job.progress(80);
 
-    const processedImageBase64 = await postProcessImage(rawImageBuffer);
+    const postProcessedImage = await postProcessImage(rawImageBuffer);
+    const path = await upload({
+      buffer: postProcessedImage,
+      group: project.slug,
+      category: "cover",
+      extOrFileName: "webp",
+    });
+
+    log = `${jobId}: uploaded cover to storage bucket`;
+    console.log(log);
+    await job.log(log);
 
     await db
       .update(projectTable)
       .set({
-        cover: processedImageBase64,
+        cover: path,
       })
       .where(eq(projectTable.id, projectId));
 
     await job.progress(100);
 
-    log = `${jobId}: updated project with cover, ${projectId}`;
+    log = `${jobId}: updated project with cover in database`;
     console.log(log);
     await job.log(log);
 

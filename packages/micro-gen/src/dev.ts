@@ -3,7 +3,7 @@ import { main } from "./app";
 
 const dev = async () => {
   await coverGenerationQueue.add({
-    projectId: "eb6c6c17-1675-4dfa-a0a8-64b5d68ae154",
+    projectId: "6880e930-3a46-491c-ae5d-350f6352ad4e",
   });
   main();
 };

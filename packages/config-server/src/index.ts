@@ -3,12 +3,6 @@ import * as z from "zod";
 const schema = z
   .object({
     NODE_ENV: z.enum(["development", "production"]).default("development"),
-    NEXTAUTH_URL: z.string(),
-    NEXTAUTH_SECRET: z.string(),
-    NEXTAUTH_GITHUB_CLIENT_ID: z.string(),
-    NEXTAUTH_GITHUB_CLIENT_SECRET: z.string(),
-    NEXTAUTH_DISCORD_CLIENT_ID: z.string(),
-    NEXTAUTH_DISCORD_CLIENT_SECRET: z.string(),
     PG_HOST: z.string().default("127.0.0.1"),
     PG_PORT: z.string().default("5432"),
     PG_USERNAME: z.string().default("postgres"),
@@ -19,6 +13,17 @@ const schema = z
     REDIS_PASSWORD: z.string().default(""),
     REDIS_HOST: z.string().default("127.0.0.1"),
     REDIS_PORT: z.string().default("6379"),
+    S3_ENDPOINT: z.string().url(),
+    S3_ACCESS_KEY_ID: z.string(),
+    S3_SECRET_ACCESS_KEY: z.string(),
+    OPENAI_API_KEY: z.string(),
+    STABILITY_API_KEY: z.string(),
+    NEXTAUTH_URL: z.string(),
+    NEXTAUTH_SECRET: z.string(),
+    NEXTAUTH_GITHUB_CLIENT_ID: z.string(),
+    NEXTAUTH_GITHUB_CLIENT_SECRET: z.string(),
+    NEXTAUTH_DISCORD_CLIENT_ID: z.string(),
+    NEXTAUTH_DISCORD_CLIENT_SECRET: z.string(),
   })
   .transform((obj) => ({
     ...obj,
