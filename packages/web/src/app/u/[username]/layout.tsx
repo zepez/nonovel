@@ -2,6 +2,7 @@ import Image from "next/image";
 import { notFound } from "next/navigation";
 import { formatDistanceToNow } from "date-fns";
 import { getProfileByUsername } from "~/lib/request";
+import { src } from "~/lib/string";
 import {
   LayoutWrapper,
   CountryCodeName,
@@ -36,7 +37,7 @@ export default async function ProfileLayout({
       </div>
       <LayoutWrapper className="nn-bg-foreground flex flex-wrap items-end md:flex-nowrap md:px-16 lg:px-16">
         <Image
-          src={profile.image ?? "/profile.png"}
+          src={src(profile.image ?? "/profile.png")}
           alt="Profile picture"
           width={256}
           height={256}

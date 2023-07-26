@@ -4,6 +4,7 @@ import { notFound } from "next/navigation";
 import parse from "html-react-parser";
 import { AiFillStar, AiTwotoneEye } from "react-icons/ai";
 import { getBrowsePageResult, getGenreBySlug } from "~/lib/request";
+import { src } from "~/lib/string";
 import { SectionEmpty, SectionHeading } from "~/components/shared";
 
 interface BrowsePageProps {
@@ -70,7 +71,7 @@ export default async function BrowsePage({
             {result.cover && (
               <div className="h-[300px] w-full flex-shrink-0 sm:w-[200px]">
                 <Image
-                  src={result.cover}
+                  src={src(result.cover)}
                   alt={`${result.name} cover`}
                   width={200}
                   height={200}

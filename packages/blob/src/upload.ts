@@ -1,6 +1,5 @@
 import { PutObjectCommand, S3Client } from "@aws-sdk/client-s3";
 import mime from "mime-types";
-
 import config from "@nonovel/config-server";
 
 const client = new S3Client({
@@ -33,7 +32,7 @@ export const upload = async ({
   const path = `${group}/${category}/${name}.${extension}`;
 
   const command = new PutObjectCommand({
-    Bucket: "nonovel",
+    Bucket: config.S3_BUCKET_NAME,
     Key: path,
     Body: buffer,
     ContentType: mimetype,

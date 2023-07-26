@@ -1,4 +1,5 @@
 import * as z from "zod";
+import clientConfig from "@nonovel/config-client";
 
 const schema = z
   .object({
@@ -14,6 +15,7 @@ const schema = z
     REDIS_HOST: z.string().default("127.0.0.1"),
     REDIS_PORT: z.string().default("6379"),
     S3_ENDPOINT: z.string().url(),
+    S3_BUCKET_NAME: z.string(),
     S3_ACCESS_KEY_ID: z.string(),
     S3_SECRET_ACCESS_KEY: z.string(),
     OPENAI_API_KEY: z.string(),
@@ -33,4 +35,4 @@ const schema = z
     REDIS_URI: `rediss://${obj.REDIS_USERNAME}:${obj.REDIS_PASSWORD}@${obj.REDIS_HOST}:${obj.REDIS_PORT}`,
   }));
 
-export default schema.parse(process.env);
+export default { ...schema.parse(process.env), ...clientConfig };

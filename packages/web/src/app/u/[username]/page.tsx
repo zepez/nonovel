@@ -2,7 +2,7 @@ import Link from "next/link";
 import Image from "next/image";
 import { notFound } from "next/navigation";
 import { getProfileByUsername } from "~/lib/request";
-import { toTitleCase } from "~/lib/string";
+import { toTitleCase, src } from "~/lib/string";
 import { cn } from "~/lib/utils";
 import { SectionHeading, SectionEmpty } from "~/components/shared";
 
@@ -47,7 +47,7 @@ export default async function ProfilePage({ params }: ProfilePageProps) {
                 )}
               >
                 <Image
-                  src={project.cover ?? "/profile.png"}
+                  src={src(project.cover ?? "/profile.png")}
                   alt="Novel cover"
                   width={100}
                   height={150}

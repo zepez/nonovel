@@ -11,6 +11,7 @@ import {
 } from "@radix-ui/react-icons";
 
 import type { Session } from "~/lib/auth";
+import { src } from "~/lib/string";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -46,7 +47,7 @@ export const LayoutProfile = ({ session }: LayoutProfileProps) => {
     <DropdownMenu>
       <DropdownMenuTrigger className="nn-interactive ms-center flex rounded-md">
         <Image
-          src={profilePicture}
+          src={src(profilePicture)}
           alt="Profile picture"
           className="nn-border mx-1 rounded-full border"
           width={36}

@@ -1,5 +1,6 @@
 import Image from "next/image";
 
+import { src } from "~/lib/string";
 import { cn } from "~/lib/utils";
 
 interface AspectImageProps {
@@ -11,16 +12,16 @@ interface AspectImageProps {
 
 export const AspectImage = ({
   className,
-  src,
+  src: source,
   alt,
   width,
 }: AspectImageProps) => {
-  if (!src) return null;
+  if (!source) return null;
 
   return (
     <div className={cn(className, "object-contain")}>
       <Image
-        src={src}
+        src={src(source)}
         alt={alt}
         fill={false}
         width={width}
