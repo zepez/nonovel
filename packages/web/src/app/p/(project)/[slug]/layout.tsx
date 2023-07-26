@@ -20,7 +20,7 @@ import {
 } from "~/components/project";
 import { Button } from "~/components/ui/button";
 import { summarizeNumber } from "~/lib/number";
-import { toTitleCase, naturalListJoin } from "~/lib/string";
+import { toTitleCase, naturalListJoin, src } from "~/lib/string";
 
 export const revalidate = 60;
 
@@ -86,7 +86,7 @@ export default async function ProjectLayout({
       <div className="relative overflow-hidden">
         <div
           className="nn-bg-blurred-2 absolute inset-0 z-0 bg-cover"
-          style={{ backgroundImage: `url(${project.cover ?? ""})` }}
+          style={{ backgroundImage: `url(${src(project.cover ?? "")})` }}
         />
         <div className="relative z-10">
           <LayoutWrapper className="flex flex-wrap py-12 md:flex-nowrap md:px-16 lg:px-16">

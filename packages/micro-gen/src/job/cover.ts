@@ -19,7 +19,7 @@ export const generateCoverJob = async (
   try {
     const { projectId } = job.data;
 
-    log = `${jobId}: starting cover generation job for project ${projectId}`;
+    log = `${jobId}: starting cover generation`;
     console.log(log);
     await job.log(log);
 
@@ -28,7 +28,7 @@ export const generateCoverJob = async (
     });
 
     if (!project) {
-      log = `${jobId}: project not found in database`;
+      log = `${jobId}: project not found`;
       console.log(log);
       return done(new Error(log));
     }
@@ -39,7 +39,7 @@ export const generateCoverJob = async (
       return done(new Error(log));
     }
 
-    log = `${jobId}: project found in database`;
+    log = `${jobId}: project found`;
     console.log(log);
     await job.log(log);
 
@@ -51,12 +51,12 @@ export const generateCoverJob = async (
     });
 
     if (!coverBackgroundBase64) {
-      log = `${jobId}: AI failed to generate background cover`;
+      log = `${jobId}: AI failed to generate cover`;
       console.log(log);
       return done(new Error(log));
     }
 
-    log = `${jobId}: AI generated background cover`;
+    log = `${jobId}: AI generated cover`;
     console.log(log);
     await job.log(log);
 
@@ -99,7 +99,7 @@ export const generateCoverJob = async (
       extOrFileName: "webp",
     });
 
-    log = `${jobId}: uploaded cover to storage bucket`;
+    log = `${jobId}: uploaded cover to bucket`;
     console.log(log);
     await job.log(log);
 
@@ -112,7 +112,7 @@ export const generateCoverJob = async (
 
     await job.progress(100);
 
-    log = `${jobId}: updated project with cover in database`;
+    log = `${jobId}: updated project with cover`;
     console.log(log);
     await job.log(log);
 
@@ -120,8 +120,8 @@ export const generateCoverJob = async (
   } catch (error) {
     if (error instanceof Error) {
       log = `${jobId}: ${error.message ?? "error"}`;
-      console.error(error);
-      return done(error);
+      console.error(log);
+      return done(new Error(log));
     }
   }
 };

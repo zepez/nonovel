@@ -1,6 +1,9 @@
-import { coverGenerationQueue } from "@nonovel/kv";
-import { generateCoverJob } from "./job";
+import { qs } from "@nonovel/kv";
+import { generateCoverJob, generateSearchJob } from "./job";
 
 export const main = () => {
-  void coverGenerationQueue.process(generateCoverJob);
+  void qs.genSearch.queue.process(generateSearchJob);
+  void qs.genCover.queue.process(generateCoverJob);
+
+  void qs.genSearch.add();
 };

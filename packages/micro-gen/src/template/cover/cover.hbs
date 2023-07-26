@@ -5,11 +5,11 @@
   <body>
     <div class="cover">
       <div class="cover-inside">
-        <div style="padding: 0px 20px">
-          <h1 style="font-size: 75px; font-family: serif; padding-top: 150px">
+        <div style="padding: 0px 20px;">
+          <h1 style="font-size: 75px; font-family: serif; padding-top: 150px; line-height: 1.25;">
             {{title}}
           </h1>
-          <h2 style="font-size: 35px">{{author}}</h2>
+          <h2 style="font-size: 35px; margin-top: 50px;">{{author}}</h2>
         </div>
         <h3 style="font-size: 25px; margin-bottom: 20px;">NoNovel.io</h3>
       </div>
@@ -25,7 +25,7 @@
         color: white;
         position: relative;
         font-family: sans-serif; 
-        text-shadow: black 0px 1px 5px; 
+        text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.7);
       } 
       
       .cover::before { 
@@ -37,7 +37,8 @@
         position: absolute;
         background-image: url(data:image/jpeg;base64,{{{background}}});
         background-size: cover; 
-        filter: grayscale(25%) blur(1px) brightness(0.5);
+        background-color: rgba(0, 0, 0, 0.3);
+        filter: grayscale(25%) blur(1px) brightness(0.3);
       }
       
       .cover-inside { 

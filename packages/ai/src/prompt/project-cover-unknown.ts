@@ -3,7 +3,7 @@ import { aiImage } from "../medium";
 export const promptProjectCoverUnknown = () => {
   return aiImage("tile-texture", [
     {
-      text: "beautiful simple mandala, desaturated, clip art",
+      text: "acanthus pattern, dark, black and gray",
       weight: 1,
     },
   ]);

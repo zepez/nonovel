@@ -13,7 +13,7 @@ import {
   NewChapter,
   chapter as chapterTable,
 } from "@nonovel/db";
-import { coverGenerationQueue } from "@nonovel/kv";
+import { qs } from "@nonovel/kv";
 import { upload } from "@nonovel/blob";
 import { Epub } from "@nonovel/epub";
 import { chainProjectGenre, chainProjectSynopsis } from "@nonovel/ai";
@@ -63,22 +63,23 @@ export const epubCommand = async (file: string | undefined) => {
 
   // #####################################
 
-  const generateNewCover = await select({
-    message:
-      "Use AI to generate a new cover? If not, the existing cover will be used.",
-    choices: [
-      {
-        name: "Yes",
-        value: true,
-      },
-      {
-        name: "No",
-        value: false,
-      },
-    ],
-  });
+  const useExistingCover = epub.opfMetadata.cover
+    ? await select({
+        message: "A cover was found in the epub file. Do you want to use it?",
+        choices: [
+          {
+            name: "No",
+            value: false,
+          },
+          {
+            name: "Yes",
+            value: true,
+          },
+        ],
+      })
+    : false;
 
-  if (!generateNewCover && epub.opfMetadata.cover) {
+  if (useExistingCover && epub.opfMetadata.cover) {
     const coverBuffer = await postProcessImage(epub.opfMetadata.cover);
     const cover = await upload({
       buffer: coverBuffer,
@@ -107,14 +108,18 @@ export const epubCommand = async (file: string | undefined) => {
     ],
   });
 
-  const synopsis = generateNewSynopsis
+  if (generateNewSynopsis) console.log("Generating synopsis...");
+  const generatedSynopsis = generateNewSynopsis
+    ? await chainProjectSynopsis({
+        title: epub.opfMetadata.title,
+        author: epub.opfMetadata.creator,
+      })
+    : null;
+
+  const synopsis = generatedSynopsis
     ? await input({
         message: "AI generated synopsis",
-        default:
-          (await chainProjectSynopsis({
-            title: epub.opfMetadata.title,
-            author: epub.opfMetadata.creator,
-          })) || "",
+        default: generatedSynopsis,
       })
     : await input({
         message: "Custom synopsis",
@@ -145,9 +150,12 @@ export const epubCommand = async (file: string | undefined) => {
 
   // #####################################
 
+  // 1. get all available genres from database
   const availableGenres = await db.query.genre.findMany();
+  // 2. we only need the genre names right now
   const availableGenreNames = availableGenres.map((g) => g.name);
 
+  // 3. ask ai which genre names apply to the text
   console.log("AI Generating genres...");
   const aiSelectedGenreNames = await chainProjectGenre({
     title: epub.opfMetadata.title,
@@ -156,25 +164,46 @@ export const epubCommand = async (file: string | undefined) => {
   });
   console.log("AI Generated genres:", aiSelectedGenreNames.join(", "));
 
+  // 4. get the full genre object for each of the returned genre names
   const aiSelectedGenres = availableGenres.filter((g) =>
     aiSelectedGenreNames.includes(g.name.toLowerCase())
   );
 
-  const deselectedGenres = await checkbox({
-    message:
-      "These genres were selected by the AI. Please select which chapters to EXCLUDE.",
-    choices: aiSelectedGenres.map((g) => {
-      return {
-        name: g.name,
-        value: g,
-      };
-    }),
+  // 5. ask user if they want to deselect any of the ai selected genres
+  const aiDeselectedGenres =
+    aiSelectedGenres.length > 0
+      ? await checkbox({
+          message:
+            "These genres were selected by the AI. Please select which chapters to EXCLUDE.",
+          choices: aiSelectedGenres.map((g) => {
+            return {
+              name: g.name,
+              value: g,
+            };
+          }),
+        })
+      : [];
+
+  // 6. ask user if they want to select any more generes
+  const userSelectedGenres = await checkbox({
+    message: "Additional genres",
+    choices: availableGenres
+      .filter((g) => !aiSelectedGenres.includes(g))
+      .map((g) => {
+        return {
+          name: g.name,
+          value: g,
+        };
+      }),
   });
 
-  const selectedGenres = aiSelectedGenres.filter(
-    (g) => !deselectedGenres.includes(g)
-  );
+  // 7. combine the ai selected genres with the user selected genres
+  const selectedGenres = [
+    ...aiSelectedGenres.filter((g) => !aiDeselectedGenres.includes(g)),
+    ...userSelectedGenres,
+  ];
 
+  // 8. format genres for database insertion
   const genres = selectedGenres.map((g) => {
     return {
       projectId: project.id as string,
@@ -219,11 +248,9 @@ export const epubCommand = async (file: string | undefined) => {
     await tx.insert(chapterTable).values(chapters);
   });
 
-  if (generateNewCover) {
+  if (!useExistingCover && project.id) {
     console.log("Adding cover generation to queue...");
-    await coverGenerationQueue.add({
-      projectId: project.id as string,
-    });
+    await qs.genCover.add({ projectId: project.id });
   }
 
   // #####################################

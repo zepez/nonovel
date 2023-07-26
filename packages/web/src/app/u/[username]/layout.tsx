@@ -30,7 +30,7 @@ export default async function ProfileLayout({
         <div
           className="nn-bg-blurred nn-bg-foreground h-full w-full bg-cover"
           style={{
-            backgroundImage: `url(${profile.image ?? "/profile.png"})`,
+            backgroundImage: `url(${src(profile.image ?? "/profile.png")})`,
             backgroundSize: "cover",
           }}
         />

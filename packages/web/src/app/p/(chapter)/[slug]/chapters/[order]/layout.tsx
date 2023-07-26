@@ -6,7 +6,7 @@ import {
   getChapterBySlugAndOrder,
   getChapterManifestByIds,
 } from "~/lib/request";
-import { toTitleCase } from "~/lib/string";
+import { toTitleCase, src } from "~/lib/string";
 import { ChapterNavigation } from "~/components/chapter";
 import { LayoutWrapper, AspectImage, CommentLayout } from "~/components/shared";
 import { ChapterSettings, ChapterView } from "~/components/chapter";
@@ -46,7 +46,7 @@ export default async function ChapterLayout({
       <div className="relative overflow-hidden">
         <div
           className="nn-bg-blurred-2 absolute inset-0 z-0 bg-cover"
-          style={{ backgroundImage: `url(${project.cover ?? ""})` }}
+          style={{ backgroundImage: `url(${src(project.cover ?? "")})` }}
         />
         <div className="relative z-10">
           <LayoutWrapper className="my-12 flex flex-wrap items-center justify-between md:flex-nowrap lg:px-16">
