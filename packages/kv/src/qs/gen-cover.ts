@@ -1,5 +1,5 @@
 import Queue from "bull";
-import { connect } from "./connect";
+import config from "@nonovel/config-server";
 
 interface GenCoverQueueOpts {
   projectId: string;
@@ -7,7 +7,7 @@ interface GenCoverQueueOpts {
 
 const name = "gen_cover";
 
-const queue = new Queue<GenCoverQueueOpts>(name, connect);
+const queue = new Queue<GenCoverQueueOpts>(name, config.REDIS_URI);
 
 const add = async ({ projectId }: GenCoverQueueOpts) =>
   await queue.add(

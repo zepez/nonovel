@@ -1,9 +1,9 @@
 import Queue from "bull";
-import { connect } from "./connect";
+import config from "@nonovel/config-server";
 
 const name = "gen_search";
 
-const queue = new Queue(name, connect);
+const queue = new Queue(name, config.REDIS_URI);
 
 const add = async () =>
   await queue.add(null, { repeat: { cron: "* * * * *" } });
