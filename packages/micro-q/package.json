@@ -1,12 +1,12 @@
 {
-  "name": "@nonovel/micro-gen",
+  "name": "@nonovel/micro-q",
   "version": "1.0.0",
   "private": true,
   "main": "./src/index.ts",
   "types": "./src/index.ts",
   "scripts": {
-    "micro-gen:start": "yarn with-env esno src/index.ts",
-    "micro-gen:dev": "yarn with-env esno src/dev.ts",
+    "micro-q:start": "yarn with-env esno src/index.ts",
+    "micro-q:dev": "yarn with-env esno src/dev.ts",
     "lint": "eslint --ext .ts .",
     "lint:fix": "eslint --ext .ts . --fix",
     "clean": "../../scripts/clean.sh",

@@ -37,11 +37,11 @@
     "db:reset": {
       "cache": false
     },
-    "micro-gen:dev": {
+    "micro-q:dev": {
       "cache": false,
       "persistent": true
     },
-    "micro-gen:start": {
+    "micro-q:start": {
       "cache": false,
       "persistent": true
     }

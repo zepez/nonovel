@@ -104,4 +104,4 @@ Monetization. Potential revshare.
 
 1. docker buildx create --use
 2. docker buildx build --platform linux/amd64 --load -t nonovel .
-3. docker run --env-file ./.env -it nonovel micro-gen:dev --concurrency 20
+3. docker run --env-file ./.env -it nonovel micro-q:start --concurrency 20
