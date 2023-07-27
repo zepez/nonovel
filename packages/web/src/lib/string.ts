@@ -16,5 +16,10 @@ export const naturalListJoin = (index: number, length: number) => {
 
 export const src = (src: string) => {
   if (src.startsWith("data:image") || src.startsWith("/")) return src;
-  return `https://${config.NEXT_PUBLIC_S3_DOMAIN}/${src}`;
+
+  const segments = src
+    .split("/")
+    .map((segment) => encodeURIComponent(segment).replace(/'/g, "%27"));
+  const reformed = segments.join("/");
+  return `https://${config.NEXT_PUBLIC_S3_DOMAIN}/${reformed}`;
 };

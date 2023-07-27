@@ -28,25 +28,24 @@ export default async function ProfileLayout({
     <>
       <div className="h-64 overflow-hidden">
         <div
-          className="nn-bg-blurred nn-bg-foreground h-full w-full bg-cover"
+          className="w-full h-full bg-cover nn-bg-blurred nn-bg-foreground"
           style={{
             backgroundImage: `url(${src(profile.image ?? "/profile.png")})`,
             backgroundSize: "cover",
           }}
         />
       </div>
-      <LayoutWrapper className="nn-bg-foreground flex flex-wrap items-end md:flex-nowrap md:px-16 lg:px-16">
+      <LayoutWrapper className="flex flex-wrap items-end nn-bg-foreground md:flex-nowrap md:px-16 lg:px-16">
         <Image
           src={src(profile.image ?? "/profile.png")}
           alt="Profile picture"
           width={256}
           height={256}
-          className="nn-bg-foreground z-20 mx-auto -mt-32 w-64 rounded-md p-1 md:mx-0"
+          className="z-20 w-64 p-1 mx-auto -mt-32 rounded-md nn-bg-foreground md:mx-0"
         />
-        <div className="mt-8 w-full text-center md:mb-2 md:ml-8 md:mt-0 md:w-auto md:text-left">
-          <h1 className="mb-4 text-2xl font-bold leading-tight md:text-5xl">
-            <span className="mr-1 text-xl font-normal">@</span>
-            {profile.username.toLowerCase()}
+        <div className="w-full mt-8 text-center md:mb-2 md:ml-8 md:mt-0 md:w-auto md:text-left">
+          <h1 className="mb-4 text-2xl font-bold leading-tight nn-title md:text-5xl">
+            @{profile.username.toLowerCase()}
           </h1>
           <p className="nn-text-secondary">
             Joined {formatDistanceToNow(profile.createdAt, { addSuffix: true })}{" "}
@@ -63,7 +62,7 @@ export default async function ProfileLayout({
         </div>
       </LayoutWrapper>
 
-      <LayoutWrapper className="nn-bg-foreground py-12 md:px-16 lg:px-16">
+      <LayoutWrapper className="py-12 nn-bg-foreground md:px-16 lg:px-16">
         {children}
         <CommentLayout resourceId={profile.id} resourceType="profile" />
       </LayoutWrapper>

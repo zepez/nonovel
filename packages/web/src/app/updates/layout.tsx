@@ -10,12 +10,14 @@ export default function UpdatesLayout({ children }: UpdatesLayoutProps) {
       <div className="relative overflow-hidden">
         <BackgroundEmoji
           emoji="🦺"
-          className="nn-bg-blurred absolute inset-0 z-0 h-full w-full"
+          className="absolute inset-0 z-0 w-full h-full nn-bg-blurred"
           tiled={false}
         />
-        <div className="relative z-10 flex h-96 items-center sm:h-64">
+        <div className="relative z-10 flex items-center h-96 sm:h-64">
           <LayoutWrapper className="lg:px-16">
-            <h1 className="text-2xl font-bold leading-tight">Updates</h1>
+            <h1 className="text-2xl font-bold leading-tight nn-title">
+              Updates
+            </h1>
             <p className="mt-2">
               Get the scoop on all the fresh features and important
               announcements shaking things up at NoNovel.io.
@@ -24,7 +26,7 @@ export default function UpdatesLayout({ children }: UpdatesLayoutProps) {
         </div>
       </div>
 
-      <LayoutWrapper className="nn-bg-foreground rounded-b-md py-12 lg:px-16">
+      <LayoutWrapper className="py-12 nn-bg-foreground rounded-b-md lg:px-16">
         {children}
       </LayoutWrapper>
     </>

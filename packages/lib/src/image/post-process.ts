@@ -8,7 +8,7 @@ export const postProcessImage = async (
       width: 300,
       withoutEnlargement: true,
     })
-    .webp({ quality: 50, lossless: false })
+    .jpeg({ quality: 100 })
     .withMetadata({}) // wipe all metadata
     .toBuffer();
 };

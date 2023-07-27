@@ -45,41 +45,41 @@ export default async function ChapterLayout({
       />
       <div className="relative overflow-hidden">
         <div
-          className="nn-bg-blurred-2 absolute inset-0 z-0 bg-cover"
+          className="absolute inset-0 z-0 bg-cover nn-bg-blurred-2"
           style={{ backgroundImage: `url(${src(project.cover ?? "")})` }}
         />
         <div className="relative z-10">
-          <LayoutWrapper className="my-12 flex flex-wrap items-center justify-between md:flex-nowrap lg:px-16">
-            <div className="mb-8 flex w-full flex-wrap items-center md:mb-0 md:w-auto md:flex-nowrap">
+          <LayoutWrapper className="flex flex-wrap items-center justify-between my-12 md:flex-nowrap lg:px-16">
+            <div className="flex flex-wrap items-center w-full mb-8 md:mb-0 md:w-auto md:flex-nowrap">
               <Link
                 href={`/p/${project.slug}`}
-                className="nn-interactive mb-8 w-full flex-shrink-0 rounded-md p-1 md:mx-0 md:mb-0 md:w-auto"
+                className="flex-shrink-0 w-full p-1 mb-8 rounded-md nn-interactive md:mx-0 md:mb-0 md:w-auto"
               >
                 <AspectImage
                   src={project.cover}
                   alt={project.name}
                   width={150}
-                  className="flex w-auto justify-center"
+                  className="flex justify-center w-auto"
                 />
               </Link>
-              <div className="mx-auto max-w-md flex-shrink text-center md:mx-16 md:text-left">
+              <div className="flex-shrink max-w-md mx-auto text-center md:mx-16 md:text-left">
                 <Link href={`/p/${project.slug}`} className="nn-interactive">
                   {toTitleCase(project.name)}
                 </Link>
-                <h1 className="mt-2 text-2xl font-bold leading-tight">
+                <h1 className="mt-2 text-2xl font-bold leading-tight nn-title">
                   {chapter.name}
                 </h1>
-                <p className="nn-text-secondary mt-2">
+                <p className="mt-2 nn-text-secondary">
                   #{chapter.order} | Uploaded{" "}
                   {formatDistanceToNow(chapter.createdAt, { addSuffix: true })}
                 </p>
               </div>
             </div>
-            <ChapterSettings className="nn-interactive nn-bg-foreground flex h-8 w-full items-center justify-center rounded-md md:h-12 md:w-12" />
+            <ChapterSettings className="flex items-center justify-center w-full h-8 rounded-md nn-interactive nn-bg-foreground md:h-12 md:w-12" />
           </LayoutWrapper>
         </div>
       </div>
-      <LayoutWrapper className="nn-bg-foreground rounded-b-md py-12 lg:px-16">
+      <LayoutWrapper className="py-12 nn-bg-foreground rounded-b-md lg:px-16">
         <ChapterNavigation
           project={project}
           chapter={chapter}

@@ -8,6 +8,15 @@
   src: url('/fonts/OpenDyslexic3-Regular.ttf');
  }
 
+ @font-face {
+  font-family: 'josefin-sans';
+  src: url('/fonts/JosefinSans.ttf');
+ }
+
+.nn-title {
+  font-family: josefin-sans;
+}
+
 :root {
   --chapter-text-size: 24px;
   --chapter-font: sans-serif;

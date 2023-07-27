@@ -96,7 +96,7 @@ export const generateCoverJob = async (
       buffer: postProcessedImage,
       group: project.slug,
       category: "cover",
-      extOrFileName: "webp",
+      extOrFileName: "jpeg",
     });
 
     log = `${jobId}: uploaded cover to bucket`;

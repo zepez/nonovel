@@ -85,7 +85,7 @@ export const epubCommand = async (file: string | undefined) => {
       buffer: coverBuffer,
       group: project.slug,
       category: "cover",
-      extOrFileName: "webp",
+      extOrFileName: "jpeg",
     });
 
     Object.assign(project, { cover });

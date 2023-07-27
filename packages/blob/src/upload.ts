@@ -15,7 +15,7 @@ interface UploadOptions {
   buffer: Buffer;
   group: string;
   category: "cover";
-  extOrFileName: "webp";
+  extOrFileName: "jpeg";
 }
 
 export const upload = async ({

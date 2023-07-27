@@ -34,12 +34,14 @@ export const LayoutHeader = () => {
     <div className="relative overflow-hidden">
       <BackgroundEmoji
         emoji={current.emoji}
-        className="nn-bg-blurred absolute inset-0 z-0 h-full w-full"
+        className="absolute inset-0 z-0 w-full h-full nn-bg-blurred"
         tiled={false}
       />
-      <div className="relative z-10 flex h-64 items-center">
+      <div className="relative z-10 flex items-center h-64">
         <LayoutWrapper className="lg:px-16">
-          <h1 className="text-2xl font-bold leading-tight">{current.title}</h1>
+          <h1 className="text-2xl font-bold leading-tight nn-title">
+            {current.title}
+          </h1>
           <p className="mt-2">{current.description}</p>
         </LayoutWrapper>
       </div>
