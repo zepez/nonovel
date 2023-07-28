@@ -73,6 +73,8 @@ export const generateCoverJob = async (
       devtools: false,
       headless: "new",
       dumpio: false,
+      // headless: false,
+      // slowMo: 1000,
     });
     const puppeteerPage = await puppeteerBrowser.newPage();
 
@@ -81,7 +83,9 @@ export const generateCoverJob = async (
       height: 900,
     });
 
-    await puppeteerPage.setContent(compiledCoverHtml);
+    await puppeteerPage.setContent(compiledCoverHtml, {
+      waitUntil: "networkidle0",
+    });
 
     const rawImageBuffer = await puppeteerPage.screenshot({
       encoding: "binary",

@@ -2,8 +2,8 @@ import { qs } from "@nonovel/kv";
 import { main } from "./app";
 
 const dev = async () => {
-  await qs.cover.add({
-    projectId: "a0d7ef9a-5c2f-46dc-89f5-9fa35a610b9c",
+  await qs.genCover.add({
+    projectId: "d4aa5394-ae3d-49d6-a39b-da9773c33985",
   });
   main();
 };

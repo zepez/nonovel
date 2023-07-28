@@ -11,13 +11,15 @@ interface CompileCoverFromTemplateOpts {
 export const compileCoverFromTemplate = (
   opts: CompileCoverFromTemplateOpts
 ) => {
-  const tailwindTemplatePath = path.join(__dirname, "..", "tailwind.hbs");
-  const tailwindTemplateFile = fs.readFileSync(tailwindTemplatePath, "utf-8");
+  const partialPath = path.join(__dirname, "..", "partial");
+
+  const tailwindPartialPath = path.join(partialPath, "tailwind.hbs");
+  const tailwindPartialFile = fs.readFileSync(tailwindPartialPath, "utf-8");
 
   const coverTemplatePath = path.join(__dirname, "cover.hbs");
   const coverTemplateFile = fs.readFileSync(coverTemplatePath, "utf-8");
 
-  Handlebars.registerPartial("tailwind", tailwindTemplateFile);
+  Handlebars.registerPartial("tailwind", tailwindPartialFile);
   const coverTemplate = Handlebars.compile(coverTemplateFile);
 
   return coverTemplate(opts);
