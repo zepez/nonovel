@@ -1,3 +1,4 @@
+import { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { formatDistanceToNow } from "date-fns";
@@ -27,6 +28,38 @@ export const revalidate = 60;
 interface ProjectLayoutProps {
   children: React.ReactNode;
   params: { slug: string };
+}
+
+export async function generateMetadata({
+  params,
+}: ProjectLayoutProps): Promise<Metadata> {
+  const [, project] = await getProjectBySlug(params);
+  if (!project) return {};
+
+  const author =
+    project.penName ?? project.users[0]?.user?.profile?.username ?? null;
+
+  return {
+    title: project.name,
+    authors: author ? [{ name: author }] : [],
+    openGraph: {
+      title: `${project.name} | NoNovel`,
+      url: `https://nonovel.io/p/${project.slug}`,
+      description: `Read ${project.name} online for free. ${
+        project.description ?? ""
+      }`,
+      authors: author ? [author] : [],
+      images: [
+        {
+          url: `/api/og/p?title=${project.name}&image=${
+            project.cover as string
+          }`,
+          width: 1200,
+          height: 630,
+        },
+      ],
+    },
+  };
 }
 
 export default async function ProjectLayout({
