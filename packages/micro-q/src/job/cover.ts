@@ -51,30 +51,31 @@ export const generateCoverJob = async (
     });
 
     if (!coverBackgroundBase64) {
-      log = `${jobId}: AI failed to generate cover`;
+      log = `${jobId}: AI failed to generate background`;
       console.log(log);
       return done(new Error(log));
     }
 
-    log = `${jobId}: AI generated cover`;
+    log = `${jobId}: AI generated background`;
     console.log(log);
     await job.log(log);
 
     await job.progress(50);
 
     const compiledCoverHtml = compileCoverFromTemplate({
-      title: project.name,
+      title: project.name.toUpperCase(),
       author: project.penName,
       background: coverBackgroundBase64,
     });
 
     const puppeteerBrowser = await puppeteer.launch({
       args: ["--no-sandbox", "--disable-setuid-sandbox", "--single-process"],
+      dumpio: false,
       devtools: false,
       headless: "new",
-      dumpio: false,
       // headless: false,
-      // slowMo: 1000,
+      // devtools: true,
+      // slowMo: 500,
     });
     const puppeteerPage = await puppeteerBrowser.newPage();
 

@@ -16,7 +16,7 @@ export const compileCoverFromTemplate = (
   const tailwindPartialPath = path.join(partialPath, "tailwind.hbs");
   const tailwindPartialFile = fs.readFileSync(tailwindPartialPath, "utf-8");
 
-  const coverTemplatePath = path.join(__dirname, "cover.hbs");
+  const coverTemplatePath = path.join(__dirname, "cover-style-2.hbs");
   const coverTemplateFile = fs.readFileSync(coverTemplatePath, "utf-8");
 
   Handlebars.registerPartial("tailwind", tailwindPartialFile);
