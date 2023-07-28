@@ -1,61 +1,72 @@
 <html>
   <head>
     {{> tailwind }}
-    <style>
-      @import url('https://fonts.googleapis.com/css2?family=Josefin+Sans:wght@600&family=Josefin+Slab:wght@600&display=swap');
-    </style>
   </head>
   <body>
-    <div class="cover">
-      <div class="cover-inside">
-        <div style="padding: 0px 20px;">
-          <h1 style="font-size: 75px; font-family: Josefin Slab; padding-top: 150px; line-height: 1.25;">
-            {{title}}
-          </h1>
-          <h2 style="font-size: 35px; margin-top: 50px;">{{author}}</h2>
-        </div>
-        <h3 style="font-size: 25px; margin-bottom: 20px;">NoNovel.io</h3>
+    <div class="wrapper">
+      <div class="image-container">
+        <img src="data:image/jpeg;base64,{{{background}}}" />
+        <h3>NoNovel.io</h3>
       </div>
+      <h1>{{title}}</h1>
+      <h2>{{author}}</h2>
     </div>
 
     <style>
-      .cover { 
+      .wrapper {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        width: 600px;
+        height: 900px;
+        padding: 10px;
+        margin: 0px;
+        font-weight: 700;
+        text-align: center;
+        line-height: 1.25;
+        color: black;
+        background-color: #B5A38E;
+      }
+
+      .image-container {
+        position: relative;
+        flex: 1 1 auto;
         width: 100%;
         height: 100%;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        color: white;
-        position: relative;
-        font-family: sans-serif; 
-        text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.7), 1px 1px 2px rgba(0, 0, 0, 0.7);
-      } 
-      
-      .cover::before { 
-        content: "";
-        top: 0; 
-        left: 0; 
-        width: 100%; 
-        height: 100%; 
-        position: absolute;
-        background-image: url(data:image/jpeg;base64,{{{background}}});
-        background-size: cover; 
-        background-color: rgba(0, 0, 0, 0.3);
-        filter: grayscale(25%) blur(1px) brightness(0.3);
       }
-      
-      .cover-inside { 
-        position: relative; 
-        text-align: center; 
-        display: flex;
-        align-items: center; 
-        justify-content: space-between; 
-        flex-direction: column;
-        height: 100%; 
+
+      img {
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        border-radius: 10px;
+      }
+
+      h1 {
+        font-size: 60px;
+        font-family: serif;
+        margin: 10px 0px;
+      }
+
+      h2 {
+        font-size: 40px;
+        font-family: serif;
+        text-transform: uppercase;
+        margin: 0px 0px 20px 0px;
+      }
+
+      h3 {
+        font-size: 20px;
+        font-family: sans-serif;
+        position: absolute;
+        bottom: 0;
+        right: 0;
+        padding: 10px;
+        background-color: rgba(255, 255, 255, 0.5);
+        border-radius: 10px 0px;
       }
     </style>
   </body>
 </html>
-
-
-    
