@@ -68,17 +68,16 @@ export default async function BrowsePage({
             key={result.id}
             className="flex flex-col border rounded-md nn-interactive nn-border nn-bg-background sm:flex-row"
           >
-            {result.cover && (
-              <div className="h-[300px] w-full flex-shrink-0 sm:w-[200px]">
-                <Image
-                  src={src(result.cover)}
-                  alt={`${result.name} cover`}
-                  width={200}
-                  height={200}
-                  className="object-cover w-full h-full p-1 rounded-md"
-                />
-              </div>
-            )}
+            <div className="h-[300px] w-full flex-shrink-0 sm:w-[200px]">
+              <Image
+                src={src(result.cover, "cover")}
+                alt={`${result.name} cover`}
+                width={200}
+                height={200}
+                className="object-cover w-full h-full p-1 rounded-md"
+              />
+            </div>
+
             <div className="flex flex-col flex-shrink min-w-0 p-4">
               <p className="mb-2 text-xl leading-tight nn-title">
                 {result.name}

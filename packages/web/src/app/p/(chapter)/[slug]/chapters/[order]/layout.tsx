@@ -46,7 +46,7 @@ export default async function ChapterLayout({
       <div className="relative overflow-hidden">
         <div
           className="absolute inset-0 z-0 bg-cover nn-bg-blurred-2"
-          style={{ backgroundImage: `url(${src(project.cover ?? "")})` }}
+          style={{ backgroundImage: `url(${src(project.cover, "cover")})` }}
         />
         <div className="relative z-10">
           <LayoutWrapper className="flex flex-wrap items-center justify-between my-12 md:flex-nowrap lg:px-16">
@@ -56,7 +56,7 @@ export default async function ChapterLayout({
                 className="flex-shrink-0 w-full p-1 mb-8 rounded-md nn-interactive md:mx-0 md:mb-0 md:w-auto"
               >
                 <AspectImage
-                  src={project.cover}
+                  src={src(project.cover, "cover")}
                   alt={project.name}
                   width={150}
                   className="flex justify-center w-auto"

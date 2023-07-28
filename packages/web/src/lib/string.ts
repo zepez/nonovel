@@ -14,8 +14,20 @@ export const naturalListJoin = (index: number, length: number) => {
   return ", ";
 };
 
-export const src = (src: string) => {
-  if (src.startsWith("data:image") || src.startsWith("/")) return src;
+export const src = (
+  src: string | null | undefined,
+  profile?: "cover" | "profile"
+) => {
+  if (!src && profile === "cover") return "/default/cover.jpg";
+  if (!src && profile === "profile") return "/default/profile.png";
+  if (!src) return "";
+
+  if (
+    src.startsWith("data:image") ||
+    src.startsWith("/") ||
+    src.startsWith("http")
+  )
+    return src;
 
   const segments = src
     .split("/")

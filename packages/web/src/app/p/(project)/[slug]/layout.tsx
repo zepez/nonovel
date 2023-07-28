@@ -123,12 +123,12 @@ export default async function ProjectLayout({
       <div className="relative overflow-hidden">
         <div
           className="absolute inset-0 z-0 bg-cover nn-bg-blurred-2"
-          style={{ backgroundImage: `url(${src(project.cover ?? "")})` }}
+          style={{ backgroundImage: `url(${src(project.cover, "cover")})` }}
         />
         <div className="relative z-10">
           <LayoutWrapper className="flex flex-wrap py-12 md:flex-nowrap md:px-16 lg:px-16">
             <AspectImage
-              src={project.cover}
+              src={src(project.cover, "cover")}
               alt={project.name}
               width={400}
               className="flex-shrink-0 w-48 mx-auto md:mx-0 md:w-72"

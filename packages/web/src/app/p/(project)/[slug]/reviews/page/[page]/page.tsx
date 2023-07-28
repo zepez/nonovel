@@ -5,6 +5,7 @@ import {
   getReviewByIds,
   getReviewPageByProjectId,
 } from "~/lib/request";
+import { src } from "~/lib/string";
 import { SectionHeading, AspectImage, SectionEmpty } from "~/components/shared";
 import { LayoutPaginate } from "~/components/shared/layout-paginate";
 import { EditReview, ReviewScore, ReviewVote } from "~/components/project";
@@ -55,17 +56,17 @@ export default async function ProjectReviewPagePage({
             {reviews.map((review) => (
               <div
                 key={review.id}
-                className="nn-border-50 nn-bg-background flex justify-between rounded-md p-4 pr-2 sm:items-center sm:py-6 sm:pl-8"
+                className="flex justify-between p-4 pr-2 rounded-md nn-border-50 nn-bg-background sm:items-center sm:py-6 sm:pl-8"
               >
                 <div className="flex flex-grow sm:space-x-6">
                   <AspectImage
                     width={50}
-                    className="hidden flex-shrink-0 sm:block"
-                    src={review.profile?.image ?? "/profile.png"}
+                    className="flex-shrink-0 hidden sm:block"
+                    src={src(review.profile?.image, "profile")}
                     alt={`${review.profile?.username ?? ""} profile picture`}
                   />
                   <div>
-                    <p className="text-md font-bold leading-tight">
+                    <p className="font-bold leading-tight text-md">
                       @{review.profile?.username}
                     </p>
                     <ReviewScore
@@ -73,7 +74,7 @@ export default async function ProjectReviewPagePage({
                       value={review.score}
                       readOnly
                     />
-                    <p className="whitespace-pre-wrap text-sm">
+                    <p className="text-sm whitespace-pre-wrap">
                       {review.comment}
                     </p>
                   </div>

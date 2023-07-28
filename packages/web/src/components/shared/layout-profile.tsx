@@ -28,8 +28,6 @@ interface LayoutProfileProps {
 export const LayoutProfile = ({ session }: LayoutProfileProps) => {
   const { profile } = session;
 
-  const profilePicture = profile.image ?? "/profile.png";
-
   const profileNavItems = [
     {
       title: "Profile",
@@ -45,11 +43,11 @@ export const LayoutProfile = ({ session }: LayoutProfileProps) => {
 
   return (
     <DropdownMenu>
-      <DropdownMenuTrigger className="nn-interactive ms-center flex rounded-md">
+      <DropdownMenuTrigger className="flex rounded-md nn-interactive ms-center">
         <Image
-          src={src(profilePicture)}
+          src={src(profile.image, "profile")}
           alt="Profile picture"
-          className="nn-border mx-1 rounded-full border"
+          className="mx-1 border rounded-full nn-border"
           width={36}
           height={36}
         />
@@ -77,7 +75,7 @@ export const LayoutProfile = ({ session }: LayoutProfileProps) => {
             )}
             lightChildren={(cb) => (
               <DropdownMenuItem
-                className="flex w-full items-center"
+                className="flex items-center w-full"
                 onClick={cb}
               >
                 <SunIcon className="mx-2" /> Light Theme

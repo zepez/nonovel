@@ -30,14 +30,14 @@ export default async function ProfileLayout({
         <div
           className="w-full h-full bg-cover nn-bg-blurred nn-bg-foreground"
           style={{
-            backgroundImage: `url(${src(profile.image ?? "/profile.png")})`,
+            backgroundImage: `url(${src(profile.image, "profile")})`,
             backgroundSize: "cover",
           }}
         />
       </div>
       <LayoutWrapper className="flex flex-wrap items-end nn-bg-foreground md:flex-nowrap md:px-16 lg:px-16">
         <Image
-          src={src(profile.image ?? "/profile.png")}
+          src={src(profile.image, "profile")}
           alt="Profile picture"
           width={256}
           height={256}

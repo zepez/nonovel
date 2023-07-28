@@ -13,6 +13,7 @@ import { FiThumbsUp, FiThumbsDown } from "react-icons/fi";
 import type { GetCommentPageByResourceIdReturn } from "@nonovel/query";
 import { upsertVote } from "~/actions";
 import { cn } from "~/lib/utils";
+import { src } from "~/lib/string";
 import { Button } from "~/components/ui/button";
 import { AspectImage } from "../aspect-image";
 import { CommentEdit } from "./edit";
@@ -43,7 +44,7 @@ const CommentNavButton = ({
       className={cn("px-2", className)}
     >
       <Icon width={size} height={size} />
-      {text && <span className="nn-text-secondary ml-2">{text}</span>}
+      {text && <span className="ml-2 nn-text-secondary">{text}</span>}
     </Button>
   );
 };
@@ -99,7 +100,7 @@ export const CommentBody = ({
       {/* meat of the comment */}
       <div className="flex gap-4">
         <AspectImage
-          src={user.image}
+          src={src(user.image, "profile")}
           width={35}
           alt={`${user.username} profile image`}
         />
@@ -107,7 +108,7 @@ export const CommentBody = ({
           <p className="mb-1 text-sm font-bold leading-tight">
             @{user.username}
           </p>
-          <p className="nn-text-secondary text-xs">{createdAt}</p>
+          <p className="text-xs nn-text-secondary">{createdAt}</p>
         </div>
       </div>
 
@@ -130,11 +131,11 @@ export const CommentBody = ({
       ) : (
         <>
           {createdAt !== updatedAt && (
-            <span className="nn-text-secondary nn-bg-foreground nn-border mt-2 inline-block rounded-sm border px-2 py-1 text-xs">
+            <span className="inline-block px-2 py-1 mt-2 text-xs border rounded-sm nn-text-secondary nn-bg-foreground nn-border">
               Edited {updatedAt}
             </span>
           )}
-          <p className="text-md my-4 whitespace-pre-wrap">{comment.content}</p>
+          <p className="my-4 whitespace-pre-wrap text-md">{comment.content}</p>
         </>
       )}
 
@@ -153,14 +154,14 @@ export const CommentBody = ({
             onClick={async () => await handleVote("down")}
             className={cn(comment.voteCurrent < 0 && "bg-red-500/20")}
           />
-          <span className="nn-text-secondary mx-2 text-center">
+          <span className="mx-2 text-center nn-text-secondary">
             {comment.voteTotal} like
             {comment.voteTotal.toString() !== "1" &&
               comment.voteTotal.toString() !== "-1" &&
               "s"}
           </span>
         </div>
-        <div className="nn-border ml-2 border-l-2 pl-2">
+        <div className="pl-2 ml-2 border-l-2 nn-border">
           {isCreator ? (
             <>
               {isEditing ? (
