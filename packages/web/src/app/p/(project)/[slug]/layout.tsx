@@ -21,7 +21,7 @@ import {
 } from "~/components/project";
 import { Button } from "~/components/ui/button";
 import { summarizeNumber } from "~/lib/number";
-import { toTitleCase, naturalListJoin, src } from "~/lib/string";
+import { toTitleCase, naturalListJoin, src, clamp } from "~/lib/string";
 
 export const revalidate = 60;
 
@@ -39,16 +39,17 @@ export async function generateMetadata({
   const author =
     project.penName ?? project.users[0]?.user?.profile?.username ?? null;
 
-  const description = `Read ${project.name} online for free. ${
-    project.description ?? ""
-  }`;
+  const description = clamp(
+    `Read ${project.name} online for free. ${project.description ?? ""}`,
+    160
+  );
 
   return {
     title: project.name,
     description,
     authors: author ? [{ name: author }] : [],
     openGraph: {
-      title: `${project.name} | NoNovel`,
+      title: `${project.name} | NoNovel.io`,
       url: `https://nonovel.io/p/${project.slug}`,
       description,
       authors: author ? [author] : [],

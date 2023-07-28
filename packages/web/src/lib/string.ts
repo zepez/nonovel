@@ -23,3 +23,9 @@ export const src = (src: string) => {
   const reformed = segments.join("/");
   return `https://${config.NEXT_PUBLIC_S3_DOMAIN}/${reformed}`;
 };
+
+export const clamp = (str: string | null | undefined, clmp: number) => {
+  if (!str) return "";
+
+  return str.length > clmp ? str.substring(0, clmp).trim() + "..." : str;
+};

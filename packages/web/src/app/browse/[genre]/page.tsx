@@ -4,7 +4,7 @@ import { notFound } from "next/navigation";
 import parse from "html-react-parser";
 import { AiFillStar, AiTwotoneEye } from "react-icons/ai";
 import { getBrowsePageResult, getGenreBySlug } from "~/lib/request";
-import { src } from "~/lib/string";
+import { src, clamp } from "~/lib/string";
 import { SectionEmpty, SectionHeading } from "~/components/shared";
 
 interface BrowsePageProps {
@@ -84,7 +84,7 @@ export default async function BrowsePage({
                 {result.name}
               </p>
               <p className="flex-grow nn-text-secondary">
-                {result.description?.substring(0, 200).trim()}...
+                {clamp(result.description, 200)}...
               </p>
               <div className="flex items-center h-8 gap-1 mt-2 overflow-x-scroll scrollbar-none">
                 <div className="flex items-center gap-1 mr-2 nn-text-secondary">

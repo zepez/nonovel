@@ -12,6 +12,7 @@ import "../globals.css";
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
+  metadataBase: new URL("https://nonovel.io"),
   title: {
     template: "%s | NoNovel",
     default: "NoNovel",
@@ -35,7 +36,7 @@ export const metadata: Metadata = {
     telephone: false,
   },
   openGraph: {
-    title: "NoNovel",
+    title: "NoNovel.io",
     description: "Read novels online for free.",
     url: "https://nonovel.io",
     siteName: "NoNovel",
