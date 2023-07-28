@@ -39,15 +39,18 @@ export async function generateMetadata({
   const author =
     project.penName ?? project.users[0]?.user?.profile?.username ?? null;
 
+  const description = `Read ${project.name} online for free. ${
+    project.description ?? ""
+  }`;
+
   return {
     title: project.name,
+    description,
     authors: author ? [{ name: author }] : [],
     openGraph: {
       title: `${project.name} | NoNovel`,
       url: `https://nonovel.io/p/${project.slug}`,
-      description: `Read ${project.name} online for free. ${
-        project.description ?? ""
-      }`,
+      description,
       authors: author ? [author] : [],
       images: [
         {
