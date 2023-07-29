@@ -43,23 +43,23 @@ const IncrementalChange = ({
 
   return (
     <div>
-      <div className="flex w-full select-none items-baseline justify-between">
+      <div className="flex items-baseline justify-between w-full select-none">
         <Button
           variant="secondary"
           size="fluid"
-          className="nn-border-50 flex h-0 items-center justify-center py-3"
+          className="flex items-center justify-center h-0 py-3 nn-border-50"
           disabled={numberValue <= min}
           onClick={() => setValue(numberValue - step)}
         >
           -
         </Button>
-        <p className="text-[.8rem]">
+        <p className="text-[0.95rem]">
           {name}: {value}
         </p>
         <Button
           variant="secondary"
           size="fluid"
-          className="nn-border-50 flex h-0 items-center justify-center py-3"
+          className="flex items-center justify-center h-0 py-3 nn-border-50"
           disabled={numberValue >= max}
           onClick={() => setValue(numberValue + step)}
         >
@@ -193,7 +193,7 @@ export const ChapterSettings = ({ className }: ChapterSettingsProps) => {
       <Popover>
         <PopoverTrigger className={cn(className)}>
           <MixerHorizontalIcon
-            className="m-2 hidden md:block"
+            className="hidden m-2 md:block"
             width="32"
             height="32"
           />
@@ -261,8 +261,8 @@ export const ChapterSettings = ({ className }: ChapterSettingsProps) => {
 
           <Button
             size="sm"
-            className="mt-4 h-8 w-full text-xs font-bold uppercase leading-tight"
-            variant="contrast"
+            className="w-full h-8 mt-0 text-xs font-bold leading-tight uppercase border nn-border-50"
+            variant="secondary"
             onClick={resetToDefaults}
           >
             Reset

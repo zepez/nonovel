@@ -54,12 +54,14 @@ export function GET(request: Request) {
               border: "10px solid white",
             }}
           />
-          <div tw="flex flex-col">
-            <div tw="flex flex-col leading-tight" style={{ width: 500 }}>
-              <p style={{ fontSize: "4rem" }}>{title}</p>
-              {chapter && <p style={{ fontSize: "2.5rem" }}>{chapter}</p>}
+          <div tw="flex flex-col min-h-screen py-20" style={{ width: 500 }}>
+            <div tw="flex flex-col leading-tight">
+              <p tw="m-0 text-6xl">{title}</p>
             </div>
-            <div tw="flex items-center text-3xl mt-12">
+            <div tw="flex flex-grow items-center">
+              {chapter && <p tw="m-0 text-5xl">{chapter}</p>}
+            </div>
+            <div tw="flex items-center text-3xl">
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 version="1.1"

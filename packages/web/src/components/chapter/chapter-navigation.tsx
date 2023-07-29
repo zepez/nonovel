@@ -83,7 +83,7 @@ const ChapterManifest = ({
                 href={`/p/${project.slug}/chapters/${c.order}`}
                 className={cn(
                   chapter.order == c.order && "nn-bg-foreground",
-                  "nn-interactive flex items-center justify-center p-2"
+                  "nn-interactive flex items-center justify-center px-2 py-4"
                 )}
               >
                 <span className="flex-grow">{c.name} </span>
@@ -92,7 +92,7 @@ const ChapterManifest = ({
             ))}
             <div className="flex-grow" />
             <Link
-              className="nn-bg-contrast nn-interactive mx-2 mb-2 mt-4 flex items-center justify-center rounded-md p-2 px-4 text-xs font-bold uppercase leading-tight"
+              className="flex items-center justify-center p-2 px-4 mx-2 mt-4 mb-2 text-xs font-bold leading-tight uppercase rounded-md nn-bg-contrast nn-interactive"
               href={`/p/${project.slug}/chapters`}
             >
               View all
@@ -141,7 +141,7 @@ export const ChapterNavigation = ({
         </div>
 
         <ChapterManifest
-          className="nn-bg-background nn-border flex items-center justify-center rounded-md px-4 py-3 text-xs font-bold uppercase leading-tight"
+          className="flex items-center justify-center px-4 py-3 text-xs font-bold leading-tight uppercase rounded-md nn-bg-background nn-border"
           project={project}
           manifest={manifest}
           chapter={chapter}
@@ -149,7 +149,7 @@ export const ChapterNavigation = ({
       </nav>
 
       {/* desktop */}
-      <nav className="hidden flex-wrap items-center justify-between md:flex">
+      <nav className="flex-wrap items-center justify-between hidden md:flex">
         <DirectionalButton
           chapter={previousChapter}
           slug={project.slug}
@@ -158,7 +158,7 @@ export const ChapterNavigation = ({
         />
         <div className="flex flex-wrap items-center justify-center">
           <ChapterManifest
-            className="nn-bg-background nn-border flex items-center justify-center rounded-l-md border border-b border-l border-t px-4 py-3 text-xs font-bold uppercase leading-tight"
+            className="flex items-center justify-center px-4 py-3 text-xs font-bold leading-tight uppercase border border-t border-b border-l nn-bg-background nn-border rounded-l-md"
             project={project}
             manifest={manifest}
             chapter={chapter}
