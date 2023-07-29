@@ -3,7 +3,7 @@ import { main } from "./app";
 
 const dev = async () => {
   await qs.genCover.add({
-    projectId: "fa99a128-0454-4f2a-8cc9-685640d757d0",
+    projectId: "d9b1331f-0f70-41ab-942c-584d013350ce",
   });
   main();
 };

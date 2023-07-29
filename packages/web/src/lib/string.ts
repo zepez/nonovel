@@ -18,7 +18,7 @@ export const src = (
   src: string | null | undefined,
   profile?: "cover" | "profile"
 ) => {
-  if (!src && profile === "cover") return "/default/cover.jpg";
+  if (!src && profile === "cover") return "/default/cover.gif";
   if (!src && profile === "profile") return "/default/profile.png";
   if (!src) return "";
 

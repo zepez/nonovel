@@ -42,11 +42,12 @@ Before Launch:
 - [x] Custom login / register / logout pages or modals
 - [x] Callback URL on successful login/register/logout (modal so not neccessary right now)
 - [x] Decide on header links and make responsive
-- [ ] File uploading via UploadThing (\* base64 for project cover, uploadthing for profile pictures)
-- [ ] Home page
+- [x] Clean up epub / cli packages
+- [ ] make og images look better
 - [ ] SEO / page metadata
+- [ ] Home page
+- [ ] File uploading (just profile picture right now)
 - [ ] allow bots + request indexing by google
-- [ ] Clean up epub / cli packages
 - [ ] Logo?
 - [ ] Upload a lot of public domain books
 
