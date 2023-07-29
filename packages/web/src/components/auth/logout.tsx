@@ -16,7 +16,11 @@ export function Logout({ className, children }: LogoutProps) {
   return typeof children === "function" ? (
     children(cb)
   ) : (
-    <button onClick={cb} className={cn("nn-interactive", className)}>
+    <button
+      onClick={cb}
+      className={cn("nn-interactive", className)}
+      title="Logout"
+    >
       {children}
     </button>
   );

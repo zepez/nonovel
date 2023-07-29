@@ -20,20 +20,22 @@ export const ClientPaginate = ({
   nextDisabled,
 }: ClientPaginateProps) => {
   return (
-    <div className="mt-8 flex items-center justify-center gap-4">
+    <div className="flex items-center justify-center gap-4 mt-8">
       <Button
         variant="default"
         disabled={previousDisabled}
-        className="nn-interactive text-xs"
+        className="text-xs nn-interactive"
         onClick={onPreviousClick}
+        title="Previous page"
       >
         <DoubleArrowLeftIcon className="mr-2" /> Previous
       </Button>
       <Button
         variant="default"
         disabled={nextDisabled}
-        className="nn-interactive text-xs"
+        className="text-xs nn-interactive"
         onClick={onNextClick}
+        title="Next page"
       >
         Next <DoubleArrowRightIcon className="ml-2" />
       </Button>

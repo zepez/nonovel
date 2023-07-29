@@ -10,11 +10,12 @@ export const LayoutSearch = () => {
 
   return (
     <>
-      <div className="ms-center flex w-full max-w-sm">
+      <div className="flex w-full max-w-sm ms-center">
         <Button
           variant="outline"
-          className="nn-bg-background nn-text-secondary w-48 cursor-text justify-between text-xs font-normal"
+          className="justify-between w-48 text-xs font-normal nn-bg-background nn-text-secondary cursor-text"
           onClick={() => setOpen(true)}
+          title="Search (⌘+K)"
         >
           <div className="inline-flex items-center">
             <MagnifyingGlassIcon className="mr-3" />

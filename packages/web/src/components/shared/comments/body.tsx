@@ -25,6 +25,7 @@ interface CommentNavButtonProps {
   Icon: typeof Pencil1Icon | typeof FiThumbsUp;
   disabled?: boolean;
   text?: string;
+  title: string;
 }
 
 const CommentNavButton = ({
@@ -34,6 +35,7 @@ const CommentNavButton = ({
   size = 20,
   disabled = false,
   text,
+  title,
 }: CommentNavButtonProps) => {
   return (
     <Button
@@ -42,6 +44,7 @@ const CommentNavButton = ({
       onClick={onClick}
       disabled={disabled}
       className={cn("px-2", className)}
+      title={title}
     >
       <Icon width={size} height={size} />
       {text && <span className="ml-2 nn-text-secondary">{text}</span>}
@@ -147,12 +150,14 @@ export const CommentBody = ({
             disabled={!session?.user.id || user.username === "deleted"}
             onClick={async () => await handleVote("up")}
             className={cn(comment.voteCurrent > 0 && "bg-green-500/20")}
+            title="Like comment"
           />
           <CommentNavButton
             Icon={FiThumbsDown}
             disabled={!session?.user.id || user.username === "deleted"}
             onClick={async () => await handleVote("down")}
             className={cn(comment.voteCurrent < 0 && "bg-red-500/20")}
+            title="Dislike comment"
           />
           <span className="mx-2 text-center nn-text-secondary">
             {comment.voteTotal} like
@@ -168,11 +173,13 @@ export const CommentBody = ({
                 <CommentNavButton
                   Icon={Cross1Icon}
                   onClick={() => setIsEditing(false)}
+                  title="Cancel editing"
                 />
               ) : (
                 <CommentNavButton
                   Icon={Pencil1Icon}
                   onClick={() => setIsEditing(true)}
+                  title="Edit comment"
                 />
               )}
             </>
@@ -180,6 +187,7 @@ export const CommentBody = ({
             <CommentNavButton
               Icon={ExclamationTriangleIcon}
               disabled={!session?.user.id || user.username === "deleted"}
+              title="Report comment"
             />
           )}
         </div>

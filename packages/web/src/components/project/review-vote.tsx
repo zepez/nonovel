@@ -50,10 +50,11 @@ export const ReviewVote = ({
         className={cn(negative && "opacity-50", "m-0 p-0 pt-1")}
         onClick={() => handleVote("up")}
         disabled={!userId}
+        title="Upvote review"
       >
         <ChevronUpIcon width={size} height={size} />
       </Button>
-      <span className="py-1 text-center text-xs font-bold leading-tight">
+      <span className="py-1 text-xs font-bold leading-tight text-center">
         {voteTotal}
       </span>
       <Button
@@ -61,6 +62,7 @@ export const ReviewVote = ({
         className={cn(positive && "opacity-50", "m-0 p-0 pb-1")}
         onClick={() => handleVote("down")}
         disabled={!userId}
+        title="Downvote review"
       >
         <ChevronDownIcon width={size} height={size} />
       </Button>

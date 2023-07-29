@@ -16,12 +16,12 @@ export default function ErrorPage({ searchParams }: ErrorPageProps) {
       <div className="relative overflow-hidden">
         <BackgroundEmoji
           emoji="💥"
-          className="nn-bg-blurred absolute inset-0 z-0 h-full w-full"
+          className="absolute inset-0 z-0 w-full h-full nn-bg-blurred"
           tiled={false}
         />
-        <div className="relative z-10 flex h-96 items-center justify-center">
+        <div className="relative z-10 flex items-center justify-center h-96">
           <LayoutWrapper className="max-w-[600px]">
-            <h1 className="text-4xl font-bold uppercase leading-tight">
+            <h1 className="text-4xl font-bold leading-tight uppercase">
               Something went wrong
             </h1>
             <p className="nn-text-secondary">Code - {code}</p>
@@ -29,7 +29,7 @@ export default function ErrorPage({ searchParams }: ErrorPageProps) {
 
             <Link
               href="/"
-              className="nn-interactive nn-bg-contrast mt-8 inline-block rounded-md px-3 py-2 text-xs font-bold uppercase leading-tight"
+              className="inline-block px-3 py-2 mt-8 text-xs font-bold leading-tight uppercase rounded-md nn-interactive nn-bg-contrast"
             >
               Go home
             </Link>

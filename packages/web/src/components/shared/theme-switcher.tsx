@@ -38,14 +38,22 @@ export function ThemeSwitcher({
         typeof darkChildren === "function" ? (
           darkChildren(darkcb)
         ) : (
-          <button onClick={darkcb} className={cn(className)}>
+          <button
+            onClick={darkcb}
+            className={cn(className)}
+            title="Use dark theme"
+          >
             {darkChildren}
           </button>
         )
       ) : typeof lightChildren === "function" ? (
         lightChildren(lightcb)
       ) : (
-        <button onClick={lightcb} className={cn(className)}>
+        <button
+          onClick={lightcb}
+          className={cn(className)}
+          title="Use light theme"
+        >
           {lightChildren}
         </button>
       )}

@@ -126,9 +126,15 @@ export const CommentEdit = ({
           )}
         />
 
-        <div className="mt-3 flex">
+        <div className="flex mt-3">
           {cancel && (
-            <Button size="sm" variant="ghost" onClick={cancel} type="button">
+            <Button
+              size="sm"
+              variant="ghost"
+              onClick={cancel}
+              type="button"
+              title="Cancel comment"
+            >
               Cancel
             </Button>
           )}
@@ -138,12 +144,18 @@ export const CommentEdit = ({
               variant="destructive"
               onClick={handleDelete}
               type="button"
+              title="Delete comment"
             >
               Delete comment
             </Button>
           )}
           <div className="flex-grow" />
-          <Button size="sm" variant="primary" type="submit">
+          <Button
+            size="sm"
+            variant="primary"
+            type="submit"
+            title="Save comment"
+          >
             {saving ? `${actionText[0]}...` : defaultSubmitText}
           </Button>
         </div>

@@ -18,14 +18,14 @@ export async function LayoutDesktopHeader() {
   const [, session] = await getSession();
 
   return (
-    <div className="nn-bg-foreground nn-border-bottom hidden md:block">
+    <div className="hidden nn-bg-foreground nn-border-bottom md:block">
       <LayoutWrapper className="flex flex-col flex-wrap justify-between px-4 py-2 md:flex-row">
         <NavigationMenu>
           <NavigationMenuList>
             {/* home */}
             <NavigationMenuItem>
-              <Link href="/" legacyBehavior passHref>
-                <NavigationMenuLink className="nn-interactive group mx-2 inline-flex h-9 w-max items-center justify-center rounded-md bg-inherit px-2 py-2 text-sm font-medium">
+              <Link href="/" legacyBehavior passHref title="Home">
+                <NavigationMenuLink className="inline-flex items-center justify-center px-2 py-2 mx-2 text-sm font-medium rounded-md nn-interactive group h-9 w-max bg-inherit">
                   <BrandIcon className="my-1" />
                 </NavigationMenuLink>
               </Link>
@@ -38,7 +38,7 @@ export async function LayoutDesktopHeader() {
                   <li className="row-span-3">
                     <NavigationMenuLink asChild>
                       <a
-                        className="nn-bg-primary nn-interactive flex h-full w-full select-none flex-col justify-end rounded-md p-6 no-underline"
+                        className="flex flex-col justify-end w-full h-full p-6 no-underline rounded-md select-none nn-bg-primary nn-interactive"
                         href="/"
                       >
                         <BrandIcon className="mb-4 mr-4 text-center text-[5rem]" />
@@ -63,7 +63,7 @@ export async function LayoutDesktopHeader() {
             {/* browse */}
             <NavigationMenuItem>
               <Link href="/browse" legacyBehavior passHref>
-                <NavigationMenuLink className="nn-interactive group inline-flex h-9 w-max items-center justify-center rounded-md bg-inherit px-4 py-2 text-sm font-medium">
+                <NavigationMenuLink className="inline-flex items-center justify-center px-4 py-2 text-sm font-medium rounded-md nn-interactive group h-9 w-max bg-inherit">
                   Browse
                 </NavigationMenuLink>
               </Link>
@@ -84,7 +84,10 @@ export async function LayoutDesktopHeader() {
             ) : (
               <NavigationMenuItem>
                 <LoginDialog>
-                  <button className="nn-bg-contrast nn-interactive rounded-md border p-2 text-xs font-bold uppercase">
+                  <button
+                    className="p-2 text-xs font-bold uppercase border rounded-md nn-bg-contrast nn-interactive"
+                    title="Login or register"
+                  >
                     Login
                   </button>
                 </LoginDialog>
@@ -115,7 +118,7 @@ const ListItem = React.forwardRef<
           <div className="text-sm font-medium leading-none">
             {icon && <span className="mx-2 text-xl">{icon}</span>} {title}
           </div>
-          <p className="nn-text-secondary line-clamp-2 pt-1">{children}</p>
+          <p className="pt-1 nn-text-secondary line-clamp-2">{children}</p>
         </a>
       </NavigationMenuLink>
     </li>

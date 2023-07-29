@@ -108,12 +108,12 @@ export default async function ProjectLayout({
 
   const readButton = latestChapterRead
     ? {
-        text: "CONTINUE READING",
+        text: "Continue reading",
         href: `/p/${project.slug}/chapters/${latestChapterRead.order}`,
       }
     : manifest[0]
     ? {
-        text: "START READING",
+        text: "Start reading",
         href: `/p/${project.slug}/chapters/${manifest[0]?.order ?? 0}`,
       }
     : null;
@@ -140,18 +140,21 @@ export default async function ProjectLayout({
               {authors.length > 0 && (
                 <p className="mt-3 text-sm">
                   By{" "}
-                  {authors.map(({ user }, relationIdx) => (
-                    <>
-                      <Link
-                        key={user.id}
-                        href={`/u/${user?.profile?.username ?? ""}`}
-                        className="nn-interactive"
-                      >
-                        @{user?.profile?.username.toLowerCase()}
-                      </Link>
-                      {naturalListJoin(relationIdx, authors.length)}
-                    </>
-                  ))}
+                  {authors.map(({ user }, relationIdx) =>
+                    user?.profile?.username ? (
+                      <>
+                        <Link
+                          key={user.id}
+                          href={`/u/${user?.profile?.username ?? ""}`}
+                          className="nn-interactive"
+                          title="View profile"
+                        >
+                          @{user?.profile?.username.toLowerCase()}
+                        </Link>
+                        {naturalListJoin(relationIdx, authors.length)}
+                      </>
+                    ) : null
+                  )}
                 </p>
               )}
               <p className="mt-1 nn-text-secondary">
@@ -220,6 +223,7 @@ export default async function ProjectLayout({
                       variant="ghost"
                       size="fluid"
                       className="w-full px-4 py-2 text-sm font-semibold leading-tight text-center text-white uppercase border nn-border bg-zinc-950/40"
+                      title="Login or register"
                     >
                       Login to Bookmark
                     </Button>
@@ -228,7 +232,7 @@ export default async function ProjectLayout({
                 {readButton && (
                   <Link
                     href={readButton.href}
-                    className="flex items-center justify-center w-full px-4 py-2 text-sm font-semibold leading-tight text-center border rounded-md nn-interactive nn-bg-primary border-zinc-100/10 "
+                    className="flex items-center justify-center w-full px-4 py-2 text-sm font-semibold leading-tight text-center uppercase border rounded-md nn-interactive nn-bg-primary border-zinc-100/10"
                   >
                     {readButton.text}
                   </Link>

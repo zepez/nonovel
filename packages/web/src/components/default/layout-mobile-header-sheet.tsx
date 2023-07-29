@@ -42,7 +42,7 @@ export const LayoutMobileHeaderSheet = ({
 
   return (
     <Sheet open={open} onOpenChange={setOpen}>
-      <SheetTrigger className="flex items-center gap-3 px-2 py-1 text-xs font-bold uppercase leading-tight">
+      <SheetTrigger className="flex items-center gap-3 px-2 py-1 text-xs font-bold leading-tight uppercase">
         <HamburgerMenuIcon width={25} height={25} /> Menu
       </SheetTrigger>
       <SheetContent className="text-left">
@@ -79,6 +79,7 @@ export const LayoutMobileHeaderSheet = ({
                         cb();
                         setOpen(false);
                       }}
+                      title="Use dark theme"
                     >
                       Dark Theme
                     </button>
@@ -92,6 +93,7 @@ export const LayoutMobileHeaderSheet = ({
                         cb();
                         setOpen(false);
                       }}
+                      title="Use light theme"
                     >
                       Light Theme
                     </button>
@@ -122,7 +124,10 @@ export const LayoutMobileHeaderSheet = ({
               ) : (
                 <LoginDialog>
                   <li>
-                    <button className="nn-interactive block w-full py-2 text-left">
+                    <button
+                      className="block w-full py-2 text-left nn-interactive"
+                      title="Login or register"
+                    >
                       Login
                     </button>
                   </li>

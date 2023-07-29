@@ -153,7 +153,7 @@ export const EditProfile = ({ session }: EditProfileProps) => {
                     <SelectValue placeholder="Choose a country" />
                   </SelectTrigger>
                 </FormControl>
-                <SelectContent className="nn-bg-background h-64 w-64 sm:w-auto">
+                <SelectContent className="w-64 h-64 nn-bg-background sm:w-auto">
                   {Object.entries(locations).map(([code, name]) => (
                     <SelectItem key={code} value={code}>
                       {name}
@@ -193,7 +193,7 @@ export const EditProfile = ({ session }: EditProfileProps) => {
         />
 
         {form.formState.errors.root?.serverError && (
-          <div className="rounded-md bg-red-500 p-4">
+          <div className="p-4 bg-red-500 rounded-md">
             <FormMessage className="text-white dark:text-white">
               Error: {form.formState.errors.root.serverError.message}. If the
               problem persists, please contact support.
@@ -202,7 +202,12 @@ export const EditProfile = ({ session }: EditProfileProps) => {
         )}
 
         {/* submit */}
-        <Button type="submit" variant="primary" disabled={loading}>
+        <Button
+          type="submit"
+          variant="primary"
+          disabled={loading}
+          title="Save profile"
+        >
           {loading ? "Saving..." : "Save"}
         </Button>
       </form>

@@ -96,6 +96,7 @@ export default async function ChapterLayout({
               <Link
                 href={`/p/${project.slug}`}
                 className="flex-shrink-0 w-full p-1 mb-8 rounded-md nn-interactive md:mx-0 md:mb-0 md:w-auto"
+                title={project.name}
               >
                 <AspectImage
                   src={src(project.cover, "cover")}

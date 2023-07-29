@@ -1,16 +1,19 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
 @import url('https://fonts.googleapis.com/css2?family=PT+Mono&display=swap');
 
 @font-face {
   font-family: 'open-dyslexic';
   src: url('/fonts/OpenDyslexic3-Regular.ttf');
+  font-display: swap;
  }
 
  @font-face {
   font-family: 'josefin-sans';
   src: url('/fonts/JosefinSans.ttf');
+  font-display: swap;
  }
 
 .nn-title {

@@ -64,6 +64,7 @@ export const ButtonFollow = ({
       disabled={text === "..." || text === "Error"}
       className={cn(className)}
       onClick={() => toggleFollow()}
+      title={`Bookmark ${projectName}`}
     >
       {text}
     </Button>

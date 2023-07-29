@@ -50,6 +50,7 @@ const IncrementalChange = ({
           className="flex items-center justify-center h-0 py-3 nn-border-50"
           disabled={numberValue <= min}
           onClick={() => setValue(numberValue - step)}
+          title={`Decrease ${name.toLowerCase()}`}
         >
           -
         </Button>
@@ -62,6 +63,7 @@ const IncrementalChange = ({
           className="flex items-center justify-center h-0 py-3 nn-border-50"
           disabled={numberValue >= max}
           onClick={() => setValue(numberValue + step)}
+          title={`Increase ${name.toLowerCase()}`}
         >
           +
         </Button>
@@ -104,6 +106,7 @@ const FontChange = ({ font, setFont, allowedFonts }: FontChangeProps) => {
           )}
           style={{ fontFamily: f.font }}
           onClick={() => setFont(f.font)}
+          title="Change font"
         >
           {f.name}
         </Button>
@@ -191,7 +194,7 @@ export const ChapterSettings = ({ className }: ChapterSettingsProps) => {
   return (
     <>
       <Popover>
-        <PopoverTrigger className={cn(className)}>
+        <PopoverTrigger className={cn(className)} title="Chapter settings">
           <MixerHorizontalIcon
             className="hidden m-2 md:block"
             width="32"
@@ -264,6 +267,7 @@ export const ChapterSettings = ({ className }: ChapterSettingsProps) => {
             className="w-full h-8 mt-0 text-xs font-bold leading-tight uppercase border nn-border-50"
             variant="secondary"
             onClick={resetToDefaults}
+            title="Reset to defaults"
           >
             Reset
           </Button>

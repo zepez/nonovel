@@ -22,6 +22,7 @@ import { ScrollArea } from "~/components/ui/scroll-area";
 interface DirectionalButtonProps {
   chapter: number | null;
   slug: string;
+  title: string;
   icon: React.ReactNode;
   className?: string;
 }
@@ -29,6 +30,7 @@ interface DirectionalButtonProps {
 const DirectionalButton = ({
   chapter,
   slug,
+  title,
   icon,
   className,
 }: DirectionalButtonProps) => {
@@ -36,6 +38,7 @@ const DirectionalButton = ({
     <Link
       className={cn(!chapter && "nn-no-select", "rounded-md")}
       href={chapter ? `/p/${slug}/chapters/${chapter}` : "#"}
+      title={title}
     >
       <div
         className={cn(
@@ -86,7 +89,7 @@ const ChapterManifest = ({
                   "nn-interactive flex items-center justify-center px-2 py-4"
                 )}
               >
-                <span className="flex-grow">{c.name} </span>
+                <span className="flex-grow">{c.name}</span>
                 <span className="mx-2 text-xs opacity-30">#{c.order}</span>
               </Link>
             ))}
@@ -130,12 +133,14 @@ export const ChapterNavigation = ({
             chapter={previousChapter}
             slug={project.slug}
             className="rounded-l-md"
+            title="Previous chapter"
             icon={<DoubleArrowLeftIcon width={22} height={22} />}
           />
           <DirectionalButton
             chapter={nextChapter}
             slug={project.slug}
             className="rounded-r-md"
+            title="Next chapter"
             icon={<DoubleArrowRightIcon width={22} height={22} />}
           />
         </div>
@@ -153,6 +158,7 @@ export const ChapterNavigation = ({
         <DirectionalButton
           chapter={previousChapter}
           slug={project.slug}
+          title="Previous chapter"
           className="rounded-md"
           icon={<DoubleArrowLeftIcon width={22} height={22} />}
         />
@@ -166,6 +172,7 @@ export const ChapterNavigation = ({
           <DirectionalButton
             chapter={nextChapter}
             slug={project.slug}
+            title="Next chapter"
             className="rounded-r-md"
             icon={<DoubleArrowRightIcon width={22} height={22} />}
           />

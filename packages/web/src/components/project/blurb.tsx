@@ -45,7 +45,11 @@ export const Blurb = async ({ className, slug }: BlurbProps) => {
         ? project.penName
         : authors.map((author, authorIdx) => (
             <Fragment key={author}>
-              <Link href={`/u/${author}`} className="nn-interactive">
+              <Link
+                href={`/u/${author}`}
+                className="nn-interactive"
+                title="View profile"
+              >
                 @{author}
               </Link>
               {naturalListJoin(authorIdx, authors.length)}

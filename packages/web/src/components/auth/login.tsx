@@ -12,16 +12,18 @@ export function Login() {
         size="fluid"
         onClick={() => signIn("discord")}
         className="flex gap-3"
+        title="Login with Discord"
       >
-        <BsDiscord className="h-6 w-6" /> Sign in with Discord
+        <BsDiscord className="w-6 h-6" /> Sign in with Discord
       </Button>
       <Button
         variant="contrast"
         size="fluid"
         onClick={() => signIn("github")}
         className="flex gap-3"
+        title="Login with Github"
       >
-        <BsGithub className="h-6 w-6" /> Sign in with Github
+        <BsGithub className="w-6 h-6" /> Sign in with Github
       </Button>
     </>
   );

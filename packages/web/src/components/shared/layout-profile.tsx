@@ -68,24 +68,32 @@ export const LayoutProfile = ({ session }: LayoutProfileProps) => {
           <ThemeSwitcher
             darkChildren={(cb) => (
               <DropdownMenuItem className="p-0" onClick={cb}>
-                <button className="flex w-full items-center px-2 py-1.5">
+                <button
+                  className="flex w-full items-center px-2 py-1.5"
+                  title="Use dark theme"
+                >
                   <MoonIcon className="mx-2" /> Dark Theme
                 </button>
               </DropdownMenuItem>
             )}
             lightChildren={(cb) => (
-              <DropdownMenuItem
-                className="flex items-center w-full"
-                onClick={cb}
-              >
-                <SunIcon className="mx-2" /> Light Theme
+              <DropdownMenuItem className="p-0" onClick={cb}>
+                <button
+                  className="flex w-full items-center px-2 py-1.5"
+                  title="Use light theme"
+                >
+                  <SunIcon className="mx-2" /> Light Theme
+                </button>
               </DropdownMenuItem>
             )}
           />
           <Logout className="block w-full">
             {(cb) => (
               <DropdownMenuItem onClick={cb} className="p-0">
-                <button className="flex w-full items-center px-2 py-1.5">
+                <button
+                  className="flex w-full items-center px-2 py-1.5"
+                  title="Logout"
+                >
                   <ThickArrowRightIcon className="mx-2" />
                   Logout
                 </button>

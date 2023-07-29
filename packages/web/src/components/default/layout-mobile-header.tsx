@@ -20,8 +20,8 @@ export const LayoutMobileHeader = async () => {
         <NavigationMenu>
           <NavigationMenuList>
             <NavigationMenuItem>
-              <Link href="/" legacyBehavior passHref>
-                <NavigationMenuLink className="nn-interactive group mx-2 inline-flex h-9 w-max items-center justify-center rounded-md bg-inherit px-2 py-2 text-sm font-medium">
+              <Link href="/" legacyBehavior passHref title="Home">
+                <NavigationMenuLink className="inline-flex items-center justify-center px-2 py-2 mx-2 text-sm font-medium rounded-md nn-interactive group h-9 w-max bg-inherit">
                   <BrandIcon className="my-1" />
                 </NavigationMenuLink>
               </Link>

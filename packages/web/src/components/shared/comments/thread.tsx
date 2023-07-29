@@ -51,7 +51,7 @@ export const CommentThread = ({ refresh, parent }: CommentThreadProps) => {
       />
 
       {replies.length > 0 && (
-        <div className="mb-6 mt-4 divide-y">
+        <div className="mt-4 mb-6 divide-y">
           {replies.map((reply) => (
             <CommentBody
               key={reply.id}
@@ -68,15 +68,19 @@ export const CommentThread = ({ refresh, parent }: CommentThreadProps) => {
         </div>
       )}
 
-      <div className="mt-4 flex flex-wrap items-center justify-start gap-2">
+      <div className="flex flex-wrap items-center justify-start gap-2 mt-4">
         {parent.replyCount > 0 ? (
           <>
             {replies.length > 0 ? (
-              <Button size="sm" onClick={() => setReplies([])}>
+              <Button
+                size="sm"
+                onClick={() => setReplies([])}
+                title="Hide replies"
+              >
                 Hide replies
               </Button>
             ) : (
-              <Button size="sm" onClick={getReplies}>
+              <Button size="sm" onClick={getReplies} title="Show replies">
                 {loading ? (
                   <>Loading...</>
                 ) : (
@@ -89,12 +93,16 @@ export const CommentThread = ({ refresh, parent }: CommentThreadProps) => {
             )}
           </>
         ) : (
-          <p className="rounded-md bg-zinc-500/10 p-2 text-xs text-zinc-500/70">
+          <p className="p-2 text-xs rounded-md bg-zinc-500/10 text-zinc-500/70">
             No replies yet
           </p>
         )}
         {userId && parent.id !== selectedId && (
-          <Button size="sm" onClick={() => setSelectedId(parent.id)}>
+          <Button
+            size="sm"
+            onClick={() => setSelectedId(parent.id)}
+            title="Reply to comment"
+          >
             Reply
           </Button>
         )}

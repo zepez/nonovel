@@ -29,10 +29,10 @@ export default async function ProjectPage({ params }: ProjectPageProps) {
   return (
     <>
       {latestChapterRead ? (
-        <div className="mb-4 mt-12">
+        <div className="mt-12 mb-4">
           <Link
             href={`/p/${project.slug}/chapters/${latestChapterRead.order}`}
-            className="nn-text-secondary nn-interactive nn-border flex w-full items-center justify-between rounded-md border border-dashed px-3 py-2"
+            className="flex items-center justify-between w-full px-3 py-2 border border-dashed rounded-md nn-text-secondary nn-interactive nn-border"
           >
             Resume reading {latestChapterRead.name}{" "}
             <span className="mx-4 text-xs">#{latestChapterRead.order}</span>
@@ -58,9 +58,10 @@ export default async function ProjectPage({ params }: ProjectPageProps) {
             <Link
               key={genre.id}
               href={`/browse/${genre.slug}`}
-              className="nn-interactive nn-bg-background nn-border-50 rounded-sm bg-zinc-950 px-4 py-2 text-xs font-bold uppercase leading-tight"
+              className="px-4 py-2 text-xs font-bold leading-tight uppercase rounded-sm nn-interactive nn-bg-background nn-border-50 bg-zinc-950"
+              title={`Browse ${genre.name.toLowerCase()}`}
             >
-              {genre.name.toLowerCase()}
+              {genre.name}
             </Link>
           ))}
         </section>
