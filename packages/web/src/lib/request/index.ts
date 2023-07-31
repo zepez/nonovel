@@ -1,5 +1,6 @@
 export * from "./browse";
 export * from "./chapter";
+export * from "./featured";
 export * from "./follow";
 export * from "./genre";
 export * from "./profile";
