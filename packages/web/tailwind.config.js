@@ -16,6 +16,9 @@ module.exports = {
       },
     },
     extend: {
+      fontFamily: {
+        title: ["josefin-sans", "serif"],
+      },
       keyframes: {
         "accordion-down": {
           from: { height: 0 },
@@ -35,6 +38,7 @@ module.exports = {
   plugins: [
     require("tailwindcss-animate"),
     require('@tailwindcss/aspect-ratio'),
-    require('tailwind-scrollbar')
+    require('tailwind-scrollbar'),
+    require('@tailwindcss/typography')
   ],
 }

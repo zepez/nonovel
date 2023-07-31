@@ -91,6 +91,7 @@ export const createComment = async (opts: CreateCommentOptions) => {
 
     return [null, null] as const;
   } catch (err) {
+    console.log(err);
     const error = new ServerError(
       "CreateResourceError",
       err as ServerErrorType

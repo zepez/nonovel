@@ -15,6 +15,7 @@ export const commentResourceType = pgEnum("comment_resource_type", [
   "profile",
   "project",
   "chapter",
+  "article",
 ]);
 
 export const comment = pgTable(

@@ -1,0 +1,1 @@
+ALTER TYPE "comment_resource_type" ADD VALUE 'article';
