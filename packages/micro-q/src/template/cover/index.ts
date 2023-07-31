@@ -6,13 +6,13 @@ interface CompileCoverFromTemplateOpts {
   title: string;
   author: string;
   background: string;
-  style?: 1 | 2;
+  style?: 1 | 2 | 3;
 }
 
 export const compileCoverFromTemplate = (
   opts: CompileCoverFromTemplateOpts
 ) => {
-  const { style = Math.floor(Math.random() * 2) + 1 } = opts;
+  const { style = Math.floor(Math.random() * 3) + 1 } = opts;
   const partialPath = path.join(__dirname, "..", "partial");
 
   const tailwindPartialPath = path.join(partialPath, "tailwind.hbs");
