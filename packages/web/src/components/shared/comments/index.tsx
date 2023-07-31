@@ -124,6 +124,17 @@ export const CommentLayout = ({
         </LoginDialog>
       )}
 
+      {!showNoComments && !session?.user.id && !showBaseLoading && (
+        <LoginDialog>
+          <SectionEmpty
+            as="button"
+            className="nn-bg-foreground nn-interactive mb-6 w-full"
+          >
+            Login to comment!
+          </SectionEmpty>
+        </LoginDialog>
+      )}
+
       {showPageLoading && <Skeleton className="h-screen w-full" />}
 
       {comments.length > 0 && (
