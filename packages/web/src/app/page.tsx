@@ -74,14 +74,14 @@ export default async function HomePage() {
         >
           <LayoutWrapper className="lg:px-16">
             <SectionHeading className="mt-0">Top today</SectionHeading>
-            <div className="flex gap-6 ">
+            <div className="flex flex-wrap gap-6 sm:flex-nowrap ">
               <AspectImage
                 src={src(popularToday.cover, "cover")}
                 alt={popularToday.name}
                 width={200}
-                className="mb-3 flex-shrink-0"
+                className="mx-auto mb-3 flex-shrink-0"
               />
-              <div className="pt-2">
+              <div className="min-w-0 flex-shrink pt-2">
                 <p className="nn-title mb-2 text-3xl font-bold leading-tight">
                   {popularToday.name}
                 </p>
