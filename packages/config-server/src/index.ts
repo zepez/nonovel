@@ -22,6 +22,7 @@ const schema = z
     S3_SECRET_ACCESS_KEY: z.string(),
     OPENAI_API_KEY: z.string(),
     STABILITY_API_KEY: z.string(),
+    MICRO_Q_SEARCH_CRON: z.string().default("0 0 * * *"),
     NEXTAUTH_URL: z.string(),
     NEXTAUTH_SECRET: z.string(),
     NEXTAUTH_GITHUB_CLIENT_ID: z.string(),
