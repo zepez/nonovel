@@ -40,7 +40,13 @@ export const epubCommand = async (file: string | undefined) => {
     }),
     slug: await input({
       message: "Project slug",
-      default: slugify(epub.opfMetadata.title).toLowerCase(),
+      default: slugify(epub.opfMetadata.title, {
+        lower: true,
+        strict: true,
+        trim: true,
+        locale: "en",
+        remove: /[*+~.()'"!:@]/g,
+      }),
     }),
     penName: await input({
       message: "Pen name",
