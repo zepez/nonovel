@@ -2,7 +2,12 @@ import { Suspense } from "react";
 import { Metadata } from "next";
 import { Inter } from "next/font/google";
 import { LayoutDesktopHeader, LayoutMobileHeader } from "~/components/default";
-import { LayoutFooter, ThemeProvider, AuthProvider } from "~/components/shared";
+import {
+  LayoutFooter,
+  ThemeProvider,
+  AuthProvider,
+  Analytics,
+} from "~/components/shared";
 import { Toaster } from "~/components/ui/toaster";
 import { Skeleton } from "~/components/ui/skeleton";
 
@@ -55,8 +60,8 @@ export default function RootLayout({ children }: RootLayoutProps) {
       <body className={inter.className}>
         <AuthProvider>
           <ThemeProvider attribute="class" defaultTheme="dark" enableSystem>
-            <div className="flex flex-col min-h-screen">
-              <Suspense fallback={<Skeleton className="w-full h-14" />}>
+            <div className="flex min-h-screen flex-col">
+              <Suspense fallback={<Skeleton className="h-14 w-full" />}>
                 <LayoutDesktopHeader />
                 <LayoutMobileHeader />
               </Suspense>
@@ -66,6 +71,7 @@ export default function RootLayout({ children }: RootLayoutProps) {
             <Toaster />
           </ThemeProvider>
         </AuthProvider>
+        <Analytics />
       </body>
     </html>
   );
