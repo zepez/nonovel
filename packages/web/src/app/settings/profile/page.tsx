@@ -2,7 +2,6 @@ import { redirect } from "next/navigation";
 
 import { getSession } from "~/lib/auth";
 import { EditProfile } from "~/components/settings";
-import { LayoutWrapper } from "~/components/shared";
 
 export default async function AccountPage() {
   const [, session] = await getSession();
@@ -11,9 +10,7 @@ export default async function AccountPage() {
 
   return (
     <>
-      <LayoutWrapper className="mt-4">
-        <EditProfile session={session} />
-      </LayoutWrapper>
+      <EditProfile session={session} />
     </>
   );
 }

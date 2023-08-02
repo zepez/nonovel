@@ -79,7 +79,7 @@ export default async function HomePage() {
           href={`/p/${popularToday.slug}`}
           className="nn-interactive relative z-10 flex items-center py-12"
         >
-          <LayoutWrapper className="lg:px-16">
+          <LayoutWrapper className="py-0">
             <SectionHeading className="mt-0">Top today</SectionHeading>
             <div className="flex flex-wrap gap-6 sm:flex-nowrap ">
               <AspectImage
@@ -99,7 +99,7 @@ export default async function HomePage() {
         </Link>
       </BackgroundImage>
 
-      <LayoutWrapper className="nn-bg-foreground rounded-b-md py-12 lg:px-16">
+      <LayoutWrapper>
         <SectionHeading className="mt-0">Popular this week</SectionHeading>
         <PopularSlider period="week" size={230} titleClassName="text-2xl" />
 

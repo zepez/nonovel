@@ -21,15 +21,13 @@ export default async function BrowseLayout({ children }: BrowseLayoutProps) {
           tiled={false}
         />
         <div className="relative z-10 flex h-96 items-center sm:h-64">
-          <LayoutWrapper className="lg:px-16">
+          <LayoutWrapper className="py-0">
             <LayoutNavigation genres={genres} />
           </LayoutWrapper>
         </div>
       </div>
 
-      <LayoutWrapper className="nn-bg-foreground rounded-b-md py-12 lg:px-16">
-        {children}
-      </LayoutWrapper>
+      <LayoutWrapper>{children}</LayoutWrapper>
     </>
   );
 }

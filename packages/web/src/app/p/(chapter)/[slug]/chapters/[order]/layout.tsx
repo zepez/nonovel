@@ -49,7 +49,7 @@ export default async function ChapterLayout({
         chapterId={chapter.id}
       />
       <BackgroundImage src={src(project.cover, "cover")}>
-        <LayoutWrapper className="my-12 flex flex-wrap items-center justify-between md:flex-nowrap lg:px-16">
+        <LayoutWrapper className="flex flex-wrap items-center justify-between py-12 md:flex-nowrap">
           <div className="mb-8 flex w-full flex-wrap items-center md:mb-0 md:w-auto md:flex-nowrap">
             <Link
               href={`/p/${project.slug}`}
@@ -80,20 +80,23 @@ export default async function ChapterLayout({
         </LayoutWrapper>
       </BackgroundImage>
 
-      <LayoutWrapper className="nn-bg-foreground rounded-b-md py-12 lg:px-16">
-        <ChapterNavigation
-          project={project}
-          chapter={chapter}
-          manifest={manifest}
-        />
-        {children}
-        <ChapterNavigation
-          project={project}
-          chapter={chapter}
-          manifest={manifest}
-        />
-        <CommentLayout resourceId={chapter.id} resourceType="chapter" />
-      </LayoutWrapper>
+      <div className="nn-content-wrapper-background">
+        <LayoutWrapper>
+          <ChapterNavigation
+            project={project}
+            chapter={chapter}
+            manifest={manifest}
+          />
+          {children}
+          <ChapterNavigation
+            project={project}
+            chapter={chapter}
+            manifest={manifest}
+          />
+        </LayoutWrapper>
+      </div>
+
+      <CommentLayout resourceId={chapter.id} resourceType="chapter" />
     </>
   );
 }

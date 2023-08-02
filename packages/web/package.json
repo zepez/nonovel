@@ -58,6 +58,7 @@
     "next-themes": "^0.2.1",
     "postcss": "8.4.24",
     "react": "18.2.0",
+    "react-color": "^2.19.3",
     "react-dom": "18.2.0",
     "react-hook-form": "^7.45.0",
     "react-icons": "^4.10.1",
@@ -74,6 +75,7 @@
   "devDependencies": {
     "@tailwindcss/aspect-ratio": "^0.4.2",
     "@tailwindcss/typography": "^0.5.9",
+    "@types/react-color": "^3.0.6",
     "dotenv-cli": "^7.2.1",
     "tailwind-scrollbar": "^3.0.4"
   }

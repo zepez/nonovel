@@ -14,7 +14,7 @@ export default function ArticleLayout({ children }: ArticleLayoutProps) {
           tiled={false}
         />
         <div className="relative z-10 flex h-96 items-center sm:h-64">
-          <LayoutWrapper className="lg:px-16">
+          <LayoutWrapper>
             <h1 className="nn-title text-2xl font-bold leading-tight">
               Browse Articles
             </h1>
@@ -26,9 +26,7 @@ export default function ArticleLayout({ children }: ArticleLayoutProps) {
         </div>
       </div>
 
-      <LayoutWrapper className="nn-bg-foreground rounded-b-md py-12 lg:px-16">
-        {children}
-      </LayoutWrapper>
+      <LayoutWrapper>{children}</LayoutWrapper>
     </>
   );
 }
