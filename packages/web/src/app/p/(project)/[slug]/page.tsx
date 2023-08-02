@@ -1,12 +1,50 @@
+import { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { getSession } from "~/lib/auth";
 import { getProjectBySlug, getChapterManifestByIds } from "~/lib/request";
 import { SectionEmpty, SectionHeading } from "~/components/shared";
 import { Blurb, ListChapters } from "~/components/project";
+import { clamp } from "~/lib/string";
 
 interface ProjectPageProps {
   params: { slug: string };
+}
+
+export async function generateMetadata({
+  params,
+}: ProjectPageProps): Promise<Metadata> {
+  const [, project] = await getProjectBySlug(params);
+  if (!project) return {};
+
+  const author =
+    project.penName ?? project.users[0]?.user?.profile?.username ?? null;
+
+  const description = clamp(
+    `Read ${project.name} online for free. ${project.description ?? ""}`,
+    160
+  );
+
+  return {
+    title: project.name,
+    description,
+    authors: author ? [{ name: author }] : [],
+    openGraph: {
+      title: `${project.name} | NoNovel.io`,
+      url: `https://nonovel.io/p/${project.slug}`,
+      description,
+      authors: author ? [author] : [],
+      images: [
+        {
+          url: `/api/og/p?title=${project.name}&image=${
+            project.cover as string
+          }`,
+          width: 1200,
+          height: 630,
+        },
+      ],
+    },
+  };
 }
 
 export default async function ProjectPage({ params }: ProjectPageProps) {
@@ -29,10 +67,10 @@ export default async function ProjectPage({ params }: ProjectPageProps) {
   return (
     <>
       {latestChapterRead ? (
-        <div className="mt-12 mb-4">
+        <div className="mb-4 mt-12">
           <Link
             href={`/p/${project.slug}/chapters/${latestChapterRead.order}`}
-            className="flex items-center justify-between w-full px-3 py-2 border border-dashed rounded-md nn-text-secondary nn-interactive nn-border"
+            className="nn-text-secondary nn-interactive nn-border flex w-full items-center justify-between rounded-md border border-dashed px-3 py-2"
           >
             Resume reading {latestChapterRead.name}{" "}
             <span className="mx-4 text-xs">#{latestChapterRead.order}</span>
@@ -58,7 +96,7 @@ export default async function ProjectPage({ params }: ProjectPageProps) {
             <Link
               key={genre.id}
               href={`/browse/${genre.slug}`}
-              className="px-4 py-2 text-xs font-bold leading-tight uppercase rounded-sm nn-interactive nn-bg-background nn-border-50 bg-zinc-950"
+              className="nn-interactive nn-bg-background nn-border-50 rounded-sm bg-zinc-950 px-4 py-2 text-xs font-bold uppercase leading-tight"
               title={`Browse ${genre.name.toLowerCase()}`}
             >
               {genre.name}

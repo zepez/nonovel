@@ -1,3 +1,4 @@
+import { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { getSession } from "~/lib/auth";
 import {
@@ -5,13 +6,51 @@ import {
   getReviewByIds,
   getReviewPageByProjectId,
 } from "~/lib/request";
-import { src } from "~/lib/string";
+import { src, clamp } from "~/lib/string";
 import { SectionHeading, AspectImage, SectionEmpty } from "~/components/shared";
 import { LayoutPaginate } from "~/components/shared/layout-paginate";
 import { EditReview, ReviewScore, ReviewVote } from "~/components/project";
 
 interface ProjectReviewPagePageProps {
   params: { slug: string; page: string };
+}
+
+export async function generateMetadata({
+  params,
+}: ProjectReviewPagePageProps): Promise<Metadata> {
+  const [, project] = await getProjectBySlug(params);
+  if (!project) return {};
+
+  const author =
+    project.penName ?? project.users[0]?.user?.profile?.username ?? null;
+
+  const description = clamp(
+    `Reviews for ${project.name} - see what other people think. ${
+      project.description ?? ""
+    }`,
+    160
+  );
+
+  return {
+    title: `Reviews | ${project.name}`,
+    description,
+    authors: author ? [{ name: author }] : [],
+    openGraph: {
+      title: `${project.name} | NoNovel.io`,
+      url: `https://nonovel.io/p/${project.slug}/reviews`,
+      description,
+      authors: author ? [author] : [],
+      images: [
+        {
+          url: `/api/og/p?title=${project.name}&image=${
+            project.cover as string
+          }`,
+          width: 1200,
+          height: 630,
+        },
+      ],
+    },
+  };
 }
 
 export default async function ProjectReviewPagePage({
@@ -56,17 +95,17 @@ export default async function ProjectReviewPagePage({
             {reviews.map((review) => (
               <div
                 key={review.id}
-                className="flex justify-between p-4 pr-2 rounded-md nn-border-50 nn-bg-background sm:items-center sm:py-6 sm:pl-8"
+                className="nn-border-50 nn-bg-background flex justify-between rounded-md p-4 pr-2 sm:items-center sm:py-6 sm:pl-8"
               >
                 <div className="flex flex-grow sm:space-x-6">
                   <AspectImage
                     width={50}
-                    className="flex-shrink-0 hidden sm:block"
+                    className="hidden flex-shrink-0 sm:block"
                     src={src(review.profile?.image, "profile")}
                     alt={`${review.profile?.username ?? ""} profile picture`}
                   />
                   <div>
-                    <p className="font-bold leading-tight text-md">
+                    <p className="text-md font-bold leading-tight">
                       @{review.profile?.username}
                     </p>
                     <ReviewScore
@@ -74,7 +113,7 @@ export default async function ProjectReviewPagePage({
                       value={review.score}
                       readOnly
                     />
-                    <p className="text-sm whitespace-pre-wrap">
+                    <p className="whitespace-pre-wrap text-sm">
                       {review.comment}
                     </p>
                   </div>

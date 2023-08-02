@@ -1,4 +1,3 @@
-import { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { formatDistanceToNow } from "date-fns";
@@ -26,49 +25,13 @@ import {
 } from "~/components/project";
 import { Button } from "~/components/ui/button";
 import { summarizeNumber } from "~/lib/number";
-import { toTitleCase, naturalListJoin, src, clamp } from "~/lib/string";
+import { toTitleCase, naturalListJoin, src } from "~/lib/string";
 
 export const revalidate = 60;
 
 interface ProjectLayoutProps {
   children: React.ReactNode;
   params: { slug: string };
-}
-
-export async function generateMetadata({
-  params,
-}: ProjectLayoutProps): Promise<Metadata> {
-  const [, project] = await getProjectBySlug(params);
-  if (!project) return {};
-
-  const author =
-    project.penName ?? project.users[0]?.user?.profile?.username ?? null;
-
-  const description = clamp(
-    `Read ${project.name} online for free. ${project.description ?? ""}`,
-    160
-  );
-
-  return {
-    title: project.name,
-    description,
-    authors: author ? [{ name: author }] : [],
-    openGraph: {
-      title: `${project.name} | NoNovel.io`,
-      url: `https://nonovel.io/p/${project.slug}`,
-      description,
-      authors: author ? [author] : [],
-      images: [
-        {
-          url: `/api/og/p?title=${project.name}&image=${
-            project.cover as string
-          }`,
-          width: 1200,
-          height: 630,
-        },
-      ],
-    },
-  };
 }
 
 export default async function ProjectLayout({
