@@ -1,3 +1,4 @@
+import { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
@@ -15,6 +16,23 @@ interface BrowsePageProps {
     sort: "new" | "old" | "popular" | undefined;
     q: string | undefined;
     page: string | undefined;
+  };
+}
+
+export async function generateMetadata({
+  params,
+}: BrowsePageProps): Promise<Metadata> {
+  const { genre: genreSlug = null } = params;
+
+  const [, genre] = genreSlug
+    ? await getGenreBySlug({ slug: genreSlug })
+    : [null, null];
+
+  return {
+    title: `Browse ${genre ? genre.name.toLowerCase() : "all"} novels`,
+    description: `Browse ${
+      genre ? genre.name.toLowerCase() : "all"
+    } novels on NoNovel.io.`,
   };
 }
 
@@ -66,7 +84,7 @@ export default async function BrowsePage({
           <Link
             href={`/p/${result.slug}`}
             key={result.id}
-            className="flex flex-col border rounded-md nn-interactive nn-border nn-bg-background sm:flex-row"
+            className="nn-interactive nn-border nn-bg-background flex flex-col rounded-md border sm:flex-row"
           >
             <div className="h-[300px] w-full flex-shrink-0 sm:w-[200px]">
               <Image
@@ -74,23 +92,23 @@ export default async function BrowsePage({
                 alt={`${result.name} cover`}
                 width={200}
                 height={200}
-                className="object-cover w-full h-full p-1 rounded-md"
+                className="h-full w-full rounded-md object-cover p-1"
               />
             </div>
 
-            <div className="flex flex-col flex-shrink min-w-0 p-4">
-              <p className="mb-2 text-xl leading-tight nn-title">
+            <div className="flex min-w-0 flex-shrink flex-col p-4">
+              <p className="nn-title mb-2 text-xl leading-tight">
                 {result.name}
               </p>
-              <p className="flex-grow nn-text-secondary">
+              <p className="nn-text-secondary flex-grow">
                 {clamp(result.description, 200)}...
               </p>
-              <div className="flex items-center h-8 gap-1 mt-2 overflow-x-scroll scrollbar-none">
-                <div className="flex items-center gap-1 mr-2 nn-text-secondary">
+              <div className="mt-2 flex h-8 items-center gap-1 overflow-x-scroll scrollbar-none">
+                <div className="nn-text-secondary mr-2 flex items-center gap-1">
                   <AiTwotoneEye />
                   {result.views}
                 </div>
-                <div className="flex items-center gap-1 mr-2 nn-text-secondary">
+                <div className="nn-text-secondary mr-2 flex items-center gap-1">
                   <AiFillStar />
                   {result.review}
                 </div>
@@ -98,7 +116,7 @@ export default async function BrowsePage({
                   result.genres.map((genre) => (
                     <div
                       key={genre.name}
-                      className="flex items-center flex-shrink-0 px-2 py-1 border rounded-sm nn-text-secondary nn-bg-foreground nn-border"
+                      className="nn-text-secondary nn-bg-foreground nn-border flex flex-shrink-0 items-center rounded-sm border px-2 py-1"
                     >
                       {genre.name}
                     </div>

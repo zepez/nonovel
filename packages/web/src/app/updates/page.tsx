@@ -1,4 +1,12 @@
+import { Metadata } from "next";
 import { Update } from "~/components/updates";
+
+export function generateMetadata(): Metadata {
+  return {
+    title: "Platform Updates",
+    description: "Stay up to date with the latest NoNovel.io updates.",
+  };
+}
 
 export default function UpdatesLayout() {
   return (

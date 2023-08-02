@@ -1,6 +1,14 @@
+import { Metadata } from "next";
 import Link from "next/link";
 import { format } from "date-fns";
 import { getAllPostsMeta } from "~/lib/mdx";
+
+export function generateMetadata(): Metadata {
+  return {
+    title: "Browse all articles",
+    description: "Browse all articles on NoNovel.io.",
+  };
+}
 
 export default async function Page() {
   const articles = await getAllPostsMeta();

@@ -1,3 +1,4 @@
+import { Metadata } from "next";
 import Link from "next/link";
 import { LayoutWrapper, BackgroundEmoji } from "~/components/shared";
 
@@ -8,6 +9,13 @@ interface ErrorPageProps {
   };
 }
 
+export const metadata: Metadata = {
+  robots: {
+    index: false,
+    follow: true,
+  },
+};
+
 export default function ErrorPage({ searchParams }: ErrorPageProps) {
   const { error, code = "Unknown" } = searchParams;
 
@@ -16,12 +24,12 @@ export default function ErrorPage({ searchParams }: ErrorPageProps) {
       <div className="relative overflow-hidden">
         <BackgroundEmoji
           emoji="💥"
-          className="absolute inset-0 z-0 w-full h-full nn-bg-blurred"
+          className="nn-bg-blurred absolute inset-0 z-0 h-full w-full"
           tiled={false}
         />
-        <div className="relative z-10 flex items-center justify-center h-96">
+        <div className="relative z-10 flex h-96 items-center justify-center">
           <LayoutWrapper className="max-w-[600px]">
-            <h1 className="text-4xl font-bold leading-tight uppercase">
+            <h1 className="text-4xl font-bold uppercase leading-tight">
               Something went wrong
             </h1>
             <p className="nn-text-secondary">Code - {code}</p>
@@ -29,7 +37,7 @@ export default function ErrorPage({ searchParams }: ErrorPageProps) {
 
             <Link
               href="/"
-              className="inline-block px-3 py-2 mt-8 text-xs font-bold leading-tight uppercase rounded-md nn-interactive nn-bg-contrast"
+              className="nn-interactive nn-bg-contrast mt-8 inline-block rounded-md px-3 py-2 text-xs font-bold uppercase leading-tight"
             >
               Go home
             </Link>

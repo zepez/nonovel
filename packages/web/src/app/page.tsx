@@ -1,3 +1,4 @@
+import { Metadata } from "next";
 import { notFound } from "next/navigation";
 import Link from "next/link";
 import { AiFillStar, AiTwotoneEye } from "react-icons/ai";
@@ -15,6 +16,12 @@ interface PopularSliderProps {
   period: "day" | "week" | "month";
   size: number;
   titleClassName?: string;
+}
+
+export function generateMetadata(): Metadata {
+  return {
+    title: "NoNovel | Read your favorite novels online",
+  };
 }
 
 const PopularSlider = async ({

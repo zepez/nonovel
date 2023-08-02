@@ -1,9 +1,17 @@
+import { Metadata } from "next";
 import { LayoutWrapper } from "~/components/shared";
 import { LayoutNavigation, LayoutHeader } from "~/components/settings";
 
 interface SettingsLayoutProps {
   children: React.ReactNode;
 }
+
+export const metadata: Metadata = {
+  robots: {
+    index: false,
+    follow: true,
+  },
+};
 
 export default function SettingsLayout({ children }: SettingsLayoutProps) {
   return (

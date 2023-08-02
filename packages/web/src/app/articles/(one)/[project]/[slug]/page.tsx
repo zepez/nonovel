@@ -1,3 +1,4 @@
+import { Metadata } from "next";
 import Link from "next/link";
 import { getPostBySlug } from "~/lib/mdx";
 import { getProjectBySlug } from "~/lib/request";
@@ -6,6 +7,17 @@ import { AspectImage, CommentLayout } from "~/components/shared";
 
 interface Props {
   params: { project: string; slug: string };
+}
+
+export async function generateMetadata({ params }: Props): Promise<Metadata> {
+  const { slug, project } = params;
+
+  const article = await getPostBySlug(`${project}/${slug}`);
+
+  return {
+    title: article.meta.title,
+    description: article.meta.description,
+  };
 }
 
 export default async function Page({ params }: Props) {
