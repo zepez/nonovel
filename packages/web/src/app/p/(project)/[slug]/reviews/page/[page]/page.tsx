@@ -135,7 +135,7 @@ export default async function ProjectReviewPagePage({
             />
           </>
         ) : (
-          <SectionEmpty className="nn-bg-background">
+          <SectionEmpty className="nn-bg-foreground">
             {page === 1
               ? "This project does not have any reviews. Be the first to review it!"
               : "No more reviews found :("}

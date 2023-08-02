@@ -32,37 +32,40 @@ const PopularSlider = async ({
   const [, popular] = await getFeaturedPopular({ period });
   if (!popular) return null;
   return (
-    <div className="flex items-start gap-8 overflow-scroll scrollbar-none">
-      {popular.map((item) => (
-        <Link
-          href={`/p/${item.slug}`}
-          key={item.id}
-          style={{ width: size }}
-          className="nn-interactive block flex-shrink-0 rounded-md p-1"
-        >
-          <div className="relative">
-            <AspectImage
-              src={src(item.cover, "cover")}
-              alt={item.name}
-              width={size}
-              className="mb-3"
-            />
-            <div className="absolute bottom-0 right-0 flex items-center gap-4 rounded-br-md rounded-tl-md bg-black/50 px-4 py-1 text-xs text-white">
-              <div className="flex items-center gap-2">
-                <AiTwotoneEye />
-                {item.views}
-              </div>
-              <div className="flex items-center gap-2">
-                <AiFillStar />
-                {item.review}
+    <div className="nn-bg-foreground nn-border-50 mb-8 rounded-md border p-8">
+      <SectionHeading className="mt-0">Popular this {period}</SectionHeading>
+      <div className="flex items-start gap-8 overflow-scroll scrollbar-none">
+        {popular.map((item) => (
+          <Link
+            href={`/p/${item.slug}`}
+            key={item.id}
+            style={{ width: size }}
+            className="nn-interactive block flex-shrink-0 rounded-md p-1"
+          >
+            <div className="relative">
+              <AspectImage
+                src={src(item.cover, "cover")}
+                alt={item.name}
+                width={size}
+                className="mb-3"
+              />
+              <div className="absolute bottom-0 right-0 flex items-center gap-4 rounded-br-md rounded-tl-md bg-black/50 px-4 py-1 text-xs text-white">
+                <div className="flex items-center gap-2">
+                  <AiTwotoneEye />
+                  {item.views}
+                </div>
+                <div className="flex items-center gap-2">
+                  <AiFillStar />
+                  {item.review}
+                </div>
               </div>
             </div>
-          </div>
-          <p className={cn("nn-title mx-2 leading-tight", titleClassName)}>
-            {item.name}
-          </p>
-        </Link>
-      ))}
+            <p className={cn("nn-title mx-2 leading-tight", titleClassName)}>
+              {item.name}
+            </p>
+          </Link>
+        ))}
+      </div>
     </div>
   );
 };
@@ -100,10 +103,10 @@ export default async function HomePage() {
       </BackgroundImage>
 
       <LayoutWrapper>
-        <SectionHeading className="mt-0">Popular this week</SectionHeading>
-        <PopularSlider period="week" size={230} titleClassName="text-2xl" />
+        {/* <SectionHeading className="mt-0">Popular this week</SectionHeading> */}
+        <PopularSlider period="week" size={230} titleClassName="text-xl" />
 
-        <SectionHeading>Popular this month</SectionHeading>
+        {/* <SectionHeading>Popular this month</SectionHeading> */}
         <PopularSlider period="month" size={150} titleClassName="text-lg" />
       </LayoutWrapper>
     </main>

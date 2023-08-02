@@ -104,7 +104,7 @@ export default async function ProjectPage({ params }: ProjectPageProps) {
           ))}
         </section>
       ) : (
-        <SectionEmpty className="nn-bg-background">
+        <SectionEmpty className="nn-bg-foreground">
           This project does not have any known genres, yet.
         </SectionEmpty>
       )}
