@@ -19,7 +19,7 @@ export default async function Page() {
         <Link
           key={article.slug}
           href={`/articles/${article.slug}`}
-          className="nn-interactive nn-bg-background borer nn-border-50 block rounded-md p-4"
+          className="nn-interactive nn-bg-foreground nn-border-50 block rounded-md border p-4"
         >
           <div className="">
             <p className="nn-title mb-2 text-xl font-bold leading-tight">
