@@ -32,7 +32,7 @@ const PopularSlider = async ({
   const [, popular] = await getFeaturedPopular({ period });
   if (!popular) return null;
   return (
-    <div className="nn-bg-foreground nn-border-50 mb-8 rounded-md border p-8">
+    <div>
       <SectionHeading className="mt-0">Popular this {period}</SectionHeading>
       <div className="flex items-start gap-8 overflow-scroll scrollbar-none">
         {popular.map((item) => (
@@ -84,7 +84,7 @@ export default async function HomePage() {
         >
           <LayoutWrapper className="py-0">
             <SectionHeading className="mt-0">Top today</SectionHeading>
-            <div className="flex flex-wrap gap-6 sm:flex-nowrap ">
+            <div className="flex flex-wrap gap-6 sm:flex-nowrap">
               <AspectImage
                 src={src(popularToday.cover, "cover")}
                 alt={popularToday.name}
@@ -102,11 +102,8 @@ export default async function HomePage() {
         </Link>
       </BackgroundImage>
 
-      <LayoutWrapper>
-        {/* <SectionHeading className="mt-0">Popular this week</SectionHeading> */}
+      <LayoutWrapper className="nn-bg-foreground nn-border-50 mb-16 space-y-12 border-b border-l border-r md:rounded-b-md">
         <PopularSlider period="week" size={230} titleClassName="text-xl" />
-
-        {/* <SectionHeading>Popular this month</SectionHeading> */}
         <PopularSlider period="month" size={150} titleClassName="text-lg" />
       </LayoutWrapper>
     </main>

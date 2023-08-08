@@ -96,7 +96,7 @@ export default async function ProjectPage({ params }: ProjectPageProps) {
             <Link
               key={genre.id}
               href={`/browse/${genre.slug}`}
-              className="nn-interactive nn-bg-background nn-border-50 rounded-sm bg-zinc-950 px-4 py-2 text-xs font-bold uppercase leading-tight"
+              className="nn-interactive nn-bg-background nn-border-50 rounded-sm border bg-zinc-950 px-4 py-2 text-xs font-bold uppercase leading-tight"
               title={`Browse ${genre.name.toLowerCase()}`}
             >
               {genre.name}
@@ -104,7 +104,7 @@ export default async function ProjectPage({ params }: ProjectPageProps) {
           ))}
         </section>
       ) : (
-        <SectionEmpty className="nn-bg-foreground">
+        <SectionEmpty className="nn-bg-background">
           This project does not have any known genres, yet.
         </SectionEmpty>
       )}

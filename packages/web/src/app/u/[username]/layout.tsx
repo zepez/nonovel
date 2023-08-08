@@ -35,7 +35,8 @@ export default async function ProfileLayout({
           }}
         />
       </div>
-      <LayoutWrapper className="flex flex-wrap items-end pb-0 md:flex-nowrap">
+
+      <LayoutWrapper className="nn-bg-foreground nn-border-50 flex flex-wrap items-end border-l border-r pb-0 md:flex-nowrap">
         <Image
           src={src(profile.image, "profile")}
           alt="Profile picture"
@@ -62,7 +63,9 @@ export default async function ProfileLayout({
         </div>
       </LayoutWrapper>
 
-      <LayoutWrapper>{children}</LayoutWrapper>
+      <LayoutWrapper className="nn-bg-foreground nn-border-50 mb-16 border-b border-l border-r md:rounded-b-md">
+        {children}
+      </LayoutWrapper>
       <CommentLayout resourceId={profile.id} resourceType="profile" />
     </>
   );

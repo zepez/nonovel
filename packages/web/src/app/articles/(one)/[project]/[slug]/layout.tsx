@@ -39,7 +39,9 @@ export default async function ArticleLayout({
         </div>
       </div>
 
-      <LayoutWrapper>{children}</LayoutWrapper>
+      <LayoutWrapper className="nn-bg-foreground nn-border-50 mb-16 border-b border-l border-r md:rounded-b-md">
+        {children}
+      </LayoutWrapper>
 
       <CommentLayout resourceId={article.meta.id} resourceType="article" />
     </>

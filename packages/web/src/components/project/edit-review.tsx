@@ -115,7 +115,7 @@ export const EditReview = ({ userId, projectId, review }: EditReviewProps) => {
       <LoginDialog>
         <SectionEmpty
           as="button"
-          className="nn-bg-foreground nn-interactive w-full cursor-pointer"
+          className="nn-bg-background nn-interactive w-full cursor-pointer"
         >
           Login to submit your own review.
         </SectionEmpty>

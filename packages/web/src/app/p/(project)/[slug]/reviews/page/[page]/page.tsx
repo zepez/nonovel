@@ -95,7 +95,7 @@ export default async function ProjectReviewPagePage({
             {reviews.map((review) => (
               <div
                 key={review.id}
-                className="nn-border-50 nn-bg-background flex justify-between rounded-md p-4 pr-2 sm:items-center sm:py-6 sm:pl-8"
+                className="nn-border-50 nn-bg-background flex justify-between rounded-md border p-4 pr-2 sm:items-center sm:py-6 sm:pl-8"
               >
                 <div className="flex flex-grow sm:space-x-6">
                   <AspectImage
@@ -135,7 +135,7 @@ export default async function ProjectReviewPagePage({
             />
           </>
         ) : (
-          <SectionEmpty className="nn-bg-foreground">
+          <SectionEmpty className="nn-bg-background">
             {page === 1
               ? "This project does not have any reviews. Be the first to review it!"
               : "No more reviews found :("}

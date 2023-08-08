@@ -24,14 +24,14 @@ export default async function ProfilePage({ params }: ProfilePageProps) {
       {profile.bio ? (
         <section>{profile.bio}</section>
       ) : (
-        <SectionEmpty className="nn-bg-foreground">
+        <SectionEmpty className="nn-bg-background">
           @{profile.username} does not have a bio.
         </SectionEmpty>
       )}
       <SectionHeading>Projects</SectionHeading>
       <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
         {!projects.length ? (
-          <SectionEmpty className="nn-bg-foreground col-span-2 rounded-md p-4 text-center text-sm">
+          <SectionEmpty className="nn-bg-background col-span-2 rounded-md p-4 text-center text-sm">
             @{profile.username} is not a part of any projects.
           </SectionEmpty>
         ) : null}
