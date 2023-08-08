@@ -12,6 +12,7 @@ import { LoginDialog } from "~/components/auth";
 import { SectionHeading } from "../section-heading";
 import { SectionEmpty } from "../section-empty";
 import { ClientPaginate } from "../client-paginate";
+import { LayoutWrapper } from "../layout-wrapper";
 import { CommentEdit } from "./edit";
 import { CommentThread } from "./thread";
 
@@ -78,89 +79,93 @@ export const CommentLayout = ({
   const showPagination = Boolean(comments.length > 0 || loadingAnotherPage);
 
   return (
-    <section
-      ref={intersectionRef}
-      className="nn-bg-background nn-border mt-12 rounded-md border px-6 pb-8 pt-10 md:px-12"
-    >
-      <SectionHeading className="mt-0">Comments</SectionHeading>
+    <div className="nn-bg-foreground">
+      <LayoutWrapper className="py-16">
+        <section
+          ref={intersectionRef}
+          className="nn-bg-background nn-border rounded-md border px-6 pb-8 pt-10 md:px-12"
+        >
+          <SectionHeading className="mt-0">Comments</SectionHeading>
 
-      {session?.user.id && (
-        <CommentEdit
-          refresh={getComments}
-          className="mb-8"
-          background="nn-bg-foreground"
-          defaultSubmitText="Post comment"
-          actionText={["Posting", "Posted"]}
-          comment={{
-            resourceId,
-            resourceType,
-            userId: session?.user.id,
-            parentId: null,
-            content: "",
-          }}
-        />
-      )}
+          {session?.user.id && (
+            <CommentEdit
+              refresh={getComments}
+              className="mb-8"
+              background="nn-bg-foreground"
+              defaultSubmitText="Post comment"
+              actionText={["Posting", "Posted"]}
+              comment={{
+                resourceId,
+                resourceType,
+                userId: session?.user.id,
+                parentId: null,
+                content: "",
+              }}
+            />
+          )}
 
-      {showBaseLoading && (
-        <SectionEmpty className="nn-bg-foreground">
-          Loading comments...
-        </SectionEmpty>
-      )}
+          {showBaseLoading && (
+            <SectionEmpty className="nn-bg-foreground">
+              Loading comments...
+            </SectionEmpty>
+          )}
 
-      {showNoComments && session?.user.id && (
-        <SectionEmpty className="nn-bg-foreground">
-          No comments yet.
-        </SectionEmpty>
-      )}
+          {showNoComments && session?.user.id && (
+            <SectionEmpty className="nn-bg-foreground">
+              No comments yet.
+            </SectionEmpty>
+          )}
 
-      {showNoComments && !session?.user.id && (
-        <LoginDialog>
-          <SectionEmpty
-            as="button"
-            className="nn-bg-foreground nn-interactive w-full"
-          >
-            No comments yet. Login to be the first!
-          </SectionEmpty>
-        </LoginDialog>
-      )}
+          {showNoComments && !session?.user.id && (
+            <LoginDialog>
+              <SectionEmpty
+                as="button"
+                className="nn-bg-foreground nn-interactive w-full"
+              >
+                No comments yet. Login to be the first!
+              </SectionEmpty>
+            </LoginDialog>
+          )}
 
-      {!showNoComments && !session?.user.id && !showBaseLoading && (
-        <LoginDialog>
-          <SectionEmpty
-            as="button"
-            className="nn-bg-foreground nn-interactive mb-6 w-full"
-          >
-            Login to comment!
-          </SectionEmpty>
-        </LoginDialog>
-      )}
+          {!showNoComments && !session?.user.id && !showBaseLoading && (
+            <LoginDialog>
+              <SectionEmpty
+                as="button"
+                className="nn-bg-foreground nn-interactive mb-6 w-full"
+              >
+                Login to comment!
+              </SectionEmpty>
+            </LoginDialog>
+          )}
 
-      {showPageLoading && <Skeleton className="h-screen w-full" />}
+          {showPageLoading && <Skeleton className="h-screen w-full" />}
 
-      {comments.length > 0 && (
-        <div className={"nn-bg-background rounded-md"}>
-          {comments.map((c) => (
-            <CommentThread key={c.id} parent={c} refresh={getComments} />
-          ))}
-        </div>
-      )}
+          {comments.length > 0 && (
+            <div className={"nn-bg-background rounded-md"}>
+              {comments.map((c) => (
+                <CommentThread key={c.id} parent={c} refresh={getComments} />
+              ))}
+            </div>
+          )}
 
-      {showPagination && (
-        <ClientPaginate
-          onPreviousClick={() => {
-            setLoadingAnotherPage(true);
-            setComments([]);
-            setCurrentPage((c) => c - 1);
-          }}
-          previousDisabled={currentPage <= 1}
-          onNextClick={() => {
-            setLoadingAnotherPage(true);
-            setComments([]);
-            setCurrentPage((c) => c + 1);
-          }}
-          nextDisabled={!nextPageAvailable}
-        />
-      )}
-    </section>
+          {showPagination && (
+            <ClientPaginate
+              onPreviousClick={() => {
+                setLoadingAnotherPage(true);
+                setComments([]);
+                setCurrentPage((c) => c - 1);
+              }}
+              previousDisabled={currentPage <= 1}
+              onNextClick={() => {
+                setLoadingAnotherPage(true);
+                setComments([]);
+                setCurrentPage((c) => c + 1);
+              }}
+              nextDisabled={!nextPageAvailable}
+            />
+          )}
+        </section>
+      </LayoutWrapper>
+    </div>
   );
 };

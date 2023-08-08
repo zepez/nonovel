@@ -20,7 +20,7 @@ const ListItem = ({ href, name, symbol, height, isRead }: ListItemProps) => {
   return (
     <Link
       href={href}
-      className="nn-interactive flex items-center odd:bg-white dark:odd:bg-zinc-900"
+      className="nn-interactive flex items-center bg-zinc-100 odd:bg-zinc-200 dark:bg-zinc-800 dark:odd:bg-zinc-900"
     >
       <span className="mx-4 w-8 text-center opacity-30">{isRead && "✔"}</span>
       <h3

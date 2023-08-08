@@ -3,7 +3,7 @@ import Link from "next/link";
 import { getPostBySlug } from "~/lib/mdx";
 import { getProjectBySlug } from "~/lib/request";
 import { src } from "~/lib/string";
-import { AspectImage, CommentLayout } from "~/components/shared";
+import { AspectImage } from "~/components/shared";
 
 interface Props {
   params: { project: string; slug: string };
@@ -60,8 +60,6 @@ export default async function Page({ params }: Props) {
           </div>
         </Link>
       )}
-
-      <CommentLayout resourceId={article.meta.id} resourceType="article" />
     </>
   );
 }

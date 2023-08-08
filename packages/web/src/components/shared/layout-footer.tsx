@@ -28,8 +28,8 @@ const navigation = [
 
 export const LayoutFooter = () => {
   return (
-    <footer>
-      <LayoutWrapper className="mt-16 py-4 md:flex md:items-center md:justify-between">
+    <footer className="nn-bg-foreground nn-border-50 border-t">
+      <LayoutWrapper className="py-4 md:flex md:items-center md:justify-between">
         <div className="flex justify-center space-x-6 md:order-2">
           <div className="mt-[.15rem]">
             <ThemeSwitcher

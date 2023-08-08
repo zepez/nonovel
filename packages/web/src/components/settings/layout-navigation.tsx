@@ -15,14 +15,16 @@ export const LayoutNavigation = () => {
 
   return (
     <div>
-      <nav className="grid grid-cols-1 divide-y divide-zinc-500/50 text-center">
+      <nav className="nn-border grid grid-cols-1 text-center md:border-r md:pr-8">
         {navigation.map((item) => (
           <Link
             href={item.href}
             key={item.name}
             className={cn(
-              item.segment === segment ? "nn-bg-foreground" : "nn-interactive",
-              "py-4 text-sm"
+              item.segment === segment
+                ? "nn-bg-background nn-border-50 border"
+                : "nn-interactive",
+              "my-1 rounded-md py-3 text-sm"
             )}
           >
             {item.name}

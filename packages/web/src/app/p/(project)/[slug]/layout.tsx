@@ -89,7 +89,7 @@ export default async function ProjectLayout({
   return (
     <>
       <BackgroundImage src={src(project.cover, "cover")}>
-        <LayoutWrapper className="flex flex-wrap py-12 md:flex-nowrap md:px-16 lg:px-16">
+        <LayoutWrapper className="flex flex-wrap py-12 md:flex-nowrap">
           <AspectImage
             src={src(project.cover, "cover")}
             alt={project.name}
@@ -205,11 +205,12 @@ export default async function ProjectLayout({
         </LayoutWrapper>
       </BackgroundImage>
 
-      <LayoutWrapper className="nn-bg-foreground rounded-b-md py-12 md:px-16 lg:px-16">
+      <LayoutWrapper className="nn-bg-foreground nn-border-50 mb-16 border-b border-l border-r md:rounded-b-md">
         <LayoutNavigation slug={project.slug} />
         {children}
-        <CommentLayout resourceId={project.id} resourceType="project" />
       </LayoutWrapper>
+
+      <CommentLayout resourceId={project.id} resourceType="project" />
     </>
   );
 }

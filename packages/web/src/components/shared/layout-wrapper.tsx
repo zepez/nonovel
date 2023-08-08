@@ -7,7 +7,12 @@ interface LayoutWrapperProps {
 
 export const LayoutWrapper = ({ children, className }: LayoutWrapperProps) => {
   return (
-    <div className={cn("mx-auto w-full max-w-5xl px-6 lg:px-8", className)}>
+    <div
+      className={cn(
+        "mx-auto w-full max-w-6xl px-6 pb-16 pt-12 md:px-16 lg:px-16",
+        className
+      )}
+    >
       {children}
     </div>
   );

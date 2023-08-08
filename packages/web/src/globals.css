@@ -28,6 +28,14 @@
   --chapter-letter-spacing: 0px;
 }
 
+.nn-content-wrapper-background {
+  background-color: var(--chapter-background-color, inherit);
+}
+
+.nn-content-wrapper {
+  color: var(--chapter-text-color, inherit);
+}
+
 .nn-content-wrapper p, td, table {
   transition: all 0.25s;
   transition-timing-function: ease-in-out;
@@ -105,7 +113,7 @@
 }
 
 .nn-border-50 {
-  @apply border border-zinc-300/50 dark:border-zinc-700/50;
+  @apply border-zinc-300/50 dark:border-zinc-700/50;
 }
 
 .nn-border-bottom {

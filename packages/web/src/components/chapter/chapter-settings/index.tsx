@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, type Dispatch, type SetStateAction } from "react";
+import { useEffect } from "react";
 import { useLocalStorage } from "react-use";
 import * as z from "zod";
 import { MixerHorizontalIcon } from "@radix-ui/react-icons";
@@ -11,109 +11,18 @@ import {
   PopoverTrigger,
 } from "~/components/ui/popover";
 import { Button } from "~/components/ui/button";
-import { Slider } from "~/components/ui/slider";
 import { Separator } from "~/components/ui/separator";
+import { IncrementalChange } from "./incremental-change";
+import { FontChange } from "./font-change";
+import { ColorChange } from "./color-change";
 
 const fontSizeValidator = z.number().min(12).max(48).default(24);
 const fontValidator = z.string().default("sans-serif");
 const leadingValidator = z.number().min(1).max(4).default(1.5);
 const paragraphSpacingValidator = z.number().min(2).max(10).default(2);
 const letterSpacingValidator = z.number().min(0).max(8).default(0);
-
-interface IncrementalChangeProps {
-  name: string;
-  value: string | number;
-  setValue: Dispatch<SetStateAction<number | undefined>>;
-  step: number;
-  min: number;
-  max: number;
-  showSlider?: boolean;
-}
-
-const IncrementalChange = ({
-  name,
-  value,
-  setValue,
-  step,
-  min,
-  max,
-  showSlider = false,
-}: IncrementalChangeProps) => {
-  const numberValue = typeof value === "string" ? parseInt(value) : value;
-
-  return (
-    <div>
-      <div className="flex items-baseline justify-between w-full select-none">
-        <Button
-          variant="secondary"
-          size="fluid"
-          className="flex items-center justify-center h-0 py-3 nn-border-50"
-          disabled={numberValue <= min}
-          onClick={() => setValue(numberValue - step)}
-          title={`Decrease ${name.toLowerCase()}`}
-        >
-          -
-        </Button>
-        <p className="text-[0.95rem]">
-          {name}: {value}
-        </p>
-        <Button
-          variant="secondary"
-          size="fluid"
-          className="flex items-center justify-center h-0 py-3 nn-border-50"
-          disabled={numberValue >= max}
-          onClick={() => setValue(numberValue + step)}
-          title={`Increase ${name.toLowerCase()}`}
-        >
-          +
-        </Button>
-      </div>
-      {showSlider && (
-        <Slider
-          value={[numberValue]}
-          max={max}
-          min={min}
-          step={step}
-          onValueChange={(v) => setValue(v[0])}
-          className="mt-4"
-        />
-      )}
-    </div>
-  );
-};
-
-interface FontChangeProps {
-  font: string;
-  setFont: Dispatch<SetStateAction<string | undefined>>;
-  allowedFonts: { name: string; font: string }[];
-}
-
-const FontChange = ({ font, setFont, allowedFonts }: FontChangeProps) => {
-  return (
-    <div
-      className="grid gap-3"
-      style={{
-        gridTemplateColumns: `repeat(${allowedFonts.length}, minmax(0, 1fr))`,
-      }}
-    >
-      {allowedFonts.map((f) => (
-        <Button
-          key={f.font}
-          variant="ghost"
-          className={cn(
-            f.font === font ? "nn-bg-primary" : "nn-bg-background",
-            "text-xs"
-          )}
-          style={{ fontFamily: f.font }}
-          onClick={() => setFont(f.font)}
-          title="Change font"
-        >
-          {f.name}
-        </Button>
-      ))}
-    </div>
-  );
-};
+const textColorValidator = z.string().default("inherit");
+const backgroundColorValidator = z.string().default("inherit");
 
 interface ChapterSettingsProps {
   className?: string;
@@ -121,24 +30,42 @@ interface ChapterSettingsProps {
 
 export const ChapterSettings = ({ className }: ChapterSettingsProps) => {
   const defaultFontSize = fontSizeValidator.parse(undefined);
-  const [fontSize, setFontSize] = useLocalStorage("font-size", defaultFontSize);
+  const [fontSize, setFontSize] = useLocalStorage(
+    "nn-chapter-font-size",
+    defaultFontSize
+  );
 
   const defaultFont = fontValidator.parse(undefined);
-  const [font, setFont] = useLocalStorage("font", defaultFont);
+  const [font, setFont] = useLocalStorage("nn-chapter-font", defaultFont);
 
   const defaultLeading = leadingValidator.parse(undefined);
-  const [leading, setLeading] = useLocalStorage("leading", defaultLeading);
+  const [leading, setLeading] = useLocalStorage(
+    "nn-chapter-leading",
+    defaultLeading
+  );
 
   const defaultParagraphSpacing = paragraphSpacingValidator.parse(undefined);
   const [paragraphSpacing, setParagraphSpacing] = useLocalStorage(
-    "paragraph-spacing",
+    "nn-chapter-paragraph-spacing",
     defaultParagraphSpacing
   );
 
   const defaultLetterSpacing = letterSpacingValidator.parse(undefined);
   const [letterSpacing, setLetterSpacing] = useLocalStorage(
-    "letter-spacing",
+    "nn-chapter-letter-spacing",
     defaultLetterSpacing
+  );
+
+  const defaultTextColor = textColorValidator.parse(undefined);
+  const [textColor, setTextColor] = useLocalStorage(
+    "nn-chapter-text-color",
+    defaultTextColor
+  );
+
+  const defaultBackgroundColor = backgroundColorValidator.parse(undefined);
+  const [backgroundColor, setBackgroundColor] = useLocalStorage(
+    "nn-chapter-background-color",
+    defaultBackgroundColor
   );
 
   const resetToDefaults = () => {
@@ -147,6 +74,8 @@ export const ChapterSettings = ({ className }: ChapterSettingsProps) => {
     setLeading(defaultLeading);
     setParagraphSpacing(defaultParagraphSpacing);
     setLetterSpacing(defaultLetterSpacing);
+    setTextColor(defaultTextColor);
+    setBackgroundColor(defaultBackgroundColor);
   };
 
   useEffect(() => {
@@ -155,7 +84,9 @@ export const ChapterSettings = ({ className }: ChapterSettingsProps) => {
       !font ||
       !leading ||
       !paragraphSpacing ||
-      letterSpacing === undefined
+      letterSpacing === undefined ||
+      !textColor ||
+      !backgroundColor
     )
       return;
 
@@ -180,14 +111,34 @@ export const ChapterSettings = ({ className }: ChapterSettingsProps) => {
       "--chapter-letter-spacing",
       `${letterSpacing.toString()}px`
     );
-  }, [fontSize, font, leading, paragraphSpacing, letterSpacing]);
+
+    document.documentElement.style.setProperty(
+      "--chapter-text-color",
+      textColor
+    );
+
+    document.documentElement.style.setProperty(
+      "--chapter-background-color",
+      backgroundColor
+    );
+  }, [
+    fontSize,
+    font,
+    leading,
+    paragraphSpacing,
+    letterSpacing,
+    textColor,
+    backgroundColor,
+  ]);
 
   if (
     !fontSize ||
     !font ||
     !leading ||
     !paragraphSpacing ||
-    letterSpacing === undefined
+    letterSpacing === undefined ||
+    !textColor ||
+    !backgroundColor
   )
     return null;
 
@@ -196,7 +147,7 @@ export const ChapterSettings = ({ className }: ChapterSettingsProps) => {
       <Popover>
         <PopoverTrigger className={cn(className)} title="Chapter settings">
           <MixerHorizontalIcon
-            className="hidden m-2 md:block"
+            className="m-2 hidden md:block"
             width="32"
             height="32"
           />
@@ -262,9 +213,30 @@ export const ChapterSettings = ({ className }: ChapterSettingsProps) => {
             max={8}
           />
 
+          <div className="flex items-center justify-around gap-3 rounded-md">
+            <ColorChange
+              value={textColor}
+              setValue={setTextColor}
+              label="Text Color"
+              defaultSemanticColors={{
+                light: "#000000",
+                dark: "#ffffff",
+              }}
+            />
+            <ColorChange
+              value={backgroundColor}
+              setValue={setBackgroundColor}
+              label="Background Color"
+              defaultSemanticColors={{
+                light: "#ffffff",
+                dark: "#121212",
+              }}
+            />
+          </div>
+
           <Button
             size="sm"
-            className="w-full h-8 mt-0 text-xs font-bold leading-tight uppercase border nn-border-50"
+            className="nn-border-50 mt-0 h-8 w-full border text-xs font-bold uppercase leading-tight"
             variant="secondary"
             onClick={resetToDefaults}
             title="Reset to defaults"

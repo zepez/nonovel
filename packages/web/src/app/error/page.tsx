@@ -29,7 +29,7 @@ export default function ErrorPage({ searchParams }: ErrorPageProps) {
         />
         <div className="relative z-10 flex h-96 items-center justify-center">
           <LayoutWrapper className="max-w-[600px]">
-            <h1 className="text-4xl font-bold uppercase leading-tight">
+            <h1 className="nn-title text-3xl font-bold uppercase leading-tight">
               Something went wrong
             </h1>
             <p className="nn-text-secondary">Code - {code}</p>

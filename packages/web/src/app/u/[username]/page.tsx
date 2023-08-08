@@ -31,7 +31,7 @@ export default async function ProfilePage({ params }: ProfilePageProps) {
       <SectionHeading>Projects</SectionHeading>
       <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
         {!projects.length ? (
-          <SectionEmpty className="col-span-2 p-4 text-sm text-center rounded-md nn-bg-background">
+          <SectionEmpty className="nn-bg-background col-span-2 rounded-md p-4 text-center text-sm">
             @{profile.username} is not a part of any projects.
           </SectionEmpty>
         ) : null}
@@ -54,10 +54,10 @@ export default async function ProfilePage({ params }: ProfilePageProps) {
                   className="mr-4 aspect-[2/3] h-full rounded-md bg-zinc-500"
                 />
                 <div className="p-4">
-                  <h3 className="text-xl font-bold leading-tight line-clamp-1">
+                  <h3 className="line-clamp-1 text-xl font-bold leading-tight">
                     {toTitleCase(project.name)}
                   </h3>
-                  <p className="mt-1 mb-4 nn-text-secondary">
+                  <p className="nn-text-secondary mb-4 mt-1">
                     {toTitleCase(relation.role)}
                   </p>
                   <p className="nn-text-secondary line-clamp-2">

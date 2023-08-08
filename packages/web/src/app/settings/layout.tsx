@@ -17,11 +17,9 @@ export default function SettingsLayout({ children }: SettingsLayoutProps) {
   return (
     <>
       <LayoutHeader />
-      <LayoutWrapper className="col-span-1 mt-8 grid md:mt-0 md:grid-cols-4">
+      <LayoutWrapper className="nn-bg-foreground nn-border-50 col-span-1 mb-16 grid gap-12 border-b border-l border-r md:grid-cols-4 md:rounded-b-md">
         <LayoutNavigation />
-        <div className="nn-bg-foreground col-span-1 mt-6 rounded-b-md pb-8 pt-4 md:col-span-3 md:mt-0">
-          {children}
-        </div>
+        <div className="col-span-1 md:col-span-3">{children}</div>
       </LayoutWrapper>
     </>
   );

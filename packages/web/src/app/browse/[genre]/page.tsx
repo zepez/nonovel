@@ -84,7 +84,7 @@ export default async function BrowsePage({
           <Link
             href={`/p/${result.slug}`}
             key={result.id}
-            className="nn-interactive nn-border nn-bg-background flex flex-col rounded-md border sm:flex-row"
+            className="nn-interactive nn-border-50 nn-bg-background flex flex-col rounded-md border sm:flex-row"
           >
             <div className="h-[300px] w-full flex-shrink-0 sm:w-[200px]">
               <Image
