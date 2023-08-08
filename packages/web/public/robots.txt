@@ -1,3 +1,10 @@
+# *
 User-agent: *
 Allow: /
-Disallow: /settings/*
+
+# Host
+Host: https://nonovel.io
+
+# Sitemaps
+Sitemap: https://nonovel.io/sitemap.xml
+Sitemap: https://nonovel.io/dynamic-sitemap.xml

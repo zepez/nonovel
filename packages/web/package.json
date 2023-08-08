@@ -10,6 +10,7 @@
   "scripts": {
     "web:dev": "yarn with-env next dev",
     "web:build": "yarn with-env next build",
+    "postweb:build": "next-sitemap --config sitemap.config.js",
     "web:start": "yarn with-env next start",
     "lint": "next lint",
     "clean": "../../scripts/clean.sh",
@@ -55,6 +56,7 @@
     "next": "13.4.6",
     "next-auth": "^4.22.1",
     "next-mdx-remote": "^4.4.1",
+    "next-sitemap": "^4.1.8",
     "next-themes": "^0.2.1",
     "postcss": "8.4.24",
     "react": "18.2.0",
