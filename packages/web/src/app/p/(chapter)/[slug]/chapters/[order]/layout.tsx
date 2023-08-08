@@ -81,7 +81,7 @@ export default async function ChapterLayout({
       </BackgroundImage>
 
       <div className="nn-content-wrapper-background">
-        <LayoutWrapper className="nn-bg-foreground nn-border-50 mb-16 border-b border-l border-r md:rounded-b-md">
+        <LayoutWrapper className="pb-16 md:rounded-b-md">
           <ChapterNavigation
             project={project}
             chapter={chapter}
