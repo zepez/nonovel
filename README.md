@@ -8,50 +8,14 @@ NoNovel can only be used to read public domain books. There are no options to se
 
 Before Launch:
 
-- [x] Basic schema (profile, user, project, chapter)
-- [ ] OAuth
-  - [x] Github
-  - [x] Discord
-  - [ ] Google
-- [x] Basic Chapter Reading Settings
-- [x] Project genres
-- [x] Profile country code
-- [x] View tracking
-- [x] Chapter navigation
-- [x] Review system (project)
-- [x] Omni-search profiles by username and project by name (\* only projects for now.)
-- [x] Comment system (profile, project, chapter)
-- [x] Epub parsing library
-- [x] Epub CLI
-- [x] Split seeding script into fake and real data. Seed genres for real, make idempotent (pre-generate ids with ON CONFLICT)
-  - [x] seed genres
-- [x] Add genre support to the CLI
-- [x] AI generated synopsis for public domain books?
-- [x] AI selected genres for public domain books?
-- [x] Compress + convert cover images to jpg before converting to base64
-- [x] Comments:
-  - [x] paginate
-  - [x] editing
-  - [x] delete
-- [x] Reviews
-  - [x] paginate
-- [x] Voting system
-  - [x] review
-  - [x] comment
-- [x] Browse by category, genre and search
-- [x] Custom login / register / logout pages or modals
-- [x] Callback URL on successful login/register/logout (modal so not neccessary right now)
-- [x] Decide on header links and make responsive
-- [x] Clean up epub / cli packages
-- [ ] make og images look better
-- [ ] SEO / page metadata
-- [ ] Home page
 - [ ] File uploading (just profile picture right now)
-- [ ] allow bots + request indexing by google
 - [ ] Logo?
 - [ ] Upload a lot of public domain books
+- [ ] google oauth
 
-After Launch:
+### Phase 2
+
+CMS. Users can publish and edit content for themselves.
 
 - [ ] Report system
   - [ ] global
@@ -65,10 +29,6 @@ After Launch:
 - [ ] link and delete reviews from settings/reviews page
 - [ ] Reaction system (?) (chapter)
 - [ ] Project tags (?)
-
-### Phase 2
-
-CMS. Users can publish and edit content for themselves.
 
 ### Phase 3
 
