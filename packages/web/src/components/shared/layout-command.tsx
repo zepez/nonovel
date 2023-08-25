@@ -47,7 +47,7 @@ export const LayoutCommand = ({ open, setOpen }: LayoutCommandProps) => {
   const authedSuggestions = [
     {
       name: "Settings",
-      value: "settings/account",
+      value: "/settings/account",
       action: (v: string) => router.push(v),
       icon: <GearIcon className={iconClass} />,
     },
@@ -55,7 +55,8 @@ export const LayoutCommand = ({ open, setOpen }: LayoutCommandProps) => {
 
   useEffect(() => {
     const down = (e: KeyboardEvent) => {
-      if (e.key === "k" && e.metaKey) {
+      // cmd+k/windows+k or ctrl+k
+      if ((e.key === "k" && e.metaKey) || (e.key === "k" && e.ctrlKey)) {
         setOpen((open) => !open);
       }
     };
