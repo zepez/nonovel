@@ -21,7 +21,7 @@ export default async function Page() {
           href={`/articles/${article.slug}`}
           className="nn-interactive block rounded-md p-4"
         >
-          <div className="">
+          <div>
             <p className="nn-title mb-2 text-xl font-bold leading-tight">
               {article.title}
             </p>
