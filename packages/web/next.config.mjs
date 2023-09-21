@@ -43,6 +43,7 @@ const nextConfig = {
       "utf-8-validate": "commonjs utf-8-validate",
       encoding: "commonjs encoding",
       bufferutil: "commonjs bufferutil",
+      "@sparticuz/chromium": "commonjs @sparticuz/chromium",
     });
     return config;
   },
