@@ -2,7 +2,7 @@ import {
   StabilityImageGenerationModel,
   generateImage,
   type StabilityImageGenerationStylePreset,
-} from "ai-utils.js";
+} from "modelfusion";
 
 type PromptImageOptions = { text: string; weight: number }[];
 

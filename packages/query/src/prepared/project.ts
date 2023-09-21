@@ -38,3 +38,9 @@ export const getProjectBySlugPrepared = db.query.project
     },
   })
   .prepare("get_project_by_slug_prepared");
+
+export const getProjectByIdPrepared = db.query.project
+  .findFirst({
+    where: (project, { eq }) => eq(project.id, placeholder("id")),
+  })
+  .prepare("get_project_by_id_prepared");

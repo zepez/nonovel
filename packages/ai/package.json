@@ -10,7 +10,7 @@
     "clean": "../../scripts/clean.sh"
   },
   "dependencies": {
-    "ai-utils.js": "^0.0.38"
+    "modelfusion": "^0.33.0"
   },
   "devDependencies": {
     "@types/node": "^18.0.0",

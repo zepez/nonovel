@@ -30,7 +30,6 @@
     "@nonovel/config-server": "*",
     "@types/pg": "^8.6.6",
     "drizzle-orm": "^0.27.0",
-    "drizzle-zod": "^0.4.4",
     "pg": "^8.11.0",
     "tsx": "^3.12.7"
   }
