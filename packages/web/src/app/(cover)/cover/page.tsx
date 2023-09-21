@@ -18,15 +18,19 @@ export default async function Page({ searchParams: q }: Props) {
 
   if (!auth || auth !== `Bearer ${config.NB_GEN_SECRET_KEY}`) return notFound();
 
-  const reqURL = `${getURL()}/api/gen/cover/data`;
+  const reqURL = `${getURL()}api/gen/cover/data`;
+  const reqBody = JSON.stringify({ id: q.id });
+
   console.log(`Request to ${reqURL}`);
+
   const res = await fetch(reqURL, {
     method: "POST",
     headers: new Headers({
       "Content-Type": "application/json",
+      "Content-Length": reqBody.length.toString(),
       Authorization: `Bearer ${config.NB_GEN_SECRET_KEY}`,
     }),
-    body: JSON.stringify({ id: q.id }),
+    body: reqBody,
   });
 
   if (!res.ok) {
