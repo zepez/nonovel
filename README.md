@@ -47,7 +47,7 @@ Monetization. Potential revshare.
 - [Radix](https://www.radix-ui.com/)
 - [TailwindCSS](https://tailwindcss.com/)
 - [Puppeteer](https://pptr.dev/)
-- [ai-utils.js](https://ai-utils.dev/guide/)
+- [modelfusion](https://modelfusion.dev/guide/)
 
 ## Packages
 

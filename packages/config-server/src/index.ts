@@ -11,6 +11,7 @@ const schema = z
     PG_PASSWORD: z.string().default(""),
     PG_DATABASE: z.string().default("postgres"),
     PG_OPTS: z.string().default(""),
+    NB_GEN_SECRET_KEY: z.string().default(""),
     REDIS_PROTOCOL: z.enum(["redis", "rediss"]).default("redis"),
     REDIS_USERNAME: z.string().default(""),
     REDIS_PASSWORD: z.string().default(""),

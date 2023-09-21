@@ -1,4 +1,4 @@
-import { OpenAIChatMessage } from "ai-utils.js";
+import { OpenAIChatMessage } from "modelfusion";
 import { aiText } from "../medium";
 
 export interface PromptSynopsisOptions {

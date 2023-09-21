@@ -21,7 +21,6 @@
     "@nonovel/epub": "*",
     "@nonovel/kv": "*",
     "@nonovel/lib": "*",
-    "ai-utils.js": "^0.0.32",
     "commander": "^11.0.0",
     "puppeteer": "^20.9.0",
     "slugify": "^1.6.6",
