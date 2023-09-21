@@ -37,11 +37,11 @@ export async function POST(request: Request) {
   } catch (e) {
     if (e instanceof Error)
       console.log(`Failed to generate the cover: ${e.message}`);
-    return (
-      NextResponse.json({
+    return NextResponse.json(
+      {
         success: false,
         data: null,
-      }),
+      },
       { status: 500 }
     );
   }
