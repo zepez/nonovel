@@ -92,10 +92,10 @@ export async function POST(request: Request) {
     return NextResponse.json({ success: true });
   } catch (e) {
     if (e instanceof Error) console.log(`${e.message}`);
-    return (
-      NextResponse.json({
+    return NextResponse.json(
+      {
         success: false,
-      }),
+      },
       { status: 500 }
     );
   }
