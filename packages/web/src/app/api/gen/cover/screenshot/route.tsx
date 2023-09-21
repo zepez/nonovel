@@ -48,11 +48,13 @@ export async function POST(request: Request) {
               : process.platform === "linux"
               ? "/usr/bin/google-chrome"
               : "/Applications/Google Chrome.app/Contents/MacOS/Google Chrome",
-          // headless: true,
-          headless: false,
-          slowMo: 1000,
-          devtools: false,
+          headless: true,
+          // headless: false,
+          // slowMo: 1000,
+          // devtools: false,
         };
+
+    console.log(options);
 
     const puppeteerBrowser = await puppeteer.launch(options);
     const puppeteerPage = await puppeteerBrowser.newPage();

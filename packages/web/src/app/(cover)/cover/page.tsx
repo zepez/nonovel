@@ -21,8 +21,6 @@ export default async function Page({ searchParams: q }: Props) {
   const reqURL = `${getURL()}api/gen/cover/data`;
   const reqBody = JSON.stringify({ id: q.id });
 
-  console.log(`Request to ${reqURL}`);
-
   const res = await fetch(reqURL, {
     method: "POST",
     headers: new Headers({
