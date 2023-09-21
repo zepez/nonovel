@@ -1,6 +1,6 @@
 "use client";
 
-import { TwitterPicker } from "react-color";
+import Github from "@uiw/react-color-github";
 import { useTheme } from "next-themes";
 import {
   Popover,
@@ -46,10 +46,10 @@ export const ColorChange = ({
         />
       </PopoverTrigger>
       <PopoverContent className="w-auto p-1">
-        <TwitterPicker
+        <Github
           color={semanticColor}
+          style={{ width: 212 }}
           onChange={({ hex }) => setValue(hex)}
-          triangle="hide"
         />
       </PopoverContent>
     </Popover>

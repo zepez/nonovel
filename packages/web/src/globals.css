@@ -26,6 +26,8 @@
   --chapter-leading: 1.5;
   --chapter-paragraph-spacing: 2rem 0px;
   --chapter-letter-spacing: 0px;
+
+  --github-background-color: black;
 }
 
 .nn-content-wrapper-background {
