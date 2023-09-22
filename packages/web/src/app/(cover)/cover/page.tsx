@@ -3,7 +3,7 @@ import { notFound } from "next/navigation";
 import config from "@nonovel/config-server";
 import type { GetProjectByIdReturn } from "@nonovel/query";
 
-import { CoverOne, CoverTwo } from "~/components/cover";
+import { CoverOne, CoverTwo, CoverThree, CoverFour } from "~/components/cover";
 import "../../../styles/globals.css";
 import "../../../styles/cover.css";
 
@@ -51,7 +51,7 @@ export default async function Page({ searchParams: q }: Props) {
     return notFound();
   }
 
-  const covers = [CoverOne, CoverTwo];
+  const covers = [CoverOne, CoverTwo, CoverThree, CoverFour];
   const Cover = covers[Math.floor(Math.random() * covers.length)];
 
   return (

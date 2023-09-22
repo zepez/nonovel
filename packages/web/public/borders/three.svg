@@ -1,0 +1,20 @@
+<svg version="1.2" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 60 60" width="60" height="60">
+	<title>two-svg</title>
+	<style>
+		.s0 { fill: none;stroke: #f0b558 } 
+		.s1 { fill: none;stroke: #efb358;stroke-miterlimit:100 } 
+		.s2 { fill: #f0b558;stroke: #f0b558 } 
+	</style>
+	<g id="Folder 1">
+		<path id="Shape 1" class="s0" d="m2 18"/>
+		<path id="Layer 1" class="s1" d="m5 5h50v50h-50z"/>
+		<path id="Layer 1 copy" class="s1" d="m5 5h8v8h-8z"/>
+		<path id="Layer 1 copy 2" class="s1" d="m47 5h8v8h-8z"/>
+		<path id="Layer 1 copy 3" class="s1" d="m47 47h8v8h-8z"/>
+		<path id="Layer 1 copy 4" class="s1" d="m5 47h8v8h-8z"/>
+		<path id="Shape 2" class="s2" d="m9 11c-1.1 0-2-0.9-2-2 0-1.1 0.9-2 2-2 1.1 0 2 0.9 2 2 0 1.1-0.9 2-2 2z"/>
+		<path id="Shape 2 copy" class="s2" d="m51 11c-1.1 0-2-0.9-2-2 0-1.1 0.9-2 2-2 1.1 0 2 0.9 2 2 0 1.1-0.9 2-2 2z"/>
+		<path id="Shape 2 copy 2" class="s2" d="m51 53c-1.1 0-2-0.9-2-2 0-1.1 0.9-2 2-2 1.1 0 2 0.9 2 2 0 1.1-0.9 2-2 2z"/>
+		<path id="Shape 2 copy 3" class="s2" d="m9 53c-1.1 0-2-0.9-2-2 0-1.1 0.9-2 2-2 1.1 0 2 0.9 2 2 0 1.1-0.9 2-2 2z"/>
+	</g>
+</svg>

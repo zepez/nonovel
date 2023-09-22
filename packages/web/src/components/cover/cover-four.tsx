@@ -4,11 +4,11 @@ interface Props {
   penName: string;
 }
 
-export const CoverTwo = ({ background, name, penName }: Props) => {
+export const CoverFour = ({ background, name, penName }: Props) => {
   return (
     <>
       <div className="h-[900px] w-[600px] text-center font-bold text-[#331F14]">
-        <div className="relative w-full h-full cover-svg-overlay-one">
+        <div className="relative w-full h-full cover-svg-overlay-three">
           <img
             src={`data:image/jpeg;base64,${background}`}
             className="object-cover w-full h-full"

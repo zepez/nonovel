@@ -36,3 +36,20 @@
   border-image-width: 50px;
   border-image-repeat: round;
 }
+
+.cover-svg-overlay-three::before {
+  content: "";
+  display: block;
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  border-width: 55px;
+  border-color: transparent;
+  border-image-source: url('/borders/three.svg');
+  border-image-slice: 25;
+  border-image-width: 55px;
+  border-image-repeat: round;
+  box-sizing: border-box;
+}
