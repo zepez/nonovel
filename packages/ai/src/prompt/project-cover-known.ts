@@ -11,7 +11,7 @@ export const promptProjectCoverKnown = ({
 }: PromptCoverOptions) => {
   return aiImage("digital-art", [
     {
-      text: `beautiful book illustration, ${title}, ${author}, style of Willem van Aelst, vibrant colors`,
+      text: `beautiful book illustration, ${title}, ${author}, style of John Pitre, vibrant colors`,
       weight: 1,
     },
   ]);
