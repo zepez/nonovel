@@ -41,13 +41,12 @@ Monetization. Potential revshare.
 - [Next Server Actions](https://nextjs.org/docs/app/building-your-application/data-fetching/server-actions)
 - [Auth.js](https://next-auth.js.org/)
 - [PostgreSQL (NeonDB)](https://neon.tech/)
-- [Redis (Upstash)](https://upstash.com/)
 - [Drizzle ORM](https://github.com/drizzle-team/drizzle-orm)
 - [Shadcn UI](https://ui.shadcn.com/)
 - [Radix](https://www.radix-ui.com/)
 - [TailwindCSS](https://tailwindcss.com/)
 - [Puppeteer](https://pptr.dev/)
-- [modelfusion](https://modelfusion.dev/guide/)
+- [ModelFusion](https://modelfusion.dev/guide/)
 
 ## Packages
 
@@ -55,7 +54,6 @@ Monetization. Potential revshare.
 - `config-server` - Validated environment variables, only available on the server. Contains secrets and extends `config-client`.
 - `db` - Postgres client, migration script, migrations, schema and seeding script.
 - `drizzle-adapter` - Custom adapter for Auth.js to work with Drizzle ORM
-- `kv` - Redis client and helpers.
 - `lib` - Helpers
 - `query` - Prepared queries along with interface containing error handling and validation.
 - `validator` - Custom zod schemas for validating database and form entries. Used instead of `drizzle-zod` so that validator can be used on the server and client.
@@ -65,4 +63,4 @@ Monetization. Potential revshare.
 
 1. docker buildx create --use
 2. docker buildx build --platform linux/amd64 --load -t nonovel .
-3. docker run --env-file ./.env -it nonovel micro-q:start --concurrency 20
+3. docker run --env-file ./.env -it nonovel web:dev --concurrency 20
