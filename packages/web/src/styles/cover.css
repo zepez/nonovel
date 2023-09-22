@@ -10,3 +10,24 @@
   outline: 2px solid #F0B558;
   outline-offset: -10px; 
 }
+
+.cover-svg-overlay-one {
+  position: relative;
+}
+
+.cover-svg-overlay-one::before {
+  content: "";
+  display: block;
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  border-width: 120px;
+  border-color: transparent;
+  border-image-source: url('/borders/one.svg');
+  border-image-slice: 100;
+  border-image-width: 120px;
+  border-image-repeat: round;
+  box-sizing: border-box;
+}

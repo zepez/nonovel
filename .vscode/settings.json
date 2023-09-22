@@ -21,5 +21,8 @@
   "[handlebars]": {
     "editor.formatOnSave": false,
     "editor.defaultFormatter": "vscode.html-language-features"
+  },
+  "[xml]": {
+    "editor.defaultFormatter": "redhat.vscode-xml"
   }
 }
