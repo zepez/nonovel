@@ -9,7 +9,7 @@ export const promptProjectCoverKnown = ({
   title,
   author,
 }: PromptCoverOptions) => {
-  return aiImage("digital-art", [
+  return aiImage(null, [
     {
       text: `beautiful book illustration, ${title}, ${author}, style of John Pitre, vibrant colors`,
       weight: 1,
