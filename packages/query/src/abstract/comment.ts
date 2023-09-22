@@ -67,27 +67,25 @@ export const createComment = async (opts: CreateCommentOptions) => {
       })
       .parse(opts);
 
-    await db.transaction(async (tx) => {
-      await tx
-        .insert(comment)
-        .values({ ...parsed, id: opts.id ?? undefined })
-        .onConflictDoUpdate({
-          target: comment.id,
-          set: {
-            content: parsed.content,
-            updatedAt: sql`now()`,
-          },
-        });
+    await db
+      .insert(comment)
+      .values({ ...parsed, id: opts.id ?? undefined })
+      .onConflictDoUpdate({
+        target: comment.id,
+        set: {
+          content: parsed.content,
+          updatedAt: sql`now()`,
+        },
+      });
 
-      if (parsed.parentId && !opts.id) {
-        await tx
-          .update(comment)
-          .set({
-            replyCount: sql`${comment.replyCount} + 1`,
-          })
-          .where(eq(comment.id, parsed.parentId));
-      }
-    });
+    if (parsed.parentId && !opts.id) {
+      await db
+        .update(comment)
+        .set({
+          replyCount: sql`${comment.replyCount} + 1`,
+        })
+        .where(eq(comment.id, parsed.parentId));
+    }
 
     return [null, null] as const;
   } catch (err) {
@@ -144,18 +142,16 @@ export const deleteComment = async (opts: DeleteCommentOptions) => {
       })
       .parse(opts);
 
-    await db.transaction(async (tx) => {
-      const storedComment = await tx.query.comment.findFirst({
-        where: (comment, { eq }) => eq(comment.id, parsed.id),
-      });
-
-      if (!storedComment) throw new Error("Comment not found");
-
-      await tx
-        .update(comment)
-        .set({ content: "[deleted]", userId: null })
-        .where(eq(comment.id, storedComment.id));
+    const storedComment = await db.query.comment.findFirst({
+      where: (comment, { eq }) => eq(comment.id, parsed.id),
     });
+
+    if (!storedComment) throw new Error("Comment not found");
+
+    await db
+      .update(comment)
+      .set({ content: "[deleted]", userId: null })
+      .where(eq(comment.id, storedComment.id));
 
     return [null, null] as const;
   } catch (err) {
