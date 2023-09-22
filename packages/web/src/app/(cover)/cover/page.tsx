@@ -3,7 +3,6 @@ import { notFound } from "next/navigation";
 import config from "@nonovel/config-server";
 import type { GetProjectByIdReturn } from "@nonovel/query";
 
-import { getURL } from "~/lib/string";
 import { CoverOne, CoverTwo } from "~/components/cover";
 import "../../../styles/globals.css";
 import "../../../styles/cover.css";
@@ -20,7 +19,7 @@ export default async function Page({ searchParams: q }: Props) {
 
   if (!auth || auth !== `Bearer ${config.NB_GEN_SECRET_KEY}`) return notFound();
 
-  const reqURL = `${getURL()}api/gen/cover/data`;
+  const reqURL = `${config.WEB_URL}/api/gen/cover/data`;
   const reqBody = JSON.stringify({ id: q.id });
 
   const res = await fetch(reqURL, {

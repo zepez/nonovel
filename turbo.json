@@ -3,7 +3,6 @@
   "globalEnv": [
     "NODE_ENV",
     "PSQL_CONNECTION_STRING",
-    "REDIS_CONNECTION_STRING",
     "NEXTAUTH_URL",
     "NEXTAUTH_SECRET",
     "NEXTAUTH_GITHUB_ID",
@@ -36,14 +35,6 @@
     },
     "db:reset": {
       "cache": false
-    },
-    "micro-q:dev": {
-      "cache": false,
-      "persistent": true
-    },
-    "micro-q:start": {
-      "cache": false,
-      "persistent": true
     }
   }
 }

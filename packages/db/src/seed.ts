@@ -168,12 +168,10 @@ const genres = [
 const main = async () => {
   console.log("Seeding data...");
 
-  await db.transaction(async (tx) => {
-    await tx
-      .insert(genre)
-      .values(genres)
-      .onConflictDoNothing({ target: genre.slug });
-  });
+  await db
+    .insert(genre)
+    .values(genres)
+    .onConflictDoNothing({ target: genre.slug });
 };
 
 void main();

@@ -5,6 +5,7 @@ import confirm from "@inquirer/confirm";
 import { v4 as uuidv4 } from "uuid";
 import slugify from "slugify";
 
+import config from "@nonovel/config-server";
 import {
   db,
   NewProject,
@@ -13,7 +14,6 @@ import {
   NewChapter,
   chapter as chapterTable,
 } from "@nonovel/db";
-import { qs } from "@nonovel/kv";
 import { upload } from "@nonovel/blob";
 import { Epub } from "@nonovel/epub";
 import { chainProjectGenre, chainProjectSynopsis } from "@nonovel/ai";
@@ -190,7 +190,7 @@ export const epubCommand = async (file: string | undefined) => {
         })
       : [];
 
-  // 6. ask user if they want to select any more generes
+  // 6. ask user if they want to select any more genres
   const userSelectedGenres = await checkbox({
     message: "Additional genres",
     choices: availableGenres
@@ -243,20 +243,31 @@ export const epubCommand = async (file: string | undefined) => {
 
   // #####################################
 
-  await db.transaction(async (tx) => {
-    console.log("Inserting project into database...");
-    await tx.insert(projectTable).values(project);
+  console.log("Inserting project into database...");
+  await db.insert(projectTable).values(project);
 
-    console.log("Relating genres to project in database...");
-    await tx.insert(projectGenreTable).values(genres);
+  console.log("Relating genres to project in database...");
+  await db.insert(projectGenreTable).values(genres);
 
-    console.log("Inserting chapters into database...");
-    await tx.insert(chapterTable).values(chapters);
-  });
+  console.log("Inserting chapters into database...");
+  await db.insert(chapterTable).values(chapters);
 
   if (!useExistingCover && project.id) {
-    console.log("Adding cover generation to queue...");
-    await qs.genCover.add({ projectId: project.id });
+    console.log("Generating cover image...");
+    const coverReqBody = JSON.stringify({ id: project.id });
+    const res = await fetch(`${config.WEB_URL}/api/gen/cover/screenshot`, {
+      method: "POST",
+      headers: new Headers({
+        "Content-Type": "application/json",
+        "Content-Length": coverReqBody.length.toString(),
+        Authorization: `Bearer ${config.NB_GEN_SECRET_KEY}`,
+      }),
+      body: coverReqBody,
+    });
+
+    if (!res.ok) {
+      throw new Error("ERROR: Failed to generate cover.");
+    }
   }
 
   // #####################################
