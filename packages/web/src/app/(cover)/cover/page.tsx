@@ -4,7 +4,7 @@ import config from "@nonovel/config-server";
 import type { GetProjectByIdReturn } from "@nonovel/query";
 
 import { getURL } from "~/lib/string";
-import { CoverOne } from "~/components/cover/cover-one";
+import { CoverOne, CoverTwo } from "~/components/cover";
 import "../../../styles/globals.css";
 import "../../../styles/cover.css";
 
@@ -52,8 +52,11 @@ export default async function Page({ searchParams: q }: Props) {
     return notFound();
   }
 
+  const covers = [CoverOne, CoverTwo];
+  const Cover = covers[Math.floor(Math.random() * covers.length)];
+
   return (
-    <CoverOne
+    <Cover
       background={data.background}
       name={data.project.name}
       penName={data.project.penName}
