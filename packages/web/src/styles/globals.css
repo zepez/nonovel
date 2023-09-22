@@ -1,20 +1,8 @@
+@import './fonts.css';
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
-
-@import url('https://fonts.googleapis.com/css2?family=PT+Mono&display=swap');
-
-@font-face {
-  font-family: 'open-dyslexic';
-  src: url('/fonts/OpenDyslexic3-Regular.ttf');
-  font-display: swap;
- }
-
- @font-face {
-  font-family: 'josefin-sans';
-  src: url('/fonts/JosefinSans.ttf');
-  font-display: swap;
- }
 
 .nn-title {
   font-family: josefin-sans;
@@ -26,8 +14,6 @@
   --chapter-leading: 1.5;
   --chapter-paragraph-spacing: 2rem 0px;
   --chapter-letter-spacing: 0px;
-
-  --github-background-color: black;
 }
 
 .nn-content-wrapper-background {

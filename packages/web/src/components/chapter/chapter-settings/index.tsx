@@ -179,7 +179,7 @@ export const ChapterSettings = ({ className }: ChapterSettingsProps) => {
               },
               {
                 name: "Mono",
-                font: "PT Mono",
+                font: "pt-mono",
               },
               {
                 name: "Dyslexic",
