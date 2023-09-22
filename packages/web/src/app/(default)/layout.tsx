@@ -16,6 +16,8 @@ import "../../styles/globals.css";
 
 const inter = Inter({ subsets: ["latin"] });
 
+export const revalidate = 60;
+
 export const metadata: Metadata = {
   metadataBase: new URL("https://nonovel.io"),
   title: {
