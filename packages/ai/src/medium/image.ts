@@ -15,7 +15,7 @@ export const aiImage = async (
       model: "stable-diffusion-xl-beta-v2-2-2",
       cfgScale: 7,
       stylePreset: style,
-      height: 512,
+      height: 896,
       width: 512,
       samples: 1,
       steps: 50,

@@ -11,10 +11,6 @@
   outline-offset: -10px; 
 }
 
-.cover-svg-overlay-one {
-  position: relative;
-}
-
 .cover-svg-overlay-one::before {
   content: "";
   display: block;
@@ -30,4 +26,13 @@
   border-image-width: 120px;
   border-image-repeat: round;
   box-sizing: border-box;
+}
+
+.cover-svg-overlay-two {
+  outline: 2px solid #F0B558;
+  outline-offset: -22px; 
+  border-image-source: url('/borders/two.svg');
+  border-image-slice: 40 fill;
+  border-image-width: 50px;
+  border-image-repeat: round;
 }
