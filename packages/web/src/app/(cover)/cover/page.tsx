@@ -4,7 +4,9 @@ import config from "@nonovel/config-server";
 import type { GetProjectByIdReturn } from "@nonovel/query";
 
 import { getURL } from "~/lib/string";
-import "../../../globals.css";
+import { CoverOne } from "~/components/cover/cover-one";
+import "../../../styles/globals.css";
+import "../../../styles/cover.css";
 
 interface Props {
   searchParams: {
@@ -51,22 +53,10 @@ export default async function Page({ searchParams: q }: Props) {
   }
 
   return (
-    <>
-      <div className="m-0 flex h-[900px] w-[600px] flex-col items-center justify-center bg-[#B5A38E] p-7 text-center font-bold leading-tight text-black">
-        <div className="relative h-full w-full flex-1">
-          <img
-            className="absolute h-full w-full rounded-md object-cover"
-            src={`data:image/jpeg;base64,${data.background}`}
-          />
-          <h3 className="font-xl absolute bottom-0 right-0 m-2 rounded-md bg-white p-3 font-sans opacity-50">
-            NoNovel.io
-          </h3>
-        </div>
-        <h1 className="my-4 font-serif text-5xl">{data.project.name}</h1>
-        <h2 className="m-0 font-serif text-4xl uppercase">
-          {data.project.penName}
-        </h2>
-      </div>
-    </>
+    <CoverOne
+      background={data.background}
+      name={data.project.name}
+      penName={data.project.penName}
+    />
   );
 }

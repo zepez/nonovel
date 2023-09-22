@@ -68,7 +68,11 @@ export async function POST(request: Request) {
       Authorization: `Bearer ${config.NB_GEN_SECRET_KEY}`,
     });
 
-    await puppeteerPage.goto(`${url.origin}/cover?id=${project.id}`);
+    await puppeteerPage.goto(`${url.origin}/cover?id=${project.id}`, {
+      waitUntil: "networkidle0",
+    });
+
+    await puppeteerPage.evaluate(() => document.fonts.ready);
 
     const rawImageBuffer = await puppeteerPage.screenshot({
       encoding: "binary",

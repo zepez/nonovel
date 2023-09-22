@@ -8,6 +8,10 @@ module.exports = {
     './src/**/*.{ts,tsx}',
 	],
   theme: {
+    fontFamily: {
+      'serif': ['baskerville'],
+      'mono': ['pt-mono']
+    },
     container: {
       center: true,
       padding: "2rem",
@@ -17,7 +21,7 @@ module.exports = {
     },
     extend: {
       fontFamily: {
-        title: ["josefin-sans", "serif"],
+        title: ["baskerville", "serif"],
       },
       keyframes: {
         "accordion-down": {

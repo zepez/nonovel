@@ -1,0 +1,12 @@
+.balance-text {
+  text-wrap: balance; 
+}
+
+.cover-simple-border {
+  border: 2px solid #F0B558;
+}
+
+.cover-simple-border-inset {
+  outline: 2px solid #F0B558;
+  outline-offset: -10px; 
+}

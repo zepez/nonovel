@@ -12,7 +12,7 @@ import { Toaster } from "~/components/ui/toaster";
 import { Skeleton } from "~/components/ui/skeleton";
 
 import "@smastrom/react-rating/style.css";
-import "../../globals.css";
+import "../../styles/globals.css";
 
 const inter = Inter({ subsets: ["latin"] });
 
