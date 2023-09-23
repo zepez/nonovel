@@ -20,7 +20,7 @@ export default async function ArticleLayout({
 
   return (
     <>
-      <div className="relative overflow-hidden">
+      <div className="relative">
         <BackgroundEmoji
           emoji="🎑"
           className="nn-bg-blurred absolute inset-0 z-0 h-full w-full"
@@ -39,7 +39,7 @@ export default async function ArticleLayout({
         </div>
       </div>
 
-      <LayoutWrapper className="max-w-3xl">{children}</LayoutWrapper>
+      <LayoutWrapper className="max-w-3xl pt-0">{children}</LayoutWrapper>
 
       <CommentLayout resourceId={article.meta.id} resourceType="article" />
     </>

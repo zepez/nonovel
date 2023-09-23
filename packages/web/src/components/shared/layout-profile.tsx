@@ -43,11 +43,11 @@ export const LayoutProfile = ({ session }: LayoutProfileProps) => {
 
   return (
     <DropdownMenu>
-      <DropdownMenuTrigger className="flex rounded-md nn-interactive ms-center">
+      <DropdownMenuTrigger className="nn-interactive ms-center flex rounded-md">
         <Image
           src={src(profile.image, "profile")}
           alt="Profile picture"
-          className="mx-1 border rounded-full nn-border"
+          className="mx-1 rounded-full border border-transparent"
           width={36}
           height={36}
         />

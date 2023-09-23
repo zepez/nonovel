@@ -27,7 +27,7 @@ export const AspectImage = ({
         width={width}
         priority={true}
         height={width * 1.5}
-        className="rounded-md"
+        className="nn-shadow rounded-md "
       />
     </div>
   );

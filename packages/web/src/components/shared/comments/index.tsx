@@ -80,10 +80,10 @@ export const CommentLayout = ({
 
   return (
     <div className="nn-bg-foreground">
-      <LayoutWrapper className="py-16">
+      <LayoutWrapper className="pt-16">
         <section
           ref={intersectionRef}
-          className="nn-bg-background nn-border rounded-md border px-6 pb-8 pt-10 md:px-12"
+          className="nn-bg-background nn-border rounded-md border px-6 pb-10 pt-8 md:px-12"
         >
           <SectionHeading className="mt-0">Comments</SectionHeading>
 

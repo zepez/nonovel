@@ -89,7 +89,7 @@ export default async function ProjectLayout({
   return (
     <>
       <BackgroundImage src={src(project.cover, "cover")}>
-        <LayoutWrapper className="flex flex-wrap py-12 md:flex-nowrap">
+        <LayoutWrapper className="flex flex-wrap md:flex-nowrap">
           <AspectImage
             src={src(project.cover, "cover")}
             alt={project.name}

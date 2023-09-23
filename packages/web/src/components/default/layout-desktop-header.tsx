@@ -13,14 +13,15 @@ import {
   NavigationMenuList,
   NavigationMenuTrigger,
 } from "~/components/ui/navigation-menu";
+import { Button } from "~/components/ui/button";
 import { LoginDialog } from "~/components/auth";
 
 export async function LayoutDesktopHeader() {
   const [, session] = await getSession();
 
   return (
-    <div className="nn-bg-foreground nn-border hidden border-b md:block">
-      <LayoutWrapper className="flex flex-col flex-wrap justify-between px-4 py-2 md:flex-row">
+    <div className="nn-bg-foreground hidden pt-8 md:block">
+      <LayoutWrapper className="flex flex-col flex-wrap justify-between px-4 py-0 md:flex-row">
         <NavigationMenu>
           <NavigationMenuList>
             {/* home */}
@@ -85,12 +86,14 @@ export async function LayoutDesktopHeader() {
             ) : (
               <NavigationMenuItem>
                 <LoginDialog>
-                  <button
-                    className="nn-bg-contrast nn-interactive rounded-md border p-2 text-xs font-bold uppercase"
+                  <Button
+                    variant="ghost"
+                    size="fluid"
+                    className="bg-nn-secondary-dark text-xs font-bold uppercase text-nn-light dark:bg-nn-light dark:text-nn-dark"
                     title="Login or register"
                   >
                     Login
-                  </button>
+                  </Button>
                 </LoginDialog>
               </NavigationMenuItem>
             )}

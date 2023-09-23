@@ -26,15 +26,15 @@ export default async function ProfileLayout({
 
   return (
     <>
-      <div className="h-64 overflow-hidden">
+      <div className="h-64">
         <div
-          className="nn-bg-blurred nn-bg-foreground h-full w-full bg-cover"
+          className="nn-bg-blurred nn-bg-foreground h-full w-full bg-repeat"
           style={{
             backgroundImage: `linear-gradient(0deg, var(--nn-fade) 20%, transparent), url(${src(
               profile.image,
               "profile"
             )})`,
-            backgroundSize: "cover",
+            backgroundSize: "300px 300px",
           }}
         />
       </div>

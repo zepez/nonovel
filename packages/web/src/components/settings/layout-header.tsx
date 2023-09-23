@@ -31,17 +31,15 @@ export const LayoutHeader = () => {
   const current = segments[segment] ?? segments.default;
 
   return (
-    <div className="relative overflow-hidden">
+    <div className="relative">
       <BackgroundEmoji
         emoji={current.emoji}
-        className="absolute inset-0 z-0 w-full h-full nn-bg-blurred"
-        tiled={false}
+        className="nn-bg-blurred absolute inset-0 z-0 h-full w-full"
+        tiled={true}
       />
-      <div className="relative z-10 flex items-center h-64">
+      <div className="relative z-10 flex h-64 items-center">
         <LayoutWrapper className="py-0">
-          <h1 className="text-2xl font-bold nn-title">
-            {current.title}
-          </h1>
+          <h1 className="nn-title text-2xl font-bold">{current.title}</h1>
           <p className="mt-2">{current.description}</p>
         </LayoutWrapper>
       </div>
