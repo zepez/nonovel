@@ -89,15 +89,15 @@ export default async function ProjectLayout({
   return (
     <>
       <BackgroundImage src={src(project.cover, "cover")}>
-        <LayoutWrapper className="flex flex-wrap py-12 md:flex-nowrap text-nn-dark dark:text-nn-light">
+        <LayoutWrapper className="flex flex-wrap py-12 md:flex-nowrap">
           <AspectImage
             src={src(project.cover, "cover")}
             alt={project.name}
             width={400}
-            className="flex-shrink-0 w-48 mx-auto md:mx-0 md:w-72"
+            className="mx-auto w-48 flex-shrink-0 md:mx-0 md:w-72"
           />
-          <div className="flex flex-col mt-12 ml-0 md:ml-16 md:mt-0">
-            <h1 className="mb-1 text-4xl italic font-bold nn-title">
+          <div className="ml-0 mt-12 flex flex-col md:ml-16 md:mt-0">
+            <h1 className="nn-title mb-1 text-4xl font-bold italic">
               {toTitleCase(project.name)}
             </h1>
             {authors.length > 0 && (
@@ -120,7 +120,7 @@ export default async function ProjectLayout({
                 )}
               </p>
             )}
-            <p className="mt-1 nn-text-secondary">
+            <p className="nn-text-secondary mt-1">
               Updated{" "}
               {formatDistanceToNow(
                 latestChapter?.createdAt ?? project.updatedAt,
@@ -141,7 +141,7 @@ export default async function ProjectLayout({
               />
             </div>
 
-            <div className="grid w-auto grid-cols-2 gap-4 mt-8 nn-divide sm:grid-cols-4 sm:divide-x">
+            <div className="nn-divide mt-8 grid w-auto grid-cols-2 gap-4 sm:grid-cols-4 sm:divide-x">
               <div className="pl-4">
                 <p className="text-xs">Chapters</p>
                 <p className="mt-2 text-xl font-bold leading-tight">
@@ -168,13 +168,13 @@ export default async function ProjectLayout({
               </div>
             </div>
             <Blurb
-              className="flex-grow mt-8 nn-text-secondary"
+              className="nn-text-secondary mt-8 flex-grow"
               slug={params.slug}
             />
-            <div className="flex flex-wrap gap-4 mt-8 sm:flex-nowrap">
+            <div className="mt-8 flex flex-wrap gap-4 sm:flex-nowrap">
               {session?.user?.id ? (
                 <ButtonFollow
-                  className="w-full px-4 py-2 text-sm font-semibold leading-tight text-center uppercase opacity-80 dark:opacity-100 bg-nn-secondary-dark text-nn-light"
+                  className="w-full bg-nn-secondary-dark px-4 py-2 text-center text-sm font-semibold uppercase leading-tight text-nn-light opacity-80 dark:opacity-100"
                   followId={follow?.id}
                   userId={session?.user?.id}
                   projectId={project.id}
@@ -185,7 +185,7 @@ export default async function ProjectLayout({
                   <Button
                     variant="ghost"
                     size="fluid"
-                    className="w-full px-4 py-2 text-sm font-semibold leading-tight text-center uppercase opacity-80 dark:opacity-100 bg-nn-secondary-dark text-nn-light"
+                    className="w-full bg-nn-secondary-dark px-4 py-2 text-center text-sm font-semibold uppercase leading-tight text-nn-light opacity-80 dark:opacity-100"
                     title="Login or register"
                   >
                     Login to Bookmark
@@ -195,7 +195,7 @@ export default async function ProjectLayout({
               {readButton && (
                 <Link
                   href={readButton.href}
-                  className="flex items-center justify-center w-full px-4 py-2 text-sm font-semibold leading-tight text-center uppercase border rounded-md nn-interactive nn-bg-primary nn-border"
+                  className="nn-interactive nn-bg-primary nn-border flex w-full items-center justify-center rounded-md border px-4 py-2 text-center text-sm font-semibold uppercase leading-tight"
                 >
                   {readButton.text}
                 </Link>
@@ -205,7 +205,7 @@ export default async function ProjectLayout({
         </LayoutWrapper>
       </BackgroundImage>
 
-      <LayoutWrapper className="mb-16 border-b border-l border-r nn-bg-foreground nn-border-50 md:rounded-b-md">
+      <LayoutWrapper>
         <LayoutNavigation slug={project.slug} />
         {children}
       </LayoutWrapper>

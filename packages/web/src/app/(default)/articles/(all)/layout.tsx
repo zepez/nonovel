@@ -10,14 +10,12 @@ export default function ArticleLayout({ children }: ArticleLayoutProps) {
       <div className="relative overflow-hidden">
         <BackgroundEmoji
           emoji="🎑"
-          className="absolute inset-0 z-0 w-full h-full nn-bg-blurred"
+          className="nn-bg-blurred absolute inset-0 z-0 h-full w-full"
           tiled={false}
         />
-        <div className="relative z-10 flex items-center h-96 sm:h-64">
+        <div className="relative z-10 flex h-96 items-center sm:h-64">
           <LayoutWrapper className="py-0">
-            <h1 className="text-2xl font-bold nn-title">
-              Browse Articles
-            </h1>
+            <h1 className="nn-title text-2xl font-bold">Browse Articles</h1>
             <p className="mt-2">
               Dive deeper into the world of your favorite books - broaden your
               understanding and heighten your reading experience.
@@ -26,9 +24,7 @@ export default function ArticleLayout({ children }: ArticleLayoutProps) {
         </div>
       </div>
 
-      <LayoutWrapper className="mb-16 border-b border-l border-r nn-bg-foreground nn-border-50 md:rounded-b-md">
-        {children}
-      </LayoutWrapper>
+      <LayoutWrapper>{children}</LayoutWrapper>
     </>
   );
 }

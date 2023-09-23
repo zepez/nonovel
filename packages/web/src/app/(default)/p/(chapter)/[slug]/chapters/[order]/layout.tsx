@@ -50,38 +50,38 @@ export default async function ChapterLayout({
       />
       <BackgroundImage src={src(project.cover, "cover")}>
         <LayoutWrapper className="flex flex-wrap items-center justify-between py-12 md:flex-nowrap">
-          <div className="flex flex-wrap items-center w-full mb-8 md:mb-0 md:w-auto md:flex-nowrap">
+          <div className="mb-8 flex w-full flex-wrap items-center md:mb-0 md:w-auto md:flex-nowrap">
             <Link
               href={`/p/${project.slug}`}
-              className="flex-shrink-0 w-full p-1 mb-8 rounded-md nn-interactive md:mx-0 md:mb-0 md:w-auto"
+              className="nn-interactive mb-8 w-full flex-shrink-0 rounded-md p-1 md:mx-0 md:mb-0 md:w-auto"
               title={project.name}
             >
               <AspectImage
                 src={src(project.cover, "cover")}
                 alt={project.name}
                 width={150}
-                className="flex justify-center w-auto"
+                className="flex w-auto justify-center"
               />
             </Link>
-            <div className="flex-shrink max-w-md mx-auto text-center md:mx-16 md:text-left">
+            <div className="mx-auto max-w-md flex-shrink text-center md:mx-16 md:text-left">
               <Link href={`/p/${project.slug}`} className="nn-interactive">
                 {toTitleCase(project.name)}
               </Link>
-              <h1 className="mt-2 text-2xl italic font-bold nn-title">
+              <h1 className="nn-title mt-2 text-2xl font-bold italic">
                 {toTitleCase(chapter.name)}
               </h1>
-              <p className="mt-2 nn-text-secondary">
+              <p className="nn-text-secondary mt-2">
                 #{chapter.order} | Uploaded{" "}
                 {formatDistanceToNow(chapter.createdAt, { addSuffix: true })}
               </p>
             </div>
           </div>
-          <ChapterSettings className="flex items-center justify-center w-full h-8 rounded-md nn-interactive nn-bg-foreground md:h-12 md:w-12" />
+          <ChapterSettings className="nn-interactive nn-bg-foreground flex h-8 w-full items-center justify-center rounded-md md:h-12 md:w-12" />
         </LayoutWrapper>
       </BackgroundImage>
 
       <div className="nn-content-wrapper-background text-nn-dark dark:text-nn-light">
-        <LayoutWrapper className="pb-16 md:rounded-b-md">
+        <LayoutWrapper className="pb-16">
           <ChapterNavigation
             project={project}
             chapter={chapter}

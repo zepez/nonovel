@@ -18,8 +18,16 @@
   @apply text-nn-light bg-nn-primary-light dark:ring-nn-primary-dark;
 }
 
+:root, html {
+  --nn-fade: #FAF2E8;
+}
+
+html.dark {
+  --nn-fade: #1F140C;
+}
+
 body {
-  @apply bg-nn-backdrop-light dark:bg-nn-backdrop-dark text-nn-dark dark:text-nn-light;
+  @apply bg-nn-backdrop-light dark:bg-nn-dark text-nn-dark dark:text-nn-light;
 }
 
 [cmdk-item] {

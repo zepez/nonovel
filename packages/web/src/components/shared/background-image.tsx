@@ -14,11 +14,11 @@ export const BackgroundImage = ({
   return (
     <div className="relative overflow-hidden">
       <div
-        className="nn-bg-blurred-2 absolute inset-0 z-0 bg-cover"
+        className="nn-bg-blurred absolute inset-0 z-0 bg-cover"
         style={
           src
             ? {
-                backgroundImage: `url(${src})`,
+                backgroundImage: `linear-gradient(0deg, var(--nn-fade) 20%, transparent), url(${src})`,
               }
             : {}
         }

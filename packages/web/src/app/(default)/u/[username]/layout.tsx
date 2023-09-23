@@ -28,24 +28,27 @@ export default async function ProfileLayout({
     <>
       <div className="h-64 overflow-hidden">
         <div
-          className="w-full h-full bg-cover nn-bg-blurred nn-bg-foreground"
+          className="nn-bg-blurred nn-bg-foreground h-full w-full bg-cover"
           style={{
-            backgroundImage: `url(${src(profile.image, "profile")})`,
+            backgroundImage: `linear-gradient(0deg, var(--nn-fade) 20%, transparent), url(${src(
+              profile.image,
+              "profile"
+            )})`,
             backgroundSize: "cover",
           }}
         />
       </div>
 
-      <LayoutWrapper className="flex flex-wrap items-end pb-0 border-l border-r nn-bg-foreground nn-border-50 md:flex-nowrap">
+      <LayoutWrapper className="flex flex-wrap items-end pb-0 md:flex-nowrap">
         <Image
           src={src(profile.image, "profile")}
           alt="Profile picture"
           width={256}
           height={256}
-          className="z-20 w-64 p-1 mx-auto -mt-32 rounded-md nn-bg-foreground md:mx-0"
+          className="nn-bg-foreground z-20 mx-auto -mt-32 w-64 rounded-md p-1 md:mx-0"
         />
-        <div className="w-full mt-8 text-center md:mb-2 md:ml-8 md:mt-0 md:w-auto md:text-left">
-          <h1 className="mb-4 text-2xl font-bold nn-title md:text-5xl">
+        <div className="mt-8 w-full text-center md:mb-2 md:ml-8 md:mt-0 md:w-auto md:text-left">
+          <h1 className="nn-title mb-4 text-2xl font-bold md:text-5xl">
             @{profile.username.toLowerCase()}
           </h1>
           <p className="nn-text-secondary">
@@ -63,9 +66,7 @@ export default async function ProfileLayout({
         </div>
       </LayoutWrapper>
 
-      <LayoutWrapper className="mb-16 border-b border-l border-r nn-bg-foreground nn-border-50 md:rounded-b-md">
-        {children}
-      </LayoutWrapper>
+      <LayoutWrapper>{children}</LayoutWrapper>
       <CommentLayout resourceId={profile.id} resourceType="profile" />
     </>
   );

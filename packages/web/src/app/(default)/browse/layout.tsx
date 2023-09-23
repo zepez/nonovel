@@ -27,9 +27,7 @@ export default async function BrowseLayout({ children }: BrowseLayoutProps) {
         </div>
       </div>
 
-      <LayoutWrapper className="nn-bg-foreground nn-border-50 mb-16 border-b border-l border-r md:rounded-b-md">
-        {children}
-      </LayoutWrapper>
+      <LayoutWrapper>{children}</LayoutWrapper>
     </>
   );
 }
