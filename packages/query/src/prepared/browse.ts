@@ -5,6 +5,7 @@ export const getBrowsePageRecentResultPrepared = db
   .select({
     id: project.id,
     name: project.name,
+    penName: project.penName,
     slug: project.slug,
     description: project.description,
     cover: project.cover,

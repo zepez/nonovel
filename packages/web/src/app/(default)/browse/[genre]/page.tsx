@@ -5,7 +5,8 @@ import { notFound } from "next/navigation";
 import parse from "html-react-parser";
 import { AiFillStar, AiTwotoneEye } from "react-icons/ai";
 import { getBrowsePageResult, getGenreBySlug } from "~/lib/request";
-import { src, clamp } from "~/lib/string";
+import { src } from "~/lib/string";
+import { summarizeNumber } from "~/lib/number";
 import { SectionEmpty, SectionHeading } from "~/components/shared";
 
 interface BrowsePageProps {
@@ -79,49 +80,37 @@ export default async function BrowsePage({
         <p className="nn-text-secondary">{parse(genre?.description ?? "")}</p>
       </section>
 
-      <section className="grid grid-cols-1 gap-4 md:grid-cols-2">
+      <section className="flex flex-row flex-wrap justify-evenly gap-4">
         {results.map((result) => (
           <Link
             href={`/p/${result.slug}`}
             key={result.id}
-            className="flex flex-col border rounded-md nn-interactive nn-border-50 nn-bg-background sm:flex-row"
+            className="nn-interactive flex h-auto w-[120px] flex-col rounded-sm sm:w-[230px]"
           >
-            <div className="h-[300px] w-full flex-shrink-0 sm:w-[200px]">
+            <div className="relative">
               <Image
                 src={src(result.cover, "cover")}
                 alt={`${result.name} cover`}
-                width={200}
-                height={200}
-                className="object-cover w-full h-full p-1 rounded-md"
+                width={500}
+                height={750}
+                className="h-auto w-full rounded-sm object-scale-down p-1"
               />
+              <div className="absolute left-0 top-3 flex w-full justify-center sm:top-4">
+                <div className="mx-auto inline-flex rounded-md bg-nn-dark bg-opacity-80 text-nn-light">
+                  <div className="flex items-center justify-center gap-1 px-2 text-xs">
+                    <AiTwotoneEye />
+                    {summarizeNumber(result.views)}
+                    <AiFillStar className="ml-2" />
+                    {result.review}
+                  </div>
+                </div>
+              </div>
             </div>
-
-            <div className="flex flex-col flex-shrink min-w-0 p-4">
-              <p className="mb-2 text-xl nn-title">
+            <div className="flex min-w-0 flex-shrink flex-col p-1">
+              <p className="truncate text-lg font-semibold sm:text-xl">
                 {result.name}
               </p>
-              <p className="flex-grow nn-text-secondary">
-                {clamp(result.description, 200)}...
-              </p>
-              <div className="flex items-center h-8 gap-1 mt-2 overflow-x-scroll scrollbar-none">
-                <div className="flex items-center gap-1 mr-2 nn-text-secondary">
-                  <AiTwotoneEye />
-                  {result.views}
-                </div>
-                <div className="flex items-center gap-1 mr-2 nn-text-secondary">
-                  <AiFillStar />
-                  {result.review}
-                </div>
-                {result.genres &&
-                  result.genres.map((genre) => (
-                    <div
-                      key={genre.name}
-                      className="flex items-center flex-shrink-0 px-2 py-1 border rounded-sm nn-text-secondary nn-bg-foreground nn-border"
-                    >
-                      {genre.name}
-                    </div>
-                  ))}
-              </div>
+              <p className="nn-text-secondary truncate">{result.penName}</p>
             </div>
           </Link>
         ))}
