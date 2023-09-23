@@ -16,7 +16,7 @@ export default async function BrowseLayout({ children }: BrowseLayoutProps) {
     <>
       <div className="relative overflow-hidden">
         <BackgroundEmoji
-          emoji="🥥"
+          emoji="💼"
           className="nn-bg-blurred absolute inset-0 z-0 h-full w-full"
           tiled={false}
         />

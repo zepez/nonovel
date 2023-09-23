@@ -28,7 +28,7 @@ export default async function Page({ params }: Props) {
 
   return (
     <>
-      <div className="prose prose-lg max-w-none dark:prose-invert prose-h2:font-title prose-h2:text-[1.8rem] prose-h2:underline prose-h3:font-title prose-h3:text-2xl prose-img:mx-auto">
+      <div className="prose-lg dark:prose-invert prose max-w-none prose-h2:pb-4 prose-h2:pt-8 prose-h2:font-title prose-h2:text-[1.8rem] prose-h3:pb-2 prose-h3:pt-8 prose-h3:text-xl prose-h3:font-bold prose-h3:leading-tight prose-img:mx-auto prose-img:pb-4 prose-img:pt-2">
         {article.content}
       </div>
       {proj && (

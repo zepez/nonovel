@@ -2,7 +2,8 @@ import * as React from "react";
 import Link from "next/link";
 import { getSession } from "~/lib/auth";
 import { cn } from "~/lib/utils";
-import { LayoutWrapper, BrandIcon, LayoutProfile } from "~/components/shared";
+import { LayoutWrapper, LayoutProfile } from "~/components/shared";
+import { FullLogo, ShortLogoDark } from "~/components/brand";
 import { LayoutSearch } from "~/components/default/layout-search";
 import {
   NavigationMenu,
@@ -18,15 +19,15 @@ export async function LayoutDesktopHeader() {
   const [, session] = await getSession();
 
   return (
-    <div className="hidden border-b nn-bg-foreground nn-border md:block">
+    <div className="nn-bg-foreground nn-border hidden border-b md:block">
       <LayoutWrapper className="flex flex-col flex-wrap justify-between px-4 py-2 md:flex-row">
         <NavigationMenu>
           <NavigationMenuList>
             {/* home */}
             <NavigationMenuItem>
               <Link href="/" legacyBehavior passHref title="Home">
-                <NavigationMenuLink className="inline-flex items-center justify-center px-2 py-2 mx-2 text-sm font-medium rounded-md nn-interactive group h-9 w-max bg-inherit">
-                  <BrandIcon className="my-1" />
+                <NavigationMenuLink className="nn-interactive group mx-2 inline-flex h-9 w-max items-center justify-center rounded-md bg-inherit px-2 py-2 text-sm font-medium">
+                  <FullLogo className="my-1" />
                 </NavigationMenuLink>
               </Link>
             </NavigationMenuItem>
@@ -38,12 +39,11 @@ export async function LayoutDesktopHeader() {
                   <li className="row-span-3">
                     <NavigationMenuLink asChild>
                       <a
-                        className="flex flex-col justify-end w-full h-full p-6 no-underline rounded-md select-none nn-bg-primary nn-interactive"
+                        className="nn-bg-primary nn-interactive flex h-full w-full select-none flex-col justify-end rounded-md p-6 no-underline"
                         href="/"
                       >
-                        <BrandIcon className="mb-4 mr-4 text-center text-[5rem]" />
-                        <div className="mb-2 text-lg font-medium">NoNovel</div>
-                        <p className="nn-text-secondary">
+                        <ShortLogoDark className="mb-4 mr-4 text-center text-[5rem]" />
+                        <p className="text-sm text-nn-dark">
                           Your destination for timeless classics and
                           tomorrow&apos;s bestsellers.
                         </p>
@@ -64,7 +64,7 @@ export async function LayoutDesktopHeader() {
             {/* browse */}
             <NavigationMenuItem>
               <Link href="/browse" legacyBehavior passHref>
-                <NavigationMenuLink className="inline-flex items-center justify-center px-4 py-2 text-sm font-medium rounded-md nn-interactive group h-9 w-max bg-inherit">
+                <NavigationMenuLink className="nn-interactive group inline-flex h-9 w-max items-center justify-center rounded-md bg-inherit px-4 py-2 text-sm font-medium">
                   Browse
                 </NavigationMenuLink>
               </Link>
@@ -86,7 +86,7 @@ export async function LayoutDesktopHeader() {
               <NavigationMenuItem>
                 <LoginDialog>
                   <button
-                    className="p-2 text-xs font-bold uppercase border rounded-md nn-bg-contrast nn-interactive"
+                    className="nn-bg-contrast nn-interactive rounded-md border p-2 text-xs font-bold uppercase"
                     title="Login or register"
                   >
                     Login
@@ -119,7 +119,7 @@ const ListItem = React.forwardRef<
           <div className="text-sm font-medium leading-none">
             {icon && <span className="mx-2 text-xl">{icon}</span>} {title}
           </div>
-          <p className="pt-1 nn-text-secondary line-clamp-2">{children}</p>
+          <p className="nn-text-secondary line-clamp-2 pt-1">{children}</p>
         </a>
       </NavigationMenuLink>
     </li>

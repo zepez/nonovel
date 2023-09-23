@@ -19,15 +19,17 @@
 }
 
 :root, html {
-  --nn-fade: #FAF2E8;
+  --nn-fade: #F5E1C9;
+  --nn-typography: #1F130C;
 }
 
 html.dark {
   --nn-fade: #1F140C;
+  --nn-typography: #F5E1C9;
 }
 
 body {
-  @apply bg-nn-backdrop-light dark:bg-nn-dark text-nn-dark dark:text-nn-light;
+  @apply bg-nn-light dark:bg-nn-dark text-nn-dark dark:text-nn-light;
 }
 
 [cmdk-item] {
@@ -141,14 +143,7 @@ body {
 }
 
 .nn-bg-blurred {
-  filter: blur(50px);
+  filter: blur(30px);
   transform: translate3d(0, 0, 0); /* force gpu accel for perf issues in safari  */
-  @apply bg-center nn-bg-foreground opacity-70;
+  @apply bg-center nn-bg-foreground opacity-90;
 }
-
-.nn-bg-blurred-2 {
-  filter: blur(100px);
-  transform: translate3d(0, 0, 0); /* force gpu accel for perf issues in safari  */
-  @apply bg-center opacity-50 nn-bg-foreground;
-}
-

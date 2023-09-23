@@ -4,7 +4,6 @@ export * from "./aspect-image";
 export * from "./auth-provider";
 export * from "./background-emoji";
 export * from "./background-image";
-export * from "./brand-icon";
 export * from "./client-paginate";
 export * from "./country-code-emoji";
 export * from "./country-code-name";

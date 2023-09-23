@@ -8,6 +8,13 @@ module.exports = {
     './src/**/*.{ts,tsx}',
 	],
   theme: {
+    typography: ({theme}) => ( {
+      DEFAULT: {
+        css: {
+          color: theme('var(--nn-typography)'),
+        }
+      }
+    }),
     fontFamily: {
       'serif': ['baskerville'],
       'mono': ['pt-mono']

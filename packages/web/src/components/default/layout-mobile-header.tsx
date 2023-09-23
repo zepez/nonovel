@@ -7,7 +7,8 @@ import {
   NavigationMenuList,
 } from "~/components/ui/navigation-menu";
 import { LayoutMobileHeaderSheet } from "./layout-mobile-header-sheet";
-import { LayoutWrapper, BrandIcon } from "~/components/shared";
+import { LayoutWrapper } from "~/components/shared";
+import { ShortLogo } from "~/components/brand";
 
 export const LayoutMobileHeader = async () => {
   const [, session] = await getSession();
@@ -15,14 +16,14 @@ export const LayoutMobileHeader = async () => {
   const { username } = profile ?? { username: null };
 
   return (
-    <div className="border-b nn-bg-foreground nn-border md:hidden">
+    <div className="nn-bg-foreground nn-border border-b md:hidden">
       <LayoutWrapper className="flex items-center justify-between px-4 py-2">
         <NavigationMenu>
           <NavigationMenuList>
             <NavigationMenuItem>
               <Link href="/" legacyBehavior passHref title="Home">
-                <NavigationMenuLink className="inline-flex items-center justify-center px-2 py-2 mx-2 text-sm font-medium rounded-md nn-interactive group h-9 w-max bg-inherit">
-                  <BrandIcon className="my-1" />
+                <NavigationMenuLink className="nn-interactive group mx-2 inline-flex h-9 w-max items-center justify-center rounded-md bg-inherit px-2 py-2 text-sm font-medium">
+                  <ShortLogo className="my-1 h-[35px] w-[35px]" />
                 </NavigationMenuLink>
               </Link>
             </NavigationMenuItem>
