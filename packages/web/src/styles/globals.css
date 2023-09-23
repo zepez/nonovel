@@ -4,9 +4,38 @@
 @tailwind components;
 @tailwind utilities;
 
-.nn-title {
-  font-family: josefin-sans;
+/* ============================================= */
+
+*:focus {
+  @apply outline-none ring-2 ring-inset ring-nn-primary-light dark:ring-nn-primary-dark;
 }
+
+*:disabled {
+  @apply opacity-50 cursor-not-allowed;
+}
+
+::selection {
+  @apply text-nn-light bg-nn-primary-light dark:ring-nn-primary-dark;
+}
+
+body {
+  @apply bg-nn-backdrop-light dark:bg-nn-backdrop-dark text-nn-dark dark:text-nn-light;
+}
+
+[cmdk-item] {
+  content-visibility: auto;
+  cursor: pointer;
+
+  &[data-selected="true"] {
+    @apply outline-none ring-2 ring-inset ring-nn-primary-light dark:ring-nn-primary-dark;
+  }
+
+  &[data-disabled="true"] {
+    @apply opacity-50 cursor-not-allowed;
+  }
+}
+
+/* ============================================= */
 
 :root {
   --chapter-text-size: 24px;
@@ -52,16 +81,11 @@
   padding: 0.5rem 1rem;
 }
 
-*:focus {
-  @apply outline-none ring-2 ring-inset ring-yellow-500;
-}
+/* ============================================= */
 
-*:disabled {
-  @apply opacity-50 cursor-not-allowed;
-}
-
-::selection {
-  @apply text-white bg-yellow-600;
+.nn-title {
+  font-family: baskerville;
+  @apply leading-tight;
 }
 
 .nn-interactive {
@@ -69,7 +93,7 @@
 }
 
 .nn-interactive:hover {
-  @apply outline-none opacity-70 ring-2 ring-inset ring-yellow-500;
+  @apply outline-none opacity-70 ring-2 ring-inset ring-nn-primary-light dark:ring-nn-primary-dark;
 }
 
 .nn-no-select {
@@ -77,53 +101,35 @@
 }
 
 .nn-bg-foreground {
-  @apply bg-zinc-100 text-zinc-950 dark:bg-zinc-950 dark:text-zinc-100;
+  @apply bg-nn-light text-nn-dark dark:bg-nn-dark dark:text-nn-light;
 }
 
 .nn-bg-primary {
-  @apply text-white bg-yellow-600;
+  @apply text-nn-light bg-nn-primary-light dark:text-nn-dark dark:bg-nn-primary-dark;
 }
 
 .nn-bg-contrast {
-  @apply bg-zinc-950 text-zinc-100 dark:bg-zinc-100 dark:text-zinc-950;
+  @apply bg-nn-dark text-nn-light dark:bg-nn-light dark:text-nn-dark;
 }
 
 .nn-bg-background {
-  @apply bg-white text-zinc-950 dark:bg-zinc-900 dark:text-zinc-100;
+  @apply bg-nn-secondary-light text-nn-dark dark:bg-nn-secondary-dark dark:text-nn-light;
 }
 
 .nn-divide {
-  @apply divide-zinc-950/20 dark:divide-zinc-100/20;
+  @apply divide-nn-dark/20 dark:divide-nn-light/20;
 }
 
 .nn-border {
-  @apply border-zinc-300 dark:border-zinc-700;
+  @apply border-nn-backdrop-dark/20 dark:border-nn-backdrop-light/20;
 }
 
 .nn-border-50 {
-  @apply border-zinc-300/50 dark:border-zinc-700/50;
-}
-
-.nn-border-bottom {
-  @apply border-b border-zinc-300 dark:border-zinc-700;
+  @apply border-nn-dark/5 dark:border-nn-light/5;
 }
 
 .nn-text-secondary {
-  @apply text-sm leading-snug text-inherit opacity-60 dark:opacity-60;
-}
-
-[cmdk-item] {
-  content-visibility: auto;
-
-  cursor: pointer;
-
-  &[data-selected="true"] {
-    @apply outline-none ring-2 ring-inset ring-yellow-500;
-  }
-
-  &[data-disabled="true"] {
-    @apply opacity-50 cursor-not-allowed;
-  }
+  @apply text-sm leading-snug text-inherit opacity-80;
 }
 
 .nn-bg-blurred {
@@ -137,3 +143,4 @@
   transform: translate3d(0, 0, 0); /* force gpu accel for perf issues in safari  */
   @apply bg-center opacity-50 nn-bg-foreground;
 }
+

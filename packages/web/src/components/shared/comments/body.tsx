@@ -134,8 +134,8 @@ export const CommentBody = ({
       ) : (
         <>
           {createdAt !== updatedAt && (
-            <span className="inline-block px-2 py-1 mt-2 text-xs border rounded-sm nn-text-secondary nn-bg-foreground nn-border">
-              Edited {updatedAt}
+            <span className="inline-block px-1 mt-2 text-xs border rounded-sm nn-text-secondary nn-bg-foreground nn-border">
+              *edited {updatedAt}
             </span>
           )}
           <p className="my-4 whitespace-pre-wrap text-md">{comment.content}</p>

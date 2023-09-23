@@ -11,8 +11,8 @@ interface ReviewScoreProps extends RatingProps {
 
 const defaultStyles = {
   itemShapes: ThinRoundedStar,
-  activeFillColor: "rgb(252 211 77)",
-  inactiveFillColor: "#FFFFFF",
+  activeFillColor: "#F0B557",
+  inactiveFillColor: "#F5E1C9",
 };
 
 export const ReviewScore = React.forwardRef<HTMLDivElement, ReviewScoreProps>(

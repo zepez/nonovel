@@ -194,7 +194,7 @@ export const EditProfile = ({ session }: EditProfileProps) => {
 
         {form.formState.errors.root?.serverError && (
           <div className="p-4 bg-red-500 rounded-md">
-            <FormMessage className="text-white dark:text-white">
+            <FormMessage className="text-nn-light">
               Error: {form.formState.errors.root.serverError.message}. If the
               problem persists, please contact support.
             </FormMessage>

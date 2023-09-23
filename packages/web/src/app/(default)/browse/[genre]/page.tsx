@@ -84,7 +84,7 @@ export default async function BrowsePage({
           <Link
             href={`/p/${result.slug}`}
             key={result.id}
-            className="nn-interactive nn-border-50 nn-bg-background flex flex-col rounded-md border sm:flex-row"
+            className="flex flex-col border rounded-md nn-interactive nn-border-50 nn-bg-background sm:flex-row"
           >
             <div className="h-[300px] w-full flex-shrink-0 sm:w-[200px]">
               <Image
@@ -92,23 +92,23 @@ export default async function BrowsePage({
                 alt={`${result.name} cover`}
                 width={200}
                 height={200}
-                className="h-full w-full rounded-md object-cover p-1"
+                className="object-cover w-full h-full p-1 rounded-md"
               />
             </div>
 
-            <div className="flex min-w-0 flex-shrink flex-col p-4">
-              <p className="nn-title mb-2 text-xl leading-tight">
+            <div className="flex flex-col flex-shrink min-w-0 p-4">
+              <p className="mb-2 text-xl nn-title">
                 {result.name}
               </p>
-              <p className="nn-text-secondary flex-grow">
+              <p className="flex-grow nn-text-secondary">
                 {clamp(result.description, 200)}...
               </p>
-              <div className="mt-2 flex h-8 items-center gap-1 overflow-x-scroll scrollbar-none">
-                <div className="nn-text-secondary mr-2 flex items-center gap-1">
+              <div className="flex items-center h-8 gap-1 mt-2 overflow-x-scroll scrollbar-none">
+                <div className="flex items-center gap-1 mr-2 nn-text-secondary">
                   <AiTwotoneEye />
                   {result.views}
                 </div>
-                <div className="nn-text-secondary mr-2 flex items-center gap-1">
+                <div className="flex items-center gap-1 mr-2 nn-text-secondary">
                   <AiFillStar />
                   {result.review}
                 </div>
@@ -116,7 +116,7 @@ export default async function BrowsePage({
                   result.genres.map((genre) => (
                     <div
                       key={genre.name}
-                      className="nn-text-secondary nn-bg-foreground nn-border flex flex-shrink-0 items-center rounded-sm border px-2 py-1"
+                      className="flex items-center flex-shrink-0 px-2 py-1 border rounded-sm nn-text-secondary nn-bg-foreground nn-border"
                     >
                       {genre.name}
                     </div>

@@ -20,9 +20,9 @@ const ListItem = ({ href, name, symbol, height, isRead }: ListItemProps) => {
   return (
     <Link
       href={href}
-      className="nn-interactive flex items-center bg-zinc-100 odd:bg-zinc-200 dark:bg-zinc-800 dark:odd:bg-zinc-900"
+      className="flex items-center rounded-sm nn-interactive bg-nn-light odd:bg-nn-secondary-light dark:bg-nn-dark dark:odd:bg-nn-secondary-dark"
     >
-      <span className="mx-4 w-8 text-center opacity-30">{isRead && "✔"}</span>
+      <span className="w-8 mx-4 text-center opacity-30">{isRead && "✔"}</span>
       <h3
         className={cn(
           height ? `py-${height}` : "py-3",
@@ -75,7 +75,7 @@ export const ListChapters = ({
 
   if (!chapters.length)
     return (
-      <div className="nn-bg-background flex h-32 items-center justify-center rounded-md">
+      <div className="flex items-center justify-center h-32 rounded-md nn-bg-background">
         <p className="nn-text-secondary">
           This novel does not have any chapters.
         </p>
@@ -86,7 +86,7 @@ export const ListChapters = ({
     <>
       {!disabledSearch && (
         <Input
-          className="nn-bg-background mb-8 w-full"
+          className="w-full mb-8 nn-bg-background"
           placeholder="Filter chapters"
           value={search}
           onChange={(e) => setSearch(e.target.value)}

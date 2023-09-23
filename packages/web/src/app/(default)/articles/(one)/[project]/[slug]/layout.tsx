@@ -23,15 +23,15 @@ export default async function ArticleLayout({
       <div className="relative overflow-hidden">
         <BackgroundEmoji
           emoji="🎑"
-          className="nn-bg-blurred absolute inset-0 z-0 h-full w-full"
+          className="absolute inset-0 z-0 w-full h-full nn-bg-blurred"
           tiled={false}
         />
-        <div className="relative z-10 flex h-96 items-center sm:h-64">
+        <div className="relative z-10 flex items-center h-96 sm:h-64">
           <LayoutWrapper className="py-0">
-            <h1 className="nn-title text-3xl font-bold leading-tight sm:text-4xl">
+            <h1 className="text-3xl font-bold nn-title sm:text-4xl">
               {article.meta.title}
             </h1>
-            <span className="mt-4 block">
+            <span className="block mt-4">
               Posted {format(new Date(article.meta.date), "MM/dd/yyyy")}, by{" "}
               <i>{article.meta.author}</i>
             </span>
@@ -39,7 +39,7 @@ export default async function ArticleLayout({
         </div>
       </div>
 
-      <LayoutWrapper className="nn-bg-foreground nn-border-50 mb-16 border-b border-l border-r md:rounded-b-md">
+      <LayoutWrapper className="mb-16 border-b border-l border-r nn-bg-foreground nn-border-50 md:rounded-b-md">
         {children}
       </LayoutWrapper>
 

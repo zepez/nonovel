@@ -28,12 +28,12 @@ const navigation = [
 
 export const LayoutFooter = () => {
   return (
-    <footer className="nn-bg-foreground nn-border-50 border-t">
+    <footer className="border-t nn-bg-foreground nn-border">
       <LayoutWrapper className="py-4 md:flex md:items-center md:justify-between">
         <div className="flex justify-center space-x-6 md:order-2">
           <div className="mt-[.15rem]">
             <ThemeSwitcher
-              className="nn-interactive rounded-md p-2"
+              className="p-2 rounded-md nn-interactive"
               loading={<CircleBackslashIcon width={20} height={20} />}
               darkChildren={<MoonIcon width={20} height={20} />}
               lightChildren={<SunIcon width={20} height={20} />}
@@ -43,16 +43,16 @@ export const LayoutFooter = () => {
             <a
               key={item.name}
               href={item.href}
-              className="nn-interactive rounded-md p-2"
+              className="p-2 rounded-md nn-interactive"
               target="_blank"
             >
               <span className="sr-only">{item.name}</span>
-              <item.icon className="h-6 w-6" aria-hidden="true" />
+              <item.icon className="w-6 h-6" aria-hidden="true" />
             </a>
           ))}
         </div>
         <div className="mt-4 md:order-1 md:mt-0">
-          <p className="nn-text-secondary text-center">
+          <p className="text-sm text-center text-nn-dark dark:text-nn-light">
             &copy; {new Date().getFullYear()} NoNovel. All rights reserved.
           </p>
         </div>

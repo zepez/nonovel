@@ -9,7 +9,7 @@ import {
   SectionHeading,
   BackgroundImage,
 } from "~/components/shared";
-import { src } from "~/lib/string";
+import { src, toTitleCase } from "~/lib/string";
 import { cn } from "~/lib/utils";
 
 interface PopularSliderProps {
@@ -33,14 +33,14 @@ const PopularSlider = async ({
   if (!popular) return null;
   return (
     <div>
-      <SectionHeading className="mt-0">Popular this {period}</SectionHeading>
+      <SectionHeading className="mt-0">Popular this {toTitleCase(period)}</SectionHeading>
       <div className="flex items-start gap-8 overflow-scroll scrollbar-none">
         {popular.map((item) => (
           <Link
             href={`/p/${item.slug}`}
             key={item.id}
             style={{ width: size }}
-            className="nn-interactive block flex-shrink-0 rounded-md p-1"
+            className="flex-shrink-0 block p-1 rounded-md nn-interactive"
           >
             <div className="relative">
               <AspectImage
@@ -49,7 +49,7 @@ const PopularSlider = async ({
                 width={size}
                 className="mb-3"
               />
-              <div className="absolute bottom-0 right-0 flex items-center gap-4 rounded-br-md rounded-tl-md bg-black/50 px-4 py-1 text-xs text-white">
+              <div className="absolute bottom-0 right-0 flex items-center gap-4 px-4 py-1 text-xs text-nn-light rounded-br-md rounded-tl-md bg-nn-dark/50">
                 <div className="flex items-center gap-2">
                   <AiTwotoneEye />
                   {item.views}
@@ -60,7 +60,7 @@ const PopularSlider = async ({
                 </div>
               </div>
             </div>
-            <p className={cn("nn-title mx-2 leading-tight", titleClassName)}>
+            <p className={cn("nn-title mx-2", titleClassName)}>
               {item.name}
             </p>
           </Link>
@@ -80,19 +80,19 @@ export default async function HomePage() {
       <BackgroundImage src={src(popularToday.cover, "cover")}>
         <Link
           href={`/p/${popularToday.slug}`}
-          className="nn-interactive relative z-10 flex items-center py-12"
+          className="relative z-10 flex items-center py-12 nn-interactive"
         >
           <LayoutWrapper className="py-0">
-            <SectionHeading className="mt-0">Top today</SectionHeading>
+            <SectionHeading className="mt-0">Top Today</SectionHeading>
             <div className="flex flex-wrap gap-6 sm:flex-nowrap">
               <AspectImage
                 src={src(popularToday.cover, "cover")}
                 alt={popularToday.name}
                 width={200}
-                className="mx-auto mb-3 flex-shrink-0"
+                className="flex-shrink-0 mx-auto mb-3"
               />
-              <div className="min-w-0 flex-shrink pt-2">
-                <p className="nn-title mb-2 text-3xl font-bold leading-tight">
+              <div className="flex-shrink min-w-0 pt-2">
+                <p className="mb-2 text-3xl italic font-bold nn-title">
                   {popularToday.name}
                 </p>
                 <p>{popularToday.description}</p>
@@ -102,7 +102,7 @@ export default async function HomePage() {
         </Link>
       </BackgroundImage>
 
-      <LayoutWrapper className="nn-bg-foreground nn-border-50 mb-16 space-y-12 border-b border-l border-r md:rounded-b-md">
+      <LayoutWrapper className="mb-16 space-y-12 border-b border-l border-r nn-bg-foreground nn-border-50 md:rounded-b-md">
         <PopularSlider period="week" size={230} titleClassName="text-xl" />
         <PopularSlider period="month" size={150} titleClassName="text-lg" />
       </LayoutWrapper>

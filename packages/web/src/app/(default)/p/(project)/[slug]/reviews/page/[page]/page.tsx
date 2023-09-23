@@ -81,31 +81,31 @@ export default async function ProjectReviewPagePage({
 
   return (
     <>
-      <SectionHeading>Your review</SectionHeading>
+      <SectionHeading>Your Review</SectionHeading>
       <EditReview
         userId={session?.user?.id}
         projectId={project.id}
         review={review}
       />
 
-      <SectionHeading>All reviews</SectionHeading>
+      <SectionHeading>All Reviews</SectionHeading>
       <section className="space-y-6">
         {reviews?.length ? (
           <>
             {reviews.map((review) => (
               <div
                 key={review.id}
-                className="nn-border-50 nn-bg-background flex justify-between rounded-md border p-4 pr-2 sm:items-center sm:py-6 sm:pl-8"
+                className="flex justify-between p-4 pr-2 border rounded-md nn-border-50 nn-bg-background sm:items-center sm:py-6 sm:pl-8"
               >
                 <div className="flex flex-grow sm:space-x-6">
                   <AspectImage
                     width={50}
-                    className="hidden flex-shrink-0 sm:block"
+                    className="flex-shrink-0 hidden sm:block"
                     src={src(review.profile?.image, "profile")}
                     alt={`${review.profile?.username ?? ""} profile picture`}
                   />
                   <div>
-                    <p className="text-md font-bold leading-tight">
+                    <p className="font-bold leading-tight text-md">
                       @{review.profile?.username}
                     </p>
                     <ReviewScore
@@ -113,7 +113,7 @@ export default async function ProjectReviewPagePage({
                       value={review.score}
                       readOnly
                     />
-                    <p className="whitespace-pre-wrap text-sm">
+                    <p className="text-sm whitespace-pre-wrap">
                       {review.comment}
                     </p>
                   </div>

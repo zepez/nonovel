@@ -115,7 +115,7 @@ export const EditReview = ({ userId, projectId, review }: EditReviewProps) => {
       <LoginDialog>
         <SectionEmpty
           as="button"
-          className="nn-bg-background nn-interactive w-full cursor-pointer"
+          className="w-full cursor-pointer nn-bg-background nn-interactive"
         >
           Login to submit your own review.
         </SectionEmpty>
@@ -164,18 +164,18 @@ export const EditReview = ({ userId, projectId, review }: EditReviewProps) => {
         />
 
         {form.formState.errors.root?.serverError && (
-          <div className="rounded-md bg-red-500 p-4">
-            <FormMessage className="text-white dark:text-white">
+          <div className="p-4 bg-red-500 rounded-md">
+            <FormMessage className="text-nn-light">
               Error: {form.formState.errors.root.serverError.message}. If the
               problem persists, please contact support.
             </FormMessage>
           </div>
         )}
 
-        <div className="mt-2 flex flex-col-reverse flex-wrap items-center justify-between sm:flex-row">
+        <div className="flex flex-col-reverse flex-wrap items-center justify-between mt-2 sm:flex-row">
           {review?.id ? (
             <Button
-              className="mt-3 w-full sm:w-auto"
+              className="w-full mt-3 sm:w-auto"
               type="button"
               variant="destructive"
               disabled={deleting}
@@ -188,7 +188,7 @@ export const EditReview = ({ userId, projectId, review }: EditReviewProps) => {
           <div className="flex-grow" />
           {/* submit */}
           <Button
-            className="mt-3 w-full sm:w-auto"
+            className="w-full mt-3 sm:w-auto"
             type="submit"
             variant="primary"
             disabled={saving}

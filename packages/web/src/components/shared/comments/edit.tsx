@@ -20,6 +20,8 @@ import { Textarea } from "~/components/ui/textarea";
 import { Button } from "~/components/ui/button";
 import { useToast } from "~/components/ui/use-toast";
 
+import { cn } from "~/lib/utils";
+
 interface CommentEditProps {
   refresh: () => void;
   cancel?: () => void;
@@ -115,7 +117,7 @@ export const CommentEdit = ({
               <FormLabel className="sr-only">Comment</FormLabel>
               <FormControl>
                 <Textarea
-                  className={background}
+                  className={cn(background)}
                   placeholder="Type your comment here"
                   rows={6}
                   {...field}

@@ -75,10 +75,10 @@ export const LayoutNavigation = ({ genres }: LayoutNavigationProps) => {
   return (
     <>
       <div className="flex flex-wrap items-center gap-3 sm:flex-nowrap">
-        <div className="flex items-center w-full bg-white rounded-md">
-          <AiOutlineSearch className="ml-4 mr-2 text-black opacity-50" />
+        <div className="flex items-center w-full rounded-md bg-nn-light">
+          <AiOutlineSearch className="ml-4 mr-2 opacity-50 text-nn-dark" />
           <Input
-            className="text-black bg-white border-none"
+            className="border-none text-nn-dark bg-nn-light dark:placeholder:text-nn-dark/60"
             placeholder="Search"
             value={query}
             onChange={(e) => setQuery(e.target.value)}
@@ -97,7 +97,7 @@ export const LayoutNavigation = ({ genres }: LayoutNavigationProps) => {
           <Button
             variant="ghost"
             size="sm"
-            className="w-full px-2 text-xs text-black bg-white"
+            className="w-full px-2 text-xs text-nn-dark bg-nn-light"
             disabled={sorting === "popular"}
             onClick={() => setSorting("popular")}
             title="Sort by popularity"
@@ -108,7 +108,7 @@ export const LayoutNavigation = ({ genres }: LayoutNavigationProps) => {
           <Button
             variant="ghost"
             size="sm"
-            className="w-full px-2 text-xs text-black bg-white"
+            className="w-full px-2 text-xs text-nn-dark bg-nn-light"
             disabled={sorting === "rating"}
             onClick={() => setSorting("rating")}
             title="Sort by average rating"
@@ -118,7 +118,7 @@ export const LayoutNavigation = ({ genres }: LayoutNavigationProps) => {
           <Button
             variant="ghost"
             size="sm"
-            className="w-full px-2 text-xs text-black bg-white"
+            className="w-full px-2 text-xs text-nn-dark bg-nn-light"
             disabled={sorting === "recent"}
             onClick={() => setSorting("recent")}
             title="Sort by date added"
@@ -130,7 +130,7 @@ export const LayoutNavigation = ({ genres }: LayoutNavigationProps) => {
         <Button
           variant="ghost"
           size="sm"
-          className="flex-shrink-0 w-full text-xs text-black bg-white sm:w-auto"
+          className="flex-shrink-0 w-full text-xs text-nn-dark bg-nn-light sm:w-auto"
           onClick={() => handleClearFilters()}
           title="Clear filters"
         >

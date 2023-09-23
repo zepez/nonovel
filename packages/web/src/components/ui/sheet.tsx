@@ -71,8 +71,8 @@ const SheetContent = React.forwardRef<
       {...props}
     >
       {children}
-      <SheetPrimitive.Close className="nn-interactive absolute right-4 top-4 rounded-sm opacity-70 transition-opacity hover:opacity-100 focus:outline-none focus:ring-2 disabled:pointer-events-none">
-        <Cross2Icon className="h-4 w-4" />
+      <SheetPrimitive.Close className="absolute transition-opacity rounded-sm nn-interactive right-4 top-4 opacity-70 hover:opacity-100 focus:outline-none focus:ring-2 disabled:pointer-events-none">
+        <Cross2Icon className="w-4 h-4" />
         <span className="sr-only">Close</span>
       </SheetPrimitive.Close>
     </SheetPrimitive.Content>

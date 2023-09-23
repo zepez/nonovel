@@ -19,13 +19,13 @@ export default async function Page() {
         <Link
           key={article.slug}
           href={`/articles/${article.slug}`}
-          className="nn-interactive block rounded-md p-4"
+          className="block p-4 rounded-md nn-interactive"
         >
           <div>
-            <p className="nn-title mb-2 text-xl font-bold leading-tight">
+            <p className="mb-2 text-xl font-bold nn-title">
               {article.title}
             </p>
-            <p className="nn-text-secondary mb-4">
+            <p className="mb-4 nn-text-secondary">
               Posted {format(new Date(article.date), "MM/dd/yyyy")}, by{" "}
               <i>{article.author}</i>
             </p>

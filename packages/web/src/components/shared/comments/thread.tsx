@@ -93,7 +93,7 @@ export const CommentThread = ({ refresh, parent }: CommentThreadProps) => {
             )}
           </>
         ) : (
-          <p className="p-2 text-xs rounded-md bg-zinc-500/10 text-zinc-500/70">
+          <p className="p-2 text-xs rounded-md bg-nn-dark/10 text-nn-dark/70 dark:bg-nn-light/10 dark:text-nn-light/70">
             No replies yet
           </p>
         )}
