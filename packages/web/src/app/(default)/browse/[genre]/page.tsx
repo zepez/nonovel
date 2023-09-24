@@ -85,7 +85,7 @@ export default async function BrowsePage({
           <Link
             href={`/p/${result.slug}`}
             key={result.id}
-            className="nn-interactive flex h-auto w-[160px] flex-col rounded-sm sm:w-[230px]"
+            className="nn-interactive h-auto w-[160px] rounded-sm sm:w-[230px]"
           >
             <div className="relative">
               <Image
@@ -93,16 +93,14 @@ export default async function BrowsePage({
                 alt={`${result.name} cover`}
                 width={500}
                 height={750}
-                className="h-auto w-full rounded-sm object-scale-down p-1"
+                className="h-auto w-full rounded-sm p-1"
               />
-              <div className="absolute left-0 top-3 flex w-full justify-center sm:top-4">
-                <div className="mx-auto inline-flex rounded-md bg-nn-dark bg-opacity-80 text-nn-light">
-                  <div className="flex items-center justify-center gap-1 px-2 text-xs">
-                    <AiTwotoneEye />
-                    {summarizeNumber(result.views)}
-                    <AiFillStar className="ml-2" />
-                    {result.review}
-                  </div>
+              <div className="absolute right-0 top-4 flex w-full justify-center">
+                <div className="flex items-center justify-center gap-1 rounded-sm bg-nn-dark/50 px-2 text-xs text-nn-light">
+                  <AiTwotoneEye />
+                  {summarizeNumber(result.views)}
+                  <AiFillStar className="ml-2" />
+                  {result.review}
                 </div>
               </div>
             </div>
