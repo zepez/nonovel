@@ -69,6 +69,7 @@ export async function POST(request: Request) {
     });
 
     await puppeteerPage.goto(`${url.origin}/cover?id=${project.id}`, {
+      timeout: 0,
       waitUntil: "networkidle0",
     });
 
