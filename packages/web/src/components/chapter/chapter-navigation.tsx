@@ -12,6 +12,7 @@ import type {
   GetChapterManifestByIdsReturn,
 } from "@nonovel/query";
 import { cn } from "~/lib/utils";
+import { toTitleCase } from "~/lib/string";
 import { Dialog, DialogContent, DialogTrigger } from "~/components/ui/dialog";
 import { ScrollArea } from "~/components/ui/scroll-area";
 import { ChapterSettings } from "~/components/chapter/chapter-settings";
@@ -80,11 +81,15 @@ const ChapterManifest = ({
                 href={`/p/${project.slug}/chapters/${c.order}`}
                 className={cn(
                   chapter.order == c.order && "nn-bg-background",
-                  "nn-interactive flex items-center justify-center px-2 py-3 md:py-2"
+                  "nn-interactive grid grid-cols-6 items-center px-2 py-3 md:py-2"
                 )}
               >
-                <span className="flex-grow">{c.name}</span>
-                <span className="mx-2 text-xs opacity-30">#{c.order}</span>
+                <span className="col-span-5 inline-block truncate">
+                  {toTitleCase(c.name)}
+                </span>
+                <span className="mx-2 inline justify-self-end text-xs opacity-30">
+                  #{c.order}
+                </span>
               </Link>
             ))}
           </div>
