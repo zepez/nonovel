@@ -89,7 +89,7 @@ export async function LayoutDesktopHeader() {
                   <Button
                     variant="ghost"
                     size="fluid"
-                    className="bg-nn-secondary-dark text-xs font-bold uppercase text-nn-light dark:bg-nn-light dark:text-nn-dark"
+                    className="text-sm font-medium text-nn-dark dark:text-nn-light"
                     title="Login or register"
                   >
                     Login
