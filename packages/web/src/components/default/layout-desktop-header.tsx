@@ -20,7 +20,7 @@ export async function LayoutDesktopHeader() {
   const [, session] = await getSession();
 
   return (
-    <div className="nn-bg-foreground hidden pt-8 md:block">
+    <div className="hidden pt-8 md:block">
       <LayoutWrapper className="flex flex-col flex-wrap justify-between px-4 py-0 md:flex-row">
         <NavigationMenu>
           <NavigationMenuList>

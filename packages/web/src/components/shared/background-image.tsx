@@ -23,7 +23,7 @@ export const BackgroundImage = ({
         style={
           src
             ? {
-                backgroundImage: `linear-gradient(0deg, var(--nn-fade) 20%, transparent), url(${src})`,
+                backgroundImage: `linear-gradient(0deg, var(--nn-fade) 0%, transparent), url(${src})`,
                 backgroundPosition: "center top",
               }
             : {}

@@ -19,9 +19,9 @@ export default async function Page() {
         <div key={article.slug}>
           <Link
             href={`/articles/${article.slug}`}
-            className="nn-interactive block rounded-md px-4 py-6"
+            className="nn-interactive -mx-4 block rounded-md py-6"
           >
-            <div>
+            <div className="px-4">
               <p className="mb-2 text-xl font-bold">{article.title}</p>
               <p className="nn-text-secondary mb-4">
                 Posted {format(new Date(article.date), "MM/dd/yyyy")}, by{" "}

@@ -20,30 +20,19 @@ export default function ErrorPage({ searchParams }: ErrorPageProps) {
   const { error, code = "Unknown" } = searchParams;
 
   return (
-    <main>
-      <div className="relative overflow-hidden">
-        <BackgroundEmoji
-          emoji="💥"
-          className="absolute inset-0 z-0 w-full h-full nn-bg-blurred"
-          tiled={false}
-        />
-        <div className="relative z-10 flex items-center justify-center h-96">
-          <LayoutWrapper className="max-w-[600px]">
-            <h1 className="text-3xl font-bold nn-title">
-              Something went wrong
-            </h1>
-            <p className="nn-text-secondary">Code - {code}</p>
-            <p className="mt-4 text-lg">{error}</p>
+    <BackgroundEmoji emoji="💥" tiled={false}>
+      <LayoutWrapper className="max-w-[600px]">
+        <h1 className="nn-title text-3xl font-bold">Something went wrong</h1>
+        <p className="nn-text-secondary">Code - {code}</p>
+        <p className="mt-4 text-lg">{error}</p>
 
-            <Link
-              href="/"
-              className="inline-block px-3 py-2 mt-8 text-xs font-bold leading-tight uppercase rounded-md nn-interactive nn-bg-contrast"
-            >
-              Go home
-            </Link>
-          </LayoutWrapper>
-        </div>
-      </div>
-    </main>
+        <Link
+          href="/"
+          className="nn-interactive nn-bg-contrast mt-8 inline-block rounded-md px-3 py-2 text-xs font-bold uppercase leading-tight"
+        >
+          Go home
+        </Link>
+      </LayoutWrapper>
+    </BackgroundEmoji>
   );
 }

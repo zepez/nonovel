@@ -31,18 +31,11 @@ export const LayoutHeader = () => {
   const current = segments[segment] ?? segments.default;
 
   return (
-    <div className="relative">
-      <BackgroundEmoji
-        emoji={current.emoji}
-        className="nn-bg-blurred absolute inset-0 z-0 h-full w-full"
-        tiled={true}
-      />
-      <div className="relative z-10 flex h-64 items-center">
-        <LayoutWrapper className="py-0">
-          <h1 className="nn-title text-2xl font-bold">{current.title}</h1>
-          <p className="mt-2">{current.description}</p>
-        </LayoutWrapper>
-      </div>
-    </div>
+    <BackgroundEmoji emoji={current.emoji} tiled={true}>
+      <LayoutWrapper className="py-16">
+        <h1 className="nn-title text-2xl font-bold">{current.title}</h1>
+        <p className="mt-2">{current.description}</p>
+      </LayoutWrapper>
+    </BackgroundEmoji>
   );
 };

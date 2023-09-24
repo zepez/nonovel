@@ -20,24 +20,17 @@ export default async function ArticleLayout({
 
   return (
     <>
-      <div className="relative">
-        <BackgroundEmoji
-          emoji="🎑"
-          className="nn-bg-blurred absolute inset-0 z-0 h-full w-full"
-          tiled={false}
-        />
-        <div className="relative z-10 flex h-96 items-center sm:h-64">
-          <LayoutWrapper className="max-w-5xl py-0">
-            <h1 className="nn-title text-3xl font-bold sm:text-4xl">
-              {article.meta.title}
-            </h1>
-            <span className="mt-4 block">
-              Posted {format(new Date(article.meta.date), "MM/dd/yyyy")}, by{" "}
-              <i>{article.meta.author}</i>
-            </span>
-          </LayoutWrapper>
-        </div>
-      </div>
+      <BackgroundEmoji emoji="🎑" tiled={false}>
+        <LayoutWrapper className="max-w-5xl py-16">
+          <h1 className="nn-title text-3xl font-bold sm:text-4xl">
+            {article.meta.title}
+          </h1>
+          <span className="mt-4 block">
+            Posted {format(new Date(article.meta.date), "MM/dd/yyyy")}, by{" "}
+            <i>{article.meta.author}</i>
+          </span>
+        </LayoutWrapper>
+      </BackgroundEmoji>
 
       <LayoutWrapper className="max-w-3xl pt-0">{children}</LayoutWrapper>
 

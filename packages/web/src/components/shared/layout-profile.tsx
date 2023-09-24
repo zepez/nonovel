@@ -47,7 +47,7 @@ export const LayoutProfile = ({ session }: LayoutProfileProps) => {
         <Image
           src={src(profile.image, "profile")}
           alt="Profile picture"
-          className="mx-1 rounded-full border border-transparent"
+          className="mx-1 rounded-full border border-transparent bg-nn-dark dark:bg-nn-light"
           width={36}
           height={36}
         />
