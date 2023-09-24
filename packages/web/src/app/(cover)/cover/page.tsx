@@ -52,8 +52,7 @@ export default async function Page({ searchParams: q }: Props) {
   }
 
   const covers = [CoverOne, CoverTwo, CoverThree, CoverFour];
-  // const Cover = covers[Math.floor(Math.random() * covers.length)];
-  const Cover = covers[3 - 1];
+  const Cover = covers[Math.floor(Math.random() * covers.length)];
 
   return (
     <Cover
