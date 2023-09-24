@@ -1,10 +1,9 @@
 import { Metadata } from "next";
-import Link from "next/link";
 import { notFound } from "next/navigation";
 import { getSession } from "~/lib/auth";
 import { getProjectBySlug, getChapterManifestByIds } from "~/lib/request";
-import { SectionEmpty, SectionHeading } from "~/components/shared";
-import { Blurb, ListChapters } from "~/components/project";
+import { SectionHeading } from "~/components/shared";
+import { ListChapters } from "~/components/project";
 import { clamp } from "~/lib/string";
 
 interface ProjectPageProps {
@@ -21,17 +20,19 @@ export async function generateMetadata({
     project.penName ?? project.users[0]?.user?.profile?.username ?? null;
 
   const description = clamp(
-    `Read ${project.name} online for free. ${project.description ?? ""}`,
+    `Chapters in ${project.name} - start reading today. ${
+      project.description ?? ""
+    }`,
     160
   );
 
   return {
-    title: project.name,
+    title: `Chapters | ${project.name}`,
     description,
     authors: author ? [{ name: author }] : [],
     openGraph: {
       title: `${project.name} | NoNovel.io`,
-      url: `https://nonovel.io/p/${project.slug}`,
+      url: `https://nonovel.io/p/${project.slug}/chapters`,
       description,
       authors: author ? [author] : [],
       images: [
@@ -60,73 +61,10 @@ export default async function ProjectPage({ params }: ProjectPageProps) {
   });
   if (!manifest) notFound();
 
-  const latestChapterRead = manifest
-    .filter((item) => item.userChapterViews.length > 0)
-    .reverse()[0];
-
   return (
     <>
-      {latestChapterRead ? (
-        <div className="mt-12 mb-4">
-          <Link
-            href={`/p/${project.slug}/chapters/${latestChapterRead.order}`}
-            className="flex items-center justify-between w-full px-3 py-2 border border-dashed rounded-md nn-text-secondary nn-interactive nn-border"
-          >
-            Resume reading {latestChapterRead.name}{" "}
-            <span className="mx-4 text-xs">#{latestChapterRead.order}</span>
-          </Link>
-        </div>
-      ) : null}
-
-      <SectionHeading>Synopsis</SectionHeading>
-      <section>
-        {project.description ? (
-          <p>{project.description}</p>
-        ) : (
-          <Blurb slug={params.slug} />
-        )}
-      </section>
-
-      <SectionHeading>
-        Genre{project.genres.length !== 1 ? "s" : ""}
-      </SectionHeading>
-      {project.genres.length > 0 ? (
-        <section className="flex flex-wrap gap-3">
-          {project.genres.map(({ genre }) => (
-            <Link
-              key={genre.id}
-              href={`/browse/${genre.slug}`}
-              className="px-4 py-2 text-xs font-bold leading-tight uppercase border rounded-sm nn-interactive nn-bg-background nn-border-50"
-              title={`Browse ${genre.name.toLowerCase()}`}
-            >
-              {genre.name}
-            </Link>
-          ))}
-        </section>
-      ) : (
-        <SectionEmpty className="nn-bg-background">
-          This project does not have any known genres, yet.
-        </SectionEmpty>
-      )}
-
-      {project.progress !== "finished" && (
-        <>
-          <SectionHeading>Recent Chapters</SectionHeading>
-          <ListChapters
-            chapters={manifest.slice(-3).reverse()}
-            disabledSearch
-            itemHeight={1}
-            projectSlug={project.slug}
-            additionalItems={[
-              {
-                name: "View All",
-                href: `/p/${project.slug}/chapters`,
-                symbol: "...",
-              },
-            ]}
-          />
-        </>
-      )}
+      <SectionHeading>All Chapters</SectionHeading>
+      <ListChapters chapters={manifest} projectSlug={project.slug} />
     </>
   );
 }

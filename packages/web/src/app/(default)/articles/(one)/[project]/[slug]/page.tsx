@@ -1,5 +1,6 @@
 import { Metadata } from "next";
 import Link from "next/link";
+import Balancer from "react-wrap-balancer";
 import { getPostBySlug } from "~/lib/mdx";
 import { getProjectBySlug } from "~/lib/request";
 import { src } from "~/lib/string";
@@ -44,19 +45,19 @@ export default async function Page({ params }: Props) {
           />
           <div className="flex min-w-0 flex-shrink flex-col">
             <p className="nn-title mb-2 text-2xl">
-              Read &quot;{proj.name}&quot; on nonovel.io
+              <Balancer>
+                <span className="italic">&quot;{proj.name}&quot;</span> on
+                NoNovel.io
+              </Balancer>
             </p>
-            <p className="nn-text-secondary flex-grow">{proj.description}</p>
-            <div className="mt-4 flex flex-shrink-0 items-center gap-2 overflow-x-scroll whitespace-nowrap scrollbar-none">
-              {proj.genres.map(({ genre }) => (
-                <div
-                  key={genre.id}
-                  className="nn-border nn-bg-foreground nn-text-secondary rounded-sm border px-2 py-1"
-                >
-                  {genre.name}
-                </div>
-              ))}
-            </div>
+            <p className="flex-grow opacity-80">
+              NoNovel.io brings you an expansive collection of carefully curated
+              public domain books. Whether you're revisiting old favorites or
+              discovering hidden gems, our platform ensures an uninterrupted,
+              pure reading experience. Journey through the pages of history and
+              imagination, all from the comfort of your device, and all
+              completely free.{" "}
+            </p>
           </div>
         </Link>
       )}

@@ -11,6 +11,18 @@ const nextConfig = {
     mdxRs: false,
   },
   images: {
+    minimumCacheTTL: 60,
+  },
+  async redirects() {
+    return [
+      {
+        source: "/p/:slug/chapters",
+        destination: "/p/:slug",
+        permanent: true,
+      },
+    ];
+  },
+  images: {
     remotePatterns: [
       {
         protocol: "https",

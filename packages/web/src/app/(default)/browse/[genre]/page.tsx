@@ -80,12 +80,12 @@ export default async function BrowsePage({
         <p className="nn-text-secondary">{parse(genre?.description ?? "")}</p>
       </section>
 
-      <section className="flex flex-row flex-wrap justify-evenly gap-4">
+      <section className="flex flex-row flex-wrap justify-start">
         {results.map((result) => (
           <Link
             href={`/p/${result.slug}`}
             key={result.id}
-            className="nn-interactive h-auto w-[160px] rounded-sm sm:w-[230px]"
+            className="nn-interactive block h-auto w-1/2 rounded-sm px-1 py-2 sm:px-4 md:w-1/4"
           >
             <div className="relative">
               <Image
@@ -95,7 +95,7 @@ export default async function BrowsePage({
                 height={750}
                 className="h-auto w-full rounded-sm p-1"
               />
-              <div className="absolute right-0 top-4 flex w-full justify-center">
+              <div className="absolute right-0 top-4 flex w-full justify-center md:top-5">
                 <div className="flex items-center justify-center gap-1 rounded-sm bg-nn-dark/50 px-2 text-xs text-nn-light">
                   <AiTwotoneEye />
                   {summarizeNumber(result.views)}

@@ -6,12 +6,8 @@ import { cn } from "~/lib/utils";
 
 const navigation = [
   {
-    name: "Overview",
-    segment: null,
-  },
-  {
     name: "Chapters",
-    segment: "chapters",
+    segment: null,
   },
   {
     name: "Reviews",
@@ -27,7 +23,7 @@ export const LayoutNavigation = ({ slug }: LayoutNavigationProps) => {
   const segment = useSelectedLayoutSegment();
 
   return (
-    <nav className="nn-bg-background nn-border-50 flex flex-col gap-1 rounded-md border p-2 text-center text-xs font-bold leading-tight sm:flex-row">
+    <nav className="nn-bg-background flex flex-col gap-4 rounded-md p-2 text-center text-xs font-bold leading-tight sm:flex-row">
       {navigation.map((n) => (
         <Link
           key={n.name}

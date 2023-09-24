@@ -1,6 +1,7 @@
 import { Suspense } from "react";
 import { Metadata } from "next";
 import { Inter } from "next/font/google";
+import { Provider as WrapProvider } from "react-wrap-balancer";
 import { LayoutDesktopHeader, LayoutMobileHeader } from "~/components/default";
 import {
   LayoutFooter,
@@ -67,7 +68,9 @@ export default function RootLayout({ children }: RootLayoutProps) {
                 <LayoutDesktopHeader />
                 <LayoutMobileHeader />
               </Suspense>
-              <main className="flex-grow">{children}</main>
+              <WrapProvider>
+                <main className="flex-grow">{children}</main>
+              </WrapProvider>
               <LayoutFooter />
             </div>
             <Toaster />

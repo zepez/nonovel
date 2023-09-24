@@ -1,6 +1,6 @@
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import { formatDistanceToNow } from "date-fns";
+import Balancer from "react-wrap-balancer";
 import { getSession } from "~/lib/auth";
 import {
   getProjectBySlug,
@@ -19,15 +19,28 @@ import {
 import { LoginDialog } from "~/components/auth";
 import {
   ButtonFollow,
-  Blurb,
   ReviewScore,
   LayoutNavigation,
 } from "~/components/project";
 import { Button } from "~/components/ui/button";
+import { TruncateParagraph } from "~/components/shared";
 import { summarizeNumber } from "~/lib/number";
-import { toTitleCase, naturalListJoin, src } from "~/lib/string";
+import { toTitleCase, src } from "~/lib/string";
 
 export const revalidate = 60;
+
+const StatDisplay = ({ stat, name }: { stat: number; name: string }) => {
+  return (
+    <div className="min-w-[100px] max-w-[150px] flex-grow">
+      <p className="text-lg font-bold text-nn-dark dark:text-nn-primary-dark">
+        {name}
+      </p>
+      <p className="mt-2 text-xl font-bold leading-tight">
+        {summarizeNumber(stat)}
+      </p>
+    </div>
+  );
+};
 
 interface ProjectLayoutProps {
   children: React.ReactNode;
@@ -67,21 +80,18 @@ export default async function ProjectLayout({
     projectId: project.id,
   });
 
-  const authors = project.users.filter((user) => user.role === "author");
-
-  const latestChapter = manifest[manifest.length - 1] ?? null;
   const latestChapterRead = manifest
     .filter((item) => item.userChapterViews.length > 0)
     .reverse()[0];
 
   const readButton = latestChapterRead
     ? {
-        text: "Continue reading",
+        text: "Continue",
         href: `/p/${project.slug}/chapters/${latestChapterRead.order}`,
       }
     : manifest[0]
     ? {
-        text: "Start reading",
+        text: "Start",
         href: `/p/${project.slug}/chapters/${manifest[0]?.order ?? 0}`,
       }
     : null;
@@ -89,92 +99,40 @@ export default async function ProjectLayout({
   return (
     <>
       <BackgroundImage src={src(project.cover, "cover")}>
-        <LayoutWrapper className="flex flex-wrap md:flex-nowrap">
+        <LayoutWrapper className="flex flex-wrap sm:flex-nowrap">
           <AspectImage
             src={src(project.cover, "cover")}
             alt={project.name}
             width={400}
-            className="mx-auto w-48 flex-shrink-0 md:mx-0 md:w-72"
+            className="mx-auto w-60 flex-shrink-0 pb-8 sm:w-56 sm:pb-0 lg:w-72"
           />
-          <div className="ml-0 mt-12 flex flex-col md:ml-16 md:mt-0">
-            <h1 className="nn-title mb-1 text-4xl font-bold italic">
-              {toTitleCase(project.name)}
+          <div className="ml-0 flex flex-col sm:ml-8 lg:ml-16">
+            <h1 className="nn-title mb-1 text-4xl font-bold italic drop-shadow-2xl">
+              <Balancer>{toTitleCase(project.name)}</Balancer>
             </h1>
-            {authors.length > 0 && (
-              <p className="mt-3 text-sm">
-                By{" "}
-                {authors.map(({ user }, relationIdx) =>
-                  user?.profile?.username ? (
-                    <>
-                      <Link
-                        key={user.id}
-                        href={`/u/${user?.profile?.username ?? ""}`}
-                        className="nn-interactive"
-                        title="View profile"
-                      >
-                        @{user?.profile?.username.toLowerCase()}
-                      </Link>
-                      {naturalListJoin(relationIdx, authors.length)}
-                    </>
-                  ) : null
-                )}
-              </p>
-            )}
-            <p className="nn-text-secondary mt-1">
-              Updated{" "}
-              {formatDistanceToNow(
-                latestChapter?.createdAt ?? project.updatedAt,
-                {
-                  addSuffix: true,
-                }
-              )}
+            <p className="mt-1 text-lg font-medium">
+              {toTitleCase(project?.penName ?? "Author Unknown")}
             </p>
 
-            <div className="flex items-center">
-              <ReviewScore
-                readOnly
-                value={reviewTotal.average}
-                style={{ maxWidth: 150 }}
-                className="mt-5"
-                hideHint
-                count={reviewTotal.count}
-              />
+            <div className="mt-8 flex flex-wrap justify-start justify-items-start gap-y-8">
+              <div className="flex flex-grow flex-wrap justify-around gap-4">
+                <StatDisplay name="Chapters" stat={manifest.length} />
+                <StatDisplay name="Views" stat={viewCount} />
+              </div>
+              <div className="flex flex-grow flex-wrap justify-around gap-4">
+                <StatDisplay name="Bookmarks" stat={followCount} />
+                <StatDisplay name="Reviews" stat={reviewTotal.count} />
+              </div>
             </div>
 
-            <div className="nn-divide mt-8 grid w-auto grid-cols-2 gap-4 sm:grid-cols-4 sm:divide-x">
-              <div className="pl-4">
-                <p className="text-xs">Chapters</p>
-                <p className="mt-2 text-xl font-bold leading-tight">
-                  {summarizeNumber(manifest.length)}
-                </p>
-              </div>
-              <div className="pl-4">
-                <p className="text-xs">Views</p>
-                <p className="mt-2 text-xl font-bold leading-tight">
-                  {summarizeNumber(viewCount)}
-                </p>
-              </div>
-              <div className="pl-4">
-                <p className="text-xs">Bookmarks</p>
-                <p className="mt-2 text-xl font-bold leading-tight">
-                  {summarizeNumber(followCount)}
-                </p>
-              </div>
-              <div className="pl-4">
-                <p className="text-xs">Reviews</p>
-                <p className="mt-2 text-xl font-bold leading-tight">
-                  {summarizeNumber(reviewTotal.count)}
-                </p>
-              </div>
+            <div className="nn-text-secondary mt-8 flex-grow">
+              <TruncateParagraph text={project.description} length={350} />
             </div>
-            <Blurb
-              className="nn-text-secondary mt-8 flex-grow"
-              slug={params.slug}
-            />
-            <div className="mt-8 flex flex-wrap gap-4 sm:flex-nowrap">
+
+            <div className="flex flex-wrap gap-4 pt-8 sm:flex-nowrap">
               {session?.user?.id ? (
                 <ButtonFollow
-                  className="w-full bg-nn-secondary-dark px-4 py-2 text-center text-sm font-semibold uppercase leading-tight text-nn-light opacity-80 dark:opacity-100"
+                  className="w-full bg-nn-dark px-4 py-2 text-center text-sm font-semibold uppercase leading-tight text-nn-light opacity-80 dark:opacity-100"
                   followId={follow?.id}
                   userId={session?.user?.id}
                   projectId={project.id}
@@ -200,6 +158,31 @@ export default async function ProjectLayout({
                   {readButton.text}
                 </Link>
               )}
+            </div>
+
+            <div className="flex flex-wrap items-center justify-between gap-8 pt-8">
+              <ReviewScore
+                readOnly
+                value={reviewTotal.average}
+                style={{ maxWidth: 120 }}
+                hideHint
+                count={reviewTotal.count}
+              />
+
+              <div className="flex justify-end">
+                <div className="flex min-w-[200px] flex-1 flex-wrap gap-x-6 gap-y-3 text-xs">
+                  {project.genres.map(({ genre }) => (
+                    <div key={genre.id}>
+                      <Link
+                        href={`/browse/${genre.slug}`}
+                        className="nn-interactive"
+                      >
+                        {genre.name}
+                      </Link>
+                    </div>
+                  ))}
+                </div>
+              </div>
             </div>
           </div>
         </LayoutWrapper>
