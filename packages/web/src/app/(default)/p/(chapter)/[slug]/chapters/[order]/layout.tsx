@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { formatDistanceToNow } from "date-fns";
+import Balancer from "react-wrap-balancer";
 import { getSession } from "~/lib/auth";
 import {
   getChapterBySlugAndOrder,
@@ -14,7 +15,7 @@ import {
   CommentLayout,
   BackgroundImage,
 } from "~/components/shared";
-import { ChapterSettings, ChapterView } from "~/components/chapter";
+import { ChapterView } from "~/components/chapter";
 
 interface ChapterLayoutProps {
   children?: React.ReactNode;
@@ -48,40 +49,40 @@ export default async function ChapterLayout({
         projectId={project.id}
         chapterId={chapter.id}
       />
-      <BackgroundImage src={src(project.cover, "cover")}>
-        <LayoutWrapper className="flex flex-wrap items-center justify-between md:flex-nowrap">
-          <div className="mb-8 flex w-full flex-wrap items-center md:mb-0 md:w-auto md:flex-nowrap">
+      <BackgroundImage src={src(project.cover, "cover")} className="pb-8">
+        <LayoutWrapper className="flex flex-wrap items-center">
+          <Link
+            href={`/p/${project.slug}`}
+            className="nn-interactive mb-4 w-full flex-shrink-0 rounded-md p-1 md:mx-0 md:mb-0 md:w-auto"
+            title={project.name}
+          >
+            <AspectImage
+              src={src(project.cover, "cover")}
+              alt={project.name}
+              width={200}
+              className="flex w-auto justify-center"
+            />
+          </Link>
+          <div className="mx-auto flex-1 text-center md:ml-12 md:text-left">
+            <h1 className="nn-title pb-4 pt-4 text-2xl font-bold italic md:pt-0 md:text-3xl">
+              <Balancer>{toTitleCase(chapter.name)}</Balancer>
+            </h1>
             <Link
               href={`/p/${project.slug}`}
-              className="nn-interactive mb-8 w-full flex-shrink-0 rounded-md p-1 md:mx-0 md:mb-0 md:w-auto"
-              title={project.name}
+              className="nn-interactive text-lg"
             >
-              <AspectImage
-                src={src(project.cover, "cover")}
-                alt={project.name}
-                width={150}
-                className="flex w-auto justify-center"
-              />
+              <Balancer as="h2">{toTitleCase(project.name)}</Balancer>
             </Link>
-            <div className="mx-auto max-w-md flex-shrink text-center md:mx-16 md:text-left">
-              <Link href={`/p/${project.slug}`} className="nn-interactive">
-                {toTitleCase(project.name)}
-              </Link>
-              <h1 className="nn-title mt-2 text-2xl font-bold italic">
-                {toTitleCase(chapter.name)}
-              </h1>
-              <p className="nn-text-secondary mt-2">
-                #{chapter.order} | Uploaded{" "}
-                {formatDistanceToNow(chapter.createdAt, { addSuffix: true })}
-              </p>
-            </div>
+            <p className="nn-text-secondary pt-4">
+              #{chapter.order} | Uploaded{" "}
+              {formatDistanceToNow(chapter.createdAt, { addSuffix: true })}
+            </p>
           </div>
-          <ChapterSettings className="nn-interactive nn-bg-foreground flex h-8 w-full items-center justify-center rounded-md md:h-12 md:w-12" />
         </LayoutWrapper>
       </BackgroundImage>
 
       <div className="nn-content-wrapper-background text-nn-dark dark:text-nn-light">
-        <LayoutWrapper>
+        <LayoutWrapper className="py-8">
           <ChapterNavigation
             project={project}
             chapter={chapter}
@@ -96,7 +97,11 @@ export default async function ChapterLayout({
         </LayoutWrapper>
       </div>
 
-      <CommentLayout resourceId={chapter.id} resourceType="chapter" />
+      <CommentLayout
+        resourceId={chapter.id}
+        resourceType="chapter"
+        className="pt-8"
+      />
     </>
   );
 }

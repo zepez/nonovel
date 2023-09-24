@@ -5,11 +5,7 @@ import { useLocalStorage } from "react-use";
 import * as z from "zod";
 import { MixerHorizontalIcon } from "@radix-ui/react-icons";
 import { cn } from "~/lib/utils";
-import {
-  Popover,
-  PopoverContent,
-  PopoverTrigger,
-} from "~/components/ui/popover";
+import { Dialog, DialogContent, DialogTrigger } from "~/components/ui/dialog";
 import { Button } from "~/components/ui/button";
 import { Separator } from "~/components/ui/separator";
 import { IncrementalChange } from "./incremental-change";
@@ -25,10 +21,14 @@ const textColorValidator = z.string().default("inherit");
 const backgroundColorValidator = z.string().default("inherit");
 
 interface ChapterSettingsProps {
+  triggerText?: string;
   className?: string;
 }
 
-export const ChapterSettings = ({ className }: ChapterSettingsProps) => {
+export const ChapterSettings = ({
+  className,
+  triggerText,
+}: ChapterSettingsProps) => {
   const defaultFontSize = fontSizeValidator.parse(undefined);
   const [fontSize, setFontSize] = useLocalStorage(
     "nn-chapter-font-size",
@@ -144,22 +144,11 @@ export const ChapterSettings = ({ className }: ChapterSettingsProps) => {
 
   return (
     <>
-      <Popover>
-        <PopoverTrigger className={cn(className)} title="Chapter settings">
-          <MixerHorizontalIcon
-            className="m-2 hidden md:block"
-            width="32"
-            height="32"
-          />
-          <div className="flex text-xs md:hidden">
-            <MixerHorizontalIcon className="mr-2" width="16" height="16" />
-            Text settings
-          </div>
-        </PopoverTrigger>
-        <PopoverContent
-          align="end"
-          className="nn-bg-foreground nn-border flex w-screen flex-col gap-5 border sm:w-[400px]"
-        >
+      <Dialog>
+        <DialogTrigger className={cn(className)} title="Chapter settings">
+          <MixerHorizontalIcon width={22} height={22} /> {triggerText}
+        </DialogTrigger>
+        <DialogContent className="nn-bg-dark nn-border flex w-screen flex-col gap-5 border sm:w-[400px]">
           <IncrementalChange
             name="Font Size"
             value={fontSize}
@@ -243,8 +232,8 @@ export const ChapterSettings = ({ className }: ChapterSettingsProps) => {
           >
             Reset
           </Button>
-        </PopoverContent>
-      </Popover>
+        </DialogContent>
+      </Dialog>
     </>
   );
 };

@@ -12,12 +12,9 @@ import type {
   GetChapterManifestByIdsReturn,
 } from "@nonovel/query";
 import { cn } from "~/lib/utils";
-import {
-  Popover,
-  PopoverContent,
-  PopoverTrigger,
-} from "~/components/ui/popover";
+import { Dialog, DialogContent, DialogTrigger } from "~/components/ui/dialog";
 import { ScrollArea } from "~/components/ui/scroll-area";
+import { ChapterSettings } from "~/components/chapter/chapter-settings";
 
 interface DirectionalButtonProps {
   chapter: number | null;
@@ -44,7 +41,7 @@ const DirectionalButton = ({
         className={cn(
           className,
           chapter ? "nn-interactive" : "cursor-not-allowed opacity-50",
-          "nn-bg-background nn-border flex w-full items-center justify-center border px-8 py-3 text-center"
+          "nn-bg-background flex w-full items-center justify-center px-8 py-3 text-center"
         )}
       >
         {icon}
@@ -69,41 +66,31 @@ const ChapterManifest = ({
   manifest,
 }: ChapterNavigationProps) => {
   return (
-    <Popover>
-      <PopoverTrigger className={cn(className, "nn-interactive")}>
+    <Dialog>
+      <DialogTrigger className={cn(className, "nn-interactive")}>
         <HamburgerMenuIcon width={22} height={22} className="mr-3" /> Table of
         Contents
-      </PopoverTrigger>
-      <PopoverContent
-        align="end"
-        className="nn-bg-background w-screen text-xs sm:w-[300px]"
-      >
-        <ScrollArea className="h-[300px] rounded-md">
-          <div className="nn-divide flex min-h-[300px] flex-col divide-y">
+      </DialogTrigger>
+      <DialogContent className="nn-bg-foreground w-screen text-xs sm:w-[400px]">
+        <ScrollArea className="h-[400px] rounded-md">
+          <div className="nn-divide flex min-h-[400px] flex-col divide-y">
             {manifest.map((c) => (
               <Link
                 key={c.id}
                 href={`/p/${project.slug}/chapters/${c.order}`}
                 className={cn(
-                  chapter.order == c.order && "nn-bg-foreground",
-                  "nn-interactive flex items-center justify-center px-2 py-4"
+                  chapter.order == c.order && "nn-bg-background",
+                  "nn-interactive flex items-center justify-center px-2 py-3 md:py-2"
                 )}
               >
                 <span className="flex-grow">{c.name}</span>
                 <span className="mx-2 text-xs opacity-30">#{c.order}</span>
               </Link>
             ))}
-            <div className="flex-grow" />
-            <Link
-              className="flex items-center justify-center p-2 px-4 mx-2 mt-4 mb-2 text-xs font-bold leading-tight uppercase rounded-md nn-bg-contrast nn-interactive"
-              href={`/p/${project.slug}/chapters`}
-            >
-              View all
-            </Link>
           </div>
         </ScrollArea>
-      </PopoverContent>
-    </Popover>
+      </DialogContent>
+    </Dialog>
   );
 };
 
@@ -132,7 +119,7 @@ export const ChapterNavigation = ({
           <DirectionalButton
             chapter={previousChapter}
             slug={project.slug}
-            className="rounded-l-md"
+            className="nn-border rounded-l-md border-r"
             title="Previous chapter"
             icon={<DoubleArrowLeftIcon width={22} height={22} />}
           />
@@ -145,8 +132,12 @@ export const ChapterNavigation = ({
           />
         </div>
 
+        <ChapterSettings
+          triggerText="Settings"
+          className="nn-interactive nn-bg-background flex items-center justify-center gap-3 rounded-md px-8 py-3 text-xs font-bold uppercase leading-tight"
+        />
         <ChapterManifest
-          className="flex items-center justify-center px-4 py-3 text-xs font-bold leading-tight uppercase rounded-md nn-bg-background nn-border"
+          className="nn-bg-background flex items-center justify-center rounded-md px-4 py-3 text-xs font-bold uppercase leading-tight"
           project={project}
           manifest={manifest}
           chapter={chapter}
@@ -154,7 +145,7 @@ export const ChapterNavigation = ({
       </nav>
 
       {/* desktop */}
-      <nav className="flex-wrap items-center justify-between hidden md:flex">
+      <nav className="hidden flex-wrap items-center justify-between md:flex">
         <DirectionalButton
           chapter={previousChapter}
           slug={project.slug}
@@ -163,8 +154,9 @@ export const ChapterNavigation = ({
           icon={<DoubleArrowLeftIcon width={22} height={22} />}
         />
         <div className="flex flex-wrap items-center justify-center">
+          <ChapterSettings className="nn-interactive nn-bg-background rounded-l-md px-8 py-3 text-center" />
           <ChapterManifest
-            className="flex items-center justify-center px-4 py-3 text-xs font-bold leading-tight uppercase border border-t border-b border-l nn-bg-background nn-border rounded-l-md"
+            className="nn-bg-background nn-border flex items-center justify-center border-l border-r px-4 py-3 text-xs font-bold uppercase leading-tight"
             project={project}
             manifest={manifest}
             chapter={chapter}

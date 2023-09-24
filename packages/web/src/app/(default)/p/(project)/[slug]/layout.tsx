@@ -1,6 +1,9 @@
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import Balancer from "react-wrap-balancer";
+import { FiBookOpen, FiEye } from "react-icons/fi";
+import { BsBookmarkHeart } from "react-icons/bs";
+import { MdOutlineReviews } from "react-icons/md";
 import { getSession } from "~/lib/auth";
 import {
   getProjectBySlug,
@@ -29,14 +32,20 @@ import { toTitleCase, src } from "~/lib/string";
 
 export const revalidate = 60;
 
-const StatDisplay = ({ stat, name }: { stat: number; name: string }) => {
+interface StatDisplayProps {
+  stat: number;
+  name: string;
+  icon: React.ReactNode;
+}
+
+const StatDisplay = ({ stat, name, icon }: StatDisplayProps) => {
   return (
     <div className="min-w-[100px] max-w-[150px] flex-grow">
       <p className="text-lg font-bold text-nn-dark dark:text-nn-primary-dark">
         {name}
       </p>
-      <p className="mt-2 text-xl font-bold leading-tight">
-        {summarizeNumber(stat)}
+      <p className="mt-2 flex items-center justify-center gap-2 text-xl font-bold leading-tight sm:justify-start">
+        <span className="text-2xl">{icon}</span> {summarizeNumber(stat)}
       </p>
     </div>
   );
@@ -99,34 +108,46 @@ export default async function ProjectLayout({
   return (
     <>
       <BackgroundImage src={src(project.cover, "cover")}>
-        <LayoutWrapper className="flex flex-wrap sm:flex-nowrap">
+        <LayoutWrapper className="flex flex-wrap md:flex-nowrap">
           <AspectImage
             src={src(project.cover, "cover")}
             alt={project.name}
             width={400}
-            className="mx-auto w-60 flex-shrink-0 pb-8 sm:w-56 sm:pb-0 lg:w-72"
+            className="mx-auto w-60 flex-shrink-0 pb-8 md:w-72 md:pb-0"
           />
-          <div className="ml-0 flex flex-col sm:ml-8 lg:ml-16">
-            <h1 className="nn-title mb-1 text-4xl font-bold italic drop-shadow-2xl">
+          <div className="ml-0 flex flex-col md:ml-8 lg:ml-16">
+            <h1 className="nn-title mb-1 text-center text-4xl font-bold italic drop-shadow-2xl sm:text-left">
               <Balancer>{toTitleCase(project.name)}</Balancer>
             </h1>
-            <p className="mt-1 text-lg font-medium">
-              {toTitleCase(project?.penName ?? "Author Unknown")}
+            <p className="mt-1 text-center text-lg font-medium sm:text-left">
+              by {toTitleCase(project?.penName ?? "Author Unknown")}
             </p>
 
-            <div className="mt-8 flex flex-wrap justify-start justify-items-start gap-y-8">
+            <div className="mt-8 flex flex-wrap justify-start justify-items-start gap-y-8 text-center sm:text-left">
               <div className="flex flex-grow flex-wrap justify-around gap-4">
-                <StatDisplay name="Chapters" stat={manifest.length} />
-                <StatDisplay name="Views" stat={viewCount} />
+                <StatDisplay
+                  name="Chapters"
+                  stat={manifest.length}
+                  icon={<FiBookOpen />}
+                />
+                <StatDisplay name="Views" stat={viewCount} icon={<FiEye />} />
               </div>
               <div className="flex flex-grow flex-wrap justify-around gap-4">
-                <StatDisplay name="Bookmarks" stat={followCount} />
-                <StatDisplay name="Reviews" stat={reviewTotal.count} />
+                <StatDisplay
+                  name="Bookmarks"
+                  stat={followCount}
+                  icon={<BsBookmarkHeart />}
+                />
+                <StatDisplay
+                  name="Reviews"
+                  stat={reviewTotal.count}
+                  icon={<MdOutlineReviews />}
+                />
               </div>
             </div>
 
-            <div className="nn-text-secondary mt-8 flex-grow">
-              <TruncateParagraph text={project.description} length={350} />
+            <div className="nn-text-secondary mt-8 flex-grow px-4 sm:px-0">
+              <TruncateParagraph text={project.description} length={275} />
             </div>
 
             <div className="flex flex-wrap gap-4 pt-8 sm:flex-nowrap">

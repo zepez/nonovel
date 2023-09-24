@@ -6,6 +6,7 @@ import { useSession } from "next-auth/react";
 
 import type { Comment } from "@nonovel/db";
 import type { GetCommentPageByResourceIdReturn } from "@nonovel/query";
+import { cn } from "~/lib/utils";
 import { getCommentPage } from "~/actions";
 import { Skeleton } from "~/components/ui/skeleton";
 import { LoginDialog } from "~/components/auth";
@@ -19,11 +20,13 @@ import { CommentThread } from "./thread";
 type Comments = NonNullable<GetCommentPageByResourceIdReturn[1]>;
 
 interface LayoutCommentsProps {
+  className?: string;
   resourceId: Comment["resourceId"];
   resourceType: Comment["resourceType"];
 }
 
 export const CommentLayout = ({
+  className,
   resourceId,
   resourceType,
 }: LayoutCommentsProps) => {
@@ -79,93 +82,91 @@ export const CommentLayout = ({
   const showPagination = Boolean(comments.length > 0 || loadingAnotherPage);
 
   return (
-    <div className="nn-bg-foreground">
-      <LayoutWrapper className="pt-16">
-        <section
-          ref={intersectionRef}
-          className="nn-bg-background nn-border rounded-md border px-6 pb-10 pt-8 md:px-12"
-        >
-          <SectionHeading className="mt-0">Comments</SectionHeading>
+    <LayoutWrapper className={cn("pt-16", className)}>
+      <section
+        ref={intersectionRef}
+        className="nn-bg-background nn-border rounded-md border px-6 pb-10 pt-8 md:px-12"
+      >
+        <SectionHeading className="mt-0">Comments</SectionHeading>
 
-          {session?.user.id && (
-            <CommentEdit
-              refresh={getComments}
-              className="mb-8"
-              background="nn-bg-foreground"
-              defaultSubmitText="Post comment"
-              actionText={["Posting", "Posted"]}
-              comment={{
-                resourceId,
-                resourceType,
-                userId: session?.user.id,
-                parentId: null,
-                content: "",
-              }}
-            />
-          )}
+        {session?.user.id && (
+          <CommentEdit
+            refresh={getComments}
+            className="mb-8"
+            background="nn-bg-foreground"
+            defaultSubmitText="Post comment"
+            actionText={["Posting", "Posted"]}
+            comment={{
+              resourceId,
+              resourceType,
+              userId: session?.user.id,
+              parentId: null,
+              content: "",
+            }}
+          />
+        )}
 
-          {showBaseLoading && (
-            <SectionEmpty className="nn-bg-foreground">
-              Loading comments...
+        {showBaseLoading && (
+          <SectionEmpty className="nn-bg-foreground">
+            Loading comments...
+          </SectionEmpty>
+        )}
+
+        {showNoComments && session?.user.id && (
+          <SectionEmpty className="nn-bg-foreground">
+            No comments yet.
+          </SectionEmpty>
+        )}
+
+        {showNoComments && !session?.user.id && (
+          <LoginDialog>
+            <SectionEmpty
+              as="button"
+              className="nn-bg-foreground nn-interactive w-full"
+            >
+              No comments yet. Login to be the first!
             </SectionEmpty>
-          )}
+          </LoginDialog>
+        )}
 
-          {showNoComments && session?.user.id && (
-            <SectionEmpty className="nn-bg-foreground">
-              No comments yet.
+        {!showNoComments && !session?.user.id && !showBaseLoading && (
+          <LoginDialog>
+            <SectionEmpty
+              as="button"
+              className="nn-bg-foreground nn-interactive mb-6 w-full"
+            >
+              Login to comment!
             </SectionEmpty>
-          )}
+          </LoginDialog>
+        )}
 
-          {showNoComments && !session?.user.id && (
-            <LoginDialog>
-              <SectionEmpty
-                as="button"
-                className="nn-bg-foreground nn-interactive w-full"
-              >
-                No comments yet. Login to be the first!
-              </SectionEmpty>
-            </LoginDialog>
-          )}
+        {showPageLoading && <Skeleton className="h-screen w-full" />}
 
-          {!showNoComments && !session?.user.id && !showBaseLoading && (
-            <LoginDialog>
-              <SectionEmpty
-                as="button"
-                className="nn-bg-foreground nn-interactive mb-6 w-full"
-              >
-                Login to comment!
-              </SectionEmpty>
-            </LoginDialog>
-          )}
+        {comments.length > 0 && (
+          <div className={"nn-bg-background rounded-md"}>
+            {comments.map((c) => (
+              <CommentThread key={c.id} parent={c} refresh={getComments} />
+            ))}
+          </div>
+        )}
 
-          {showPageLoading && <Skeleton className="h-screen w-full" />}
-
-          {comments.length > 0 && (
-            <div className={"nn-bg-background rounded-md"}>
-              {comments.map((c) => (
-                <CommentThread key={c.id} parent={c} refresh={getComments} />
-              ))}
-            </div>
-          )}
-
-          {showPagination && (
-            <ClientPaginate
-              onPreviousClick={() => {
-                setLoadingAnotherPage(true);
-                setComments([]);
-                setCurrentPage((c) => c - 1);
-              }}
-              previousDisabled={currentPage <= 1}
-              onNextClick={() => {
-                setLoadingAnotherPage(true);
-                setComments([]);
-                setCurrentPage((c) => c + 1);
-              }}
-              nextDisabled={!nextPageAvailable}
-            />
-          )}
-        </section>
-      </LayoutWrapper>
-    </div>
+        {showPagination && (
+          <ClientPaginate
+            onPreviousClick={() => {
+              setLoadingAnotherPage(true);
+              setComments([]);
+              setCurrentPage((c) => c - 1);
+            }}
+            previousDisabled={currentPage <= 1}
+            onNextClick={() => {
+              setLoadingAnotherPage(true);
+              setComments([]);
+              setCurrentPage((c) => c + 1);
+            }}
+            nextDisabled={!nextPageAvailable}
+          />
+        )}
+      </section>
+    </LayoutWrapper>
   );
 };
