@@ -16,6 +16,7 @@ export default async function BrowseLayout({ children }: BrowseLayoutProps) {
     <>
       <BackgroundEmoji emoji="👘" tiled={true}>
         <LayoutWrapper className="pb-16 pt-4">
+          <h1 className="nn-title mb-1">Browse Novels</h1>
           <LayoutNavigation genres={genres} />
         </LayoutWrapper>
       </BackgroundEmoji>

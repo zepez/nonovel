@@ -37,9 +37,7 @@ export default async function ProfileLayout({
             className="mx-auto w-64 rounded-md bg-nn-backdrop-dark p-1 md:mx-0"
           />
           <div className="mt-8 w-full text-center md:mb-2 md:ml-8 md:mt-0 md:w-auto md:text-left">
-            <h1 className="nn-title mb-4 text-2xl font-bold md:text-5xl">
-              @{profile.username.toLowerCase()}
-            </h1>
+            <h1 className="nn-title mb-4">@{profile.username.toLowerCase()}</h1>
             <p className="nn-text-secondary">
               Joined{" "}
               {formatDistanceToNow(profile.createdAt, { addSuffix: true })}{" "}

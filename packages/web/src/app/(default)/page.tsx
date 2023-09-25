@@ -62,7 +62,9 @@ const PopularSlider = async ({
                 </div>
               </div>
             </div>
-            <p className={cn("nn-title mx-2", titleClassName)}>{item.name}</p>
+            <p className={cn("mx-2 truncate font-bold", titleClassName)}>
+              {item.name}
+            </p>
           </Link>
         ))}
       </div>
@@ -92,9 +94,7 @@ export default async function HomePage() {
                 className="mx-auto flex-shrink-0"
               />
               <div className="min-w-0 flex-shrink pt-2">
-                <p className="nn-title mb-2 text-3xl font-bold italic">
-                  {popularToday.name}
-                </p>
+                <p className="nn-title mb-2 italic">{popularToday.name}</p>
                 <p>{popularToday.description}</p>
               </div>
             </div>

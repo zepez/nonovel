@@ -116,7 +116,7 @@ export default async function ProjectLayout({
             className="mx-auto w-60 flex-shrink-0 pb-8 md:w-72 md:pb-0"
           />
           <div className="ml-0 flex flex-col md:ml-8 lg:ml-16">
-            <h1 className="nn-title mb-1 text-center text-4xl font-bold italic drop-shadow-2xl sm:text-left">
+            <h1 className="nn-title mb-1 text-center italic drop-shadow-2xl sm:text-left">
               <Balancer>{toTitleCase(project.name)}</Balancer>
             </h1>
             <p className="mt-1 text-center text-lg sm:text-left">

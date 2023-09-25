@@ -64,15 +64,17 @@ export default async function ChapterLayout({
             />
           </Link>
           <div className="mx-auto flex-1 text-center md:ml-12 md:text-left">
-            <h1 className="nn-title pb-4 pt-4 text-2xl font-bold italic md:pt-0 md:text-3xl">
-              <Balancer>{toTitleCase(chapter.name)}</Balancer>
-            </h1>
+            <Balancer as="h1" className="nn-title pb-3 pt-4 italic md:pt-0">
+              {toTitleCase(chapter.name)}
+            </Balancer>
+
             <Link
               href={`/p/${project.slug}`}
-              className="nn-interactive text-lg"
+              className="nn-interactive block text-lg"
             >
               <Balancer as="h2">{toTitleCase(project.name)}</Balancer>
             </Link>
+
             <p className="nn-text-secondary pt-4">
               #{chapter.order} | Uploaded{" "}
               {formatDistanceToNow(chapter.createdAt, { addSuffix: true })}

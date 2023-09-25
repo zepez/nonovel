@@ -29,7 +29,7 @@ export default async function Page({ params }: Props) {
 
   return (
     <>
-      <div className="prose-lg dark:prose-invert prose max-w-none prose-h2:pb-4 prose-h2:pt-8 prose-h2:font-title prose-h2:text-[1.8rem] prose-h3:pb-2 prose-h3:pt-8 prose-h3:text-xl prose-h3:font-bold prose-h3:leading-tight prose-img:mx-auto prose-img:pb-4 prose-img:pt-2">
+      <div className="prose-lg dark:prose-invert prose-h2:font-title prose max-w-none prose-h2:pb-4 prose-h2:pt-8 prose-h2:text-[1.8rem] prose-h3:pb-2 prose-h3:pt-8 prose-h3:text-xl prose-h3:font-bold prose-h3:leading-tight prose-img:mx-auto prose-img:pb-4 prose-img:pt-2">
         {article.content}
       </div>
       {proj && (
@@ -44,7 +44,7 @@ export default async function Page({ params }: Props) {
             className="mx-auto flex w-auto flex-shrink-0 items-start justify-center"
           />
           <div className="flex min-w-0 flex-shrink flex-col">
-            <p className="nn-title mb-2 text-2xl">
+            <p className="mb-2 font-serif text-2xl">
               <Balancer>
                 <span className="italic">&quot;{proj.name}&quot;</span> on
                 NoNovel.io

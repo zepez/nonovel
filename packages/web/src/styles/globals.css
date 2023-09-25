@@ -7,7 +7,7 @@
 /* ============================================= */
 
 *:focus {
-  @apply outline-none ring-2 ring-inset ring-nn-primary-light dark:ring-nn-primary-dark;
+  @apply outline-none ring-2 ring-inset ring-nn-dark/70 dark:ring-nn-primary-dark;
 }
 
 *:disabled {
@@ -15,7 +15,7 @@
 }
 
 ::selection {
-  @apply text-nn-light bg-nn-primary-light dark:ring-nn-primary-dark;
+  @apply text-nn-light ring-nn-dark/70 dark:ring-nn-primary-dark;
 }
 
 :root, html {
@@ -37,7 +37,7 @@ body {
   cursor: pointer;
 
   &[data-selected="true"] {
-    @apply outline-none ring-2 ring-inset ring-nn-primary-light dark:ring-nn-primary-dark;
+    @apply outline-none ring-2 ring-inset ring-nn-dark/70 dark:ring-nn-primary-dark;
   }
 
   &[data-disabled="true"] {
@@ -94,8 +94,7 @@ body {
 /* ============================================= */
 
 .nn-title {
-  font-family: baskerville;
-  @apply leading-tight;
+  @apply font-serif text-4xl md:text-5xl;
 }
 
 .nn-interactive {
@@ -103,7 +102,7 @@ body {
 }
 
 .nn-interactive:hover {
-  @apply outline-none opacity-70 ring-2 ring-inset ring-nn-primary-light dark:ring-nn-primary-dark;
+  @apply outline-none opacity-70 ring-2 ring-inset ring-nn-dark/70 dark:ring-nn-primary-dark;
 }
 
 .nn-no-select {

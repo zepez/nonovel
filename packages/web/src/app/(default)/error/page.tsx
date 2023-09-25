@@ -22,7 +22,7 @@ export default function ErrorPage({ searchParams }: ErrorPageProps) {
   return (
     <BackgroundEmoji emoji="💥" tiled={true}>
       <LayoutWrapper className="max-w-[600px] pb-16 pt-4">
-        <h1 className="nn-title text-3xl font-bold">Something went wrong</h1>
+        <h1 className="nn-title">Something went wrong</h1>
         <p className="nn-text-secondary">Code - {code}</p>
         <p className="mt-4 text-lg">{error}</p>
 

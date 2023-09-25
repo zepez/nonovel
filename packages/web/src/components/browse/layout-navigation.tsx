@@ -102,7 +102,7 @@ export const LayoutNavigation = ({ genres }: LayoutNavigationProps) => {
             onClick={() => setSorting("popular")}
             title="Sort by popularity"
           >
-            <AiTwotoneEye className="mr-1 hidden text-lg sm:inline" />{" "}
+            <AiTwotoneEye className="mr-2 hidden text-lg sm:inline" />{" "}
             Popularity
           </Button>
           <Button
@@ -113,7 +113,7 @@ export const LayoutNavigation = ({ genres }: LayoutNavigationProps) => {
             onClick={() => setSorting("rating")}
             title="Sort by average rating"
           >
-            <AiFillStar className="mr-1 hidden text-lg sm:inline" /> Rating
+            <AiFillStar className="mr-2 hidden text-lg sm:inline" /> Rating
           </Button>
           <Button
             variant="ghost"
@@ -123,7 +123,7 @@ export const LayoutNavigation = ({ genres }: LayoutNavigationProps) => {
             onClick={() => setSorting("recent")}
             title="Sort by date added"
           >
-            <AiFillClockCircle className="mr-1 hidden text-lg sm:inline" /> Date
+            <AiFillClockCircle className="mr-2 hidden text-lg sm:inline" /> Date
             Added
           </Button>
         </div>

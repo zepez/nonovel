@@ -33,7 +33,7 @@ export const LayoutHeader = () => {
   return (
     <BackgroundEmoji emoji={current.emoji} tiled={true}>
       <LayoutWrapper className="pb-16 pt-4">
-        <h1 className="nn-title text-2xl font-bold">{current.title}</h1>
+        <h1 className="nn-title">{current.title}</h1>
         <p className="mt-2">{current.description}</p>
       </LayoutWrapper>
     </BackgroundEmoji>

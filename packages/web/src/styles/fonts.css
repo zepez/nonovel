@@ -1,43 +1,55 @@
-@import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,400;0,700;1,400;1,500&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&family=Montserrat:ital,wght@0,400;0,700;1,400;1,500&family=PT+Mono&display=swap');
 
 @font-face {
-  font-family: 'josefin-sans';
-  src: url('/fonts/josefin-sans-regular.ttf');
-  font-display: swap;
-}
-
-@font-face {
-  font-family: 'pt-mono';
-  src: url('/fonts/pt-mono-regular.ttf');
-  font-display: swap;
-}
-
-@font-face {
-  font-family: 'open-dyslexic';
-  src: url('/fonts/open-dyslexic-3-regular.ttf');
-  font-display: swap;
-}
-
-@font-face {
-  font-family: 'baskerville';
-  src: url('/fonts/baskerville-regular.ttf');
+  font-family: 'adobe';
+  src: url('/fonts/adobe-regular.woff');
   font-weight: normal;
   font-style: normal;
   font-display: swap;
 }
 
 @font-face {
-  font-family: 'baskerville';
-  src: url('/fonts/baskerville-bold.ttf');
+  font-family: 'adobe';
+  src: url('/fonts/adobe-bold.woff');
   font-weight: bold;
   font-style: normal;
   font-display: swap;
 }
 
 @font-face {
-  font-family: 'baskerville';
-  src: url('/fonts/baskerville-italic.ttf');
+  font-family: 'adobe';
+  src: url('/fonts/adobe-bold-italic.woff');
+  font-weight: bold;
+  font-style: italic;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'adobe';
+  src: url('/fonts/adobe-italic.woff');
   font-weight: normal;
   font-style: italic;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'adobe';
+  src: url('/fonts/adobe-semibold.woff');
+  font-weight: semibold;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'adobe';
+  src: url('/fonts/adobe-semibold-italic.woff');
+  font-weight: semibold;
+  font-style: italic;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'open-dyslexic';
+  src: url('/fonts/open-dyslexic-3-regular.ttf');
   font-display: swap;
 }

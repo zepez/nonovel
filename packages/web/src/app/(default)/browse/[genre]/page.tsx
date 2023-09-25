@@ -73,12 +73,12 @@ export default async function BrowsePage({
 
   return (
     <>
-      <section className="mb-8">
-        <SectionHeading className="mt-0">
-          {genre?.name ?? "All Genres"}
-        </SectionHeading>
-        <p className="nn-text-secondary">{parse(genre?.description ?? "")}</p>
-      </section>
+      <SectionHeading className="mb-0 mt-0">
+        {genre?.name ?? "All Genres"}
+      </SectionHeading>
+      {genre?.description && (
+        <p className="nn-text-secondary pb-4">{parse(genre.description)}</p>
+      )}
 
       <section className="flex flex-row flex-wrap justify-start">
         {results.map((result) => (

@@ -20,8 +20,9 @@ module.exports = {
     }),
     fontFamily: {
       sans: ["Montserrat", ...defaultTheme.fontFamily.sans],
-      serif: ["baskerville"],
-      mono: ["pt-mono"],
+      serif: ["adobe", ...defaultTheme.fontFamily.serif],
+      mono: ["PT Mono", ...defaultTheme.fontFamily.mono],
+      display: ["Libre Baskerville", ...defaultTheme.fontFamily.serif],
     },
     container: {
       center: true,
@@ -40,9 +41,6 @@ module.exports = {
         "nn-primary-dark": "#F0B557",
         "nn-secondary-light": "#FBF2E8",
         "nn-secondary-dark": "#382418",
-      },
-      fontFamily: {
-        title: ["baskerville", "serif"],
       },
       keyframes: {
         "accordion-down": {

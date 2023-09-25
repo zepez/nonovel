@@ -23,7 +23,7 @@ export default async function ArticleLayout({
     <>
       <BackgroundEmoji emoji="🧶" tiled={false}>
         <LayoutWrapper className="max-w-5xl pb-16 pt-4">
-          <h1 className="nn-title text-3xl font-bold sm:text-4xl">
+          <h1 className="nn-title">
             <Balancer>{article.meta.title}</Balancer>
           </h1>
           <span className="mt-4 block">

@@ -168,7 +168,7 @@ export const ChapterSettings = ({
               },
               {
                 name: "Mono",
-                font: "pt-mono",
+                font: "PT Mono",
               },
               {
                 name: "Dyslexic",
