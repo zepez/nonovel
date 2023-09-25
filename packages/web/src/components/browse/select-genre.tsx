@@ -43,20 +43,20 @@ export const SelectGenre = ({
           role="combobox"
           size="sm"
           aria-expanded={open}
-          className={cn(className, "justify-between bg-nn-light text-nn-dark")}
+          className={cn(className, "nn-bg-contrast justify-between")}
           title="Select a genre"
         >
           {value
             ? genres.find((genre) => genre.slug === value)?.name ?? "All Genres"
             : "Select Genre..."}
-          <CaretSortIcon className="w-4 h-4 ml-2 opacity-50 shrink-0" />
+          <CaretSortIcon className="ml-2 h-4 w-4 shrink-0 opacity-50" />
         </Button>
       </PopoverTrigger>
-      <PopoverContent className="w-[250px] bg-nn-light p-0 text-nn-dark">
+      <PopoverContent className="nn-bg-contrast w-[250px] p-0">
         <Command>
           <CommandInput placeholder="Search genre..." className="h-9" />
           <CommandEmpty>No genre found.</CommandEmpty>
-          <CommandGroup className="text-nn-dark bg-nn-light">
+          <CommandGroup>
             <ScrollArea className="h-[250px] rounded-md">
               {genres.map((genre) => (
                 <CommandItem

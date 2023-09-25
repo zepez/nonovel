@@ -75,10 +75,10 @@ export const LayoutNavigation = ({ genres }: LayoutNavigationProps) => {
   return (
     <>
       <div className="flex flex-wrap items-center gap-3 sm:flex-nowrap">
-        <div className="flex items-center w-full rounded-md bg-nn-light">
-          <AiOutlineSearch className="ml-4 mr-2 opacity-50 text-nn-dark" />
+        <div className="nn-bg-contrast flex w-full items-center rounded-md">
+          <AiOutlineSearch className="ml-4 mr-2 opacity-50" />
           <Input
-            className="border-none text-nn-dark bg-nn-light dark:placeholder:text-nn-dark/60"
+            className="d border-none placeholder:text-nn-light/60 dark:placeholder:text-nn-dark/60"
             placeholder="Search"
             value={query}
             onChange={(e) => setQuery(e.target.value)}
@@ -92,45 +92,45 @@ export const LayoutNavigation = ({ genres }: LayoutNavigationProps) => {
         />
       </div>
 
-      <div className="flex flex-col items-center justify-between gap-4 mt-12 sm:mt-4 sm:flex-row">
-        <div className="flex items-center w-full gap-2 sm:gap-4">
+      <div className="mt-12 flex flex-col items-center justify-between gap-4 sm:mt-4 sm:flex-row">
+        <div className="flex w-full items-center gap-2 sm:gap-4">
           <Button
             variant="ghost"
             size="sm"
-            className="w-full px-2 text-xs text-nn-dark bg-nn-light"
+            className="nn-bg-contrast w-full px-2 text-xs"
             disabled={sorting === "popular"}
             onClick={() => setSorting("popular")}
             title="Sort by popularity"
           >
-            <AiTwotoneEye className="hidden mr-1 text-lg sm:inline" />{" "}
+            <AiTwotoneEye className="mr-1 hidden text-lg sm:inline" />{" "}
             Popularity
           </Button>
           <Button
             variant="ghost"
             size="sm"
-            className="w-full px-2 text-xs text-nn-dark bg-nn-light"
+            className="nn-bg-contrast w-full px-2 text-xs"
             disabled={sorting === "rating"}
             onClick={() => setSorting("rating")}
             title="Sort by average rating"
           >
-            <AiFillStar className="hidden mr-1 text-lg sm:inline" /> Rating
+            <AiFillStar className="mr-1 hidden text-lg sm:inline" /> Rating
           </Button>
           <Button
             variant="ghost"
             size="sm"
-            className="w-full px-2 text-xs text-nn-dark bg-nn-light"
+            className="nn-bg-contrast w-full px-2 text-xs"
             disabled={sorting === "recent"}
             onClick={() => setSorting("recent")}
             title="Sort by date added"
           >
-            <AiFillClockCircle className="hidden mr-1 text-lg sm:inline" /> Date
+            <AiFillClockCircle className="mr-1 hidden text-lg sm:inline" /> Date
             Added
           </Button>
         </div>
         <Button
           variant="ghost"
           size="sm"
-          className="flex-shrink-0 w-full text-xs text-nn-dark bg-nn-light sm:w-auto"
+          className="nn-bg-contrast w-full flex-shrink-0 text-xs sm:w-auto"
           onClick={() => handleClearFilters()}
           title="Clear filters"
         >
