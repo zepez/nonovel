@@ -27,8 +27,8 @@ export const FontChange = ({
           key={f.font}
           variant="ghost"
           className={cn(
-            f.font === font ? "nn-bg-primary" : "nn-bg-background",
-            "nn-border-50 border text-xs"
+            f.font === font ? "bg-nn-accent" : "bg-nn-secondary",
+            "nn-border border text-xs"
           )}
           style={{ fontFamily: f.font }}
           onClick={() => setFont(f.font)}

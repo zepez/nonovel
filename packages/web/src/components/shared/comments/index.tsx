@@ -85,7 +85,7 @@ export const CommentLayout = ({
     <LayoutWrapper className={cn("pt-16", className)}>
       <section
         ref={intersectionRef}
-        className="nn-bg-background nn-border rounded-md border px-6 pb-10 pt-8 md:px-12"
+        className="bg-nn-secondary nn-border rounded-md border px-6 pb-10 pt-8 md:px-12"
       >
         <SectionHeading className="mt-0">Comments</SectionHeading>
 
@@ -93,7 +93,7 @@ export const CommentLayout = ({
           <CommentEdit
             refresh={getComments}
             className="mb-8"
-            background="nn-bg-foreground"
+            background="bg-nn-base"
             defaultSubmitText="Post comment"
             actionText={["Posting", "Posted"]}
             comment={{
@@ -107,22 +107,20 @@ export const CommentLayout = ({
         )}
 
         {showBaseLoading && (
-          <SectionEmpty className="nn-bg-foreground">
+          <SectionEmpty className="nn-bg-base">
             Loading comments...
           </SectionEmpty>
         )}
 
         {showNoComments && session?.user.id && (
-          <SectionEmpty className="nn-bg-foreground">
-            No comments yet.
-          </SectionEmpty>
+          <SectionEmpty className="nn-bg-base">No comments yet.</SectionEmpty>
         )}
 
         {showNoComments && !session?.user.id && (
           <LoginDialog>
             <SectionEmpty
               as="button"
-              className="nn-bg-foreground nn-interactive w-full"
+              className="bg-nn-base nn-interactive w-full"
             >
               No comments yet. Login to be the first!
             </SectionEmpty>
@@ -133,7 +131,7 @@ export const CommentLayout = ({
           <LoginDialog>
             <SectionEmpty
               as="button"
-              className="nn-bg-foreground nn-interactive mb-6 w-full"
+              className="bg-nn-base nn-interactive mb-6 w-full"
             >
               Login to comment!
             </SectionEmpty>
@@ -143,7 +141,7 @@ export const CommentLayout = ({
         {showPageLoading && <Skeleton className="h-screen w-full" />}
 
         {comments.length > 0 && (
-          <div className={"nn-bg-background rounded-md"}>
+          <div className={"bg-nn-secondary rounded-md"}>
             {comments.map((c) => (
               <CommentThread key={c.id} parent={c} refresh={getComments} />
             ))}

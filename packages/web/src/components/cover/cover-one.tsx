@@ -10,13 +10,13 @@ interface Props {
 export const CoverOne = ({ background, name, penName }: Props) => {
   return (
     <>
-      <div className="relative flex h-[900px] w-[600px] items-center justify-center text-center text-nn-dark">
+      <div className="relative flex h-[900px] w-[600px] items-center justify-center text-center text-nn-base-dark">
         <img
           src={`data:image/jpeg;base64,${background}`}
           className="cover-simple-border-inset absolute inset-0 h-full w-full object-cover"
         />
 
-        <div className="cover-simple-border cover-simple-border-inset z-10 w-[475px] bg-nn-light px-4 py-12">
+        <div className="cover-simple-border cover-simple-border-inset z-10 w-[475px] bg-nn-base-light px-4 py-12">
           <h1 className="mb-4 font-display text-5xl font-bold italic leading-snug">
             <Balancer>{name}</Balancer>
           </h1>

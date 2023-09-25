@@ -134,7 +134,7 @@ const FormDescription = React.forwardRef<
     <p
       ref={ref}
       id={formDescriptionId}
-      className={cn("nn-text-secondary", className)}
+      className={cn("nn-detail", className)}
       {...props}
     />
   );

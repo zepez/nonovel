@@ -24,14 +24,14 @@ export default async function ProfilePage({ params }: ProfilePageProps) {
       {profile.bio ? (
         <section>{profile.bio}</section>
       ) : (
-        <SectionEmpty className="nn-bg-background">
+        <SectionEmpty className="bg-nn-secondary">
           @{profile.username} does not have a bio.
         </SectionEmpty>
       )}
       <SectionHeading>Projects</SectionHeading>
       <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
         {!projects.length ? (
-          <SectionEmpty className="col-span-2 p-4 text-sm text-center rounded-md nn-bg-background">
+          <SectionEmpty className="bg-nn-secondary col-span-2 rounded-md p-4 text-center text-sm">
             @{profile.username} is not a part of any projects.
           </SectionEmpty>
         ) : null}
@@ -43,7 +43,7 @@ export default async function ProfilePage({ params }: ProfilePageProps) {
                 href={`/p/${project.slug}`}
                 className={cn(
                   projects.length % 2 !== 0 ? "last:col-span-2" : null,
-                  "nn-interactive nn-bg-background nn-border flex rounded-md border"
+                  "nn-interactive bg-nn-secondary nn-border flex rounded-md border"
                 )}
               >
                 <Image
@@ -51,16 +51,16 @@ export default async function ProfilePage({ params }: ProfilePageProps) {
                   alt="Novel cover"
                   width={100}
                   height={150}
-                  className="mr-4 aspect-[2/3] h-full rounded-md bg-nn-dark/50"
+                  className="mr-4 aspect-[2/3] h-full rounded-md bg-nn-base-dark/50"
                 />
                 <div className="p-4">
-                  <h3 className="text-xl font-bold leading-tight line-clamp-1">
+                  <h3 className="line-clamp-1 text-xl font-bold leading-tight">
                     {toTitleCase(project.name)}
                   </h3>
-                  <p className="mt-1 mb-4 nn-text-secondary">
+                  <p className="nn-detail mb-4 mt-1">
                     {toTitleCase(relation.role)}
                   </p>
-                  <p className="nn-text-secondary line-clamp-2">
+                  <p className="nn-detail line-clamp-2">
                     {project.description}
                   </p>
                 </div>

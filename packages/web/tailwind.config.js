@@ -33,14 +33,22 @@ module.exports = {
     },
     extend: {
       colors: {
-        "nn-backdrop-light": "#FBF2E8",
-        "nn-backdrop-dark": "#130B07",
-        "nn-light": "#F5E1C9",
-        "nn-dark": "#1F130C",
-        "nn-primary-light": "#DE970B",
-        "nn-primary-dark": "#F0B557",
-        "nn-secondary-light": "#FBF2E8",
-        "nn-secondary-dark": "#382418",
+        "nn-base": {
+          light: "#f5e1c9",
+          dark: "#20130d",
+        },
+        "nn-secondary": {
+          light: "#ecc790",
+          dark: "#382419",
+        },
+        "nn-accent": {
+          light: "#382419",
+          dark: "#f0b557",
+        },
+        "nn-gold": {
+          light: "de970b",
+          dark: "de970b",
+        },
       },
       keyframes: {
         "accordion-down": {

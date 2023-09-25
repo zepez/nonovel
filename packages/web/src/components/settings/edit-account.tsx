@@ -85,7 +85,7 @@ export const EditAccount = ({ session }: EditAccountProps) => {
               <FormControl>
                 <Input
                   placeholder="name"
-                  className="nn-bg-background"
+                  className="bg-nn-secondary"
                   {...field}
                 />
               </FormControl>
@@ -107,7 +107,7 @@ export const EditAccount = ({ session }: EditAccountProps) => {
               <FormControl>
                 <Input
                   placeholder="email"
-                  className="nn-bg-background"
+                  className="bg-nn-secondary"
                   readOnly
                   {...field}
                 />
@@ -122,8 +122,8 @@ export const EditAccount = ({ session }: EditAccountProps) => {
         />
 
         {form.formState.errors.root?.serverError && (
-          <div className="p-4 bg-red-500 rounded-md">
-            <FormMessage className="text-nn-light">
+          <div className="rounded-md bg-red-500 p-4">
+            <FormMessage className="text-nn-base-light">
               Error: {form.formState.errors.root.serverError.message}. If the
               problem persists, please contact support.
             </FormMessage>

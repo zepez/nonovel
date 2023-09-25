@@ -101,7 +101,7 @@ export const EditProfile = ({ session }: EditProfileProps) => {
               <FormControl>
                 <Input
                   placeholder="username"
-                  className="nn-bg-background"
+                  className="bg-nn-secondary"
                   {...field}
                 />
               </FormControl>
@@ -124,7 +124,7 @@ export const EditProfile = ({ session }: EditProfileProps) => {
               <FormControl>
                 <Input
                   placeholder="Link to any image"
-                  className="nn-bg-background"
+                  className="bg-nn-secondary"
                   {...field}
                   value={field.value ?? ""}
                 />
@@ -149,11 +149,11 @@ export const EditProfile = ({ session }: EditProfileProps) => {
                 value={field.value ?? undefined}
               >
                 <FormControl>
-                  <SelectTrigger className="nn-bg-background">
+                  <SelectTrigger className="bg-nn-secondary">
                     <SelectValue placeholder="Choose a country" />
                   </SelectTrigger>
                 </FormControl>
-                <SelectContent className="w-64 h-64 nn-bg-background sm:w-auto">
+                <SelectContent className="bg-nn-secondary h-64 w-64 sm:w-auto">
                   {Object.entries(locations).map(([code, name]) => (
                     <SelectItem key={code} value={code}>
                       {name}
@@ -179,7 +179,7 @@ export const EditProfile = ({ session }: EditProfileProps) => {
               <FormControl>
                 <Textarea
                   placeholder="Super cool guy"
-                  className="nn-bg-background"
+                  className="bg-nn-secondary"
                   {...field}
                   value={field.value ?? ""}
                 />
@@ -193,8 +193,8 @@ export const EditProfile = ({ session }: EditProfileProps) => {
         />
 
         {form.formState.errors.root?.serverError && (
-          <div className="p-4 bg-red-500 rounded-md">
-            <FormMessage className="text-nn-light">
+          <div className="rounded-md bg-red-500 p-4">
+            <FormMessage className="text-nn-base-light">
               Error: {form.formState.errors.root.serverError.message}. If the
               problem persists, please contact support.
             </FormMessage>

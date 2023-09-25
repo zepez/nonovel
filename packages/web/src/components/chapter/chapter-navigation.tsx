@@ -42,7 +42,7 @@ const DirectionalButton = ({
         className={cn(
           className,
           chapter ? "nn-interactive" : "cursor-not-allowed opacity-50",
-          "nn-bg-background flex w-full items-center justify-center px-8 py-3 text-center"
+          "bg-nn-secondary flex w-full items-center justify-center px-8 py-3 text-center"
         )}
       >
         {icon}
@@ -72,7 +72,7 @@ const ChapterManifest = ({
         <HamburgerMenuIcon width={22} height={22} className="mr-3" /> Table of
         Contents
       </DialogTrigger>
-      <DialogContent className="nn-bg-foreground w-screen text-xs sm:w-[400px]">
+      <DialogContent className="bg-nn-base w-screen text-xs sm:w-[400px]">
         <ScrollArea className="h-[400px] rounded-md">
           <div className="nn-divide flex min-h-[400px] flex-col divide-y">
             {manifest.map((c) => (
@@ -80,7 +80,7 @@ const ChapterManifest = ({
                 key={c.id}
                 href={`/p/${project.slug}/chapters/${c.order}`}
                 className={cn(
-                  chapter.order == c.order && "nn-bg-background",
+                  chapter.order == c.order && "bg-nn-secondary",
                   "nn-interactive grid grid-cols-6 items-center px-2 py-3 md:py-2"
                 )}
               >
@@ -139,10 +139,10 @@ export const ChapterNavigation = ({
 
         <ChapterSettings
           triggerText="Settings"
-          className="nn-interactive nn-bg-background flex items-center justify-center gap-3 rounded-md px-8 py-3 text-xs font-bold uppercase leading-tight"
+          className="nn-interactive bg-nn-secondary flex items-center justify-center gap-3 rounded-md px-8 py-3 text-xs font-bold uppercase leading-tight"
         />
         <ChapterManifest
-          className="nn-bg-background flex items-center justify-center rounded-md px-4 py-3 text-xs font-bold uppercase leading-tight"
+          className="bg-nn-secondary flex items-center justify-center rounded-md px-4 py-3 text-xs font-bold uppercase leading-tight"
           project={project}
           manifest={manifest}
           chapter={chapter}
@@ -159,9 +159,9 @@ export const ChapterNavigation = ({
           icon={<DoubleArrowLeftIcon width={22} height={22} />}
         />
         <div className="flex flex-wrap items-center justify-center">
-          <ChapterSettings className="nn-interactive nn-bg-background rounded-l-md px-8 py-3 text-center" />
+          <ChapterSettings className="nn-interactive bg-nn-secondary rounded-l-md px-8 py-3 text-center" />
           <ChapterManifest
-            className="nn-bg-background nn-border flex items-center justify-center border-l border-r px-4 py-3 text-xs font-bold uppercase leading-tight"
+            className="bg-nn-secondary nn-border flex items-center justify-center border-l border-r px-4 py-3 text-xs font-bold uppercase leading-tight"
             project={project}
             manifest={manifest}
             chapter={chapter}

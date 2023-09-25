@@ -75,7 +75,7 @@ export default async function ChapterLayout({
               <Balancer as="h2">{toTitleCase(project.name)}</Balancer>
             </Link>
 
-            <p className="nn-text-secondary pt-4">
+            <p className="nn-detail">
               #{chapter.order} | Uploaded{" "}
               {formatDistanceToNow(chapter.createdAt, { addSuffix: true })}
             </p>

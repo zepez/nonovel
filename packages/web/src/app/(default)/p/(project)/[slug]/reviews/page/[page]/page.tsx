@@ -95,17 +95,17 @@ export default async function ProjectReviewPagePage({
             {reviews.map((review) => (
               <div
                 key={review.id}
-                className="flex justify-between p-4 pr-2 border rounded-md nn-border-50 nn-bg-background sm:items-center sm:py-6 sm:pl-8"
+                className="nn-border bg-nn-secondary flex justify-between rounded-md border p-4 pr-2 sm:items-center sm:py-6 sm:pl-8"
               >
                 <div className="flex flex-grow sm:space-x-6">
                   <AspectImage
                     width={50}
-                    className="flex-shrink-0 hidden sm:block"
+                    className="hidden flex-shrink-0 sm:block"
                     src={src(review.profile?.image, "profile")}
                     alt={`${review.profile?.username ?? ""} profile picture`}
                   />
                   <div>
-                    <p className="font-bold leading-tight text-md">
+                    <p className="text-md font-bold leading-tight">
                       @{review.profile?.username}
                     </p>
                     <ReviewScore
@@ -113,7 +113,7 @@ export default async function ProjectReviewPagePage({
                       value={review.score}
                       readOnly
                     />
-                    <p className="text-sm whitespace-pre-wrap">
+                    <p className="whitespace-pre-wrap text-sm">
                       {review.comment}
                     </p>
                   </div>
@@ -135,7 +135,7 @@ export default async function ProjectReviewPagePage({
             />
           </>
         ) : (
-          <SectionEmpty className="nn-bg-background">
+          <SectionEmpty className="bg-nn-secondary">
             {page === 1
               ? "This project does not have any reviews. Be the first to review it!"
               : "No more reviews found :("}

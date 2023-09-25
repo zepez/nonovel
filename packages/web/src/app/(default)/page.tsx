@@ -51,7 +51,7 @@ const PopularSlider = async ({
                 width={size}
                 className="mb-3"
               />
-              <div className="absolute bottom-0 right-0 flex items-center gap-4 rounded-br-md rounded-tl-md bg-nn-dark/50 px-4 py-1 text-xs text-nn-light">
+              <div className="absolute bottom-0 right-0 flex items-center gap-4 rounded-br-md rounded-tl-md bg-nn-base-dark/70 px-4 py-1 text-xs text-nn-base-light">
                 <div className="flex items-center gap-2">
                   <AiTwotoneEye />
                   {item.views}

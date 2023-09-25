@@ -117,7 +117,7 @@ export const LayoutCommand = ({ open, setOpen }: LayoutCommandProps) => {
         {/* loading */}
         {loading && (
           <CommandLoading>
-            <p className="block p-4 text-center nn-text-secondary">
+            <p className="nn-detail block p-4 text-center">
               Searching for projects...
             </p>
           </CommandLoading>
@@ -125,7 +125,7 @@ export const LayoutCommand = ({ open, setOpen }: LayoutCommandProps) => {
 
         {/* no result */}
         {!loading && query.length >= minQueryLength && result.length === 0 && (
-          <p className="block p-4 text-center nn-text-secondary">
+          <p className="nn-detail block p-4 text-center">
             No projects found with query {query}.
           </p>
         )}
@@ -179,7 +179,7 @@ export const LayoutCommand = ({ open, setOpen }: LayoutCommandProps) => {
                   {s.icon} {s.name}
                 </CommandItem>
               ))}
-              <Logout className="flex items-center w-full text-left">
+              <Logout className="flex w-full items-center text-left">
                 {(cb) => (
                   <CommandItem
                     key="suggestions/logout"

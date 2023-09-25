@@ -75,10 +75,10 @@ export const LayoutNavigation = ({ genres }: LayoutNavigationProps) => {
   return (
     <>
       <div className="flex flex-wrap items-center gap-3 sm:flex-nowrap">
-        <div className="nn-bg-contrast flex w-full items-center rounded-md">
+        <div className="bg-nn-base-invert flex w-full items-center rounded-md">
           <AiOutlineSearch className="ml-4 mr-2 opacity-50" />
           <Input
-            className="d border-none placeholder:text-nn-light/60 dark:placeholder:text-nn-dark/60"
+            className="d nn-placeholder-invert"
             placeholder="Search"
             value={query}
             onChange={(e) => setQuery(e.target.value)}
@@ -97,7 +97,7 @@ export const LayoutNavigation = ({ genres }: LayoutNavigationProps) => {
           <Button
             variant="ghost"
             size="sm"
-            className="nn-bg-contrast w-full px-2 text-xs"
+            className="bg-nn-base-invert w-full px-2 text-xs"
             disabled={sorting === "popular"}
             onClick={() => setSorting("popular")}
             title="Sort by popularity"
@@ -108,7 +108,7 @@ export const LayoutNavigation = ({ genres }: LayoutNavigationProps) => {
           <Button
             variant="ghost"
             size="sm"
-            className="nn-bg-contrast w-full px-2 text-xs"
+            className="bg-nn-base-invert w-full px-2 text-xs"
             disabled={sorting === "rating"}
             onClick={() => setSorting("rating")}
             title="Sort by average rating"
@@ -118,7 +118,7 @@ export const LayoutNavigation = ({ genres }: LayoutNavigationProps) => {
           <Button
             variant="ghost"
             size="sm"
-            className="nn-bg-contrast w-full px-2 text-xs"
+            className="bg-nn-base-invert w-full px-2 text-xs"
             disabled={sorting === "recent"}
             onClick={() => setSorting("recent")}
             title="Sort by date added"
@@ -130,7 +130,7 @@ export const LayoutNavigation = ({ genres }: LayoutNavigationProps) => {
         <Button
           variant="ghost"
           size="sm"
-          className="nn-bg-contrast w-full flex-shrink-0 text-xs sm:w-auto"
+          className="bg-nn-base-invert w-full flex-shrink-0 text-xs sm:w-auto"
           onClick={() => handleClearFilters()}
           title="Clear filters"
         >

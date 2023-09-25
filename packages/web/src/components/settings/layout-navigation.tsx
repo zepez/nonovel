@@ -22,7 +22,7 @@ export const LayoutNavigation = () => {
             key={item.name}
             className={cn(
               item.segment === segment
-                ? "nn-bg-background nn-border-50 border"
+                ? "bg-nn-secondary nn-border border"
                 : "nn-interactive",
               "my-1 rounded-md py-3 text-sm"
             )}

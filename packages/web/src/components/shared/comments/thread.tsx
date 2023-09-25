@@ -51,12 +51,12 @@ export const CommentThread = ({ refresh, parent }: CommentThreadProps) => {
       />
 
       {replies.length > 0 && (
-        <div className="mt-4 mb-6 divide-y">
+        <div className="mb-6 mt-4 divide-y">
           {replies.map((reply) => (
             <CommentBody
               key={reply.id}
               refresh={getReplies}
-              className="nn-border nn-bg-foreground border-l-[10px] p-8 sm:ml-12"
+              className="nn-border bg-nn-base border-l-[10px] p-8 sm:ml-12"
               user={{
                 userId: reply.user?.id ?? "",
                 username: reply?.profile?.username ?? "deleted",
@@ -68,7 +68,7 @@ export const CommentThread = ({ refresh, parent }: CommentThreadProps) => {
         </div>
       )}
 
-      <div className="flex flex-wrap items-center justify-start gap-2 mt-4">
+      <div className="mt-4 flex flex-wrap items-center justify-start gap-2">
         {parent.replyCount > 0 ? (
           <>
             {replies.length > 0 ? (
@@ -93,7 +93,7 @@ export const CommentThread = ({ refresh, parent }: CommentThreadProps) => {
             )}
           </>
         ) : (
-          <p className="p-2 text-xs rounded-md bg-nn-dark/10 text-nn-dark/70 dark:bg-nn-light/10 dark:text-nn-light/70">
+          <p className="bg-nn-base rounded-md p-2 text-xs opacity-50">
             No replies yet
           </p>
         )}
@@ -116,7 +116,7 @@ export const CommentThread = ({ refresh, parent }: CommentThreadProps) => {
               await getReplies();
             }}
             cancel={() => setSelectedId(null)}
-            background="nn-bg-foreground"
+            background="bg-nn-base"
             defaultSubmitText="Post reply"
             actionText={["Posting", "Posted"]}
             comment={{

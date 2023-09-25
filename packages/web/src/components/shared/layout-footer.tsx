@@ -52,7 +52,7 @@ export const LayoutFooter = () => {
           ))}
         </div>
         <div className="mt-4 md:order-1 md:mt-0">
-          <p className="text-center text-sm text-nn-dark dark:text-nn-light">
+          <p className="text-center text-sm">
             &copy; {new Date().getFullYear()} NoNovel. All rights reserved.
           </p>
         </div>

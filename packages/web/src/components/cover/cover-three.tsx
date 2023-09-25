@@ -10,7 +10,7 @@ interface Props {
 export const CoverThree = ({ background, name, penName }: Props) => {
   return (
     <>
-      <div className="relative flex h-[900px] w-[600px] flex-col items-center justify-end pb-16 text-center text-nn-dark">
+      <div className="relative flex h-[900px] w-[600px] flex-col items-center justify-end pb-16 text-center text-nn-base-dark">
         <img
           src={`data:image/jpeg;base64,${background}`}
           className="cover-simple-border-inset absolute inset-0 h-full w-full object-cover"

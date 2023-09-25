@@ -14,7 +14,7 @@ export default async function Page() {
   const articles = await getAllPostsMeta();
 
   return (
-    <div className="flex flex-col divide-y divide-nn-dark/20 dark:divide-nn-light/20">
+    <div className="divide-nn-dark/20 dark:divide-nn-light/20 flex flex-col divide-y">
       {articles.map((article) => (
         <div key={article.slug}>
           <Link
@@ -23,11 +23,11 @@ export default async function Page() {
           >
             <div className="px-4">
               <p className="mb-2 text-xl font-bold">{article.title}</p>
-              <p className="nn-text-secondary mb-4">
+              <p className="nn-detail mb-4">
                 Posted {format(new Date(article.date), "MM/dd/yyyy")}, by{" "}
                 <i>{article.author}</i>
               </p>
-              <p className="nn-text-secondary">{article.description}</p>
+              <p className="nn-detail">{article.description}</p>
             </div>
           </Link>
         </div>

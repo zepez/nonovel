@@ -47,7 +47,7 @@ const CommentNavButton = ({
       title={title}
     >
       <Icon width={size} height={size} />
-      {text && <span className="ml-2 nn-text-secondary">{text}</span>}
+      {text && <span className="nn-detail ml-2">{text}</span>}
     </Button>
   );
 };
@@ -111,7 +111,7 @@ export const CommentBody = ({
           <p className="mb-1 text-sm font-bold leading-tight">
             @{user.username}
           </p>
-          <p className="text-xs nn-text-secondary">{createdAt}</p>
+          <p className="nn-detail text-xs">{createdAt}</p>
         </div>
       </div>
 
@@ -124,9 +124,7 @@ export const CommentBody = ({
           }}
           deleteFn={() => null}
           comment={{ ...comment, userId: user.userId }}
-          background={
-            comment.parentId ? "nn-bg-background" : "nn-bg-foreground"
-          }
+          background={comment.parentId ? "bg-nn-secondary" : "bg-nn-base"}
           className="mb-4"
           defaultSubmitText="Update comment"
           actionText={["Updating", "Updated"]}
@@ -134,11 +132,11 @@ export const CommentBody = ({
       ) : (
         <>
           {createdAt !== updatedAt && (
-            <span className="inline-block px-1 mt-2 text-xs border rounded-sm nn-text-secondary nn-bg-foreground nn-border">
+            <span className="nn-detail nn-border mt-2 inline-block rounded-sm border px-1 text-xs">
               *edited {updatedAt}
             </span>
           )}
-          <p className="my-4 whitespace-pre-wrap text-md">{comment.content}</p>
+          <p className="text-md my-4 whitespace-pre-wrap">{comment.content}</p>
         </>
       )}
 
@@ -159,14 +157,14 @@ export const CommentBody = ({
             className={cn(comment.voteCurrent < 0 && "bg-red-500/20")}
             title="Dislike comment"
           />
-          <span className="mx-2 text-center nn-text-secondary">
+          <span className="nn-detail mx-2 text-center">
             {comment.voteTotal} like
             {comment.voteTotal.toString() !== "1" &&
               comment.voteTotal.toString() !== "-1" &&
               "s"}
           </span>
         </div>
-        <div className="pl-2 ml-2 border-l-2 nn-border">
+        <div className="nn-border ml-2 border-l-2 pl-2">
           {isCreator ? (
             <>
               {isEditing ? (

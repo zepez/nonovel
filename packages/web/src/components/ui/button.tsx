@@ -9,12 +9,12 @@ const buttonVariants = cva(
   {
     variants: {
       variant: {
-        default: "nn-bg-foreground",
-        primary: "nn-bg-primary",
-        secondary: "nn-bg-background",
-        contrast: "nn-bg-contrast",
+        default: "bg-nn-base",
+        primary: "bg-nn-accent",
+        secondary: "bg-nn-secondary",
+        contrast: "bg-nn-base-invert",
         destructive:
-          "bg-red-500 text-nn-light hover:bg-red-500:90 dark:bg-red-900 dark:text-nn-light dark:hover:bg-red-900:90",
+          "bg-red-500 text-nn-base-light hover:bg-red-500:90 dark:bg-red-900 dark:text-nn-base-dark dark:hover:bg-red-900:90",
         outline: "nn-border border",
         ghost: "text-inherit",
         link: "text-inherit underline-offset-4 hover:underline",

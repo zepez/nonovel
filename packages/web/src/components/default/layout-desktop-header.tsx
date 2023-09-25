@@ -40,11 +40,11 @@ export async function LayoutDesktopHeader() {
                   <li className="row-span-3">
                     <NavigationMenuLink asChild>
                       <a
-                        className="nn-bg-primary nn-interactive flex h-full w-full select-none flex-col justify-end rounded-md p-6 no-underline"
+                        className="bg-nn-accent nn-interactive flex h-full w-full select-none flex-col justify-end rounded-md p-6 no-underline"
                         href="/"
                       >
                         <ShortLogoDark className="mb-4 mr-4 text-center text-[5rem]" />
-                        <p className="text-sm text-nn-dark">
+                        <p className="text-sm text-nn-base-dark">
                           Your destination for timeless classics and
                           tomorrow&apos;s bestsellers.
                         </p>
@@ -89,7 +89,7 @@ export async function LayoutDesktopHeader() {
                   <Button
                     variant="ghost"
                     size="fluid"
-                    className="text-sm font-bold text-nn-dark dark:text-nn-light"
+                    className="text-sm font-bold text-nn-base-dark dark:text-nn-base-light"
                     title="Login or register"
                   >
                     Login
@@ -122,7 +122,7 @@ const ListItem = React.forwardRef<
           <div className="text-sm font-bold leading-none">
             {icon && <span className="mx-2 text-xl">{icon}</span>} {title}
           </div>
-          <p className="nn-text-secondary line-clamp-2 pt-1">{children}</p>
+          <p className="nn-detail line-clamp-2 pt-1">{children}</p>
         </a>
       </NavigationMenuLink>
     </li>

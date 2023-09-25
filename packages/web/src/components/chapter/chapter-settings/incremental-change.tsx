@@ -31,7 +31,7 @@ export const IncrementalChange = ({
         <Button
           variant="secondary"
           size="fluid"
-          className="nn-border-50 flex h-0 items-center justify-center border py-3"
+          className="nn-border flex h-0 items-center justify-center border py-3"
           disabled={numberValue <= min}
           onClick={() => setValue(numberValue - step)}
           title={`Decrease ${name.toLowerCase()}`}
@@ -44,7 +44,7 @@ export const IncrementalChange = ({
         <Button
           variant="secondary"
           size="fluid"
-          className="nn-border-50 flex h-0 items-center justify-center border py-3"
+          className="nn-border flex h-0 items-center justify-center border py-3"
           disabled={numberValue >= max}
           onClick={() => setValue(numberValue + step)}
           title={`Increase ${name.toLowerCase()}`}

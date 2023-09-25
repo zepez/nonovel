@@ -34,11 +34,11 @@ export default async function ProfileLayout({
             alt="Profile picture"
             width={256}
             height={256}
-            className="mx-auto w-64 rounded-md bg-nn-backdrop-dark p-1 md:mx-0"
+            className="mx-auto w-64 rounded-md bg-black p-1 md:mx-0"
           />
           <div className="mt-8 w-full text-center md:mb-2 md:ml-8 md:mt-0 md:w-auto md:text-left">
             <h1 className="nn-title mb-4">@{profile.username.toLowerCase()}</h1>
-            <p className="nn-text-secondary">
+            <p className="nn-detail">
               Joined{" "}
               {formatDistanceToNow(profile.createdAt, { addSuffix: true })}{" "}
               <CountryCodeName code={profile.countryCode}>
@@ -50,7 +50,6 @@ export default async function ProfileLayout({
                 )}
               </CountryCodeName>
             </p>
-            <p className="nn-text-secondary"></p>
           </div>
         </LayoutWrapper>
       </BackgroundImage>

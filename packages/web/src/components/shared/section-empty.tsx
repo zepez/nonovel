@@ -34,7 +34,7 @@ const SectionEmpty = forwardRef(
         ref={ref}
         className={cn(
           className,
-          "nn-border nn-text-secondary block rounded-md border py-8 text-center"
+          "nn-border nn-detail block rounded-md border py-8 text-center"
         )}
         {...props}
       >

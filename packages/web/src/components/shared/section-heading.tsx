@@ -11,13 +11,10 @@ export const SectionHeading = ({
 }: SectionHeadingProps) => {
   return (
     <div
-      className={cn(
-        "mb-4 mt-12 flex items-center text-nn-dark dark:text-nn-primary-dark",
-        className
-      )}
+      className={cn("text-nn-accent mb-4 mt-12 flex items-center", className)}
     >
       <h3 className="mr-3 font-display text-lg">{children}</h3>
-      <hr className="h-[1px] flex-grow border-none bg-nn-dark opacity-20 dark:bg-nn-primary-dark" />
+      <hr className="bg-nn-accent h-[1px] flex-grow border-none opacity-20" />
     </div>
   );
 };

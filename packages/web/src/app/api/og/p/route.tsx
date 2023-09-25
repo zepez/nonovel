@@ -48,7 +48,7 @@ export function GET(request: Request) {
             alt={title ?? "NoNovel.io"}
             width={350}
             height={500}
-            tw="bg-nn-light rounded-sm mx-12"
+            tw="bg-nn-base-light rounded-sm mx-12"
             style={{
               objectFit: "contain",
               border: "10px solid white",

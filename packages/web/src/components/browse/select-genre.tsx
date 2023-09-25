@@ -43,7 +43,7 @@ export const SelectGenre = ({
           role="combobox"
           size="sm"
           aria-expanded={open}
-          className={cn(className, "nn-bg-contrast justify-between")}
+          className={cn(className, "bg-nn-base-invert justify-between")}
           title="Select a genre"
         >
           {value
@@ -52,7 +52,7 @@ export const SelectGenre = ({
           <CaretSortIcon className="ml-2 h-4 w-4 shrink-0 opacity-50" />
         </Button>
       </PopoverTrigger>
-      <PopoverContent className="nn-bg-contrast w-[250px] p-0">
+      <PopoverContent className="bg-nn-base-invert w-[250px] p-0">
         <Command>
           <CommandInput placeholder="Search genre..." className="h-9" />
           <CommandEmpty>No genre found.</CommandEmpty>

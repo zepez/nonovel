@@ -31,10 +31,10 @@ interface CommandDialogProps extends DialogProps {
 const CommandDialog = ({ children, filter, ...props }: CommandDialogProps) => {
   return (
     <Dialog {...props}>
-      <DialogContent className="p-0 overflow-hidden">
+      <DialogContent className="overflow-hidden p-0">
         <Command
           filter={filter}
-          className="[&_[cmdk-group-heading]]:px-2 [&_[cmdk-group-heading]]:font-medium [&_[cmdk-group-heading]]:text-nn-dark/80 dark:[&_[cmdk-group-heading]]:text-nn-light/80 [&_[cmdk-group]:not([hidden])_~[cmdk-group]]:pt-0 [&_[cmdk-group]]:px-2 [&_[cmdk-input-wrapper]_svg]:h-5 [&_[cmdk-input-wrapper]_svg]:w-5 [&_[cmdk-input]]:h-12 [&_[cmdk-item]]:px-4 [&_[cmdk-item]]:py-3 [&_[cmdk-item]_svg]:h-5 [&_[cmdk-item]_svg]:w-5"
+          className="[&_[cmdk-group-heading]]:px-2 [&_[cmdk-group-heading]]:font-medium [&_[cmdk-group-heading]]:text-nn-base-dark/80 dark:[&_[cmdk-group-heading]]:text-nn-base-light/80 [&_[cmdk-group]:not([hidden])_~[cmdk-group]]:pt-0 [&_[cmdk-group]]:px-2 [&_[cmdk-input-wrapper]_svg]:h-5 [&_[cmdk-input-wrapper]_svg]:w-5 [&_[cmdk-input]]:h-12 [&_[cmdk-item]]:px-4 [&_[cmdk-item]]:py-3 [&_[cmdk-item]_svg]:h-5 [&_[cmdk-item]_svg]:w-5"
         >
           {children}
         </Command>
@@ -48,14 +48,14 @@ const CommandInput = React.forwardRef<
   React.ComponentPropsWithoutRef<typeof CommandPrimitive.Input>
 >(({ className, ...props }, ref) => (
   <div
-    className="flex items-center px-3 border-b interactive bg-inherit"
+    className="interactive flex items-center border-b bg-inherit px-3"
     cmdk-input-wrapper=""
   >
-    <MagnifyingGlassIcon className="w-4 h-4 mr-2 opacity-50 shrink-0" />
+    <MagnifyingGlassIcon className="mr-2 h-4 w-4 shrink-0 opacity-50" />
     <CommandPrimitive.Input
       ref={ref}
       className={cn(
-        "nn-no-select placeholder:text-nn-dark/60 dark:placeholder:text-nn-light/60 flex h-10 w-full rounded-md bg-transparent py-3 text-sm outline-none disabled:opacity-50",
+        "nn-no-select nn-placeholder flex h-10 w-full rounded-md bg-transparent py-3 text-sm outline-none disabled:opacity-50",
         className
       )}
       {...props}
@@ -84,7 +84,7 @@ const CommandEmpty = React.forwardRef<
 >((props, ref) => (
   <CommandPrimitive.Empty
     ref={ref}
-    className="py-6 text-sm text-center"
+    className="py-6 text-center text-sm"
     {...props}
   />
 ));
@@ -104,7 +104,7 @@ const CommandGroup = React.forwardRef<
   <CommandPrimitive.Group
     ref={ref}
     className={cn(
-      "overflow-hidden p-1 [&_[cmdk-group-heading]]:px-2 [&_[cmdk-group-heading]]:py-1.5 [&_[cmdk-group-heading]]:text-xs [&_[cmdk-group-heading]]:font-medium [&_[cmdk-group-heading]]:text-nn-dark dark:[&_[cmdk-group-heading]]:text-nn-light",
+      "overflow-hidden p-1 [&_[cmdk-group-heading]]:px-2 [&_[cmdk-group-heading]]:py-1.5 [&_[cmdk-group-heading]]:text-xs [&_[cmdk-group-heading]]:font-medium [&_[cmdk-group-heading]]:text-nn-base-dark dark:[&_[cmdk-group-heading]]:text-nn-base-light",
       className
     )}
     {...props}
@@ -119,7 +119,7 @@ const CommandSeparator = React.forwardRef<
 >(({ className, ...props }, ref) => (
   <CommandPrimitive.Separator
     ref={ref}
-    className={cn("nn-bg-background -mx-1 h-px", className)}
+    className={cn("bg-nn-secondary -mx-1 h-px", className)}
     {...props}
   />
 ));
@@ -148,7 +148,7 @@ const CommandShortcut = ({
   return (
     <span
       className={cn(
-        "ml-auto text-xs tracking-widest text-nn-dark/80 dark:text-nn-light/50",
+        "ml-auto text-xs tracking-widest text-nn-base-dark/80 dark:text-nn-base-light/50",
         className
       )}
       {...props}

@@ -23,7 +23,7 @@ export const LayoutNavigation = ({ slug }: LayoutNavigationProps) => {
   const segment = useSelectedLayoutSegment();
 
   return (
-    <nav className="nn-bg-background flex flex-col gap-4 rounded-md p-2 text-center text-xs font-bold leading-tight sm:flex-row">
+    <nav className="bg-nn-secondary flex flex-col gap-4 rounded-md p-2 text-center text-xs font-bold leading-tight sm:flex-row">
       {navigation.map((n) => (
         <Link
           key={n.name}
@@ -31,7 +31,7 @@ export const LayoutNavigation = ({ slug }: LayoutNavigationProps) => {
           className={cn(
             n.segment === segment
               ? "nn-no-select cursor-default bg-inherit"
-              : "nn-bg-foreground nn-border-50 nn-interactive border",
+              : "bg-nn-base nn-border nn-interactive border",
             "flex-grow rounded-md py-4 uppercase sm:py-2"
           )}
         >

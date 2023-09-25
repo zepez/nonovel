@@ -10,7 +10,7 @@ interface Props {
 export const CoverFour = ({ background, name, penName }: Props) => {
   return (
     <>
-      <div className="h-[900px] w-[600px] text-center text-nn-dark">
+      <div className="h-[900px] w-[600px] text-center text-nn-base-dark">
         <div className="cover-svg-overlay-three relative h-full w-full">
           <img
             src={`data:image/jpeg;base64,${background}`}
@@ -18,7 +18,7 @@ export const CoverFour = ({ background, name, penName }: Props) => {
           />
 
           <div className="absolute left-0 top-0 w-full">
-            <div className="cover-simple-border cover-simple-border-inset mx-auto mt-32 w-[475px] bg-nn-light px-4 py-8">
+            <div className="cover-simple-border cover-simple-border-inset mx-auto mt-32 w-[475px] bg-nn-base-light px-4 py-8">
               <h1 className="mb-4 font-display text-5xl font-bold italic leading-snug">
                 <Balancer>{name}</Balancer>
               </h1>

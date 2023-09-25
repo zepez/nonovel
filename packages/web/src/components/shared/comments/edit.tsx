@@ -128,7 +128,7 @@ export const CommentEdit = ({
           )}
         />
 
-        <div className="flex mt-3">
+        <div className="mt-3 flex">
           {cancel && (
             <Button
               size="sm"
@@ -154,6 +154,7 @@ export const CommentEdit = ({
           <div className="flex-grow" />
           <Button
             size="sm"
+            className="font-bold uppercase"
             variant="primary"
             type="submit"
             title="Save comment"

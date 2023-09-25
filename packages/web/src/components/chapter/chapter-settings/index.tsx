@@ -225,7 +225,7 @@ export const ChapterSettings = ({
 
           <Button
             size="sm"
-            className="nn-border-50 mt-0 h-8 w-full border text-xs font-bold uppercase leading-tight"
+            className="nn-border mt-0 h-8 w-full border text-xs font-bold uppercase leading-tight"
             variant="secondary"
             onClick={resetToDefaults}
             title="Reset to defaults"

@@ -25,7 +25,7 @@ export const LayoutSearch = () => {
         <Button
           variant="ghost"
           size="fluid"
-          className="w-48 cursor-text justify-between border border-nn-dark text-xs font-normal text-nn-dark dark:border-nn-light dark:text-nn-light"
+          className="w-48 cursor-text justify-between border border-nn-base-dark text-xs font-normal dark:border-nn-base-light"
           onClick={() => setOpen(true)}
           title="Search (⌘+K)"
         >
@@ -33,7 +33,7 @@ export const LayoutSearch = () => {
             <MagnifyingGlassIcon className="mr-3" />
             Search
           </div>
-          <kbd className="pointer-events-none inline-flex h-4 select-none items-center rounded bg-nn-dark px-2 font-mono text-[10px] text-nn-light dark:bg-nn-light dark:text-nn-dark">
+          <kbd className="bg-nn-base-invert pointer-events-none inline-flex h-4 select-none items-center rounded px-2 font-mono text-[10px]">
             <span className="mr-[2px] text-xs">
               {os === "Mac" && "⌘"}
               {(os === "Windows" || os === "Linux") && "Ctrl"}

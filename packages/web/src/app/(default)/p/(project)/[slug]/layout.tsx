@@ -41,9 +41,7 @@ interface StatDisplayProps {
 const StatDisplay = ({ stat, name, icon }: StatDisplayProps) => {
   return (
     <div className="min-w-[100px] max-w-[150px] flex-grow">
-      <p className="text-lg font-bold text-nn-dark dark:text-nn-primary-dark">
-        {name}
-      </p>
+      <p className="text-nn-accent text-lg font-bold">{name}</p>
       <p className="mt-2 flex items-center justify-center gap-2 text-xl font-bold leading-tight sm:justify-start">
         <span className="text-2xl">{icon}</span> {summarizeNumber(stat)}
       </p>
@@ -146,14 +144,14 @@ export default async function ProjectLayout({
               </div>
             </div>
 
-            <div className="nn-text-secondary mt-8 flex-grow px-4 sm:px-0">
+            <div className="nn-detail mt-8 flex-grow px-4 sm:px-0">
               <TruncateParagraph text={project.description} length={275} />
             </div>
 
             <div className="flex flex-wrap gap-4 pt-8 sm:flex-nowrap">
               {session?.user?.id ? (
                 <ButtonFollow
-                  className="w-full bg-nn-dark px-4 py-2 text-center text-sm font-semibold uppercase leading-tight text-nn-light opacity-80 dark:opacity-100"
+                  className="bg-nn-secondary w-full px-4 py-2 text-center text-sm font-semibold uppercase leading-tight opacity-80 dark:opacity-100"
                   followId={follow?.id}
                   userId={session?.user?.id}
                   projectId={project.id}
@@ -164,7 +162,7 @@ export default async function ProjectLayout({
                   <Button
                     variant="ghost"
                     size="fluid"
-                    className="w-full bg-nn-secondary-dark px-4 py-2 text-center text-sm font-semibold uppercase leading-tight text-nn-light opacity-80 dark:opacity-100"
+                    className="bg-nn-secondary w-full px-4 py-2 text-center text-sm font-semibold uppercase leading-tight opacity-80 dark:opacity-100"
                     title="Login or register"
                   >
                     Login to Bookmark
@@ -174,7 +172,7 @@ export default async function ProjectLayout({
               {readButton && (
                 <Link
                   href={readButton.href}
-                  className="nn-interactive nn-bg-primary nn-border flex w-full items-center justify-center rounded-md border px-4 py-2 text-center text-sm font-semibold uppercase leading-tight"
+                  className="nn-interactive bg-nn-accent nn-border flex w-full items-center justify-center rounded-md border px-4 py-2 text-center text-sm font-semibold uppercase leading-tight"
                 >
                   {readButton.text}
                 </Link>

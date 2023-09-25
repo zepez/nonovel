@@ -36,13 +36,13 @@ export const ColorChange = ({
 
   return (
     <Popover>
-      <PopoverTrigger className="nn-interactive nn-bg-background nn-border-50 flex w-full flex-col items-center justify-center gap-1 rounded-md border p-1 text-[0.90rem]">
+      <PopoverTrigger className="nn-interactive bg-nn-secondary nn-border flex w-full flex-col items-center justify-center gap-1 rounded-md border p-1 text-[0.90rem]">
         {label}
         <div
           style={{
             backgroundColor: semanticColor,
           }}
-          className="nn-border-50 mx-2 w-full rounded-sm border p-1"
+          className="nn-border mx-2 w-full rounded-sm border p-1"
         />
       </PopoverTrigger>
       <PopoverContent className="w-auto p-1">

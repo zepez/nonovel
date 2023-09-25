@@ -6,8 +6,74 @@
 
 /* ============================================= */
 
+.nn-ring {
+  @apply outline-none ring-2 ring-inset ring-nn-accent-light dark:ring-nn-accent-dark;
+}
+
+.bg-nn-base {
+  @apply bg-nn-base-light dark:bg-nn-base-dark text-nn-base-dark dark:text-nn-base-light;
+}
+
+.bg-nn-base-invert {
+  @apply bg-nn-base-dark dark:bg-nn-base-light text-nn-base-light dark:text-nn-base-dark;
+}
+
+.bg-nn-secondary {
+  @apply bg-nn-secondary-light dark:bg-nn-secondary-dark text-nn-secondary-dark dark:text-nn-secondary-light;
+}
+
+.bg-nn-accent {
+  @apply bg-nn-accent-light dark:bg-nn-accent-dark text-nn-accent-dark dark:text-nn-accent-light;
+}
+
+.text-nn-accent {
+  @apply text-nn-accent-light dark:text-nn-accent-dark;
+}
+
+.nn-title {
+  @apply font-serif text-4xl md:text-5xl;
+}
+
+.nn-detail {
+  @apply text-sm leading-snug opacity-100 text-inherit;
+}
+
+.nn-interactive {
+  @apply transition-colors disabled:pointer-events-none disabled:cursor-not-allowed disabled:opacity-70;
+}
+
+.nn-interactive:hover {
+  @apply outline-none opacity-70 nn-ring;
+}
+
+.nn-no-select {
+  @apply outline-none ring-0 focus:ring-0;
+}
+
+.nn-shadow {
+  box-shadow: rgba(0, 0, 0, 0.56) 0px 0px 70px 5px;
+}
+
+.nn-divide {
+  @apply divide-nn-base-dark/[15%] dark:divide-nn-base-light/[15%];
+}
+
+.nn-border {
+  @apply border-nn-base-dark/[15%] dark:border-nn-base-light/[15%];
+}
+
+.nn-placeholder {
+  @apply placeholder:text-nn-secondary-dark/40 dark:placeholder:text-nn-secondary-light/40;
+}
+
+.nn-placeholder-invert {
+  @apply placeholder:text-nn-secondary-light/60 dark:placeholder:text-nn-secondary-dark/60;
+}
+
+/* ============================================= */
+
 *:focus {
-  @apply outline-none ring-2 ring-inset ring-nn-dark/70 dark:ring-nn-primary-dark;
+  @apply nn-ring;
 }
 
 *:disabled {
@@ -15,21 +81,21 @@
 }
 
 ::selection {
-  @apply text-nn-light ring-nn-dark/70 dark:ring-nn-primary-dark;
+  @apply bg-nn-accent nn-ring;
 }
 
 :root, html {
-  --nn-fade: #F5E1C9;
-  --nn-typography: #1F130C;
+  --nn-fade: #f5e1c9;
+  --nn-typography: #20130d;
 }
 
 html.dark {
-  --nn-fade: #1F140C;
+  --nn-fade: #20130d;
   --nn-typography: #F5E1C9;
 }
 
 body {
-  @apply bg-nn-light dark:bg-nn-dark text-nn-dark dark:text-nn-light;
+  @apply bg-nn-base;
 }
 
 [cmdk-item] {
@@ -37,7 +103,7 @@ body {
   cursor: pointer;
 
   &[data-selected="true"] {
-    @apply outline-none ring-2 ring-inset ring-nn-dark/70 dark:ring-nn-primary-dark;
+    @apply nn-ring;
   }
 
   &[data-disabled="true"] {
@@ -84,7 +150,7 @@ body {
 }
 
 .nn-content-wrapper tr:nth-child(odd) {
-  @apply nn-bg-background;
+  @apply bg-nn-secondary;
 }
 
 .nn-content-wrapper td {
@@ -92,54 +158,6 @@ body {
 }
 
 /* ============================================= */
-
-.nn-title {
-  @apply font-serif text-4xl md:text-5xl;
-}
-
-.nn-interactive {
-  @apply transition-colors disabled:pointer-events-none disabled:cursor-not-allowed disabled:opacity-50;
-}
-
-.nn-interactive:hover {
-  @apply outline-none opacity-70 ring-2 ring-inset ring-nn-dark/70 dark:ring-nn-primary-dark;
-}
-
-.nn-no-select {
-  @apply transition-colors outline-none ring-0;
-}
-
-.nn-bg-foreground {
-  @apply bg-nn-light text-nn-dark dark:bg-nn-dark dark:text-nn-light;
-}
-
-.nn-bg-primary {
-  @apply text-nn-light bg-nn-primary-light dark:text-nn-dark dark:bg-nn-primary-dark;
-}
-
-.nn-bg-contrast {
-  @apply bg-nn-dark text-nn-light dark:bg-nn-light dark:text-nn-dark;
-}
-
-.nn-bg-background {
-  @apply bg-nn-secondary-light text-nn-dark dark:bg-nn-secondary-dark dark:text-nn-light;
-}
-
-.nn-divide {
-  @apply divide-nn-dark/20 dark:divide-nn-light/20;
-}
-
-.nn-border {
-  @apply border-nn-backdrop-dark/20 dark:border-nn-backdrop-light/20;
-}
-
-.nn-border-50 {
-  @apply border-nn-dark/5 dark:border-nn-light/5;
-}
-
-.nn-text-secondary {
-  @apply text-sm leading-snug text-inherit opacity-80;
-}
 
 @keyframes spin-top {
   0% {
@@ -162,7 +180,7 @@ body {
 .nn-bg-blurred-image {
   filter: blur(50px) brightness(1.2);
   height: calc(100% + 50px);
-  @apply opacity-90;
+  opacity: 90%;
   /* 
     force gpu accel for perf issues in safari.
   */
@@ -193,7 +211,7 @@ body {
 .nn-bg-blurred-emoji {
   filter: blur(60px) brightness(1.2);
   height: calc(100% + 50px);
-  @apply opacity-60;
+  opacity: 60%;
   /* 
     force gpu accel for perf issues in safari.
   */
@@ -201,8 +219,4 @@ body {
   background-size: 200%; 
   animation: spin-center 45s infinite steps(4, end);
   animation-timing-function: linear;
-}
-
-.nn-shadow {
-  box-shadow: rgba(0, 0, 0, 0.56) 0px 0px 70px 5px;
 }

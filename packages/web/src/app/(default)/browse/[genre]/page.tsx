@@ -66,9 +66,7 @@ export default async function BrowsePage({
 
   if (!results || !results.length)
     return (
-      <SectionEmpty className="nn-bg-background">
-        No results found.
-      </SectionEmpty>
+      <SectionEmpty className="bg-nn-secondary">No results found.</SectionEmpty>
     );
 
   return (
@@ -77,7 +75,7 @@ export default async function BrowsePage({
         {genre?.name ?? "All Genres"}
       </SectionHeading>
       {genre?.description && (
-        <p className="nn-text-secondary pb-4">{parse(genre.description)}</p>
+        <p className="nn-detail pb-4">{parse(genre.description)}</p>
       )}
 
       <section className="flex flex-row flex-wrap justify-start">
@@ -96,7 +94,7 @@ export default async function BrowsePage({
                 className="h-auto w-full rounded-sm p-1"
               />
               <div className="absolute right-0 top-4 flex w-full justify-center md:top-5">
-                <div className="flex items-center justify-center gap-1 rounded-sm bg-nn-dark/50 px-2 text-xs text-nn-light">
+                <div className="flex items-center justify-center gap-1 rounded-sm bg-nn-base-dark/70 px-2 text-xs text-nn-base-light">
                   <AiTwotoneEye />
                   {summarizeNumber(result.views)}
                   <AiFillStar className="ml-2" />
@@ -108,7 +106,7 @@ export default async function BrowsePage({
               <p className="truncate text-lg font-semibold sm:text-xl">
                 {result.name}
               </p>
-              <p className="nn-text-secondary truncate">{result.penName}</p>
+              <p className="nn-detail truncate">{result.penName}</p>
             </div>
           </Link>
         ))}
