@@ -4,10 +4,15 @@
 
 .cover-simple-border-inset {
   outline: 2px solid #F0B558;
-  outline-offset: -10px; 
+  outline-offset: -12px; 
 }
 
-.cover-svg-overlay-one::before {
+.cover-simple-border-inset-2 {
+  outline: 2px solid #F0B558;
+  outline-offset: -20px; 
+}
+
+.cover-custom-border-overlay::after {
   content: "";
   display: block;
   position: absolute;
@@ -15,37 +20,35 @@
   right: 0;
   bottom: 0;
   left: 0;
-  border-width: 120px;
   border-color: transparent;
-  border-image-source: url('/borders/one.svg');
-  border-image-slice: 100;
-  border-image-width: 120px;
   border-image-repeat: round;
   box-sizing: border-box;
 }
 
-.cover-svg-overlay-two {
-  outline: 2px solid #F0B558;
-  outline-offset: -22px; 
+.cover-svg-overlay-two::after {
+  border-width: 115px;
   border-image-source: url('/borders/two.svg');
-  border-image-slice: 40 fill;
-  border-image-width: 50px;
-  border-image-repeat: round;
+  border-image-slice: 100;
+  border-image-width: 115px;
 }
 
-.cover-svg-overlay-three::before {
-  content: "";
-  display: block;
-  position: absolute;
-  top: 0;
-  right: 0;
-  bottom: 0;
-  left: 0;
-  border-width: 55px;
-  border-color: transparent;
+.cover-svg-overlay-three::after {
+  border-width: 50px;
   border-image-source: url('/borders/three.svg');
+  border-image-slice: 40;
+  border-image-width: 50px;
+}
+
+.cover-custom-border-four::after {
+  border-width: 55px;
+  border-image-source: url('/borders/four.svg');
   border-image-slice: 25;
   border-image-width: 55px;
-  border-image-repeat: round;
-  box-sizing: border-box;
+}
+
+.cover-custom-border-five::after {
+  border-width: 40px;
+  border-image-source: url('/borders/five.svg');
+  border-image-slice: 40;
+  border-image-width: 40px;
 }

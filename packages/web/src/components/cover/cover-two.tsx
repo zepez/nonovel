@@ -1,36 +1,26 @@
-import Balancer from "react-wrap-balancer";
-import { Watermark } from "~/components/cover/watermark";
+import {
+  Watermark,
+  Card,
+  Structure,
+  Background,
+} from "~/components/cover/layout";
 
 interface Props {
   background: string;
-  name: string;
-  penName: string;
+  title: string;
+  author: string;
 }
 
-export const CoverTwo = ({ background, name, penName }: Props) => {
+export const CoverTwo = ({ background, title, author }: Props) => {
   return (
-    <>
-      <div className="h-[900px] w-[600px] text-center text-nn-base-dark">
-        <div className="cover-svg-overlay-one relative h-full w-full">
-          <img
-            src={`data:image/jpeg;base64,${background}`}
-            className="h-full w-full object-cover"
-          />
-
-          <div className="absolute left-0 top-0 w-full">
-            <div className="cover-simple-border cover-simple-border-inset mx-auto mt-32 w-[475px] bg-nn-base-light px-4 py-8">
-              <h1 className="mb-4 font-display text-5xl font-bold italic leading-snug">
-                <Balancer>{name}</Balancer>
-              </h1>
-              <h2 className="m-0 font-display text-3xl">
-                <Balancer>{penName}</Balancer>
-              </h2>
-            </div>
-          </div>
-
-          <Watermark className="absolute bottom-10 left-0" />
-        </div>
-      </div>
-    </>
+    <Structure className="cover-custom-border-overlay cover-svg-overlay-two">
+      <Background image={background} />
+      <Card
+        className="cover-simple-border cover-simple-border-inset top-32 w-[475px]"
+        title={title}
+        author={author}
+      />
+      <Watermark className="bottom-12" />
+    </Structure>
   );
 };

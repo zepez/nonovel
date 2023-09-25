@@ -7,7 +7,9 @@ interface Props {
 
 export const Watermark = ({ className }: Props) => {
   return (
-    <div className={cn(className, "flex w-full justify-center")}>
+    <div
+      className={cn(className, "absolute left-0 flex w-full justify-center")}
+    >
       <div className="rounded-sm p-2 backdrop-blur-lg backdrop-brightness-75">
         <FullLogoLight className="" />
       </div>

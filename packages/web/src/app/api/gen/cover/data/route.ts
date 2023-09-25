@@ -22,13 +22,10 @@ export async function POST(request: Request) {
     if (projectErr || !project || !project.penName)
       throw new Error("Project not found");
 
-    const coverBackgroundBase64 = await chainProjectCover({
+    let coverBackgroundBase64 = await chainProjectCover({
       title: project.name,
       author: project.penName,
     });
-
-    if (!coverBackgroundBase64)
-      throw new Error("AI failed to generate background");
 
     return NextResponse.json({
       success: true,

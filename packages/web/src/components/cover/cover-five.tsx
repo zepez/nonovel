@@ -11,18 +11,16 @@ interface Props {
   author: string;
 }
 
-export const CoverFour = ({ background, title, author }: Props) => {
+export const CoverFive = ({ background, title, author }: Props) => {
   return (
-    <Structure className="cover-custom-border-overlay cover-custom-border-four">
+    <Structure className="cover-custom-border-overlay cover-custom-border-five">
       <Background image={background} />
-
       <Card
-        className="cover-simple-border cover-simple-border-inset top-32 w-[475px]"
+        className="cover-simple-border cover-simple-border-inset bottom-16 w-[475px]"
         title={title}
         author={author}
-      />
-
-      <Watermark className="bottom-10" />
+      ></Card>
+      <Watermark className="top-10" />
     </Structure>
   );
 };
