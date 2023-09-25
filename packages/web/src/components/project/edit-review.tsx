@@ -188,7 +188,7 @@ export const EditReview = ({ userId, projectId, review }: EditReviewProps) => {
           <div className="flex-grow" />
           {/* submit */}
           <Button
-            className="mt-3 w-full font-bold uppercase sm:w-auto"
+            className="mt-3 w-full font-bold sm:w-auto"
             type="submit"
             variant="primary"
             disabled={saving}

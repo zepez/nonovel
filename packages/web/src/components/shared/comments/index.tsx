@@ -94,7 +94,7 @@ export const CommentLayout = ({
             refresh={getComments}
             className="mb-8"
             background="bg-nn-base"
-            defaultSubmitText="Post comment"
+            defaultSubmitText="Post Comment"
             actionText={["Posting", "Posted"]}
             comment={{
               resourceId,
@@ -113,7 +113,7 @@ export const CommentLayout = ({
         )}
 
         {showNoComments && session?.user.id && (
-          <SectionEmpty className="nn-bg-base">No comments yet.</SectionEmpty>
+          <SectionEmpty className="bg-nn-base">No comments yet.</SectionEmpty>
         )}
 
         {showNoComments && !session?.user.id && (

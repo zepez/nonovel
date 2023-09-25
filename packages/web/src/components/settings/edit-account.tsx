@@ -136,6 +136,7 @@ export const EditAccount = ({ session }: EditAccountProps) => {
           variant="primary"
           disabled={loading}
           title="Save account"
+          className="font-bold"
         >
           {loading ? "Saving..." : "Save"}
         </Button>

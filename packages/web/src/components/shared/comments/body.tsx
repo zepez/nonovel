@@ -126,7 +126,7 @@ export const CommentBody = ({
           comment={{ ...comment, userId: user.userId }}
           background={comment.parentId ? "bg-nn-secondary" : "bg-nn-base"}
           className="mb-4"
-          defaultSubmitText="Update comment"
+          defaultSubmitText="Update Comment"
           actionText={["Updating", "Updated"]}
         />
       ) : (

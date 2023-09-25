@@ -14,7 +14,7 @@ const buttonVariants = cva(
         secondary: "bg-nn-secondary",
         contrast: "bg-nn-base-invert",
         destructive:
-          "bg-red-500 text-nn-base-light hover:bg-red-500:90 dark:bg-red-900 dark:text-nn-base-dark dark:hover:bg-red-900:90",
+          "bg-red-500 text-nn-base-light dark:bg-red-900 dark:text-nn-base-light",
         outline: "nn-border border",
         ghost: "text-inherit",
         link: "text-inherit underline-offset-4 hover:underline",

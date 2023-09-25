@@ -207,6 +207,7 @@ export const EditProfile = ({ session }: EditProfileProps) => {
           variant="primary"
           disabled={loading}
           title="Save profile"
+          className="font-bold"
         >
           {loading ? "Saving..." : "Save"}
         </Button>

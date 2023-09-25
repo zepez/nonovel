@@ -117,7 +117,7 @@ export const CommentThread = ({ refresh, parent }: CommentThreadProps) => {
             }}
             cancel={() => setSelectedId(null)}
             background="bg-nn-base"
-            defaultSubmitText="Post reply"
+            defaultSubmitText="Post Reply"
             actionText={["Posting", "Posted"]}
             comment={{
               resourceId: parent.resourceId,

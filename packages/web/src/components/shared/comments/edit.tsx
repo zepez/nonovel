@@ -147,6 +147,7 @@ export const CommentEdit = ({
               onClick={handleDelete}
               type="button"
               title="Delete comment"
+              className="font-bold"
             >
               Delete comment
             </Button>
@@ -154,10 +155,10 @@ export const CommentEdit = ({
           <div className="flex-grow" />
           <Button
             size="sm"
-            className="font-bold uppercase"
+            className="font-bold"
             variant="primary"
             type="submit"
-            title="Save comment"
+            title="Save Comment"
           >
             {saving ? `${actionText[0]}...` : defaultSubmitText}
           </Button>

@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from "react";
 import Link from "next/link";
+import { FaCheck } from "react-icons/fa";
 import type { GetChapterManifestByIdsReturn } from "@nonovel/query";
 
 import { cn } from "~/lib/utils";
@@ -22,7 +23,12 @@ const ListItem = ({ href, name, symbol, height, isRead }: ListItemProps) => {
       href={href}
       className="nn-interactive flex items-center rounded-sm odd:bg-nn-secondary-light dark:odd:bg-nn-secondary-dark"
     >
-      <span className="mx-4 w-8 text-center opacity-30">{isRead && "✔"}</span>
+      {isRead ? (
+        <FaCheck className="mx-4 w-8 opacity-50" width={12} height={12} />
+      ) : (
+        <span className="mx-4 w-8"></span>
+      )}
+
       <h3
         className={cn(
           height ? `py-${height}` : "py-3",
