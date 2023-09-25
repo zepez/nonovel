@@ -142,10 +142,66 @@ body {
   @apply text-sm leading-snug text-inherit opacity-80;
 }
 
-.nn-bg-blurred {
+@keyframes spin-top {
+  0% {
+    background-position: center top;
+  }
+  25% {
+    background-position: right top;
+  }
+  50% {
+    background-position: center top;
+  }
+  75% {
+    background-position: left top;
+  }
+  100% {
+    background-position: center top;
+  }
+}
+
+.nn-bg-blurred-image {
   filter: blur(50px) brightness(1.2);
-  transform: translate3d(0, 0, 0); /* force gpu accel for perf issues in safari  */
+  height: calc(100% + 50px);
   @apply opacity-90;
+  /* 
+    force gpu accel for perf issues in safari.
+  */
+  transform: translate3d(0, -50px, 0); 
+  background-size: 150%; 
+  animation: spin-top 40s infinite steps(4, end);
+  animation-timing-function: linear;
+}
+
+@keyframes spin-center {
+  0% {
+    background-position: center center;
+  }
+  25% {
+    background-position: right center;
+  }
+  50% {
+    background-position: center center;
+  }
+  75% {
+    background-position: left center;
+  }
+  100% {
+    background-position: center center;
+  }
+}
+
+.nn-bg-blurred-emoji {
+  filter: blur(60px) brightness(1.2);
+  height: calc(100% + 50px);
+  @apply opacity-60;
+  /* 
+    force gpu accel for perf issues in safari.
+  */
+  transform: translate3d(0, -50px, 0); 
+  background-size: 200%; 
+  animation: spin-center 45s infinite steps(4, end);
+  animation-timing-function: linear;
 }
 
 .nn-shadow {

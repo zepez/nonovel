@@ -14,13 +14,13 @@ export default async function BrowseLayout({ children }: BrowseLayoutProps) {
 
   return (
     <>
-      <BackgroundEmoji emoji="📖" tiled={true}>
-        <LayoutWrapper className="py-16">
+      <BackgroundEmoji emoji="👘" tiled={true}>
+        <LayoutWrapper className="pb-16 pt-4">
           <LayoutNavigation genres={genres} />
         </LayoutWrapper>
       </BackgroundEmoji>
 
-      <LayoutWrapper className="py-0">{children}</LayoutWrapper>
+      <LayoutWrapper>{children}</LayoutWrapper>
     </>
   );
 }

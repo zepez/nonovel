@@ -1,4 +1,5 @@
 import { format } from "date-fns";
+import Balancer from "react-wrap-balancer";
 import {
   LayoutWrapper,
   BackgroundEmoji,
@@ -20,10 +21,10 @@ export default async function ArticleLayout({
 
   return (
     <>
-      <BackgroundEmoji emoji="🎑" tiled={false}>
-        <LayoutWrapper className="max-w-5xl py-16">
+      <BackgroundEmoji emoji="🧶" tiled={false}>
+        <LayoutWrapper className="max-w-5xl pb-16 pt-4">
           <h1 className="nn-title text-3xl font-bold sm:text-4xl">
-            {article.meta.title}
+            <Balancer>{article.meta.title}</Balancer>
           </h1>
           <span className="mt-4 block">
             Posted {format(new Date(article.meta.date), "MM/dd/yyyy")}, by{" "}
@@ -32,7 +33,7 @@ export default async function ArticleLayout({
         </LayoutWrapper>
       </BackgroundEmoji>
 
-      <LayoutWrapper className="max-w-3xl pt-0">{children}</LayoutWrapper>
+      <LayoutWrapper className="max-w-3xl">{children}</LayoutWrapper>
 
       <CommentLayout resourceId={article.meta.id} resourceType="article" />
     </>

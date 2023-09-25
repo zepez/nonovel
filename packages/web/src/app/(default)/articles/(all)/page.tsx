@@ -19,7 +19,7 @@ export default async function Page() {
         <div key={article.slug}>
           <Link
             href={`/articles/${article.slug}`}
-            className="nn-interactive -mx-4 block rounded-md py-6"
+            className="nn-interactive -mx-4 block rounded-md py-4"
           >
             <div className="px-4">
               <p className="mb-2 text-xl font-bold">{article.title}</p>

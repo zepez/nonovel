@@ -26,13 +26,14 @@ export const BackgroundEmoji = ({
     <div className="relative">
       <div
         className={cn(
-          "nn-bg-blurred absolute inset-0 z-0",
+          "nn-bg-blurred-emoji absolute inset-0 z-0",
           tiled ? "bg-repeat" : "bg-cover"
         )}
         style={{
           backgroundImage: `linear-gradient(0deg, var(--nn-fade) 0%, transparent), url("data:image/svg+xml;base64,${btoa(
             svgEmoji
           )}")`,
+          backgroundPosition: "center center",
         }}
       />
       <div className={cn("relative z-10", className)}>{children}</div>

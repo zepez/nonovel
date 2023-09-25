@@ -42,7 +42,7 @@ export const LayoutMobileHeaderSheet = ({
 
   return (
     <Sheet open={open} onOpenChange={setOpen}>
-      <SheetTrigger className="flex items-center gap-3 px-2 py-1 text-xs font-bold leading-tight uppercase">
+      <SheetTrigger className="flex items-center gap-3 px-2 py-1 text-xs font-bold uppercase leading-tight">
         <HamburgerMenuIcon width={25} height={25} /> Menu
       </SheetTrigger>
       <SheetContent className="text-left">
@@ -125,7 +125,7 @@ export const LayoutMobileHeaderSheet = ({
                 <LoginDialog>
                   <li>
                     <button
-                      className="block w-full py-2 text-left nn-interactive"
+                      className="nn-interactive block w-full py-2 text-left"
                       title="Login or register"
                     >
                       Login

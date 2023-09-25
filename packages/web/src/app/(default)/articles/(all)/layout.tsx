@@ -7,8 +7,8 @@ interface ArticleLayoutProps {
 export default function ArticleLayout({ children }: ArticleLayoutProps) {
   return (
     <>
-      <BackgroundEmoji emoji="🎑" tiled={true}>
-        <LayoutWrapper className="flex flex-col justify-center py-16">
+      <BackgroundEmoji emoji="🐟" tiled={false}>
+        <LayoutWrapper className="flex flex-col justify-center pb-16 pt-4">
           <h1 className="nn-title text-2xl font-bold">Browse Articles</h1>
           <p className="mt-2">
             Dive deeper into the world of your favorite books - broaden your
@@ -17,7 +17,7 @@ export default function ArticleLayout({ children }: ArticleLayoutProps) {
         </LayoutWrapper>
       </BackgroundEmoji>
 
-      <LayoutWrapper className="pt-0">{children}</LayoutWrapper>
+      <LayoutWrapper>{children}</LayoutWrapper>
     </>
   );
 }

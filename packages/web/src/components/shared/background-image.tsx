@@ -17,13 +17,13 @@ export const BackgroundImage = ({
     <div className="relative">
       <div
         className={cn(
-          "nn-bg-blurred absolute inset-0 z-0",
+          "nn-bg-blurred-image absolute inset-0 z-0",
           tiled ? "bg-repeat" : "bg-cover"
         )}
         style={
           src
             ? {
-                backgroundImage: `linear-gradient(0deg, var(--nn-fade) 0%, transparent), url(${src})`,
+                backgroundImage: `linear-gradient(0deg, var(--nn-fade) 15%, transparent), url(${src})`,
                 backgroundPosition: "center top",
               }
             : {}

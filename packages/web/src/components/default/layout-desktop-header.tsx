@@ -20,14 +20,14 @@ export async function LayoutDesktopHeader() {
   const [, session] = await getSession();
 
   return (
-    <div className="hidden pt-8 md:block">
-      <LayoutWrapper className="flex flex-col flex-wrap justify-between px-4 py-0 md:flex-row">
+    <div className="hidden md:block">
+      <LayoutWrapper className="flex flex-col flex-wrap justify-between pb-12 pt-8 md:flex-row">
         <NavigationMenu>
           <NavigationMenuList>
             {/* home */}
             <NavigationMenuItem>
               <Link href="/" legacyBehavior passHref title="Home">
-                <NavigationMenuLink className="nn-interactive group mx-2 inline-flex h-9 w-max items-center justify-center rounded-md bg-inherit px-2 py-2 text-sm font-medium">
+                <NavigationMenuLink className="nn-interactive group mr-2 inline-flex h-9 w-max items-center justify-center rounded-md bg-inherit px-2 py-2 text-sm font-medium">
                   <FullLogo className="my-1" />
                 </NavigationMenuLink>
               </Link>

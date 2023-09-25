@@ -28,7 +28,7 @@ export default async function ProfileLayout({
   return (
     <>
       <BackgroundImage src={src(profile.image, "profile")} tiled={true}>
-        <LayoutWrapper className="flex flex-wrap items-end pb-0 md:flex-nowrap">
+        <LayoutWrapper className="flex flex-wrap items-end pb-16 md:flex-nowrap">
           <Image
             src={src(profile.image, "profile")}
             alt="Profile picture"

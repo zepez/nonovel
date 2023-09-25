@@ -76,20 +76,20 @@ export default async function HomePage() {
   const popularToday = popularTodayAll[0];
 
   return (
-    <main>
+    <>
       <BackgroundImage src={src(popularToday.cover, "cover")}>
-        <Link
-          href={`/p/${popularToday.slug}`}
-          className="nn-interactive relative z-10 flex items-center py-12"
-        >
-          <LayoutWrapper className="py-0">
-            <SectionHeading className="mt-0">Top Today</SectionHeading>
+        <LayoutWrapper className="relative z-10 pb-16 pt-4">
+          <SectionHeading className="mt-0">Top Today</SectionHeading>
+          <Link
+            href={`/p/${popularToday.slug}`}
+            className="nn-interactive block p-2"
+          >
             <div className="flex flex-wrap gap-6 sm:flex-nowrap">
               <AspectImage
                 src={src(popularToday.cover, "cover")}
                 alt={popularToday.name}
                 width={200}
-                className="mx-auto mb-3 flex-shrink-0"
+                className="mx-auto flex-shrink-0"
               />
               <div className="min-w-0 flex-shrink pt-2">
                 <p className="nn-title mb-2 text-3xl font-bold italic">
@@ -98,14 +98,14 @@ export default async function HomePage() {
                 <p>{popularToday.description}</p>
               </div>
             </div>
-          </LayoutWrapper>
-        </Link>
+          </Link>
+        </LayoutWrapper>
       </BackgroundImage>
 
       <LayoutWrapper className="space-y-12">
         <PopularSlider period="week" size={230} titleClassName="text-xl" />
         <PopularSlider period="month" size={150} titleClassName="text-lg" />
       </LayoutWrapper>
-    </main>
+    </>
   );
 }

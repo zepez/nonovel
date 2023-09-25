@@ -7,8 +7,8 @@ interface UpdatesLayoutProps {
 export default function UpdatesLayout({ children }: UpdatesLayoutProps) {
   return (
     <>
-      <BackgroundEmoji emoji="🦺" tiled={true}>
-        <LayoutWrapper className="py-16">
+      <BackgroundEmoji emoji="🎭" tiled={true}>
+        <LayoutWrapper className="pb-16 pt-4">
           <h1 className="nn-title text-2xl font-bold">Updates</h1>
           <p className="mt-2">
             Get the scoop on all the fresh features and important announcements
@@ -17,7 +17,7 @@ export default function UpdatesLayout({ children }: UpdatesLayoutProps) {
         </LayoutWrapper>
       </BackgroundEmoji>
 
-      <LayoutWrapper className="pt-0">{children}</LayoutWrapper>
+      <LayoutWrapper>{children}</LayoutWrapper>
     </>
   );
 }

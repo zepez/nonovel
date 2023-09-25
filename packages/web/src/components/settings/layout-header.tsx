@@ -20,7 +20,7 @@ const segments = {
     title: "Profile Settings",
     description:
       "Your profile details will be displayed publicly on your profile page.",
-    emoji: "👨🏼‍🎨",
+    emoji: "👴🏻",
   },
 };
 
@@ -32,7 +32,7 @@ export const LayoutHeader = () => {
 
   return (
     <BackgroundEmoji emoji={current.emoji} tiled={true}>
-      <LayoutWrapper className="py-16">
+      <LayoutWrapper className="pb-16 pt-4">
         <h1 className="nn-title text-2xl font-bold">{current.title}</h1>
         <p className="mt-2">{current.description}</p>
       </LayoutWrapper>

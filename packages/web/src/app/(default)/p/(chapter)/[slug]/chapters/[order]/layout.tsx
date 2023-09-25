@@ -49,8 +49,8 @@ export default async function ChapterLayout({
         projectId={project.id}
         chapterId={chapter.id}
       />
-      <BackgroundImage src={src(project.cover, "cover")} className="pb-8">
-        <LayoutWrapper className="flex flex-wrap items-center">
+      <BackgroundImage src={src(project.cover, "cover")}>
+        <LayoutWrapper className="flex flex-wrap items-center pb-8">
           <Link
             href={`/p/${project.slug}`}
             className="nn-interactive mb-4 w-full flex-shrink-0 rounded-md p-1 md:mx-0 md:mb-0 md:w-auto"
@@ -81,7 +81,7 @@ export default async function ChapterLayout({
         </LayoutWrapper>
       </BackgroundImage>
 
-      <div className="nn-content-wrapper-background text-nn-dark dark:text-nn-light">
+      <div className="nn-content-wrapper-background">
         <LayoutWrapper className="py-8">
           <ChapterNavigation
             project={project}
