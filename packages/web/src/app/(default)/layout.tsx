@@ -63,7 +63,7 @@ export default function RootLayout({ children }: RootLayoutProps) {
       <body className={inter.className}>
         <AuthProvider>
           <ThemeProvider attribute="class" defaultTheme="dark" enableSystem>
-            <div className="flex min-h-screen flex-col">
+            <div className="flex min-h-screen flex-col font-sans">
               <Suspense fallback={<Skeleton className="h-14 w-full" />}>
                 <LayoutDesktopHeader />
                 <LayoutMobileHeader />

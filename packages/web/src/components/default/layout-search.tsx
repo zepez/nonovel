@@ -33,7 +33,7 @@ export const LayoutSearch = () => {
             <MagnifyingGlassIcon className="mr-3" />
             Search
           </div>
-          <kbd className="pointer-events-none inline-flex h-4 select-none items-center rounded bg-nn-dark px-2 font-mono text-[10px] font-medium text-nn-light dark:bg-nn-light dark:text-nn-dark">
+          <kbd className="pointer-events-none inline-flex h-4 select-none items-center rounded bg-nn-dark px-2 font-mono text-[10px] text-nn-light dark:bg-nn-light dark:text-nn-dark">
             <span className="mr-[2px] text-xs">
               {os === "Mac" && "⌘"}
               {(os === "Windows" || os === "Linux") && "Ctrl"}

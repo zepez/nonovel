@@ -27,7 +27,7 @@ export async function LayoutDesktopHeader() {
             {/* home */}
             <NavigationMenuItem>
               <Link href="/" legacyBehavior passHref title="Home">
-                <NavigationMenuLink className="nn-interactive group mr-2 inline-flex h-9 w-max items-center justify-center rounded-md bg-inherit px-2 py-2 text-sm font-medium">
+                <NavigationMenuLink className="nn-interactive group mr-2 inline-flex h-9 w-max items-center justify-center rounded-md bg-inherit px-2 py-2 text-sm">
                   <FullLogo className="my-1" />
                 </NavigationMenuLink>
               </Link>
@@ -65,7 +65,7 @@ export async function LayoutDesktopHeader() {
             {/* browse */}
             <NavigationMenuItem>
               <Link href="/browse" legacyBehavior passHref>
-                <NavigationMenuLink className="nn-interactive group inline-flex h-9 w-max items-center justify-center rounded-md bg-inherit px-4 py-2 text-sm font-medium">
+                <NavigationMenuLink className="nn-interactive group inline-flex h-9 w-max items-center justify-center rounded-md bg-inherit px-4 py-2 text-sm font-bold">
                   Browse
                 </NavigationMenuLink>
               </Link>
@@ -89,7 +89,7 @@ export async function LayoutDesktopHeader() {
                   <Button
                     variant="ghost"
                     size="fluid"
-                    className="text-sm font-medium text-nn-dark dark:text-nn-light"
+                    className="text-sm font-bold text-nn-dark dark:text-nn-light"
                     title="Login or register"
                   >
                     Login
@@ -119,7 +119,7 @@ const ListItem = React.forwardRef<
           )}
           {...props}
         >
-          <div className="text-sm font-medium leading-none">
+          <div className="text-sm font-bold leading-none">
             {icon && <span className="mx-2 text-xl">{icon}</span>} {title}
           </div>
           <p className="nn-text-secondary line-clamp-2 pt-1">{children}</p>

@@ -119,7 +119,7 @@ export default async function ProjectLayout({
             <h1 className="nn-title mb-1 text-center text-4xl font-bold italic drop-shadow-2xl sm:text-left">
               <Balancer>{toTitleCase(project.name)}</Balancer>
             </h1>
-            <p className="mt-1 text-center text-lg font-medium sm:text-left">
+            <p className="mt-1 text-center text-lg sm:text-left">
               by {toTitleCase(project?.penName ?? "Author Unknown")}
             </p>
 
@@ -190,8 +190,8 @@ export default async function ProjectLayout({
                 count={reviewTotal.count}
               />
 
-              <div className="flex justify-end">
-                <div className="flex min-w-[200px] flex-1 flex-wrap gap-x-6 gap-y-3 text-xs">
+              <div className="flex flex-1 items-start justify-end">
+                <div className="flex min-w-[200px] flex-wrap gap-x-6 gap-y-3 text-xs">
                   {project.genres.map(({ genre }) => (
                     <div key={genre.id}>
                       <Link

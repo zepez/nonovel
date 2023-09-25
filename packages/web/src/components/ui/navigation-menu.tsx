@@ -42,7 +42,7 @@ NavigationMenuList.displayName = NavigationMenuPrimitive.List.displayName;
 const NavigationMenuItem = NavigationMenuPrimitive.Item;
 
 const navigationMenuTriggerStyle =
-  "group inline-flex h-9 w-max items-center justify-center rounded-md bg-inherit px-4 py-2 text-sm font-medium nn-interactive";
+  "group inline-flex h-9 w-max items-center justify-center rounded-md bg-inherit px-4 py-2 text-sm font-bold nn-interactive";
 
 const NavigationMenuTrigger = React.forwardRef<
   React.ElementRef<typeof NavigationMenuPrimitive.Trigger>,

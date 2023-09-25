@@ -1,23 +1,27 @@
 /** @type {import('tailwindcss').Config} */
+
+const defaultTheme = require("tailwindcss/defaultTheme");
+
 module.exports = {
   darkMode: ["class"],
   content: [
-    './pages/**/*.{ts,tsx}',
-    './components/**/*.{ts,tsx}',
-    './app/**/*.{ts,tsx}',
-    './src/**/*.{ts,tsx}',
-	],
+    "./pages/**/*.{ts,tsx}",
+    "./components/**/*.{ts,tsx}",
+    "./app/**/*.{ts,tsx}",
+    "./src/**/*.{ts,tsx}",
+  ],
   theme: {
-    typography: ({theme}) => ( {
+    typography: ({ theme }) => ({
       DEFAULT: {
         css: {
-          color: theme('var(--nn-typography)'),
-        }
-      }
+          color: theme("var(--nn-typography)"),
+        },
+      },
     }),
     fontFamily: {
-      'serif': ['baskerville'],
-      'mono': ['pt-mono']
+      sans: ["Montserrat", ...defaultTheme.fontFamily.sans],
+      serif: ["baskerville"],
+      mono: ["pt-mono"],
     },
     container: {
       center: true,
@@ -28,14 +32,14 @@ module.exports = {
     },
     extend: {
       colors: {
-        'nn-backdrop-light': '#FBF2E8',
-        'nn-backdrop-dark': '#130B07',
-        'nn-light': '#F5E1C9',
-        'nn-dark': '#1F130C',
-        'nn-primary-light': '#DE970B',
-        'nn-primary-dark': '#F0B557',
-        'nn-secondary-light': '#FBF2E8',
-        'nn-secondary-dark': '#382418'
+        "nn-backdrop-light": "#FBF2E8",
+        "nn-backdrop-dark": "#130B07",
+        "nn-light": "#F5E1C9",
+        "nn-dark": "#1F130C",
+        "nn-primary-light": "#DE970B",
+        "nn-primary-dark": "#F0B557",
+        "nn-secondary-light": "#FBF2E8",
+        "nn-secondary-dark": "#382418",
       },
       fontFamily: {
         title: ["baskerville", "serif"],
@@ -58,8 +62,8 @@ module.exports = {
   },
   plugins: [
     require("tailwindcss-animate"),
-    require('@tailwindcss/aspect-ratio'),
-    require('tailwind-scrollbar'),
-    require('@tailwindcss/typography')
+    require("@tailwindcss/aspect-ratio"),
+    require("tailwind-scrollbar"),
+    require("@tailwindcss/typography"),
   ],
-}
+};
