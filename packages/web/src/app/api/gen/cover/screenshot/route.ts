@@ -20,7 +20,6 @@ export async function POST(request: Request) {
     if (!auth || auth !== `Bearer ${config.NB_GEN_SECRET_KEY}`)
       throw new Error("Unauthorized");
 
-    const url = new URL(request.url);
     const res = (await request.json()) as { id: string };
 
     const [projectErr, project] = await getProjectById({ id: res.id });
@@ -54,8 +53,6 @@ export async function POST(request: Request) {
           // devtools: false,
         };
 
-    console.log(options);
-
     const puppeteerBrowser = await puppeteer.launch(options);
     const puppeteerPage = await puppeteerBrowser.newPage();
 
@@ -68,7 +65,7 @@ export async function POST(request: Request) {
       Authorization: `Bearer ${config.NB_GEN_SECRET_KEY}`,
     });
 
-    await puppeteerPage.goto(`${url.origin}/cover?id=${project.id}`, {
+    await puppeteerPage.goto(`${config.WEB_URL}/cover?id=${project.id}`, {
       timeout: 0,
       waitUntil: "networkidle0",
     });

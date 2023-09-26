@@ -1,3 +1,4 @@
+import { forwardRef } from "react";
 import Balancer from "react-wrap-balancer";
 import { cn } from "~/lib/utils";
 
@@ -8,22 +9,25 @@ interface Props {
   children?: React.ReactNode;
 }
 
-export const Card = ({ className, title, author, children }: Props) => {
-  return (
-    <div
-      className={cn(
-        className,
-        "absolute left-1/2 -translate-x-1/2 transform bg-nn-base-light px-4 py-8 text-center text-nn-base-dark"
-      )}
-    >
-      <h1 className="mb-4 font-display text-5xl font-bold italic leading-snug">
-        <Balancer>{title}</Balancer>
-      </h1>
-      <h2 className="m-0 font-display text-3xl">
-        <Balancer>{author}</Balancer>
-      </h2>
+export const Card = forwardRef<HTMLDivElement, Props>(
+  ({ className, title, author, children }, ref) => {
+    return (
+      <div
+        ref={ref}
+        className={cn(
+          "absolute left-1/2 flex -translate-x-1/2 transform flex-col gap-4 bg-nn-base-light px-4 py-8 text-center text-nn-base-dark",
+          className
+        )}
+      >
+        <h1 className="m-0 font-display text-5xl font-bold italic leading-snug">
+          <Balancer>{title}</Balancer>
+        </h1>
+        <h2 className="m-0 font-display text-3xl">
+          <Balancer>{author}</Balancer>
+        </h2>
 
-      {children}
-    </div>
-  );
-};
+        {children}
+      </div>
+    );
+  }
+);

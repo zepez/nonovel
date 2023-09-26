@@ -9,6 +9,7 @@ import {
   CoverThree,
   CoverFour,
   CoverFive,
+  CoverSix,
 } from "~/components/cover";
 import "../../../styles/globals.css";
 import "../../../styles/cover.css";
@@ -57,7 +58,14 @@ export default async function Page({ searchParams: q }: Props) {
     return notFound();
   }
 
-  const covers = [CoverOne, CoverTwo, CoverThree, CoverFour, CoverFive];
+  const covers = [
+    CoverOne,
+    CoverTwo,
+    CoverThree,
+    CoverFour,
+    CoverFive,
+    CoverSix,
+  ];
   const Cover = covers[Math.floor(Math.random() * covers.length)];
 
   return (

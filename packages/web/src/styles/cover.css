@@ -52,3 +52,10 @@
   border-image-slice: 40;
   border-image-width: 40px;
 }
+
+.cover-custom-border-six {
+  border-width: 75px;
+  border-image-source: url('/borders/six.svg');
+  border-image-slice: 35;
+  border-image-width: 75px;
+}
