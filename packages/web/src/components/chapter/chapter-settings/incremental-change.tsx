@@ -31,20 +31,20 @@ export const IncrementalChange = ({
         <Button
           variant="secondary"
           size="fluid"
-          className="nn-border flex h-0 items-center justify-center border py-3"
+          className="flex h-0 items-center justify-center px-6 py-3 sm:px-8"
           disabled={numberValue <= min}
           onClick={() => setValue(numberValue - step)}
           title={`Decrease ${name.toLowerCase()}`}
         >
           -
         </Button>
-        <p className="text-[0.95rem]">
-          {name}: {value}
+        <p className="text-center text-sm">
+          {name}: <span className="font-mono">{value}</span>
         </p>
         <Button
           variant="secondary"
           size="fluid"
-          className="nn-border flex h-0 items-center justify-center border py-3"
+          className="flex h-0 items-center justify-center px-6 py-3 sm:px-8"
           disabled={numberValue >= max}
           onClick={() => setValue(numberValue + step)}
           title={`Increase ${name.toLowerCase()}`}

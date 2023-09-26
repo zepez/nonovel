@@ -16,19 +16,14 @@ export const FontChange = ({
   allowedFonts,
 }: FontChangeProps) => {
   return (
-    <div
-      className="grid gap-3"
-      style={{
-        gridTemplateColumns: `repeat(${allowedFonts.length}, minmax(0, 1fr))`,
-      }}
-    >
+    <div className="flex flex-wrap justify-evenly gap-3">
       {allowedFonts.map((f) => (
         <Button
           key={f.font}
           variant="ghost"
           className={cn(
             f.font === font ? "bg-nn-accent" : "bg-nn-secondary",
-            "nn-border border text-xs"
+            "flex-grow basis-0 text-sm"
           )}
           style={{ fontFamily: f.font }}
           onClick={() => setFont(f.font)}

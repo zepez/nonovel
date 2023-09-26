@@ -148,7 +148,7 @@ export const ChapterSettings = ({
         <DialogTrigger className={cn(className)} title="Chapter settings">
           <MixerHorizontalIcon width={22} height={22} /> {triggerText}
         </DialogTrigger>
-        <DialogContent className="nn-bg-dark nn-border flex w-screen flex-col gap-5 border sm:w-[400px]">
+        <DialogContent className="nn-bg-dark flex w-screen flex-col gap-5 p-8 sm:w-[400px]">
           <IncrementalChange
             name="Font Size"
             value={fontSize}
@@ -225,7 +225,7 @@ export const ChapterSettings = ({
 
           <Button
             size="sm"
-            className="nn-border mt-0 h-8 w-full border text-xs font-bold uppercase leading-tight"
+            className="mt-0 h-8 w-full text-xs font-bold uppercase leading-tight"
             variant="secondary"
             onClick={resetToDefaults}
             title="Reset to defaults"

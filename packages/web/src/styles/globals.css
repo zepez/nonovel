@@ -7,7 +7,7 @@
 /* ============================================= */
 
 .nn-ring {
-  @apply z-10 rounded-sm outline-none ring-4 ring-nn-accent-light dark:ring-nn-accent-dark;
+  @apply z-50 rounded-sm outline-none ring-4 ring-nn-accent-light dark:ring-nn-accent-dark;
 }
 
 .bg-nn-base {
@@ -80,7 +80,7 @@
   @apply opacity-50 cursor-not-allowed;
 }
 
-::selection {
+*::selection {
   @apply nn-ring bg-nn-gold-dark text-nn-base-light;
 }
 
