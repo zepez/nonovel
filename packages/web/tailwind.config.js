@@ -46,8 +46,8 @@ module.exports = {
           dark: "#f0b557",
         },
         "nn-gold": {
-          light: "de970b",
-          dark: "de970b",
+          light: "#de970b",
+          dark: "#de970b",
         },
       },
       keyframes: {

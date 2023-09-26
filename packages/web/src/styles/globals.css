@@ -87,11 +87,13 @@
 :root, html {
   --nn-fade: #f5e1c9;
   --nn-typography: #20130d;
+  --nn-primary: #de970b;
 }
 
 html.dark {
   --nn-fade: #20130d;
   --nn-typography: #F5E1C9;
+  --nn-primary: #de970b;
 }
 
 body {
@@ -177,17 +179,21 @@ body {
   }
 }
 
-.nn-bg-blurred-image {
-  filter: blur(50px) brightness(1.2);
+.nn-bg-blurred-image {  
   height: calc(100% + 50px);
-  opacity: 90%;
-  /* 
-    force gpu accel for perf issues in safari.
-  */
-  transform: translate3d(0, -50px, 0); 
+  transform: translate3d(0, -50px, 0); /* force gpu accel for perf issues in safari. */
   background-size: 150%; 
   animation: spin-top 40s infinite steps(4, end);
   animation-timing-function: linear;
+  opacity: 90%;
+}
+
+html.light .nn-bg-blurred-image {
+  filter: blur(70px) brightness(1) saturate(200%);
+}
+
+html.dark .nn-bg-blurred-image {
+  filter: blur(50px) brightness(1.2);
 }
 
 @keyframes spin-center {
@@ -209,14 +215,18 @@ body {
 }
 
 .nn-bg-blurred-emoji {
-  filter: blur(60px) brightness(1.2);
   height: calc(100% + 50px);
-  opacity: 60%;
-  /* 
-    force gpu accel for perf issues in safari.
-  */
-  transform: translate3d(0, -50px, 0); 
+  transform: translate3d(0, -50px, 0); /* force gpu accel for perf issues in safari. */
   background-size: 200%; 
   animation: spin-center 45s infinite steps(4, end);
   animation-timing-function: linear;
+  opacity: 60%;
+}
+
+html.light .nn-bg-blurred-emoji {
+  filter: blur(70px) brightness(1) saturate(200%);
+}
+
+html.dark .nn-bg-blurred-emoji {
+  filter: blur(60px) brightness(1.2);
 }

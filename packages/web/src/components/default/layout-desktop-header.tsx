@@ -3,7 +3,7 @@ import Link from "next/link";
 import { getSession } from "~/lib/auth";
 import { cn } from "~/lib/utils";
 import { LayoutWrapper, LayoutProfile } from "~/components/shared";
-import { FullLogo, ShortLogoDark } from "~/components/brand";
+import { FullLogo, ShortLogoDark, ShortLogoLight } from "~/components/brand";
 import { LayoutSearch } from "~/components/default/layout-search";
 import {
   NavigationMenu,
@@ -43,8 +43,9 @@ export async function LayoutDesktopHeader() {
                         className="bg-nn-accent nn-interactive flex h-full w-full select-none flex-col justify-end rounded-md p-6 no-underline"
                         href="/"
                       >
-                        <ShortLogoDark className="mb-4 mr-4 text-center text-[5rem]" />
-                        <p className="text-sm text-nn-base-dark">
+                        <ShortLogoDark className="mb-4 mr-4 hidden dark:block" />
+                        <ShortLogoLight className="mb-4 mr-4 block dark:hidden" />
+                        <p className="text-sm">
                           Your destination for timeless classics and
                           tomorrow&apos;s bestsellers.
                         </p>
