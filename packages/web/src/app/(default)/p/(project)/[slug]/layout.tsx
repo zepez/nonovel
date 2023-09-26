@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { notFound } from "next/navigation";
+import { notFound, redirect } from "next/navigation";
 import Balancer from "react-wrap-balancer";
 import { FiBookOpen, FiEye } from "react-icons/fi";
 import { BsBookmarkHeart } from "react-icons/bs";
@@ -61,31 +61,45 @@ export default async function ProjectLayout({
   const [, session] = await getSession();
   const { user } = session ?? {};
 
-  const [, project] = await getProjectBySlug(params);
+  const [projectErr, project] = await getProjectBySlug(params);
   if (!project) notFound();
 
-  const [, manifest] = await getChapterManifestByIds({
+  const [manifestErr, manifest] = await getChapterManifestByIds({
     userId: user?.id,
     projectId: project.id,
   });
   if (!manifest) notFound();
 
-  const [, follow] = await getFollowStatusByIds({
+  const [followErr, follow] = await getFollowStatusByIds({
     userId: user?.id,
     projectId: project.id,
   });
 
-  const [, followCount] = await getFollowCountByProjectId({
+  const [followCountErr, followCount] = await getFollowCountByProjectId({
     projectId: project.id,
   });
 
-  const [, viewCount] = await getTotalViewCountByProjectId({
+  const [viewCountErr, viewCount] = await getTotalViewCountByProjectId({
     projectId: project.id,
   });
 
   const [, reviewTotal] = await getReviewTotalByProjectId({
     projectId: project.id,
   });
+
+  const reviewTotalErr = new Error("Review total not found");
+
+  const error =
+    projectErr ||
+    manifestErr ||
+    followErr ||
+    followCountErr ||
+    viewCountErr ||
+    reviewTotalErr;
+
+  if (error) {
+    redirect(`/error?code=500&error=${error.message}`);
+  }
 
   const latestChapterRead = manifest
     .filter((item) => item.userChapterViews.length > 0)
