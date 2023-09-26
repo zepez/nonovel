@@ -22,7 +22,9 @@ export const ButtonFollow = ({
   projectId,
   projectName,
 }: ButtonFollowProps) => {
-  const [text, setText] = useState(followId ? "remove bookmark" : "bookmark");
+  const [text, setText] = useState(
+    followId ? "remove from library" : "add to library"
+  );
   const { toast } = useToast();
 
   const toggleFollow = async () => {
@@ -42,17 +44,23 @@ export const ButtonFollow = ({
       setText("Error");
       toast({
         description: followId
-          ? "Unable to un-bookmark project. Please try again later."
-          : "Unable to bookmark project. Please try again later.",
+          ? "Unable to remove from library. Please try again later."
+          : "Unable to add to library. Please try again later.",
       });
     }
 
     if (!error) {
-      setText(followId ? "bookmark" : "remove bookmark");
+      setText(followId ? "add to library" : "remove from library");
       toast({
-        description: followId
-          ? `You have un-bookmarked ${projectName}.`
-          : `You have bookmarked ${projectName}.`,
+        description: followId ? (
+          <>
+            Removed <i>{projectName}</i> from your library.
+          </>
+        ) : (
+          <>
+            Added <i>{projectName}</i> to your library.
+          </>
+        ),
       });
     }
   };
@@ -64,7 +72,7 @@ export const ButtonFollow = ({
       disabled={text === "..." || text === "Error"}
       className={cn(className)}
       onClick={() => toggleFollow()}
-      title={`Bookmark ${projectName}`}
+      title={`Add ${projectName} to library`}
     >
       {text}
     </Button>

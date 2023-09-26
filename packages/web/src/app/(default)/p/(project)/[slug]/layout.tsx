@@ -93,12 +93,12 @@ export default async function ProjectLayout({
 
   const readButton = latestChapterRead
     ? {
-        text: "Continue",
+        text: "Continue Reading",
         href: `/p/${project.slug}/chapters/${latestChapterRead.order}`,
       }
     : manifest[0]
     ? {
-        text: "Start",
+        text: "Start Reading",
         href: `/p/${project.slug}/chapters/${manifest[0]?.order ?? 0}`,
       }
     : null;
@@ -133,7 +133,7 @@ export default async function ProjectLayout({
               </div>
               <div className="flex flex-grow flex-wrap justify-around gap-4">
                 <StatDisplay
-                  name="Bookmarks"
+                  name="Libraries"
                   stat={followCount}
                   icon={<BsBookmarkHeart />}
                 />
@@ -164,9 +164,9 @@ export default async function ProjectLayout({
                     variant="ghost"
                     size="fluid"
                     className="bg-nn-secondary w-full px-4 py-2 text-center text-sm font-semibold uppercase leading-tight opacity-80 dark:opacity-100"
-                    title="Login or register"
+                    title="Login"
                   >
-                    Login to Bookmark
+                    Add to library
                   </Button>
                 </LoginDialog>
               )}

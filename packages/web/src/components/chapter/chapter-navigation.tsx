@@ -74,14 +74,14 @@ const ChapterManifest = ({
       </DialogTrigger>
       <DialogContent className="bg-nn-base w-screen text-xs sm:w-[400px]">
         <ScrollArea className="h-[400px] rounded-md">
-          <div className="nn-divide flex min-h-[400px] flex-col divide-y">
+          <div className="nn-divide m-2 flex min-h-[400px] flex-col divide-y">
             {manifest.map((c) => (
               <Link
                 key={c.id}
                 href={`/p/${project.slug}/chapters/${c.order}`}
                 className={cn(
                   chapter.order == c.order && "bg-nn-secondary",
-                  "nn-interactive grid grid-cols-6 items-center px-2 py-3 md:py-2"
+                  "nn-interactive grid grid-cols-6 items-center px-2 py-4"
                 )}
               >
                 <span className="col-span-5 inline-block truncate">
