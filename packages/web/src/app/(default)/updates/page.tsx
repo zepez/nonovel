@@ -11,13 +11,14 @@ export function generateMetadata(): Metadata {
 export default function UpdatesLayout() {
   return (
     <section className="space-y-12">
-      <Update date="22.07.2023" emoji="🎉" title="Offical Launch">
+      <Update date="26.09.2023" emoji="🎨" title="New Design">
         <p>
-          Hey bookworms, guess what just hit the digital shelves? That&apos;s
-          right, NoNovel.io is now LIVE and ready for your reading pleasure!
-          Grab a cup of coffee, pick your coziest nook, and get ready to dive
-          into your favorite classics, all in one place.
+          We got a new coat of paint! More improvements and adjustments are to
+          come.
         </p>
+      </Update>
+      <Update date="22.07.2023" emoji="🎉" title="Official Launch">
+        <p>NoNovel.io is now LIVE and ready for your reading pleasure.</p>
       </Update>
     </section>
   );

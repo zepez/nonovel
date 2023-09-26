@@ -50,12 +50,11 @@ export const LayoutMobileHeaderSheet = ({
         onOpenAutoFocus={(e) => e.preventDefault()}
       >
         <SheetHeader>
-          <SheetTitle>Menu</SheetTitle>
-          <SheetDescription>
-            Book Navigation Extraordinaire - All your favorite NoNovel.io spots,
-            right at your fingertips. Dive into classics, explore new features,
-            and stay in the know, all from the convenience of this handy-dandy
-            menu!
+          <SheetTitle className="text-2xl font-bold">Menu</SheetTitle>
+          <SheetDescription className="text-xs font-bold">
+            Escape reality.
+            <br />
+            Read a book.
           </SheetDescription>
 
           <nav>

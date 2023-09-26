@@ -11,8 +11,8 @@ export default function UpdatesLayout({ children }: UpdatesLayoutProps) {
         <LayoutWrapper className="pb-16 pt-4">
           <h1 className="nn-title">Updates</h1>
           <p className="mt-2">
-            Get the scoop on all the fresh features and important announcements
-            shaking things up at NoNovel.io.
+            Get the scoop on all the new features and important NoNovel site
+            announcements.
           </p>
         </LayoutWrapper>
       </BackgroundEmoji>

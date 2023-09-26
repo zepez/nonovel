@@ -45,16 +45,19 @@ export async function LayoutDesktopHeader() {
                       >
                         <ShortLogoDark className="mb-4 mr-4 hidden dark:block" />
                         <ShortLogoLight className="mb-4 mr-4 block dark:hidden" />
-                        <p className="text-sm">
-                          Your destination for timeless classics and
-                          tomorrow&apos;s bestsellers.
+                        <p className="text-sm font-bold">
+                          Escape reality.
+                          <br />
+                          Read a book.
+                          <br />
+                          NoNovel.io
                         </p>
                       </a>
                     </NavigationMenuLink>
                   </li>
                   <ListItem href="/articles" title="Articles">
-                    Broaden your understanding and heighten your reading
-                    experience
+                    Broaden your horizons and get a better understanding of your
+                    favorite books
                   </ListItem>
                   <ListItem href="/updates" title="Updates">
                     Get the scoop on new features and important announcements
@@ -123,7 +126,7 @@ const ListItem = React.forwardRef<
           <div className="text-sm font-bold leading-none">
             {icon && <span className="mx-2 text-xl">{icon}</span>} {title}
           </div>
-          <p className="nn-detail line-clamp-2 pt-1">{children}</p>
+          <p className="nn-detail line-clamp-3 pt-1">{children}</p>
         </a>
       </NavigationMenuLink>
     </li>
