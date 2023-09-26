@@ -83,11 +83,9 @@ export default async function ProjectLayout({
     projectId: project.id,
   });
 
-  const [, reviewTotal] = await getReviewTotalByProjectId({
+  const [reviewTotalErr, reviewTotal] = await getReviewTotalByProjectId({
     projectId: project.id,
   });
-
-  const reviewTotalErr = new Error("Review total not found");
 
   const error =
     projectErr ||
