@@ -220,7 +220,7 @@ html.dark .nn-bg-blurred-image {
   height: calc(100% + 50px);
   transform: translate3d(0, -50px, 0); /* force gpu accel for perf issues in safari. */
   background-size: 200%; 
-  animation: spin-center 60s infinite steps(4, end);
+  animation: spin-center 180s infinite steps(4, end);
   animation-timing-function: linear;
   opacity: 60%;
 }
