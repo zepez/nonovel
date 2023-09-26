@@ -20,7 +20,7 @@ module.exports = {
     }),
     fontFamily: {
       sans: ["Montserrat", ...defaultTheme.fontFamily.sans],
-      serif: ["adobe", ...defaultTheme.fontFamily.serif],
+      serif: ["Libre Baskerville", ...defaultTheme.fontFamily.serif],
       mono: ["PT Mono", ...defaultTheme.fontFamily.mono],
       display: ["Libre Baskerville", ...defaultTheme.fontFamily.serif],
     },

@@ -112,6 +112,7 @@ export default async function ProjectLayout({
             alt={project.name}
             width={400}
             className="mx-auto w-60 flex-shrink-0 pb-8 md:w-72 md:pb-0"
+            imgClassName="nn-shadow"
           />
           <div className="ml-0 flex flex-col md:ml-8 lg:ml-16">
             <h1 className="nn-title mb-1 text-center italic drop-shadow-2xl sm:text-left">

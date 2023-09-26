@@ -5,6 +5,7 @@ import { cn } from "~/lib/utils";
 
 interface AspectImageProps {
   className?: string;
+  imgClassName?: string;
   src?: string | null;
   alt: string;
   width: number;
@@ -12,6 +13,7 @@ interface AspectImageProps {
 
 export const AspectImage = ({
   className,
+  imgClassName,
   src: source,
   alt,
   width,
@@ -27,7 +29,7 @@ export const AspectImage = ({
         width={width}
         priority={true}
         height={width * 1.5}
-        className="nn-shadow rounded-md "
+        className={cn(imgClassName, "rounded-md")}
       />
     </div>
   );
