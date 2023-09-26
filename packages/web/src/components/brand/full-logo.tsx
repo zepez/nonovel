@@ -9,7 +9,7 @@ export const FullLogo = ({ className }: { className: string }) => {
   );
 };
 
-export const FullLogoDark = ({ className }: { className: string }) => {
+export const FullLogoDark = ({ className }: { className?: string }) => {
   return (
     <svg
       version="1.2"
@@ -59,7 +59,7 @@ export const FullLogoDark = ({ className }: { className: string }) => {
   );
 };
 
-export const FullLogoLight = ({ className }: { className: string }) => {
+export const FullLogoLight = ({ className }: { className?: string }) => {
   return (
     <svg
       version="1.2"

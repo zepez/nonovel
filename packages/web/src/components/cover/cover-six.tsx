@@ -32,7 +32,7 @@ export const CoverSix = ({ background, title, author }: Props) => {
         style={{ top: height + 48 + 4 + 16 }}
         className="cover-custom-border-overlay cover-custom-border-six absolute bottom-2 left-2 right-2"
       />
-      <Watermark className="bottom-14" />
+      <Watermark className="bottom-14" inferColorColorFrom="bottom" />
     </Structure>
   );
 };

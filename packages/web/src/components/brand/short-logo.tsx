@@ -9,7 +9,7 @@ export const ShortLogo = ({ className }: { className: string }) => {
   );
 };
 
-export const ShortLogoDark = ({ className }: { className: string }) => {
+export const ShortLogoDark = ({ className }: { className?: string }) => {
   return (
     <svg
       version="1.2"
@@ -29,7 +29,7 @@ export const ShortLogoDark = ({ className }: { className: string }) => {
   );
 };
 
-export const ShortLogoLight = ({ className }: { className: string }) => {
+export const ShortLogoLight = ({ className }: { className?: string }) => {
   return (
     <svg
       version="1.2"

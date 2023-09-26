@@ -19,8 +19,8 @@ export const CoverFive = ({ background, title, author }: Props) => {
         className="cover-simple-border cover-simple-border-inset bottom-16 w-[475px]"
         title={title}
         author={author}
-      ></Card>
-      <Watermark className="top-10" />
+      />
+      <Watermark className="top-10" inferColorColorFrom="top" />
     </Structure>
   );
 };

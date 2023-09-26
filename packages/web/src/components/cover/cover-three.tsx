@@ -20,7 +20,7 @@ export const CoverThree = ({ background, title, author }: Props) => {
         title={title}
         author={author}
       />
-      <Watermark className="top-10" />
+      <Watermark className="top-10" inferColorColorFrom="top" />
     </Structure>
   );
 };

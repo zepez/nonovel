@@ -22,7 +22,7 @@ export const CoverFour = ({ background, title, author }: Props) => {
         author={author}
       />
 
-      <Watermark className="bottom-10" />
+      <Watermark className="bottom-10" inferColorColorFrom="bottom" />
     </Structure>
   );
 };

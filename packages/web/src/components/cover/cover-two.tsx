@@ -20,7 +20,7 @@ export const CoverTwo = ({ background, title, author }: Props) => {
         title={title}
         author={author}
       />
-      <Watermark className="bottom-12" />
+      <Watermark className="bottom-12" inferColorColorFrom="bottom" />
     </Structure>
   );
 };
