@@ -1,10 +1,6 @@
 import config from "@nonovel/config-client";
 
-export const toTitleCase = (str: string): string => {
-  return str.replace(/\w\S*/g, function (txt) {
-    return txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase();
-  });
-};
+export * from "./title-case";
 
 export const naturalListJoin = (index: number, length: number) => {
   const total = length - 1;

@@ -1,6 +1,7 @@
 import { forwardRef } from "react";
 import Balancer from "react-wrap-balancer";
 import { cn } from "~/lib/utils";
+import { toTitleCase } from "~/lib/string";
 
 interface Props {
   className?: string;
@@ -20,10 +21,10 @@ export const Card = forwardRef<HTMLDivElement, Props>(
         )}
       >
         <h1 className="-mb-1 font-display text-5xl font-bold italic leading-snug">
-          <Balancer>{title}</Balancer>
+          <Balancer>{toTitleCase(title)}</Balancer>
         </h1>
         <h2 className="m-0 font-display text-3xl">
-          <Balancer>{author}</Balancer>
+          <Balancer>{toTitleCase(author)}</Balancer>
         </h2>
 
         {children}

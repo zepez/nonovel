@@ -19,13 +19,21 @@ export const TruncateParagraph = ({
         {text.substring(0, show ? text.length : length).trim()}
         {!show && "..."}
       </p>
-      {!show && (
+      {!show ? (
         <button
           className="inline underline"
           title="Show more"
           onClick={() => setShow(true)}
         >
           Show more
+        </button>
+      ) : (
+        <button
+          className="inline underline"
+          title="Show less"
+          onClick={() => setShow(false)}
+        >
+          Show less
         </button>
       )}
     </>
