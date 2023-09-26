@@ -95,9 +95,7 @@ export default async function ProjectLayout({
     viewCountErr ||
     reviewTotalErr;
 
-  if (error) {
-    redirect(`/error?code=500&error=${error.message}`);
-  }
+  if (error) throw new Error(error.message);
 
   const latestChapterRead = manifest
     .filter((item) => item.userChapterViews.length > 0)
