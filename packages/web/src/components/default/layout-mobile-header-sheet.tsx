@@ -45,7 +45,10 @@ export const LayoutMobileHeaderSheet = ({
       <SheetTrigger className="flex items-center gap-3 px-2 py-1 text-xs font-bold uppercase leading-tight">
         <HamburgerMenuIcon width={25} height={25} /> Menu
       </SheetTrigger>
-      <SheetContent className="text-left">
+      <SheetContent
+        className="text-left"
+        onOpenAutoFocus={(e) => e.preventDefault()}
+      >
         <SheetHeader>
           <SheetTitle>Menu</SheetTitle>
           <SheetDescription>
