@@ -146,10 +146,10 @@ export const CommentEdit = ({
               variant="destructive"
               onClick={handleDelete}
               type="button"
-              title="Delete comment"
+              title="Delete Comment"
               className="font-bold"
             >
-              Delete comment
+              Delete Comment
             </Button>
           )}
           <div className="flex-grow" />

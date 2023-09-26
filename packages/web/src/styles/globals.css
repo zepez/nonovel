@@ -7,7 +7,7 @@
 /* ============================================= */
 
 .nn-ring {
-  @apply outline-none ring-2 ring-inset ring-nn-accent-light dark:ring-nn-accent-dark;
+  @apply z-10 rounded-sm outline-none ring-4 ring-nn-accent-light dark:ring-nn-accent-dark;
 }
 
 .bg-nn-base {
@@ -47,7 +47,7 @@
 }
 
 .nn-no-select {
-  @apply outline-none ring-0 focus:ring-0;
+  @apply outline-none ring-0 focus:ring-0 hover:ring-0;
 }
 
 .nn-shadow {
@@ -180,6 +180,7 @@ body {
 }
 
 .nn-bg-blurred-image {  
+  z-index: -1;
   height: calc(100% + 50px);
   transform: translate3d(0, -50px, 0); /* force gpu accel for perf issues in safari. */
   background-size: 150%; 
@@ -215,6 +216,7 @@ html.dark .nn-bg-blurred-image {
 }
 
 .nn-bg-blurred-emoji {
+  z-index: -1;
   height: calc(100% + 50px);
   transform: translate3d(0, -50px, 0); /* force gpu accel for perf issues in safari. */
   background-size: 200%; 

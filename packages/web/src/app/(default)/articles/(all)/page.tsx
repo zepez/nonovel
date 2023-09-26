@@ -14,9 +14,9 @@ export default async function Page() {
   const articles = await getAllPostsMeta();
 
   return (
-    <div className="divide-nn-dark/20 dark:divide-nn-light/20 flex flex-col divide-y">
+    <div className="nn-divide mt-4 flex flex-col gap-4 divide-y first:-mt-4">
       {articles.map((article) => (
-        <div key={article.slug}>
+        <div key={article.slug} className="pt-4">
           <Link
             href={`/articles/${article.slug}`}
             className="nn-interactive -mx-4 block rounded-md py-4"

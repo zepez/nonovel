@@ -78,12 +78,12 @@ export default async function BrowsePage({
         <p className="nn-detail pb-4">{parse(genre.description)}</p>
       )}
 
-      <section className="flex flex-row flex-wrap justify-start">
+      <section className="flex flex-row flex-wrap justify-start gap-y-4 pt-2">
         {results.map((result) => (
           <Link
             href={`/p/${result.slug}`}
             key={result.id}
-            className="nn-interactive block h-auto w-1/2 rounded-sm px-1 py-2 sm:px-4 md:w-1/4"
+            className="nn-interactive block h-auto w-1/2 rounded-md px-1 sm:px-4 md:w-1/4"
           >
             <div className="relative">
               <Image
