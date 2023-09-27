@@ -16,7 +16,7 @@ export const LayoutMobileHeader = async () => {
   const { username } = profile ?? { username: null };
 
   return (
-    <div className="z-10 md:hidden">
+    <div className="z-50 md:hidden">
       <LayoutWrapper className="flex items-center justify-between pb-12 pt-8">
         <NavigationMenu>
           <NavigationMenuList>

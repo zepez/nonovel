@@ -50,7 +50,7 @@ export const LayoutMobileHeaderSheet = ({
         onOpenAutoFocus={(e) => e.preventDefault()}
       >
         <SheetHeader>
-          <SheetTitle className="text-2xl font-bold">Menu</SheetTitle>
+          <SheetTitle className="pb-3 font-serif text-3xl">Menu</SheetTitle>
           <SheetDescription className="text-xs font-bold uppercase">
             Escape reality
             <br />
