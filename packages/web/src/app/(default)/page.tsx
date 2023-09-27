@@ -1,5 +1,6 @@
 import assert from "node:assert";
 import { Metadata } from "next";
+import Image from "next/image";
 import Link from "next/link";
 import type { GetFeaturedPopularReturn } from "@nonovel/query";
 import { getFeaturedPopular } from "~/lib/server";
@@ -9,6 +10,7 @@ import {
   AspectImage,
   SectionHeading,
 } from "~/components/shared";
+import { BannerText } from "~/components/default";
 
 export function generateMetadata(): Metadata {
   return {
@@ -19,7 +21,7 @@ export function generateMetadata(): Metadata {
 interface BackgroundImageProps {
   children?: React.ReactNode;
   className?: string;
-  src: string | null;
+  src: string;
 }
 
 const BackgroundImage = ({
@@ -28,15 +30,31 @@ const BackgroundImage = ({
   className,
 }: BackgroundImageProps) => {
   return (
-    <div className="relative">
+    <div className="nn-bg-header-image relative">
+      {/* Image */}
+      <div className="absolute inset-0 -z-10">
+        <Image
+          src={src}
+          layout="fill"
+          objectFit="cover"
+          objectPosition="center center"
+          priority={true}
+          alt=""
+        />
+      </div>
+
+      {/* Gradient */}
       <div
-        className="nn-bg-header-image absolute inset-0 -z-10 bg-cover"
+        className="-z-9 absolute inset-0"
         style={{
-          backgroundImage: `linear-gradient(0deg, var(--nn-fade) 15%, transparent), linear-gradient(180deg, var(--nn-fade) 0%, transparent 30%), url(${src})`,
-          backgroundPosition: "center center",
+          background: `linear-gradient(0deg, var(--nn-fade) 5%, transparent), linear-gradient(180deg, var(--nn-fade) 0%, transparent 30%)`,
         }}
       />
-      <div className={cn("nn-bg-header-image z-10", className)}>{children}</div>
+
+      {/* Children */}
+      <div className={cn("z-10 saturate-[1.2] backdrop-blur-[2px]", className)}>
+        {children}
+      </div>
     </div>
   );
 };
@@ -94,21 +112,9 @@ export default async function HomePage() {
 
   return (
     <>
-      <BackgroundImage src="images/home/header-min.jpg">
-        <LayoutWrapper className="flex h-screen flex-col">
-          <div className="flex-grow" />
-          <div className="h-1/2 sm:h-3/5 md:h-2/3">
-            <h1 className="font-serif text-[5rem] leading-[4.3rem] tracking-tighter sm:text-[7rem] sm:leading-[6rem] md:text-[12rem] md:leading-[10rem]">
-              Escape
-              <br />
-              <span className="-ml-1 pl-10 sm:pl-14 md:-ml-2 md:pl-24">
-                Reality
-              </span>
-            </h1>
-            <h2 className="pl-10 text-2xl font-bold text-nn-accent-light dark:text-nn-accent-dark sm:pl-14 md:block md:pl-24 md:text-4xl">
-              Read a book.
-            </h2>
-          </div>
+      <BackgroundImage src="/images/home/header-min.jpg">
+        <LayoutWrapper className="relative h-screen">
+          <BannerText className="absolute bottom-0 my-32 max-h-[50%] w-3/4 sm:w-2/3 lg:w-1/2" />
         </LayoutWrapper>
       </BackgroundImage>
       <LayoutWrapper className="-mt-28">
