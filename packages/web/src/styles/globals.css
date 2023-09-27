@@ -162,7 +162,8 @@ body {
 /* ============================================= */
 
 .nn-bg-header-image {
-  filter: saturate(1.2);
+  filter: saturate(1.1);
+  backdrop-filter: blur(2px);
   height: calc(100% + 120px);
   transform: translate3d(0, -120px, 0);
 }

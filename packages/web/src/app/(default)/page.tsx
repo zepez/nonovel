@@ -105,7 +105,7 @@ export default async function HomePage() {
                 Reality
               </span>
             </h1>
-            <h2 className="pl-10 text-2xl font-bold text-nn-gold-dark sm:pl-14 md:block md:pl-24 md:text-4xl">
+            <h2 className="pl-10 text-2xl font-bold text-nn-accent-light dark:text-nn-accent-dark sm:pl-14 md:block md:pl-24 md:text-4xl">
               Read a book.
             </h2>
           </div>
