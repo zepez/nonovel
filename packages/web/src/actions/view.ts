@@ -3,7 +3,7 @@
 import { revalidatePath } from "next/cache";
 
 import { createView, type CreateViewOptions } from "@nonovel/query";
-import { authorizeServerAction } from "~/lib/auth";
+import { authorizeServerAction } from "~/lib/server";
 
 interface MarkViewedOptions extends CreateViewOptions {
   revalidate: string;

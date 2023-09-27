@@ -3,7 +3,7 @@
 import { revalidatePath } from "next/cache";
 
 import { updateUserById } from "@nonovel/query";
-import { authorizeServerAction } from "~/lib/auth";
+import { authorizeServerAction } from "~/lib/server";
 import type { EditAccountSchema } from "~/components/settings";
 
 interface UpdateAccountOptions extends EditAccountSchema {

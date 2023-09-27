@@ -4,9 +4,8 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import parse from "html-react-parser";
 import { AiFillStar, AiTwotoneEye } from "react-icons/ai";
-import { getBrowsePageResult, getGenreBySlug } from "~/lib/request";
-import { src, toTitleCase } from "~/lib/string";
-import { summarizeNumber } from "~/lib/number";
+import { getBrowsePageResult, getGenreBySlug } from "~/lib/server";
+import { ec, src, toTitleCase, summarizeNumber } from "~/lib";
 import { SectionEmpty, SectionHeading } from "~/components/shared";
 
 interface BrowsePageProps {
@@ -44,13 +43,13 @@ export default async function BrowsePage({
   const { genre: genreSlug = null } = params;
   const { sort = "popular", q = null, page: stringPage = "1" } = searchParams;
 
-  const [, genre] = genreSlug
+  const [genreErr, genre] = genreSlug
     ? await getGenreBySlug({ slug: genreSlug })
     : [null, null];
 
   const page = parseInt(stringPage);
 
-  const [, rawResults] = await getBrowsePageResult({
+  const [rawResultsErr, rawResults] = await getBrowsePageResult({
     page,
     sort,
     genre: genreSlug,
@@ -64,10 +63,13 @@ export default async function BrowsePage({
     notFound();
   }
 
-  if (!results || !results.length)
+  ec(genreErr, rawResultsErr);
+
+  if (!results || !results.length) {
     return (
       <SectionEmpty className="bg-nn-secondary">No results found.</SectionEmpty>
     );
+  }
 
   return (
     <>

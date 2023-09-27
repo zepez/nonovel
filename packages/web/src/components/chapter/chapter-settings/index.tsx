@@ -4,7 +4,7 @@ import { useEffect } from "react";
 import { useLocalStorage } from "react-use";
 import * as z from "zod";
 import { MixerHorizontalIcon } from "@radix-ui/react-icons";
-import { cn } from "~/lib/utils";
+import { cn } from "~/lib";
 import { Dialog, DialogContent, DialogTrigger } from "~/components/ui/dialog";
 import { Button } from "~/components/ui/button";
 import { Separator } from "~/components/ui/separator";

@@ -3,7 +3,7 @@
 import * as React from "react";
 import { ChevronUpIcon, ChevronDownIcon } from "@radix-ui/react-icons";
 import { upsertVote } from "~/actions";
-import { cn } from "~/lib/utils";
+import { cn } from "~/lib";
 import { Button } from "~/components/ui/button";
 
 interface ReviewVoteProps {
@@ -54,7 +54,7 @@ export const ReviewVote = ({
       >
         <ChevronUpIcon width={size} height={size} />
       </Button>
-      <span className="py-1 text-xs font-bold leading-tight text-center">
+      <span className="py-1 text-center text-xs font-bold leading-tight">
         {voteTotal}
       </span>
       <Button

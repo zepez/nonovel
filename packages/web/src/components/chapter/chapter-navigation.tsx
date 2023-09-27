@@ -11,8 +11,7 @@ import type {
   GetChapterBySlugAndOrderReturn,
   GetChapterManifestByIdsReturn,
 } from "@nonovel/query";
-import { cn } from "~/lib/utils";
-import { toTitleCase } from "~/lib/string";
+import { cn, toTitleCase } from "~/lib";
 import { Dialog, DialogContent, DialogTrigger } from "~/components/ui/dialog";
 import { ScrollArea } from "~/components/ui/scroll-area";
 import { ChapterSettings } from "~/components/chapter/chapter-settings";

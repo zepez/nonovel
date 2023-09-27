@@ -1,7 +1,6 @@
 import { forwardRef } from "react";
 import Balancer from "react-wrap-balancer";
-import { cn } from "~/lib/utils";
-import { toTitleCase } from "~/lib/string";
+import { cn, toTitleCase } from "~/lib";
 
 interface Props {
   className?: string;

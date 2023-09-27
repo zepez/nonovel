@@ -1,18 +1,19 @@
 import Link from "next/link";
-import { notFound, redirect } from "next/navigation";
+import { notFound } from "next/navigation";
 import Balancer from "react-wrap-balancer";
 import { FiBookOpen, FiEye } from "react-icons/fi";
 import { BsBookmarkHeart } from "react-icons/bs";
 import { MdOutlineReviews } from "react-icons/md";
-import { getSession } from "~/lib/auth";
 import {
+  getSession,
   getProjectBySlug,
   getFollowCountByProjectId,
   getFollowStatusByIds,
   getTotalViewCountByProjectId,
   getReviewTotalByProjectId,
   getChapterManifestByIds,
-} from "~/lib/request";
+} from "~/lib/server";
+import { toTitleCase, src, ec, summarizeNumber } from "~/lib";
 import {
   LayoutWrapper,
   AspectImage,
@@ -27,8 +28,6 @@ import {
 } from "~/components/project";
 import { Button } from "~/components/ui/button";
 import { TruncateParagraph } from "~/components/shared";
-import { summarizeNumber } from "~/lib/number";
-import { toTitleCase, src } from "~/lib/string";
 
 export const revalidate = 60;
 
@@ -87,15 +86,14 @@ export default async function ProjectLayout({
     projectId: project.id,
   });
 
-  const error =
-    projectErr ||
-    manifestErr ||
-    followErr ||
-    followCountErr ||
-    viewCountErr ||
-    reviewTotalErr;
-
-  if (error) throw new Error(error.message);
+  ec(
+    projectErr,
+    manifestErr,
+    followErr,
+    followCountErr,
+    viewCountErr,
+    reviewTotalErr
+  );
 
   const latestChapterRead = manifest
     .filter((item) => item.userChapterViews.length > 0)

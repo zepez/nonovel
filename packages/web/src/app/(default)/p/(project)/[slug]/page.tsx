@@ -1,10 +1,13 @@
 import { Metadata } from "next";
 import { notFound } from "next/navigation";
-import { getSession } from "~/lib/auth";
-import { getProjectBySlug, getChapterManifestByIds } from "~/lib/request";
+import {
+  getSession,
+  getProjectBySlug,
+  getChapterManifestByIds,
+} from "~/lib/server";
+import { clamp, ec } from "~/lib";
 import { SectionHeading } from "~/components/shared";
 import { ListChapters } from "~/components/project";
-import { clamp } from "~/lib/string";
 
 interface ProjectPageProps {
   params: { slug: string };
@@ -42,17 +45,19 @@ export async function generateMetadata({
 }
 
 export default async function ProjectPage({ params }: ProjectPageProps) {
-  const [, session] = await getSession();
+  const [sessionErr, session] = await getSession();
   const { user } = session ?? {};
 
-  const [, project] = await getProjectBySlug(params);
+  const [projectErr, project] = await getProjectBySlug(params);
   if (!project) notFound();
 
-  const [, manifest] = await getChapterManifestByIds({
+  const [manifestErr, manifest] = await getChapterManifestByIds({
     userId: user?.id,
     projectId: project.id,
   });
+
   if (!manifest) notFound();
+  ec(sessionErr, projectErr, manifestErr);
 
   return (
     <>

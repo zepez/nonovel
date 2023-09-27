@@ -1,6 +1,7 @@
 import { notFound } from "next/navigation";
 
-import { getGenreManifest } from "~/lib/request";
+import { getGenreManifest } from "~/lib/server";
+import { ec } from "~/lib";
 import { LayoutWrapper, BackgroundEmoji } from "~/components/shared";
 import { LayoutNavigation } from "~/components/browse";
 
@@ -9,8 +10,9 @@ interface BrowseLayoutProps {
 }
 
 export default async function BrowseLayout({ children }: BrowseLayoutProps) {
-  const [, genres] = await getGenreManifest();
+  const [genreErr, genres] = await getGenreManifest();
   if (!genres) return notFound();
+  ec(genreErr);
 
   return (
     <>

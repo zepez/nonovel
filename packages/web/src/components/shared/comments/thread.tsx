@@ -7,11 +7,11 @@ import type {
   GetCommentPageByResourceIdReturn,
   GetCommentRepliesByParentIdReturn,
 } from "@nonovel/query";
+import { cn } from "~/lib";
 import { getCommentReplies } from "~/actions";
+import { Button } from "~/components/ui/button";
 import { CommentEdit } from "./edit";
 import { CommentBody } from "./body";
-import { Button } from "~/components/ui/button";
-import { cn } from "~/lib/utils";
 
 type Comments = NonNullable<GetCommentPageByResourceIdReturn[1]>;
 type Replies = NonNullable<GetCommentRepliesByParentIdReturn[1]>;

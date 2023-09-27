@@ -8,7 +8,7 @@ import {
   deleteReviewById,
   DeleteReviewByIdOptions,
 } from "@nonovel/query";
-import { authorizeServerAction } from "~/lib/auth";
+import { authorizeServerAction } from "~/lib/server";
 
 interface DoReviewOpts extends UpsertReviewOptions {
   revalidate: string;

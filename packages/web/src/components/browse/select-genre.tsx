@@ -4,7 +4,7 @@ import * as React from "react";
 import { CaretSortIcon, CheckIcon } from "@radix-ui/react-icons";
 
 import type { GetGenreManifestReturn } from "@nonovel/query";
-import { cn } from "~/lib/utils";
+import { cn } from "~/lib";
 import { Button } from "~/components/ui/button";
 import { ScrollArea } from "~/components/ui/scroll-area";
 import {

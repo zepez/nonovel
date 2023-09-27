@@ -1,8 +1,8 @@
 import Image from "next/image";
 import { notFound } from "next/navigation";
 import { formatDistanceToNow } from "date-fns";
-import { getProfileByUsername } from "~/lib/request";
-import { src } from "~/lib/string";
+import { getProfileByUsername } from "~/lib/server";
+import { src, ec } from "~/lib";
 import {
   LayoutWrapper,
   CountryCodeName,
@@ -20,10 +20,12 @@ export default async function ProfileLayout({
   children,
   params,
 }: ProfileLayoutProps) {
-  const [, profile] = await getProfileByUsername({
+  const [profileError, profile] = await getProfileByUsername({
     username: params.username,
   });
+
   if (!profile) notFound();
+  ec(profileError);
 
   return (
     <>

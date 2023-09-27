@@ -2,8 +2,8 @@
 
 import { useState } from "react";
 
-import { cn } from "~/lib/utils";
 import { follow } from "~/actions";
+import { cn } from "~/lib";
 import { Button } from "~/components/ui/button";
 import { useToast } from "~/components/ui/use-toast";
 

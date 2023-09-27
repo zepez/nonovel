@@ -6,7 +6,7 @@ import {
   upsertVote as upsertVoteQuery,
   UpsertVoteOptions,
 } from "@nonovel/query";
-import { authorizeServerAction } from "~/lib/auth";
+import { authorizeServerAction } from "~/lib/server";
 
 interface UpsertVoteOpts extends UpsertVoteOptions {
   revalidate: string;

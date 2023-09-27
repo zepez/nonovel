@@ -2,12 +2,12 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import { formatDistanceToNow } from "date-fns";
 import Balancer from "react-wrap-balancer";
-import { getSession } from "~/lib/auth";
 import {
+  getSession,
   getChapterBySlugAndOrder,
   getChapterManifestByIds,
-} from "~/lib/request";
-import { toTitleCase, src } from "~/lib/string";
+} from "~/lib/server";
+import { toTitleCase, src, ec } from "~/lib";
 import { ChapterNavigation } from "~/components/chapter";
 import {
   LayoutWrapper,
@@ -26,8 +26,8 @@ export default async function ChapterLayout({
   params,
   children,
 }: ChapterLayoutProps) {
-  const [, session] = await getSession();
-  const [, project] = await getChapterBySlugAndOrder({
+  const [sessionErr, session] = await getSession();
+  const [projectErr, project] = await getChapterBySlugAndOrder({
     ...params,
     order: parseFloat(params.order),
   });
@@ -36,10 +36,12 @@ export default async function ChapterLayout({
   const chapter = project.chapters[0];
   if (!chapter) notFound();
 
-  const [, manifest] = await getChapterManifestByIds({
+  const [manifestErr, manifest] = await getChapterManifestByIds({
     projectId: project.id,
   });
   if (!manifest) notFound();
+
+  ec(sessionErr, projectErr, manifestErr);
 
   return (
     <>

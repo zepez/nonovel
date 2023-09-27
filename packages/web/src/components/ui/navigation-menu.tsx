@@ -4,7 +4,7 @@ import * as React from "react";
 import { ChevronDownIcon } from "@radix-ui/react-icons";
 import * as NavigationMenuPrimitive from "@radix-ui/react-navigation-menu";
 
-import { cn } from "~/lib/utils";
+import { cn } from "~/lib";
 
 const NavigationMenu = React.forwardRef<
   React.ElementRef<typeof NavigationMenuPrimitive.Root>,

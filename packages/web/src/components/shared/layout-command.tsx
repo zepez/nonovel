@@ -13,6 +13,7 @@ import {
 } from "@radix-ui/react-icons";
 import type { GetOmniSearchResultReturn } from "@nonovel/query";
 import { getSearch } from "~/actions";
+import { toTitleCase } from "~/lib";
 import {
   CommandDialog,
   CommandInput,
@@ -24,7 +25,6 @@ import {
 } from "~/components/ui/command";
 import { Logout, LoginDialog } from "~/components/auth";
 import { ThemeSwitcher } from "~/components/shared/theme-switcher";
-import { toTitleCase } from "~/lib/string";
 
 interface LayoutCommandProps {
   open: boolean;

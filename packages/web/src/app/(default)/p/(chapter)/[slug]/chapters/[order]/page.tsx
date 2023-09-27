@@ -1,8 +1,8 @@
 import { Metadata } from "next";
 import { notFound } from "next/navigation";
 import parse from "html-react-parser";
-import { getChapterBySlugAndOrder } from "~/lib/request";
-import { clamp, toTitleCase } from "~/lib/string";
+import { getChapterBySlugAndOrder } from "~/lib/server";
+import { clamp, toTitleCase, ec } from "~/lib";
 
 interface ChapterPageProps {
   params: { slug: string; order: string };
@@ -51,7 +51,7 @@ export async function generateMetadata({
 }
 
 export default async function ChapterPage({ params }: ChapterPageProps) {
-  const [, project] = await getChapterBySlugAndOrder({
+  const [projectErr, project] = await getChapterBySlugAndOrder({
     ...params,
     order: parseFloat(params.order),
   });
@@ -60,9 +60,9 @@ export default async function ChapterPage({ params }: ChapterPageProps) {
   const chapter = project.chapters[0];
   if (!chapter) notFound();
 
+  ec(projectErr);
+
   return (
-    <>
-      <div className="nn-content-wrapper">{parse(chapter.content ?? "")}</div>
-    </>
+    <div className="nn-content-wrapper">{parse(chapter.content ?? "")}</div>
   );
 }

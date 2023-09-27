@@ -1,5 +1,4 @@
 import Link from "next/link";
-import { cn } from "~/lib/utils";
 import {
   ElementType,
   ReactNode,
@@ -7,6 +6,7 @@ import {
   ForwardedRef,
   forwardRef,
 } from "react";
+import { cn } from "~/lib";
 
 interface SectionEmptyBaseProps {
   className?: string;

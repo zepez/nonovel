@@ -1,9 +1,8 @@
 import Link from "next/link";
 import Image from "next/image";
 import { notFound } from "next/navigation";
-import { getProfileByUsername } from "~/lib/request";
-import { toTitleCase, src } from "~/lib/string";
-import { cn } from "~/lib/utils";
+import { getProfileByUsername } from "~/lib/server";
+import { toTitleCase, src, cn, ec } from "~/lib";
 import { SectionHeading, SectionEmpty } from "~/components/shared";
 
 interface ProfilePageProps {
@@ -11,10 +10,12 @@ interface ProfilePageProps {
 }
 
 export default async function ProfilePage({ params }: ProfilePageProps) {
-  const [, profile] = await getProfileByUsername({
+  const [profileError, profile] = await getProfileByUsername({
     username: params.username,
   });
+
   if (!profile) notFound();
+  ec(profileError);
 
   const { projects } = profile.user;
 

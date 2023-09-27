@@ -1,23 +1,23 @@
 import { Metadata } from "next";
 import { notFound } from "next/navigation";
-import { getSession } from "~/lib/auth";
 import {
+  getSession,
   getProjectBySlug,
   getReviewByIds,
   getReviewPageByProjectId,
-} from "~/lib/request";
-import { src, clamp } from "~/lib/string";
+} from "~/lib/server";
+import { src, clamp, ec } from "~/lib";
 import { SectionHeading, AspectImage, SectionEmpty } from "~/components/shared";
 import { LayoutPaginate } from "~/components/shared/layout-paginate";
 import { EditReview, ReviewScore, ReviewVote } from "~/components/project";
 
-interface ProjectReviewPagePageProps {
+interface ProjectReviewPageProps {
   params: { slug: string; page: string };
 }
 
 export async function generateMetadata({
   params,
-}: ProjectReviewPagePageProps): Promise<Metadata> {
+}: ProjectReviewPageProps): Promise<Metadata> {
   const [, project] = await getProjectBySlug(params);
   if (!project) return {};
 
@@ -51,31 +51,35 @@ export async function generateMetadata({
   };
 }
 
-export default async function ProjectReviewPagePage({
+export default async function ProjectReviewPage({
   params,
-}: ProjectReviewPagePageProps) {
+}: ProjectReviewPageProps) {
   const pageSize = 10;
   const page = parseInt(params.page ?? "1", 10);
-  const [, session] = await getSession();
+  const [sessionErr, session] = await getSession();
 
-  const [, project] = await getProjectBySlug(params);
+  const [projectErr, project] = await getProjectBySlug(params);
   if (!project) notFound();
 
-  const [, review] = await getReviewByIds({
+  const [reviewErr, review] = await getReviewByIds({
     userId: session?.user?.id,
     projectId: project.id,
   });
 
-  const [, allReviews] = await getReviewPageByProjectId({
+  const [allReviewsErr, allReviews] = await getReviewPageByProjectId({
     projectId: project.id,
     userId: session?.user?.id ?? null,
     page,
     pageSize,
   });
+
   if (page > 1 && !allReviews?.length) notFound();
 
   const reviews = allReviews?.slice(0, pageSize) ?? [];
+
   if (page > 1 && !reviews.length) notFound();
+
+  ec(sessionErr, projectErr, reviewErr, allReviewsErr);
 
   return (
     <>

@@ -12,8 +12,7 @@ import { FiThumbsUp, FiThumbsDown } from "react-icons/fi";
 
 import type { GetCommentPageByResourceIdReturn } from "@nonovel/query";
 import { upsertVote } from "~/actions";
-import { cn } from "~/lib/utils";
-import { src } from "~/lib/string";
+import { cn, src } from "~/lib";
 import { Button } from "~/components/ui/button";
 import { AspectImage } from "../aspect-image";
 import { CommentEdit } from "./edit";

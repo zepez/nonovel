@@ -7,7 +7,7 @@ import { useForm } from "react-hook-form";
 
 import { user as userSchema } from "@nonovel/validator";
 
-import type { Session } from "~/lib/auth";
+import type { Session } from "~/lib/server";
 import { updateAccount } from "~/actions";
 import {
   Form,

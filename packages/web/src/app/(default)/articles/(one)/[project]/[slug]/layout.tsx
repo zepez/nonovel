@@ -1,11 +1,11 @@
 import { format } from "date-fns";
 import Balancer from "react-wrap-balancer";
+import { getPostBySlug } from "~/lib/mdx";
 import {
   LayoutWrapper,
   BackgroundEmoji,
   CommentLayout,
 } from "~/components/shared";
-import { getPostBySlug } from "~/lib/mdx";
 
 interface ArticleLayoutProps {
   children: React.ReactNode;

@@ -10,8 +10,8 @@ import {
   ThickArrowRightIcon,
 } from "@radix-ui/react-icons";
 
-import type { Session } from "~/lib/auth";
-import { src } from "~/lib/string";
+import type { Session } from "~/lib/server";
+import { src } from "~/lib";
 import {
   DropdownMenu,
   DropdownMenuContent,

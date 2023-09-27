@@ -9,7 +9,7 @@ import enLocaleData from "i18n-iso-countries/langs/en.json";
 
 import { profile as profileSchema } from "@nonovel/validator";
 
-import type { Session } from "~/lib/auth";
+import type { Session } from "~/lib/server";
 import { updateProfile } from "~/actions";
 import {
   Form,

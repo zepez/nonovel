@@ -7,7 +7,7 @@ import DiscordProvider from "next-auth/providers/discord";
 import config from "@nonovel/config-server";
 import { db } from "@nonovel/db";
 import adapter from "@nonovel/drizzle-adapter";
-import { getUserById, getProfileByUserId } from "~/lib/request";
+import { getUserById, getProfileByUserId } from "~/lib/server";
 
 export type Session = {
   user: NonNullable<Awaited<ReturnType<typeof getUserById>>[1]>;

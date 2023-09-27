@@ -1,16 +1,13 @@
 import { Metadata } from "next";
-import { notFound } from "next/navigation";
 import Link from "next/link";
 import { AiFillStar, AiTwotoneEye } from "react-icons/ai";
-import { getFeaturedPopular } from "~/lib/request";
+import { getFeaturedPopular } from "~/lib/server";
+import { src, toTitleCase, cn, ec } from "~/lib";
 import {
   LayoutWrapper,
   AspectImage,
   SectionHeading,
-  BackgroundImage,
 } from "~/components/shared";
-import { src, toTitleCase } from "~/lib/string";
-import { cn } from "~/lib/utils";
 
 interface PopularSliderProps {
   period: "day" | "week" | "month";
@@ -24,7 +21,7 @@ export function generateMetadata(): Metadata {
   };
 }
 
-const PopularSlider = async ({
+const CoverGrid = async ({
   period,
   size,
   titleClassName,
@@ -73,38 +70,15 @@ const PopularSlider = async ({
 };
 
 export default async function HomePage() {
-  const [, popularTodayAll] = await getFeaturedPopular({ period: "day" });
-  if (!popularTodayAll) return notFound();
-  const popularToday = popularTodayAll[0];
+  const [popularError, popular] = await getFeaturedPopular({ period: "month" });
+
+  ec(popularError, !popular);
 
   return (
     <>
-      <BackgroundImage src={src(popularToday.cover, "cover")}>
-        <LayoutWrapper className="relative z-10 pb-16 pt-4">
-          <SectionHeading className="mt-0">Top Today</SectionHeading>
-          <Link
-            href={`/p/${popularToday.slug}`}
-            className="nn-interactive block p-2"
-          >
-            <div className="flex flex-wrap gap-6 sm:flex-nowrap">
-              <AspectImage
-                src={src(popularToday.cover, "cover")}
-                alt={popularToday.name}
-                width={200}
-                className="mx-auto flex-shrink-0"
-              />
-              <div className="min-w-0 flex-shrink pt-2">
-                <p className="nn-title mb-2 italic">{popularToday.name}</p>
-                <p>{popularToday.description}</p>
-              </div>
-            </div>
-          </Link>
-        </LayoutWrapper>
-      </BackgroundImage>
-
       <LayoutWrapper className="space-y-12">
-        <PopularSlider period="week" size={230} titleClassName="text-xl" />
-        <PopularSlider period="month" size={150} titleClassName="text-lg" />
+        <CoverGrid period="week" size={230} titleClassName="text-xl" />
+        <CoverGrid period="month" size={150} titleClassName="text-lg" />
       </LayoutWrapper>
     </>
   );

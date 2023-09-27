@@ -6,8 +6,8 @@ import { useSession } from "next-auth/react";
 
 import type { Comment } from "@nonovel/db";
 import type { GetCommentPageByResourceIdReturn } from "@nonovel/query";
-import { cn } from "~/lib/utils";
 import { getCommentPage } from "~/actions";
+import { cn } from "~/lib";
 import { Skeleton } from "~/components/ui/skeleton";
 import { LoginDialog } from "~/components/auth";
 import { SectionHeading } from "../section-heading";

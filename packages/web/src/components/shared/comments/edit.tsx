@@ -8,6 +8,7 @@ import type { Comment, NewComment } from "@nonovel/db";
 import { comment as commentSchema } from "@nonovel/validator";
 import { NotUndefinedOrNull } from "~/types";
 import { createComment, deleteComment } from "~/actions";
+import { cn } from "~/lib";
 import {
   Form,
   FormControl,
@@ -19,8 +20,6 @@ import {
 import { Textarea } from "~/components/ui/textarea";
 import { Button } from "~/components/ui/button";
 import { useToast } from "~/components/ui/use-toast";
-
-import { cn } from "~/lib/utils";
 
 interface CommentEditProps {
   refresh: () => void;

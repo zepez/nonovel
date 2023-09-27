@@ -2,8 +2,8 @@
 
 import { useEffect, useState } from "react";
 
+import { cn } from "~/lib";
 import { FullLogoLight, FullLogoDark } from "~/components/brand";
-import { cn } from "~/lib/utils";
 
 interface Props {
   className?: string;

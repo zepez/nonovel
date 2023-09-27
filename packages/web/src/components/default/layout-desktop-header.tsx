@@ -1,7 +1,7 @@
 import * as React from "react";
 import Link from "next/link";
-import { getSession } from "~/lib/auth";
-import { cn } from "~/lib/utils";
+import { getSession } from "~/lib/server";
+import { cn } from "~/lib";
 import { LayoutWrapper, LayoutProfile } from "~/components/shared";
 import { FullLogo, ShortLogoDark, ShortLogoLight } from "~/components/brand";
 import { LayoutSearch } from "~/components/default/layout-search";

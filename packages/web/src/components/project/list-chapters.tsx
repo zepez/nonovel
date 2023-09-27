@@ -4,9 +4,7 @@ import { useState, useEffect } from "react";
 import Link from "next/link";
 import { FaCheck } from "react-icons/fa";
 import type { GetChapterManifestByIdsReturn } from "@nonovel/query";
-
-import { cn } from "~/lib/utils";
-import { toTitleCase } from "~/lib/string";
+import { cn, toTitleCase } from "~/lib";
 import { Input } from "~/components/ui/input";
 
 interface ListItemProps {

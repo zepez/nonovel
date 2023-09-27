@@ -12,7 +12,7 @@ import {
   deleteComment as deleteCommentQuery,
   DeleteCommentOptions,
 } from "@nonovel/query";
-import { authorizeServerAction } from "~/lib/auth";
+import { authorizeServerAction } from "~/lib/server";
 
 export const getCommentPage = async (
   values: GetCommentPageByResourceIdOptions

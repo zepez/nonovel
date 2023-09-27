@@ -2,8 +2,8 @@ import { Metadata } from "next";
 import Link from "next/link";
 import Balancer from "react-wrap-balancer";
 import { getPostBySlug } from "~/lib/mdx";
-import { getProjectBySlug } from "~/lib/request";
-import { src } from "~/lib/string";
+import { getProjectBySlug } from "~/lib/server";
+import { src } from "~/lib";
 import { AspectImage } from "~/components/shared";
 
 interface Props {

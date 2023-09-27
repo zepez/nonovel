@@ -2,7 +2,7 @@
 
 import * as React from "react";
 import { Rating, RatingProps, ThinRoundedStar } from "@smastrom/react-rating";
-import { cn } from "~/lib/utils";
+import { cn } from "~/lib";
 
 interface ReviewScoreProps extends RatingProps {
   hideHint?: boolean;

@@ -1,7 +1,6 @@
 import Image from "next/image";
 
-import { src } from "~/lib/string";
-import { cn } from "~/lib/utils";
+import { src, cn } from "~/lib";
 
 interface AspectImageProps {
   className?: string;

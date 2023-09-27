@@ -8,7 +8,7 @@ import {
   CreateFollowOptions,
   DeleteFollowOptions,
 } from "@nonovel/query";
-import { authorizeServerAction } from "~/lib/auth";
+import { authorizeServerAction } from "~/lib/server";
 
 interface CreateOpts extends CreateFollowOptions {
   action: "create";

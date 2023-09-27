@@ -1,7 +1,7 @@
 "use client";
 
 import { type Dispatch, type SetStateAction } from "react";
-import { cn } from "~/lib/utils";
+import { cn } from "~/lib";
 import { Button } from "~/components/ui/button";
 
 interface FontChangeProps {
