@@ -39,11 +39,14 @@ export const SelectGenre = ({
     <Popover open={open} onOpenChange={setOpen}>
       <PopoverTrigger asChild>
         <Button
-          variant="ghost"
+          variant="contrast"
           role="combobox"
-          size="sm"
+          size="fluid"
           aria-expanded={open}
-          className={cn(className, "bg-nn-base-invert justify-between")}
+          className={cn(
+            className,
+            "justify-between py-[.6rem] text-xs font-normal"
+          )}
           title="Select a genre"
         >
           {value
@@ -64,6 +67,7 @@ export const SelectGenre = ({
               {genres.map((genre) => (
                 <CommandItem
                   key={genre.slug}
+                  className="mx-2"
                   onSelect={(currentValue) => {
                     const slug =
                       genres.find(
@@ -77,7 +81,7 @@ export const SelectGenre = ({
                   <CheckIcon
                     className={cn(
                       "ml-auto h-4 w-4",
-                      value === genre.slug ? "opacity-100" : "opacity-0"
+                      value === genre.slug ? "block" : "hidden"
                     )}
                   />
                 </CommandItem>

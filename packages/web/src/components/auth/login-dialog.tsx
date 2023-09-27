@@ -27,14 +27,19 @@ export function LoginDialog({ children }: LoginDialogProps) {
         {typeof children === "function" ? children(cb) : children}
       </DialogTrigger>
       <DialogContent className="sm:max-w-[425px]">
-        <DialogHeader className="mb-4">
-          <DialogTitle>Login or Register</DialogTitle>
-          <DialogDescription>
-            Please select your preferred service for logging in or registering.
-            <br />
-            <br />
-            Remember, to keep your account secure and avoid any complications,
-            always use the same service that you originally signed up with.
+        <DialogHeader>
+          <DialogTitle className="pb-2 font-serif text-2xl">
+            Login or Register
+          </DialogTitle>
+          <DialogDescription className="pb-3">
+            <p className="text-base">
+              Please select your preferred social authentication service below
+              to sign in or sign up.
+            </p>
+            <p className="pt-3 text-xs opacity-80">
+              Remember, to keep your account secure and avoid any complications,
+              always use the same service that you originally signed up with.
+            </p>
           </DialogDescription>
         </DialogHeader>
         <Login />

@@ -13,6 +13,7 @@ import {
   AiFillClockCircle,
   AiOutlineSearch,
 } from "react-icons/ai";
+import { IoCloseSharp } from "react-icons/io5";
 import type { GetGenreManifestReturn } from "@nonovel/query";
 import { Input } from "~/components/ui/input";
 import { Button } from "~/components/ui/button";
@@ -95,9 +96,9 @@ export const LayoutNavigation = ({ genres }: LayoutNavigationProps) => {
       <div className="mt-12 flex flex-col items-center justify-between gap-4 sm:mt-4 sm:flex-row">
         <div className="flex w-full items-center gap-2 sm:gap-4">
           <Button
-            variant="ghost"
+            variant="contrast"
             size="sm"
-            className="bg-nn-base-invert w-full px-2 text-xs"
+            className="w-full"
             disabled={sorting === "popular"}
             onClick={() => setSorting("popular")}
             title="Sort by popularity"
@@ -123,18 +124,19 @@ export const LayoutNavigation = ({ genres }: LayoutNavigationProps) => {
             onClick={() => setSorting("recent")}
             title="Sort by date added"
           >
-            <AiFillClockCircle className="mr-2 hidden text-lg sm:inline" /> Date
+            <AiFillClockCircle className="mr-2 hidden text-lg sm:inline" />{" "}
             Added
           </Button>
         </div>
         <Button
           variant="ghost"
           size="sm"
-          className="bg-nn-base-invert w-full flex-shrink-0 text-xs sm:w-auto"
+          className="bg-nn-base-invert w-full flex-shrink-0 items-center sm:w-auto"
           onClick={() => handleClearFilters()}
           title="Clear filters"
         >
-          Clear Filters
+          <IoCloseSharp className="mr-1 hidden text-2xl sm:inline" /> Reset
+          Filters
         </Button>
       </div>
     </>

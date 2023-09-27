@@ -85,7 +85,7 @@ export const CommentLayout = ({
     <LayoutWrapper className={cn("pt-16", className)}>
       <section
         ref={intersectionRef}
-        className="bg-nn-secondary nn-border rounded-md border px-6 pb-10 pt-8 md:px-12"
+        className="bg-nn-secondary rounded-md px-6 pb-10 pt-8 md:px-12"
       >
         <SectionHeading className="mt-0">Comments</SectionHeading>
 
