@@ -20,7 +20,7 @@ interface PopularSliderProps {
 
 export function generateMetadata(): Metadata {
   return {
-    title: "Home | NoNovel | Read Novel Online Free",
+    title: "NoNovel - Escape reality. Read a book.",
   };
 }
 

@@ -5,7 +5,7 @@ import { getAllPostsMeta } from "~/lib/mdx";
 
 export function generateMetadata(): Metadata {
   return {
-    title: "Browse all articles",
+    title: "Articles",
     description: "Browse all articles on NoNovel.io.",
   };
 }

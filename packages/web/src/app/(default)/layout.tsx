@@ -1,7 +1,7 @@
 import { Suspense } from "react";
 import { Metadata } from "next";
 import { Inter } from "next/font/google";
-import { Provider as WrapProvider } from "react-wrap-balancer";
+import { Provider as TextWrapProvider } from "react-wrap-balancer";
 import { LayoutDesktopHeader, LayoutMobileHeader } from "~/components/default";
 import {
   LayoutFooter,
@@ -22,7 +22,7 @@ export const revalidate = 60;
 export const metadata: Metadata = {
   metadataBase: new URL("https://nonovel.io"),
   title: {
-    template: "%s | NoNovel",
+    template: "%s - NoNovel",
     default: "NoNovel",
   },
   description: "Read novels online for free.",
@@ -44,7 +44,10 @@ export const metadata: Metadata = {
     telephone: false,
   },
   openGraph: {
-    title: "NoNovel.io",
+    title: {
+      template: "%s - NoNovel",
+      default: "NoNovel",
+    },
     description: "Read novels online for free.",
     url: "https://nonovel.io",
     siteName: "NoNovel",
@@ -68,9 +71,9 @@ export default function RootLayout({ children }: RootLayoutProps) {
                 <LayoutDesktopHeader />
                 <LayoutMobileHeader />
               </Suspense>
-              <WrapProvider>
+              <TextWrapProvider>
                 <main className="flex-grow">{children}</main>
-              </WrapProvider>
+              </TextWrapProvider>
               <LayoutFooter />
             </div>
             <Toaster />

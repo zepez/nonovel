@@ -23,7 +23,7 @@ export const LayoutNavigation = ({ slug }: LayoutNavigationProps) => {
   const segment = useSelectedLayoutSegment();
 
   return (
-    <nav className="flex flex-col rounded-md text-center text-xs font-bold leading-tight sm:flex-row">
+    <nav className="nn-divide flex flex-col divide-y rounded-md text-center text-xs font-bold leading-tight sm:flex-row sm:divide-x sm:divide-y-0">
       {navigation.map((n) => (
         <Link
           key={n.name}

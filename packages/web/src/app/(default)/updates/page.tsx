@@ -13,8 +13,8 @@ export default function UpdatesLayout() {
     <section className="space-y-12">
       <Update date="26.09.2023" emoji="🎨" title="New Design">
         <p>
-          We got a new coat of paint! More improvements and adjustments are to
-          come.
+          We got a new coat of paint! More improvements and adjustments are
+          coming soon.
         </p>
       </Update>
       <Update date="22.07.2023" emoji="🎉" title="Official Launch">

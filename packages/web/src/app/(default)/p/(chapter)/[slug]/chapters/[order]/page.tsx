@@ -20,22 +20,23 @@ export async function generateMetadata({
   const chapter = project.chapters[0];
   if (!chapter) return {};
 
-  const author = project.penName ?? null;
-
+  const title = `${chapter.name} - ${project.name}`;
   const description = clamp(
-    `Read ${project.name} online for free. ${project.description ?? ""}`,
+    `Read ${chapter.name}, ${project.name} online for free. ${
+      project.description ?? ""
+    }`,
     160
   );
 
   return {
-    title: `${chapter.name}, ${project.name}`,
+    title,
     description,
-    authors: author ? [{ name: author }] : [],
+    authors: project.penName ? [{ name: project.penName }] : [],
     openGraph: {
-      title: `${chapter.name}, ${project.name} | NoNovel.io`,
+      title,
       url: `https://nonovel.io/p/${project.slug}/chapters/${chapter.order}`,
       description,
-      authors: author ? [author] : [],
+      authors: project.penName ? [project.penName] : [],
       images: [
         {
           url: `/api/og/p?title=${project.name}&image=${

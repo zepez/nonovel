@@ -7,17 +7,22 @@ import { Button } from "~/components/ui/button";
 
 export const LayoutSearch = () => {
   const [open, setOpen] = useState(false);
-  const [os, setOS] = useState<string>("");
+  const [shortcut, setShortcut] = useState("+k");
 
-  const availableOS = ["Windows", "Linux", "Mac"]; // add your OS values
-  const currentOS = availableOS.find(
-    // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access, @typescript-eslint/no-unsafe-call, @typescript-eslint/no-explicit-any
-    (v) => (global as any).window?.navigator.platform.indexOf(v) >= 0
-  );
+  const availableOS = ["Windows", "Linux", "Mac"];
 
   useEffect(() => {
-    if (currentOS && currentOS !== os) setOS(currentOS);
-  }, [currentOS, os]);
+    try {
+      const os = availableOS.find(
+        (v) => (global as any).window?.navigator.platform.indexOf(v) >= 0
+      );
+
+      if (os === "Mac") setShortcut("⌘+k");
+      else setShortcut("ctrl+k");
+    } catch (e) {
+      setShortcut("ctrl+k");
+    }
+  }, []);
 
   return (
     <>
@@ -33,12 +38,8 @@ export const LayoutSearch = () => {
             <MagnifyingGlassIcon className="mr-3" />
             Search
           </div>
-          <kbd className="bg-nn-base-invert pointer-events-none inline-flex h-4 select-none items-center rounded px-2 font-mono text-[10px]">
-            <span className="mr-[2px] text-xs">
-              {os === "Mac" && "⌘"}
-              {(os === "Windows" || os === "Linux") && "Ctrl"}
-            </span>
-            k
+          <kbd className="bg-nn-base-invert pointer-events-none inline-flex h-4 select-none items-center rounded px-2 font-mono text-xs">
+            {shortcut}
           </kbd>
         </Button>
       </div>

@@ -16,25 +16,18 @@ export async function generateMetadata({
   const [, project] = await getProjectBySlug(params);
   if (!project) return {};
 
-  const author =
-    project.penName ?? project.users[0]?.user?.profile?.username ?? null;
-
-  const description = clamp(
-    `Chapters in ${project.name} - start reading today. ${
-      project.description ?? ""
-    }`,
-    160
-  );
+  const title = `${project.name} - Start Reading Today`;
+  const description = clamp(project.description, 160);
 
   return {
-    title: `Chapters | ${project.name}`,
+    title,
     description,
-    authors: author ? [{ name: author }] : [],
+    authors: project.penName ? [{ name: project.penName }] : [],
     openGraph: {
-      title: `${project.name} | NoNovel.io`,
-      url: `https://nonovel.io/p/${project.slug}/chapters`,
+      title,
+      url: `https://nonovel.io/p/${project.slug}`,
       description,
-      authors: author ? [author] : [],
+      authors: project.penName ? [project.penName] : [],
       images: [
         {
           url: `/api/og/p?title=${project.name}&image=${

@@ -21,9 +21,7 @@ export async function generateMetadata({
   const [, project] = await getProjectBySlug(params);
   if (!project) return {};
 
-  const author =
-    project.penName ?? project.users[0]?.user?.profile?.username ?? null;
-
+  const title = `${project.name} - Reviews`;
   const description = clamp(
     `Reviews for ${project.name} - see what other people think. ${
       project.description ?? ""
@@ -32,14 +30,14 @@ export async function generateMetadata({
   );
 
   return {
-    title: `Reviews | ${project.name}`,
+    title,
     description,
-    authors: author ? [{ name: author }] : [],
+    authors: project.penName ? [{ name: project.penName }] : [],
     openGraph: {
-      title: `${project.name} | NoNovel.io`,
+      title,
       url: `https://nonovel.io/p/${project.slug}/reviews`,
       description,
-      authors: author ? [author] : [],
+      authors: project.penName ? [project.penName] : [],
       images: [
         {
           url: `/api/og/p?title=${project.name}&image=${
@@ -137,7 +135,7 @@ export default async function ProjectReviewPagePage({
         ) : (
           <SectionEmpty className="bg-nn-secondary">
             {page === 1
-              ? "This project does not have any reviews. Be the first to review it!"
+              ? "This book does not have any reviews. Be the first to review it!"
               : "No more reviews found :("}
           </SectionEmpty>
         )}

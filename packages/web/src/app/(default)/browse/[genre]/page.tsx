@@ -5,7 +5,7 @@ import { notFound } from "next/navigation";
 import parse from "html-react-parser";
 import { AiFillStar, AiTwotoneEye } from "react-icons/ai";
 import { getBrowsePageResult, getGenreBySlug } from "~/lib/request";
-import { src } from "~/lib/string";
+import { src, toTitleCase } from "~/lib/string";
 import { summarizeNumber } from "~/lib/number";
 import { SectionEmpty, SectionHeading } from "~/components/shared";
 
@@ -30,10 +30,10 @@ export async function generateMetadata({
     : [null, null];
 
   return {
-    title: `Browse ${genre ? genre.name.toLowerCase() : "all"} novels`,
+    title: `${genre ? toTitleCase(genre.name) : "All"} Books`,
     description: `Browse ${
-      genre ? genre.name.toLowerCase() : "all"
-    } novels on NoNovel.io.`,
+      genre ? toTitleCase(genre.name) : "All"
+    } books on NoNovel.io.`,
   };
 }
 

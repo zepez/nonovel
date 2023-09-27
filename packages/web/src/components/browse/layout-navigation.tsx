@@ -12,8 +12,8 @@ import {
   AiTwotoneEye,
   AiFillClockCircle,
   AiOutlineSearch,
+  AiFillCloseCircle,
 } from "react-icons/ai";
-import { IoCloseSharp } from "react-icons/io5";
 import type { GetGenreManifestReturn } from "@nonovel/query";
 import { Input } from "~/components/ui/input";
 import { Button } from "~/components/ui/button";
@@ -135,7 +135,7 @@ export const LayoutNavigation = ({ genres }: LayoutNavigationProps) => {
           onClick={() => handleClearFilters()}
           title="Clear filters"
         >
-          <IoCloseSharp className="mr-1 hidden text-2xl sm:inline" /> Reset
+          <AiFillCloseCircle className="mr-2 hidden text-lg sm:inline" /> Reset
           Filters
         </Button>
       </div>
