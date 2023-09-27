@@ -20,7 +20,7 @@ export async function LayoutDesktopHeader() {
   const [, session] = await getSession();
 
   return (
-    <div className="hidden md:block">
+    <div className="z-10 hidden md:block">
       <LayoutWrapper className="flex flex-col flex-wrap justify-between pb-12 pt-8 md:flex-row">
         <NavigationMenu>
           <NavigationMenuList>

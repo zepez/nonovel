@@ -33,6 +33,7 @@ const BackgroundImage = ({
         className="nn-bg-header-image absolute inset-0 -z-10 bg-cover"
         style={{
           backgroundImage: `linear-gradient(0deg, var(--nn-fade) 15%, transparent), linear-gradient(180deg, var(--nn-fade) 0%, transparent 30%), url(${src})`,
+          backgroundPosition: "center center",
         }}
       />
       <div className={cn("nn-bg-header-image z-10", className)}>{children}</div>
@@ -93,7 +94,7 @@ export default async function HomePage() {
 
   return (
     <>
-      <BackgroundImage src="images/home/header.jpg" className="">
+      <BackgroundImage src="images/home/header-min.jpg">
         <LayoutWrapper className="flex h-screen flex-col">
           <div className="flex-grow" />
           <div className="h-1/2 sm:h-3/5 md:h-2/3">
@@ -110,7 +111,7 @@ export default async function HomePage() {
           </div>
         </LayoutWrapper>
       </BackgroundImage>
-      <LayoutWrapper>
+      <LayoutWrapper className="-mt-28">
         <CoverGrid
           title="Popular"
           projects={popular}
