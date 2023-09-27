@@ -1,19 +1,14 @@
+import assert from "node:assert";
 import { Metadata } from "next";
 import Link from "next/link";
-import { AiFillStar, AiTwotoneEye } from "react-icons/ai";
+import type { GetFeaturedPopularReturn } from "@nonovel/query";
 import { getFeaturedPopular } from "~/lib/server";
-import { src, toTitleCase, cn, ec } from "~/lib";
+import { src, toTitleCase, ec, cn } from "~/lib";
 import {
   LayoutWrapper,
   AspectImage,
   SectionHeading,
 } from "~/components/shared";
-
-interface PopularSliderProps {
-  period: "day" | "week" | "month";
-  size: number;
-  titleClassName?: string;
-}
 
 export function generateMetadata(): Metadata {
   return {
@@ -21,64 +16,106 @@ export function generateMetadata(): Metadata {
   };
 }
 
-const CoverGrid = async ({
-  period,
-  size,
-  titleClassName,
-}: PopularSliderProps) => {
-  const [, popular] = await getFeaturedPopular({ period });
-  if (!popular) return null;
+interface BackgroundImageProps {
+  children?: React.ReactNode;
+  className?: string;
+  src: string | null;
+}
+
+export const BackgroundImage = ({
+  src,
+  children,
+  className,
+}: BackgroundImageProps) => {
   return (
-    <div>
-      <SectionHeading className="mt-0">
-        Popular this {toTitleCase(period)}
-      </SectionHeading>
-      <div className="flex items-start gap-8 overflow-scroll scrollbar-none">
-        {popular.map((item) => (
-          <Link
-            href={`/p/${item.slug}`}
-            key={item.id}
-            style={{ width: size }}
-            className="nn-interactive block flex-shrink-0 rounded-md p-1"
-          >
-            <div className="relative">
-              <AspectImage
-                src={src(item.cover, "cover")}
-                alt={item.name}
-                width={size}
-                className="mb-3"
-              />
-              <div className="absolute bottom-0 right-0 flex items-center gap-4 rounded-br-md rounded-tl-md bg-nn-base-dark/70 px-4 py-1 text-xs text-nn-base-light">
-                <div className="flex items-center gap-2">
-                  <AiTwotoneEye />
-                  {item.views}
-                </div>
-                <div className="flex items-center gap-2">
-                  <AiFillStar />
-                  {item.review}
-                </div>
-              </div>
-            </div>
-            <p className={cn("mx-2 truncate font-bold", titleClassName)}>
-              {item.name}
-            </p>
-          </Link>
-        ))}
-      </div>
+    <div className="relative">
+      <div
+        className="nn-bg-header-image absolute inset-0 -z-10 bg-cover"
+        style={{
+          backgroundImage: `linear-gradient(0deg, var(--nn-fade) 15%, transparent), linear-gradient(180deg, var(--nn-fade) 0%, transparent 30%), url(${src})`,
+        }}
+      />
+      <div className={cn("nn-bg-header-image z-10", className)}>{children}</div>
     </div>
   );
 };
 
-export default async function HomePage() {
-  const [popularError, popular] = await getFeaturedPopular({ period: "month" });
+interface CoverGridProps {
+  title: string;
+  projects: NonNullable<GetFeaturedPopularReturn[1]>;
+  className?: string;
+  itemClassName?: string;
+}
 
-  ec(popularError, !popular);
+const CoverGrid = async ({
+  title,
+  projects,
+  className,
+  itemClassName,
+}: CoverGridProps) => {
+  return (
+    <>
+      <SectionHeading className="mt-0">{title}</SectionHeading>
+      <div className={cn("flex flex-wrap justify-start gap-y-4", className)}>
+        {projects.map((project) => (
+          <Link
+            href={`/p/${project.slug}`}
+            key={project.id}
+            className={cn("nn-interactive block h-auto px-2", itemClassName)}
+          >
+            <AspectImage
+              src={src(project.cover, "cover")}
+              alt={project.name}
+              width={300}
+              className="mb-3"
+            />
+            <p className="truncate text-xl font-bold">
+              {toTitleCase(project.name)}
+            </p>
+            <p className="truncate">
+              {toTitleCase(project.penName ?? "Unknown Author")}
+            </p>
+          </Link>
+        ))}
+      </div>
+    </>
+  );
+};
+
+export default async function HomePage() {
+  const [popularError, popular] = await getFeaturedPopular({
+    period: "all",
+    limit: 6,
+  });
+
+  ec(popularError);
+  assert.ok(popular?.length, "No popular projects found");
 
   return (
     <>
-      <LayoutWrapper className="space-y-12">
-        <CoverGrid period="week" size={230} titleClassName="text-xl" />
-        <CoverGrid period="month" size={150} titleClassName="text-lg" />
+      <BackgroundImage src="images/home/header.jpg" className="">
+        <LayoutWrapper className="flex h-screen flex-col">
+          <div className="flex-grow" />
+          <div className="h-1/2 sm:h-3/5 md:h-2/3">
+            <h1 className="font-serif text-[5rem] leading-[4.3rem] tracking-tighter sm:text-[7rem] sm:leading-[6rem] md:text-[12rem] md:leading-[10rem]">
+              Escape
+              <br />
+              <span className="-ml-1 pl-10 sm:pl-14 md:-ml-2 md:pl-24">
+                Reality
+              </span>
+            </h1>
+            <h2 className="pl-10 text-2xl font-bold text-nn-gold-dark sm:pl-14 md:block md:pl-24 md:text-4xl">
+              Read a book.
+            </h2>
+          </div>
+        </LayoutWrapper>
+      </BackgroundImage>
+      <LayoutWrapper>
+        <CoverGrid
+          title="Popular"
+          projects={popular}
+          itemClassName="w-1/2 sm:w-1/3 lg:w-1/6"
+        />
       </LayoutWrapper>
     </>
   );

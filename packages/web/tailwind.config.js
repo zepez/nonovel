@@ -20,9 +20,9 @@ module.exports = {
     }),
     fontFamily: {
       sans: ["Montserrat", ...defaultTheme.fontFamily.sans],
-      serif: ["Libre Baskerville", ...defaultTheme.fontFamily.serif],
+      serif: ["Baskervville", ...defaultTheme.fontFamily.serif],
       mono: ["PT Mono", ...defaultTheme.fontFamily.mono],
-      display: ["Libre Baskerville", ...defaultTheme.fontFamily.serif],
+      display: ["Baskervville", ...defaultTheme.fontFamily.serif],
     },
     container: {
       center: true,

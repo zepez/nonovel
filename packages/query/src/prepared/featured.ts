@@ -5,6 +5,7 @@ export const getFeaturedPopularPrepared = db
   .select({
     id: project.id,
     name: project.name,
+    penName: project.penName,
     slug: project.slug,
     description: project.description,
     cover: project.cover,
@@ -19,7 +20,7 @@ export const getFeaturedPopularPrepared = db
     )`,
   })
   .from(project)
-  .limit(5)
+  .limit(placeholder("limit"))
   .leftJoin(projectGenre, eq(project.id, projectGenre.projectId))
   .leftJoin(genre, eq(projectGenre.genreId, genre.id))
   .leftJoin(review, eq(project.id, review.projectId))
@@ -41,6 +42,12 @@ export const getFeaturedPopularPrepared = db
       COALESCE((SELECT COUNT(*) FROM user_chapter_view WHERE user_chapter_view.project_id = project.id AND user_chapter_view.created_at >= NOW() - INTERVAL '1 month'), 0) 
       + 
       COALESCE((SELECT COUNT(*) FROM anon_chapter_view WHERE anon_chapter_view.project_id = project.id AND anon_chapter_view.created_at >= NOW() - INTERVAL '1 month'), 0)
+    ) 
+    WHEN ${placeholder("period")} = 'all' THEN 
+    (
+      COALESCE((SELECT COUNT(*) FROM user_chapter_view WHERE user_chapter_view.project_id = project.id), 0) 
+      + 
+      COALESCE((SELECT COUNT(*) FROM anon_chapter_view WHERE anon_chapter_view.project_id = project.id), 0)
     ) ELSE NULL END DESC`
   )
   .groupBy(project.id)

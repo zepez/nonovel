@@ -3,14 +3,16 @@ import { ServerError, ServerErrorType } from "@nonovel/lib";
 import { getFeaturedPopularPrepared } from "../prepared";
 
 export interface GetFeaturedPopularOpts {
-  period: "day" | "week" | "month";
+  period: "day" | "week" | "month" | "all";
+  limit: number;
 }
 
 export const getFeaturedPopular = async (opts: GetFeaturedPopularOpts) => {
   try {
     const parsed = z
       .object({
-        period: z.enum(["day", "week", "month"]),
+        period: z.enum(["day", "week", "month", "all"]),
+        limit: z.number(),
       })
       .parse(opts);
 

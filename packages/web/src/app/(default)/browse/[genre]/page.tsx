@@ -80,7 +80,7 @@ export default async function BrowsePage({
         <p className="nn-detail pb-4">{parse(genre.description)}</p>
       )}
 
-      <section className="flex flex-row flex-wrap justify-start gap-y-4 pt-2">
+      <section className="flex flex-wrap justify-start gap-y-4 pt-2">
         {results.map((result) => (
           <Link
             href={`/p/${result.slug}`}

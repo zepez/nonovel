@@ -2,7 +2,7 @@ import { type ClassValue, clsx } from "clsx";
 import { twMerge } from "tailwind-merge";
 
 /**
- * Merges provided class values using clsx and tailwind-merge.
+ * ClassName: Merges provided class values using clsx and tailwind-merge.
  *
  * @param {...ClassValue} inputs - The class values to be merged.
  * @returns {string} - The merged class string.
@@ -12,7 +12,7 @@ export const cn = (...inputs: ClassValue[]) => {
 };
 
 /**
- * Throws an error if any of the provided arguments is an instance of the Error class.
+ * ErrorCondition: Throws an error if any of the provided arguments is an instance of the Error class.
  * If any of the other arguments are truthy, throws a generic "Internal Server Error".
  *
  * @param {...(Error | unknown)} args - Arguments to be checked.
