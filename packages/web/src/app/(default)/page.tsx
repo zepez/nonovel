@@ -22,7 +22,7 @@ interface BackgroundImageProps {
   src: string | null;
 }
 
-export const BackgroundImage = ({
+const BackgroundImage = ({
   src,
   children,
   className,
