@@ -48,7 +48,7 @@ export default async function ProfilePage({ params }: ProfilePageProps) {
               >
                 <Image
                   src={src(project.cover, "cover")}
-                  alt="Novel cover"
+                  alt="Book cover"
                   width={100}
                   height={150}
                   className="mr-4 aspect-[2/3] h-full rounded-md bg-nn-base-dark/50"
