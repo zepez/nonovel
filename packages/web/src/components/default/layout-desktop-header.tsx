@@ -45,12 +45,10 @@ export async function LayoutDesktopHeader() {
                       >
                         <ShortLogoDark className="mb-4 mr-4 hidden dark:block" />
                         <ShortLogoLight className="mb-4 mr-4 block dark:hidden" />
-                        <p className="text-sm font-bold">
-                          Escape reality.
+                        <p className="text-sm font-bold uppercase">
+                          Escape reality
                           <br />
-                          Read a book.
-                          <br />
-                          NoNovel.io
+                          Read a book
                         </p>
                       </a>
                     </NavigationMenuLink>

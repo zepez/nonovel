@@ -51,10 +51,10 @@ export const LayoutMobileHeaderSheet = ({
       >
         <SheetHeader>
           <SheetTitle className="text-2xl font-bold">Menu</SheetTitle>
-          <SheetDescription className="text-xs font-bold">
-            Escape reality.
+          <SheetDescription className="text-xs font-bold uppercase">
+            Escape reality
             <br />
-            Read a book.
+            Read a book
           </SheetDescription>
 
           <nav>

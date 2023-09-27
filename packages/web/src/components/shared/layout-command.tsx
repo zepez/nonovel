@@ -44,7 +44,7 @@ export const LayoutCommand = ({ open, setOpen }: LayoutCommandProps) => {
   const minQueryLength = 3;
   const iconClass = "mr-2 py-[2px]";
 
-  const authedSuggestions = [
+  const authedShortcuts = [
     {
       name: "Settings",
       value: "/settings/account",
@@ -146,13 +146,13 @@ export const LayoutCommand = ({ open, setOpen }: LayoutCommandProps) => {
         )}
 
         <CommandSeparator />
-        <CommandGroup heading="Suggestions">
+        <CommandGroup heading="Shortcuts">
           <ThemeSwitcher
             className="p-0"
             darkChildren={(cb) => (
               <CommandItem
-                key="suggestions/theme/dark"
-                value="suggestions/theme/dark"
+                key="shortcuts/theme/dark"
+                value="shortcuts/theme/dark"
                 onSelect={cb}
               >
                 <MoonIcon className={iconClass} /> Dark Theme
@@ -160,8 +160,8 @@ export const LayoutCommand = ({ open, setOpen }: LayoutCommandProps) => {
             )}
             lightChildren={(cb) => (
               <CommandItem
-                key="suggestions/theme/light"
-                value="suggestions/theme/light"
+                key="shortcuts/theme/light"
+                value="shortcuts/theme/light"
                 onSelect={cb}
               >
                 <SunIcon className={iconClass} /> Light Theme
@@ -170,10 +170,10 @@ export const LayoutCommand = ({ open, setOpen }: LayoutCommandProps) => {
           />
           {session ? (
             <>
-              {authedSuggestions.map((s) => (
+              {authedShortcuts.map((s) => (
                 <CommandItem
-                  key={`suggestions/${s.value}/${s.name}`}
-                  value={`suggestions/${s.value}/${s.name}`}
+                  key={`shortcuts/${s.value}/${s.name}`}
+                  value={`shortcuts/${s.value}/${s.name}`}
                   onSelect={() => handleSelect(() => s.action(s.value))}
                 >
                   {s.icon} {s.name}
@@ -182,8 +182,8 @@ export const LayoutCommand = ({ open, setOpen }: LayoutCommandProps) => {
               <Logout className="flex w-full items-center text-left">
                 {(cb) => (
                   <CommandItem
-                    key="suggestions/logout"
-                    value="suggestions/logout"
+                    key="shortcuts/logout"
+                    value="shortcuts/logout"
                     onSelect={() => cb()}
                     className="w-full p-0"
                   >
@@ -196,8 +196,8 @@ export const LayoutCommand = ({ open, setOpen }: LayoutCommandProps) => {
             <LoginDialog>
               {(cb) => (
                 <CommandItem
-                  key="suggestions/login"
-                  value="suggestions/login"
+                  key="shortcuts/login"
+                  value="shortcuts/login"
                   onSelect={cb}
                   className="w-full p-0"
                 >

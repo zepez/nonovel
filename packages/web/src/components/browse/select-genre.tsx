@@ -54,7 +54,10 @@ export const SelectGenre = ({
       </PopoverTrigger>
       <PopoverContent className="bg-nn-base-invert w-[250px] p-0">
         <Command>
-          <CommandInput placeholder="Search genre..." className="h-9" />
+          <CommandInput
+            placeholder="Search all genres"
+            className="nn-placeholder-invert h-9"
+          />
           <CommandEmpty>No genre found.</CommandEmpty>
           <CommandGroup>
             <ScrollArea className="h-[250px] rounded-md">
