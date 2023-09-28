@@ -22,7 +22,7 @@ export default async function Page() {
             className="nn-interactive -mx-4 block rounded-md py-4"
           >
             <div className="px-4">
-              <p className="mb-2 text-xl font-bold">{article.title}</p>
+              <h2 className="mb-2 text-xl font-bold">{article.title}</h2>
               <p className="nn-detail mb-4">
                 Posted {format(new Date(article.date), "MM/dd/yyyy")}, by{" "}
                 <i>{article.author}</i>

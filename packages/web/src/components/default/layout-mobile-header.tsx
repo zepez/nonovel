@@ -21,7 +21,13 @@ export const LayoutMobileHeader = async () => {
         <NavigationMenu>
           <NavigationMenuList>
             <NavigationMenuItem>
-              <Link href="/" legacyBehavior passHref title="Home">
+              <Link
+                href="/"
+                legacyBehavior
+                passHref
+                title="Home"
+                aria-label="Home"
+              >
                 <NavigationMenuLink className="nn-no-select group mr-2 inline-flex h-9 w-max items-center justify-center rounded-md bg-inherit py-2 pr-2 text-sm">
                   <FullLogo className="my-1" />
                 </NavigationMenuLink>

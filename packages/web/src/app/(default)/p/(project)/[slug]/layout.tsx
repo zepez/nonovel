@@ -126,9 +126,9 @@ export default async function ProjectLayout({
             <h1 className="nn-title mb-1 text-center italic drop-shadow-2xl sm:text-left">
               <Balancer>{toTitleCase(project.name)}</Balancer>
             </h1>
-            <p className="text-center text-lg sm:text-left">
+            <h2 className="text-center text-lg sm:text-left">
               {toTitleCase(project?.penName ?? "Author Unknown")}
-            </p>
+            </h2>
 
             <div className="mt-8 flex flex-wrap justify-start justify-items-start gap-y-8 text-center sm:text-left">
               <div className="flex flex-grow flex-wrap justify-around gap-4">
