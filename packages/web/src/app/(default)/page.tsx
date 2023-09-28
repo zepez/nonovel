@@ -32,14 +32,13 @@ const BackgroundImage = ({
   return (
     <div className="nn-bg-header-image relative">
       {/* Image */}
-      <div className="absolute inset-0 -z-10">
+      <div className="absolute inset-0 -z-10 overflow-hidden">
         <Image
           src={src}
-          layout="fill"
-          objectFit="cover"
-          objectPosition="center center"
           priority={true}
-          alt=""
+          fill={true}
+          className="bg-cover object-cover object-center"
+          alt="Header Background Image"
         />
       </div>
 
@@ -113,8 +112,8 @@ export default async function HomePage() {
   return (
     <>
       <BackgroundImage src="/images/home/header-min.jpg">
-        <LayoutWrapper className="relative h-screen">
-          <BannerText className="absolute bottom-0 my-32 max-h-[50%] w-3/4 sm:w-2/3 lg:w-1/2" />
+        <LayoutWrapper className="relative h-screen short:h-32">
+          <BannerText className="absolute bottom-32 max-h-[50%] w-3/4 sm:w-2/3 lg:w-1/2 short:invisible" />
         </LayoutWrapper>
       </BackgroundImage>
       <LayoutWrapper className="-mt-28">

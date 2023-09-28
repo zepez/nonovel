@@ -50,6 +50,9 @@ module.exports = {
           dark: "#de970b",
         },
       },
+      screens: {
+        short: { raw: "(max-height: 600px)" },
+      },
       keyframes: {
         "accordion-down": {
           from: { height: 0 },

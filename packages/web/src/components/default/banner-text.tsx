@@ -3,8 +3,8 @@ import { cn } from "~/lib";
 export const BannerText = ({ className }: { className: string }) => {
   return (
     <>
-      <BannerTextLight className={cn(className, "block dark:hidden")} />
-      <BannerTextDark className={cn(className, "hidden dark:block")} />
+      <BannerTextLight className={cn("block dark:hidden", className)} />
+      <BannerTextDark className={cn("hidden dark:block", className)} />
     </>
   );
 };

@@ -32,7 +32,10 @@ const SectionEmpty = forwardRef(
     return (
       <ElementType
         ref={ref}
-        className={cn(className, "nn-detail block rounded-md py-8 text-center")}
+        className={cn(
+          className,
+          "nn-detail block rounded-md px-6 py-8 text-center"
+        )}
         {...props}
       >
         {children}
