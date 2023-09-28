@@ -1,6 +1,9 @@
 import * as z from "zod";
 import { ServerError, ServerErrorType } from "@nonovel/lib";
-import { getFeaturedPopularPrepared } from "../prepared";
+import {
+  getFeaturedPopularPrepared,
+  getFeaturedRecentPrepared,
+} from "../prepared";
 
 export interface GetFeaturedPopularOpts {
   period: "day" | "week" | "month" | "all";
@@ -28,4 +31,32 @@ export const getFeaturedPopular = async (opts: GetFeaturedPopularOpts) => {
 
 export type GetFeaturedPopularReturn = Awaited<
   ReturnType<typeof getFeaturedPopular>
+>;
+
+// ########################################################
+
+export interface GetFeaturedRecentOpts {
+  limit: number;
+}
+
+export const getFeaturedRecent = async (opts: GetFeaturedRecentOpts) => {
+  try {
+    const parsed = z
+      .object({
+        limit: z.number(),
+      })
+      .parse(opts);
+
+    const result = await getFeaturedRecentPrepared.execute(parsed);
+
+    return [null, result] as const;
+  } catch (err) {
+    console.log(err);
+    const error = new ServerError("GetResourceError", err as ServerErrorType);
+    return [error, null] as const;
+  }
+};
+
+export type GetFeaturedRecentReturn = Awaited<
+  ReturnType<typeof getFeaturedRecent>
 >;

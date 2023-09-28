@@ -1,5 +1,5 @@
-import { db, project, projectGenre, genre, review } from "@nonovel/db";
-import { sql, eq, placeholder } from "drizzle-orm";
+import { db, project } from "@nonovel/db";
+import { sql, placeholder, desc } from "drizzle-orm";
 
 export const getFeaturedPopularPrepared = db
   .select({
@@ -9,21 +9,9 @@ export const getFeaturedPopularPrepared = db
     slug: project.slug,
     description: project.description,
     cover: project.cover,
-    genres: sql<
-      { name: string; slug: string }[]
-    >`json_agg(json_build_object('name', ${genre.name}, 'slug', ${genre.slug}))`,
-    review: sql<number>`COALESCE(ROUND(AVG(score)::numeric, 1), 0)`,
-    views: sql<number>`(
-      COALESCE((SELECT COUNT(*) FROM user_chapter_view WHERE user_chapter_view.project_id = project.id), 0) 
-      + 
-      COALESCE((SELECT COUNT(*) FROM anon_chapter_view WHERE anon_chapter_view.project_id = project.id), 0)
-    )`,
   })
   .from(project)
   .limit(placeholder("limit"))
-  .leftJoin(projectGenre, eq(project.id, projectGenre.projectId))
-  .leftJoin(genre, eq(projectGenre.genreId, genre.id))
-  .leftJoin(review, eq(project.id, review.projectId))
   .orderBy(
     sql`CASE WHEN ${placeholder("period")} = 'day' THEN 
     (
@@ -52,3 +40,18 @@ export const getFeaturedPopularPrepared = db
   )
   .groupBy(project.id)
   .prepare("get_featured_popular_prepared");
+
+export const getFeaturedRecentPrepared = db
+  .select({
+    id: project.id,
+    name: project.name,
+    penName: project.penName,
+    slug: project.slug,
+    description: project.description,
+    cover: project.cover,
+  })
+  .from(project)
+  .limit(placeholder("limit"))
+  .orderBy(desc(project.createdAt))
+  .groupBy(project.id)
+  .prepare("get_featured_recent_prepared");

@@ -3,7 +3,7 @@ import { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
 import type { GetFeaturedPopularReturn } from "@nonovel/query";
-import { getFeaturedPopular } from "~/lib/server";
+import { getFeaturedPopular, getFeaturedRecent } from "~/lib/server";
 import { src, toTitleCase, ec, cn } from "~/lib";
 import {
   LayoutWrapper,
@@ -59,44 +59,34 @@ const BackgroundImage = ({
 };
 
 interface CoverGridProps {
-  title: string;
   projects: NonNullable<GetFeaturedPopularReturn[1]>;
   className?: string;
-  itemClassName?: string;
 }
 
-const CoverGrid = async ({
-  title,
-  projects,
-  className,
-  itemClassName,
-}: CoverGridProps) => {
+const CoverGrid = async ({ projects, className }: CoverGridProps) => {
   return (
-    <>
-      <SectionHeading className="mt-0">{title}</SectionHeading>
-      <div className={cn("flex flex-wrap justify-start gap-y-4", className)}>
-        {projects.map((project) => (
-          <Link
-            href={`/p/${project.slug}`}
-            key={project.id}
-            className={cn("nn-interactive block h-auto px-2", itemClassName)}
-          >
-            <AspectImage
-              src={src(project.cover, "cover")}
-              alt={project.name}
-              width={300}
-              className="mb-3"
-            />
-            <p className="truncate text-xl font-bold">
-              {toTitleCase(project.name)}
-            </p>
-            <p className="truncate">
-              {toTitleCase(project.penName ?? "Unknown Author")}
-            </p>
-          </Link>
-        ))}
-      </div>
-    </>
+    <div className={cn("grid grid-cols-12 gap-y-8", className)}>
+      {projects.map((project) => (
+        <Link
+          href={`/p/${project.slug}`}
+          key={project.id}
+          className="nn-interactive col-span-6 block h-auto px-2 sm:col-span-4 md:col-span-3 lg:col-span-2"
+        >
+          <AspectImage
+            src={src(project.cover, "cover")}
+            alt={project.name}
+            width={300}
+            className="mb-3"
+          />
+          <p className="truncate text-xl font-bold">
+            {toTitleCase(project.name)}
+          </p>
+          <p className="truncate">
+            {toTitleCase(project.penName ?? "Unknown Author")}
+          </p>
+        </Link>
+      ))}
+    </div>
   );
 };
 
@@ -106,8 +96,11 @@ export default async function HomePage() {
     limit: 6,
   });
 
-  ec(popularError);
+  const [recentError, recent] = await getFeaturedRecent({ limit: 6 });
+
+  ec(popularError, recentError);
   assert.ok(popular?.length, "No popular projects found");
+  assert.ok(recent?.length, "No recent projects found");
 
   return (
     <>
@@ -117,11 +110,11 @@ export default async function HomePage() {
         </LayoutWrapper>
       </BackgroundImage>
       <LayoutWrapper className="-mt-28">
-        <CoverGrid
-          title="Popular"
-          projects={popular}
-          itemClassName="w-1/2 sm:w-1/3 lg:w-1/6"
-        />
+        <SectionHeading className="mt-0">Popular Books</SectionHeading>
+        <CoverGrid projects={popular} />
+
+        <SectionHeading className="mt-14">Recently Added</SectionHeading>
+        <CoverGrid projects={recent} />
       </LayoutWrapper>
     </>
   );
