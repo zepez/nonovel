@@ -68,7 +68,11 @@ export default function RootLayout({ children }: RootLayoutProps) {
         <AuthProvider>
           <ThemeProvider attribute="class" defaultTheme="dark" enableSystem>
             <div className="flex min-h-screen flex-col font-sans">
-              <Suspense fallback={<Skeleton className="h-14 w-full" />}>
+              <Suspense
+                fallback={
+                  <Skeleton className="h-[119.5px] w-full rounded-none" />
+                }
+              >
                 <LayoutDesktopHeader />
                 <LayoutMobileHeader />
               </Suspense>
