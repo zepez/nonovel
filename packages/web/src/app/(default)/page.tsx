@@ -104,7 +104,7 @@ export default async function HomePage() {
 
   return (
     <>
-      <BackgroundImage src="/images/home/header-min.jpg">
+      <BackgroundImage src="/images/home/header-min.webp">
         <LayoutWrapper className="relative h-screen short:h-32">
           <BannerText className="absolute bottom-32 max-h-[50%] w-3/4 sm:w-2/3 lg:w-1/2 short:invisible" />
         </LayoutWrapper>
