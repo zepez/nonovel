@@ -55,8 +55,9 @@ export const LayoutCommand = ({ open, setOpen }: LayoutCommandProps) => {
 
   useEffect(() => {
     const down = (e: KeyboardEvent) => {
-      // cmd+k/windows+k or ctrl+k
+      // cmd+k / windows+k / ctrl+k
       if ((e.key === "k" && e.metaKey) || (e.key === "k" && e.ctrlKey)) {
+        e.preventDefault();
         setOpen((open) => !open);
       }
     };
