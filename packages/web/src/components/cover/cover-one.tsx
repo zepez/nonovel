@@ -16,7 +16,7 @@ export const CoverOne = ({ background, title, author }: Props) => {
     <Structure className="cover-custom-border-overlay cover-custom-border-one">
       <Background image={background} className="cover-simple-border-inset" />
       <Card
-        className="cover-simple-border cover-simple-border-inset top-1/2 w-[475px] -translate-y-1/2 gap-8 py-24"
+        className="cover-simple-border cover-simple-border-inset top-1/2 w-[475px] -translate-y-1/2"
         title={title}
         author={author}
       />

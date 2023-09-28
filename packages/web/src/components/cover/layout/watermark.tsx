@@ -55,7 +55,8 @@ export const Watermark = ({ className, inferColorColorFrom }: Props) => {
     b /= width * height;
 
     const luminance = (0.2126 * r + 0.7152 * g + 0.0722 * b) / 255;
-    setLogoStyle(luminance > 0.55 ? "dark" : "light");
+    console.log({ luminance });
+    setLogoStyle(luminance > 0.7 ? "dark" : "light");
   }, [img?.complete]);
 
   return (
