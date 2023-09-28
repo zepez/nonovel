@@ -14,15 +14,16 @@ export const LayoutNavigation = () => {
 
   return (
     <div>
-      <nav className="bg-nn-base nn-divide flex flex-col divide-y rounded-md text-center first:rounded-t-md last:rounded-b-md">
+      <nav className="flex flex-col text-center">
         {navigation.map((item) => (
           <Link
             href={item.href}
             key={item.name}
             className={cn(
-              item.segment !== segment &&
-                "bg-nn-secondary nn-interactive first:rounded-t-md last:rounded-b-md",
-              "py-3 text-sm"
+              item.segment === segment
+                ? "nn-no-select cursor-default opacity-50"
+                : "nn-interactive shadow-sm",
+              "bg-nn-secondary nn-border py-3 text-sm first:rounded-t-md first:border-b last:rounded-b-md last:border-t"
             )}
           >
             {item.name}
