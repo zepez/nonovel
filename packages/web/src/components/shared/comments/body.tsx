@@ -4,77 +4,47 @@ import { useState } from "react";
 import { useSession } from "next-auth/react";
 import { formatDistanceToNow } from "date-fns";
 import {
-  Pencil1Icon,
-  Cross1Icon,
-  ExclamationTriangleIcon,
-} from "@radix-ui/react-icons";
-import { FiThumbsUp, FiThumbsDown } from "react-icons/fi";
+  FiThumbsUp,
+  FiThumbsDown,
+  FiX,
+  FiEdit2,
+  FiMessageCircle,
+} from "react-icons/fi";
 
-import type { GetCommentPageByResourceIdReturn } from "@nonovel/query";
-import { upsertVote } from "~/actions";
-import { cn, src } from "~/lib";
-import { Button } from "~/components/ui/button";
+import type {
+  GetCommentPageByResourceIdReturn,
+  GetCommentRepliesByParentIdReturn,
+} from "@nonovel/query";
+import { upsertVote, getCommentReplies } from "~/actions";
+import { cn } from "~/lib";
 import { LayoutProfileImage } from "../layout-profile-image";
 import { CommentEdit } from "./edit";
-
-interface CommentNavButtonProps {
-  onClick?: () => void;
-  className?: string;
-  size?: number;
-  Icon: typeof Pencil1Icon | typeof FiThumbsUp;
-  disabled?: boolean;
-  text?: string;
-  title: string;
-}
-
-const CommentNavButton = ({
-  onClick,
-  className,
-  Icon,
-  size = 20,
-  disabled = false,
-  text,
-  title,
-}: CommentNavButtonProps) => {
-  return (
-    <Button
-      variant="ghost"
-      size="fluid"
-      onClick={onClick}
-      disabled={disabled}
-      className={cn("px-2", className)}
-      title={title}
-    >
-      <Icon width={size} height={size} />
-      {text && <span className="nn-detail ml-2">{text}</span>}
-    </Button>
-  );
-};
+import { CommentNavButton } from "./nav-button";
 
 type Comments = NonNullable<GetCommentPageByResourceIdReturn[1]>;
+type Replies = NonNullable<GetCommentRepliesByParentIdReturn[1]>;
 
 interface CommentBodyProps {
-  refresh: () => void;
   className?: string;
-  user: {
-    userId: string;
-    username: string;
-    image: string | null;
-  };
+  refresh: () => void;
   comment: Comments[0];
+  isReply?: boolean;
 }
 
 export const CommentBody = ({
-  refresh,
   className,
-  user,
+  refresh,
   comment,
+  isReply,
 }: CommentBodyProps) => {
-  console.log(comment);
   const { data: session } = useSession();
 
-  const isCreator = user.userId === session?.user.id;
-  const [isEditing, setIsEditing] = useState(false);
+  const userId = session?.user.id ?? null;
+  const username = comment?.profile?.username ?? "deleted";
+  const isCreator = comment?.user?.id === session?.user.id;
+  const [isEditing, setIsEditing] = useState<boolean>(false);
+  const [loadingReplies, setLoadingReplies] = useState<boolean>(false);
+  const [replies, setReplies] = useState<Replies>([]);
 
   const createdAt = formatDistanceToNow(new Date(comment.createdAt), {
     addSuffix: true,
@@ -83,11 +53,21 @@ export const CommentBody = ({
     addSuffix: true,
   });
 
+  const getReplies = async () => {
+    setLoadingReplies(true);
+    const [, replies] = await getCommentReplies({
+      parentId: comment.id,
+      userId: userId,
+    });
+    if (replies) setReplies(replies);
+    setLoadingReplies(false);
+  };
+
   const handleVote = async (direction: "up" | "down") => {
-    if (!session?.user.id) return;
+    if (!userId) return;
 
     await upsertVote({
-      userId: session?.user.id,
+      userId,
       resourceId: comment.id,
       direction,
       voteCurrent: comment.voteCurrent,
@@ -100,15 +80,13 @@ export const CommentBody = ({
 
   return (
     <div className={cn(className)}>
-      {/* meat of the comment */}
+      {/* comment header */}
       <div className="flex gap-4">
         <div>
-          <LayoutProfileImage seed={user.username} size={35} />
+          <LayoutProfileImage seed={username} size={35} />
         </div>
         <div className="flex-grow">
-          <p className="mb-1 text-sm font-bold leading-tight">
-            @{user.username}
-          </p>
+          <p className="mb-1 text-sm font-bold leading-tight">@{username}</p>
           <p className="nn-detail text-xs">
             Commented {createdAt}
             {createdAt !== updatedAt && <>, edited {updatedAt}</>}
@@ -116,76 +94,133 @@ export const CommentBody = ({
         </div>
       </div>
 
-      {/* editing */}
-      {isEditing ? (
+      {/* comment body || comment edit */}
+      {userId && isEditing ? (
         <CommentEdit
           refresh={() => {
             setIsEditing(false);
             refresh();
           }}
           deleteFn={() => null}
-          comment={{ ...comment, userId: user.userId }}
+          comment={{ ...comment, userId }}
           background={comment.parentId ? "bg-nn-secondary" : "bg-nn-base"}
           className="mb-4"
           defaultSubmitText="Update Comment"
           actionText={["Updating", "Updated"]}
         />
       ) : (
-        <>
-          <p className="text-md my-4 whitespace-pre-wrap">{comment.content}</p>
-        </>
+        <p className="text-md my-4 whitespace-pre-wrap">{comment.content}</p>
       )}
 
       {/* comment actions */}
-      <div className="flex">
-        <div className="flex items-center">
+      <div className="flex flex-col flex-wrap gap-y-1 sm:flex-row sm:flex-nowrap">
+        <div className="mr-2 flex items-center gap-x-1 pb-2 sm:pb-0">
+          {/* like comment */}
           <CommentNavButton
             Icon={FiThumbsUp}
-            disabled={!session?.user.id || user.username === "deleted"}
+            disabled={!userId || username === "deleted"}
             onClick={async () => await handleVote("up")}
             className={cn(comment.voteCurrent > 0 && "bg-green-500/20")}
             title="Like comment"
           />
+
+          {/* dislike comment */}
           <CommentNavButton
             Icon={FiThumbsDown}
-            disabled={!session?.user.id || user.username === "deleted"}
+            disabled={!userId || username === "deleted"}
             onClick={async () => await handleVote("down")}
             className={cn(comment.voteCurrent < 0 && "bg-red-500/20")}
             title="Dislike comment"
           />
-          <span className="nn-detail mx-2 text-center">
+
+          {/* like count */}
+          <span className="nn-detail ml-2">
             {comment.voteTotal} like
             {comment.voteTotal.toString() !== "1" &&
               comment.voteTotal.toString() !== "-1" &&
               "s"}
           </span>
         </div>
-        <div className="nn-border ml-2 border-l-2 pl-2">
-          {isCreator ? (
-            <>
-              {isEditing ? (
-                <CommentNavButton
-                  Icon={Cross1Icon}
-                  onClick={() => setIsEditing(false)}
-                  title="Cancel editing"
-                />
-              ) : (
-                <CommentNavButton
-                  Icon={Pencil1Icon}
-                  onClick={() => setIsEditing(true)}
-                  title="Edit comment"
-                />
-              )}
-            </>
-          ) : (
-            <CommentNavButton
-              Icon={ExclamationTriangleIcon}
-              disabled={!session?.user.id || user.username === "deleted"}
-              title="Report comment"
-            />
-          )}
-        </div>
+
+        {/* edit comment */}
+        {isCreator && (
+          <div className="nn-border flex items-center sm:ml-2 sm:border-l-2 sm:pl-2">
+            {isEditing ? (
+              <CommentNavButton
+                Icon={FiX}
+                onClick={() => setIsEditing(false)}
+                title="Cancel editing"
+                showTitle
+              />
+            ) : (
+              <CommentNavButton
+                Icon={FiEdit2}
+                onClick={() => setIsEditing(true)}
+                title="Edit comment"
+                showTitle
+              />
+            )}
+          </div>
+        )}
+
+        {/* reply actions */}
+        {!isReply && (
+          <div className="nn-border flex gap-2 sm:ml-2 sm:border-l-2 sm:pl-2">
+            {/* no replies */}
+            {!isReply && comment.replyCount === 0 && (
+              <CommentNavButton
+                Icon={FiMessageCircle}
+                onClick={() => {}}
+                title="No replies yet"
+                showTitle
+                disabled={true}
+              />
+            )}
+
+            {/* toggle on replies */}
+            {!isReply && comment.replyCount > 0 && replies.length === 0 && (
+              <CommentNavButton
+                Icon={FiMessageCircle}
+                onClick={getReplies}
+                title={
+                  loadingReplies
+                    ? "Loading..."
+                    : `Show ${comment.replyCount} ${
+                        comment.replyCount === 1 ? "reply" : "replies"
+                      }`
+                }
+                showTitle
+                disabled={loadingReplies}
+              />
+            )}
+
+            {/* toggle off replies */}
+            {!isReply && comment.replyCount > 0 && replies.length > 0 && (
+              <CommentNavButton
+                Icon={FiX}
+                onClick={() => setReplies([])}
+                title="Hide replies"
+                showTitle
+              />
+            )}
+          </div>
+        )}
       </div>
+
+      {/* display replies */}
+      {replies.length > 0 && (
+        <div className="mb-6 mt-4 space-y-4">
+          {replies.map((reply) => (
+            <CommentBody
+              key={reply.id}
+              refresh={getReplies}
+              className="bg-nn-base rounded-md p-8 sm:ml-12"
+              comment={reply}
+              isReply={true}
+            />
+          ))}
+        </div>
+      )}
     </div>
   );
 };

@@ -15,7 +15,7 @@ import { SectionEmpty } from "../section-empty";
 import { ClientPaginate } from "../client-paginate";
 import { LayoutWrapper } from "../layout-wrapper";
 import { CommentEdit } from "./edit";
-import { CommentThread } from "./thread";
+import { CommentBody } from "./body";
 
 type Comments = NonNullable<GetCommentPageByResourceIdReturn[1]>;
 
@@ -142,9 +142,14 @@ export const CommentLayout = ({
         {showPageLoading && <Skeleton className="h-screen w-full" />}
 
         {comments.length > 0 && (
-          <div className={"bg-nn-secondary nn-divide divide-y rounded-md py-6"}>
+          <div className="nn-divide mt-8 divide-y">
             {comments.map((c) => (
-              <CommentThread key={c.id} parent={c} refresh={getComments} />
+              <CommentBody
+                key={c.id}
+                comment={c}
+                refresh={getComments}
+                className="w-full py-8 first:pt-0 last:pb-0"
+              />
             ))}
           </div>
         )}
