@@ -1,57 +1,93 @@
 "use client";
 
-import Github from "@uiw/react-color-github";
+import { useState } from "react";
+import Colorful from "@uiw/react-color-colorful";
 import { useTheme } from "next-themes";
-import {
-  Popover,
-  PopoverContent,
-  PopoverTrigger,
-} from "~/components/ui/popover";
+import { Dialog, DialogContent, DialogTrigger } from "~/components/ui/dialog";
+import { Input } from "~/components/ui/input";
 
 interface ColorChangeProps {
   className?: string;
   value: string;
   setValue: (value: string) => void;
   label: string;
-  defaultSemanticColors: {
+  defaultHexColors: {
     light: string;
     dark: string;
   };
 }
 
 export const ColorChange = ({
-  value,
-  setValue,
+  value: parentValue,
+  setValue: setParentValue,
   label,
-  defaultSemanticColors,
+  defaultHexColors,
 }: ColorChangeProps) => {
   const { theme } = useTheme();
+  const [localValue, setLocalValue] = useState(parentValue);
 
-  const semanticColor =
-    value !== "inherit"
-      ? value
+  const localHexColor =
+    localValue !== "inherit"
+      ? localValue
       : theme === "light"
-      ? defaultSemanticColors.light
-      : defaultSemanticColors.dark;
+      ? defaultHexColors.light
+      : defaultHexColors.dark;
+
+  const parentHexColor =
+    parentValue !== "inherit"
+      ? parentValue
+      : theme === "light"
+      ? defaultHexColors.light
+      : defaultHexColors.dark;
+
+  const setValue = (hex: string) => {
+    if (hex.charAt(0) !== "#") {
+      setLocalValue("#" + hex);
+      return;
+    }
+
+    setLocalValue(hex);
+
+    if (hex.length < 4 || !hex.includes("#")) {
+      setParentValue(
+        theme === "light" ? defaultHexColors.light : defaultHexColors.dark
+      );
+      return;
+    }
+    setParentValue(hex);
+  };
 
   return (
-    <Popover>
-      <PopoverTrigger className="nn-interactive bg-nn-secondary flex w-full flex-col items-center justify-center gap-1 rounded-md px-4 py-2 text-sm">
+    <Dialog>
+      <DialogTrigger className="flex flex-col items-center justify-center w-full gap-1 px-4 py-2 text-sm rounded-md nn-interactive bg-nn-secondary">
         {label}
         <div
           style={{
-            backgroundColor: semanticColor,
+            backgroundColor: parentHexColor,
           }}
           className="w-full rounded-full py-[.35rem]"
         />
-      </PopoverTrigger>
-      <PopoverContent className="w-auto p-1">
-        <Github
-          color={semanticColor}
-          style={{ width: 212 }}
-          onChange={({ hex }) => setValue(hex)}
+      </DialogTrigger>
+      <DialogContent className="w-auto p-8">
+        <Colorful
+          color={localHexColor}
+          style={{ width: "100%" }}
+          className="[&>*]:z-auto [&>*]:ring-0"
+          onChange={({ hexa }) => setValue(hexa)}
         />
-      </PopoverContent>
-    </Popover>
+        <Input
+          value={localHexColor}
+          className="bg-nn-secondary"
+          onChange={(e) => setValue(e.target.value)}
+        />
+
+        <div
+          style={{
+            backgroundColor: parentHexColor,
+          }}
+          className="w-full py-12 border rounded-md nn-border"
+        />
+      </DialogContent>
+    </Dialog>
   );
 };

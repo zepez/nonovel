@@ -207,25 +207,25 @@ export const ChapterSettings = ({
               value={textColor}
               setValue={setTextColor}
               label="Text Color"
-              defaultSemanticColors={{
-                light: "#000000",
-                dark: "#ffffff",
+              defaultHexColors={{
+                light: "#20130d",
+                dark: "#f5e1c9",
               }}
             />
             <ColorChange
               value={backgroundColor}
               setValue={setBackgroundColor}
               label="Background Color"
-              defaultSemanticColors={{
-                light: "#ffffff",
-                dark: "#121212",
+              defaultHexColors={{
+                light: "#f5e1c9",
+                dark: "#20130d",
               }}
             />
           </div>
 
           <Button
             size="sm"
-            className="mt-0 h-8 w-full text-xs font-bold uppercase leading-tight"
+            className="w-full h-8 mt-0 text-xs font-bold leading-tight uppercase"
             variant="secondary"
             onClick={resetToDefaults}
             title="Reset to defaults"
