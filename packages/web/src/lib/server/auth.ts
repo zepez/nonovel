@@ -31,28 +31,6 @@ export const getSession = cache(async () => {
   return [null, { user, profile } as Session] as const;
 });
 
-// TODO: This is a hack to get the session in server actions
-// remove this when upstream issue is fixed
-// remove explicit any and empty methods
-export const getActionSession = async () => {
-  const req = {
-    headers: Object.fromEntries(headers() as Headers),
-    cookies: Object.fromEntries(
-      cookies()
-        .getAll()
-        .map((c) => [c.name, c.value])
-    ),
-  };
-  // eslint-disable-next-line @typescript-eslint/no-empty-function
-  const res = { getHeader() {}, setCookie() {}, setHeader() {} };
-
-  const { user } =
-    // eslint-disable-next-line @typescript-eslint/no-unsafe-argument, @typescript-eslint/no-explicit-any
-    (await getServerSession(req as any, res as any, options)) ?? {};
-
-  return user;
-};
-
 interface AuthorizeServerActionOptions {
   userId?: string;
   optional?: boolean;
@@ -62,7 +40,8 @@ export const authorizeServerAction = async ({
   userId,
   optional,
 }: AuthorizeServerActionOptions) => {
-  const { id } = (await getActionSession()) ?? {};
+  const [, session] = await getSession();
+  const { id } = session?.user ?? {};
 
   if (id && userId && userId !== id) {
     throw new Error("Unauthorized");

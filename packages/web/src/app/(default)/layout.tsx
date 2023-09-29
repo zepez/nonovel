@@ -1,3 +1,4 @@
+import { Suspense } from "react";
 import { Metadata } from "next";
 import { Inter } from "next/font/google";
 import { Provider as TextWrapProvider } from "react-wrap-balancer";
@@ -9,6 +10,7 @@ import {
   Analytics,
 } from "~/components/shared";
 import { Toaster } from "~/components/ui/toaster";
+import { Skeleton } from "~/components/ui/skeleton";
 
 import "@smastrom/react-rating/style.css";
 import "../../styles/globals.css";
@@ -66,8 +68,14 @@ export default function RootLayout({ children }: RootLayoutProps) {
         <AuthProvider>
           <ThemeProvider attribute="class" defaultTheme="dark" enableSystem>
             <div className="flex flex-col min-h-screen font-sans">
-              <LayoutDesktopHeader />
-              <LayoutMobileHeader />
+              <Suspense
+                fallback={
+                  <Skeleton className="h-[119.5px] w-full rounded-none" />
+                }
+              >
+                <LayoutDesktopHeader />
+                <LayoutMobileHeader />
+              </Suspense>
               <TextWrapProvider>
                 <main className="flex-grow">{children}</main>
               </TextWrapProvider>
