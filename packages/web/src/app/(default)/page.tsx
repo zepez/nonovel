@@ -73,7 +73,7 @@ const CoverGrid = async ({ projects, className }: CoverGridProps) => {
           className="nn-interactive col-span-6 block h-auto px-2 sm:col-span-4 md:col-span-3 lg:col-span-2"
         >
           <AspectImage
-            src={src(project.cover, "cover")}
+            src={src(project.cover)}
             alt={project.name}
             width={300}
             className="mb-3"

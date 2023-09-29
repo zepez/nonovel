@@ -14,7 +14,7 @@ import type { GetCommentPageByResourceIdReturn } from "@nonovel/query";
 import { upsertVote } from "~/actions";
 import { cn, src } from "~/lib";
 import { Button } from "~/components/ui/button";
-import { AspectImage } from "../aspect-image";
+import { LayoutProfileImage } from "../layout-profile-image";
 import { CommentEdit } from "./edit";
 
 interface CommentNavButtonProps {
@@ -70,6 +70,7 @@ export const CommentBody = ({
   user,
   comment,
 }: CommentBodyProps) => {
+  console.log(comment);
   const { data: session } = useSession();
 
   const isCreator = user.userId === session?.user.id;
@@ -101,16 +102,17 @@ export const CommentBody = ({
     <div className={cn(className)}>
       {/* meat of the comment */}
       <div className="flex gap-4">
-        <AspectImage
-          src={src(user.image, "profile")}
-          width={35}
-          alt={`${user.username} profile image`}
-        />
+        <div>
+          <LayoutProfileImage seed={user.username} size={35} />
+        </div>
         <div className="flex-grow">
           <p className="mb-1 text-sm font-bold leading-tight">
             @{user.username}
           </p>
-          <p className="nn-detail text-xs">{createdAt}</p>
+          <p className="nn-detail text-xs">
+            Commented {createdAt}
+            {createdAt !== updatedAt && <>, edited {updatedAt}</>}
+          </p>
         </div>
       </div>
 
@@ -130,11 +132,6 @@ export const CommentBody = ({
         />
       ) : (
         <>
-          {createdAt !== updatedAt && (
-            <span className="nn-detail nn-border mt-2 inline-block rounded-sm border px-1 text-xs">
-              *edited {updatedAt}
-            </span>
-          )}
           <p className="text-md my-4 whitespace-pre-wrap">{comment.content}</p>
         </>
       )}

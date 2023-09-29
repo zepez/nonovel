@@ -89,7 +89,7 @@ export default async function BrowsePage({
           >
             <div className="relative">
               <Image
-                src={src(result.cover, "cover")}
+                src={src(result.cover)}
                 alt={`${result.name} cover`}
                 width={500}
                 height={750}

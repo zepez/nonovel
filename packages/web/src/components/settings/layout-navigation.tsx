@@ -5,8 +5,8 @@ import { useSelectedLayoutSegment } from "next/navigation";
 import { cn } from "~/lib";
 
 const navigation = [
-  { name: "Account", href: "/settings/account", segment: "account" },
   { name: "Profile", href: "/settings/profile", segment: "profile" },
+  { name: "Account", href: "/settings/account", segment: "account" },
 ];
 
 export const LayoutNavigation = () => {

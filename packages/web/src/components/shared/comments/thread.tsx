@@ -39,7 +39,7 @@ export const CommentThread = ({ refresh, parent }: CommentThreadProps) => {
   };
 
   return (
-    <div className={cn("nn-border w-full border-t py-6 last:border-b")}>
+    <div className={cn("w-full py-8 first:pt-0 last:pb-0")}>
       <CommentBody
         refresh={refresh}
         user={{
@@ -51,12 +51,12 @@ export const CommentThread = ({ refresh, parent }: CommentThreadProps) => {
       />
 
       {replies.length > 0 && (
-        <div className="mb-6 mt-4 divide-y">
+        <div className="mb-6 mt-4 space-y-4">
           {replies.map((reply) => (
             <CommentBody
               key={reply.id}
               refresh={getReplies}
-              className="nn-border bg-nn-base border-l-[10px] p-8 sm:ml-12"
+              className="bg-nn-base rounded-md p-8 sm:ml-12"
               user={{
                 userId: reply.user?.id ?? "",
                 username: reply?.profile?.username ?? "deleted",

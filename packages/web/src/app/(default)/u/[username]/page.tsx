@@ -48,7 +48,7 @@ export default async function ProfilePage({ params }: ProfilePageProps) {
                 )}
               >
                 <Image
-                  src={src(project.cover, "cover")}
+                  src={src(project.cover)}
                   alt="Book cover"
                   width={100}
                   height={150}

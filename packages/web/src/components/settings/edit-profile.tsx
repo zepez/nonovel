@@ -3,7 +3,7 @@
 import { useState } from "react";
 import * as z from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { useForm } from "react-hook-form";
+import { useForm, useWatch } from "react-hook-form";
 import countries from "i18n-iso-countries";
 import enLocaleData from "i18n-iso-countries/langs/en.json";
 
@@ -31,6 +31,7 @@ import { Input } from "~/components/ui/input";
 import { Textarea } from "~/components/ui/textarea";
 import { Button } from "~/components/ui/button";
 import { useToast } from "~/components/ui/use-toast";
+import { LayoutProfileImage } from "~/components/shared";
 
 countries.registerLocale(enLocaleData);
 
@@ -41,7 +42,6 @@ interface EditProfileProps {
 const schema = profileSchema.pick({
   id: true,
   username: true,
-  image: true,
   countryCode: true,
   bio: true,
 });
@@ -59,6 +59,12 @@ export const EditProfile = ({ session }: EditProfileProps) => {
   const form = useForm<EditProfileSchema>({
     resolver: zodResolver(schema),
     defaultValues: profile,
+  });
+
+  const profileImageSeed = useWatch({
+    control: form.control,
+    name: "username",
+    defaultValue: profile.username,
   });
 
   const handleSubmit = async (values: EditProfileSchema) => {
@@ -90,84 +96,74 @@ export const EditProfile = ({ session }: EditProfileProps) => {
 
   return (
     <Form {...form}>
-      <form onSubmit={form.handleSubmit(handleSubmit)} className="space-y-8">
-        {/* username */}
-        <FormField
-          control={form.control}
-          name="username"
-          render={({ field }) => (
-            <FormItem>
-              <FormLabel>Username</FormLabel>
-              <FormControl>
-                <Input
-                  placeholder="username"
-                  className="bg-nn-secondary"
-                  {...field}
-                />
-              </FormControl>
-              <FormDescription>
-                Usernames must be unique and can only contain alphanumeric and
-                underscore characters.
-              </FormDescription>
-              <FormMessage />
-            </FormItem>
-          )}
-        />
+      <form
+        onSubmit={form.handleSubmit(handleSubmit)}
+        className="flex flex-col gap-y-12"
+      >
+        <div className="flex flex-wrap items-start justify-start gap-x-12 gap-y-12 md:flex-nowrap">
+          <LayoutProfileImage
+            seed={profileImageSeed}
+            size={256}
+            className="flex w-full flex-shrink-0 justify-center md:w-auto"
+          />
 
-        {/* profile picture */}
-        <FormField
-          control={form.control}
-          name="image"
-          render={({ field }) => (
-            <FormItem>
-              <FormLabel>Profile Picture</FormLabel>
-              <FormControl>
-                <Input
-                  placeholder="Link to any image"
-                  className="bg-nn-secondary"
-                  {...field}
-                  value={field.value ?? ""}
-                />
-              </FormControl>
-              <FormDescription>
-                You can use your profile picture from other sites via a link.
-              </FormDescription>
-              <FormMessage />
-            </FormItem>
-          )}
-        />
+          <div className="flex flex-col gap-y-12">
+            {/* username */}
+            <FormField
+              control={form.control}
+              name="username"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>Username</FormLabel>
+                  <FormControl>
+                    <Input
+                      placeholder="username"
+                      className="bg-nn-secondary"
+                      {...field}
+                    />
+                  </FormControl>
+                  <FormDescription>
+                    Usernames must be unique and can only contain alphanumeric
+                    and underscore characters.
+                  </FormDescription>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
 
-        {/* countryCode */}
-        <FormField
-          control={form.control}
-          name="countryCode"
-          render={({ field }) => (
-            <FormItem>
-              <FormLabel>Country</FormLabel>
-              <Select
-                onValueChange={field.onChange}
-                value={field.value ?? undefined}
-              >
-                <FormControl>
-                  <SelectTrigger className="bg-nn-secondary">
-                    <SelectValue placeholder="Choose a country" />
-                  </SelectTrigger>
-                </FormControl>
-                <SelectContent className="bg-nn-secondary h-64 w-64 sm:w-auto">
-                  {Object.entries(locations).map(([code, name]) => (
-                    <SelectItem key={code} value={code}>
-                      {name}
-                    </SelectItem>
-                  ))}
-                </SelectContent>
-              </Select>
-              <FormDescription>
-                Select a country code to display on your profile.
-              </FormDescription>
-              <FormMessage />
-            </FormItem>
-          )}
-        />
+            {/* countryCode */}
+            <FormField
+              control={form.control}
+              name="countryCode"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>Country</FormLabel>
+                  <Select
+                    onValueChange={field.onChange}
+                    value={field.value ?? undefined}
+                  >
+                    <FormControl>
+                      <SelectTrigger className="bg-nn-secondary">
+                        <SelectValue placeholder="Choose a country" />
+                      </SelectTrigger>
+                    </FormControl>
+                    <SelectContent className="bg-nn-secondary h-64 w-64 sm:w-auto">
+                      {Object.entries(locations).map(([code, name]) => (
+                        <SelectItem key={code} value={code}>
+                          {name}
+                        </SelectItem>
+                      ))}
+                    </SelectContent>
+                  </Select>
+                  <FormDescription>
+                    Select a country code to display on your profile.
+                  </FormDescription>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+          </div>
+        </div>
 
         {/* bio */}
         <FormField
@@ -178,7 +174,7 @@ export const EditProfile = ({ session }: EditProfileProps) => {
               <FormLabel>About</FormLabel>
               <FormControl>
                 <Textarea
-                  placeholder="Super cool guy"
+                  placeholder="Find something interesting about yourself."
                   className="bg-nn-secondary"
                   {...field}
                   value={field.value ?? ""}

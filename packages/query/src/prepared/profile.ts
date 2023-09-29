@@ -25,7 +25,6 @@ export const updateProfileByIdPrepared = db
   .update(profile)
   .set({
     username: placeholder("username") as unknown as string,
-    image: placeholder("image") as unknown as string,
     countryCode: placeholder("countryCode") as unknown as string,
     bio: placeholder("bio") as unknown as string,
   })

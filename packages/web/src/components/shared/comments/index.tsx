@@ -92,7 +92,6 @@ export const CommentLayout = ({
         {session?.user.id && (
           <CommentEdit
             refresh={getComments}
-            className="mb-8"
             background="bg-nn-base"
             defaultSubmitText="Post Comment"
             actionText={["Posting", "Posted"]}
@@ -107,20 +106,22 @@ export const CommentLayout = ({
         )}
 
         {showBaseLoading && (
-          <SectionEmpty className="nn-bg-base">
+          <SectionEmpty className="nn-bg-base mt-8">
             Loading comments...
           </SectionEmpty>
         )}
 
         {showNoComments && session?.user.id && (
-          <SectionEmpty className="bg-nn-base">No comments yet.</SectionEmpty>
+          <SectionEmpty className="bg-nn-base mt-8">
+            No comments yet.
+          </SectionEmpty>
         )}
 
         {showNoComments && !session?.user.id && (
           <LoginDialog>
             <SectionEmpty
               as="button"
-              className="bg-nn-base nn-interactive w-full"
+              className="bg-nn-base nn-interactive mt-8 w-full"
             >
               No comments yet. Login to be the first!
             </SectionEmpty>
@@ -141,7 +142,7 @@ export const CommentLayout = ({
         {showPageLoading && <Skeleton className="h-screen w-full" />}
 
         {comments.length > 0 && (
-          <div className={"bg-nn-secondary rounded-md"}>
+          <div className={"bg-nn-secondary nn-divide divide-y rounded-md py-6"}>
             {comments.map((c) => (
               <CommentThread key={c.id} parent={c} refresh={getComments} />
             ))}
@@ -150,6 +151,7 @@ export const CommentLayout = ({
 
         {showPagination && (
           <ClientPaginate
+            className="mt-4"
             onPreviousClick={() => {
               setLoadingAnotherPage(true);
               setComments([]);

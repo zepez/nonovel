@@ -7,7 +7,11 @@ import {
   getReviewPageByProjectId,
 } from "~/lib/server";
 import { src, clamp, ec } from "~/lib";
-import { SectionHeading, AspectImage, SectionEmpty } from "~/components/shared";
+import {
+  SectionHeading,
+  SectionEmpty,
+  LayoutProfileImage,
+} from "~/components/shared";
 import { LayoutPaginate } from "~/components/shared/layout-paginate";
 import { EditReview, ReviewScore, ReviewVote } from "~/components/project";
 
@@ -100,12 +104,12 @@ export default async function ProjectReviewPage({
                 className="nn-border bg-nn-secondary flex justify-between rounded-md border p-4 pr-2 sm:items-center sm:py-6 sm:pl-8"
               >
                 <div className="flex flex-grow sm:space-x-6">
-                  <AspectImage
-                    width={50}
-                    className="hidden flex-shrink-0 sm:block"
-                    src={src(review.profile?.image, "profile")}
-                    alt={`${review.profile?.username ?? ""} profile picture`}
-                  />
+                  <div className="hidden sm:block">
+                    <LayoutProfileImage
+                      seed={review?.profile?.username}
+                      size={50}
+                    />
+                  </div>
                   <div>
                     <p className="text-md font-bold leading-tight">
                       @{review.profile?.username}

@@ -38,7 +38,7 @@ export default async function Page({ params }: Props) {
           className="nn-interactive bg-nn-secondary mt-12 flex flex-wrap gap-6 rounded-md p-8 sm:flex-nowrap"
         >
           <AspectImage
-            src={src(proj.cover, "cover")}
+            src={src(proj.cover)}
             alt={proj.name}
             width={150}
             className="mx-auto flex w-auto flex-shrink-0 items-start justify-center"

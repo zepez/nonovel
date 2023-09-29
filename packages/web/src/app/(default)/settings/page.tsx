@@ -7,5 +7,5 @@ export default async function AccountPage() {
 
   if (!session) redirect("/");
 
-  redirect("/settings/account");
+  redirect("/settings/profile");
 }

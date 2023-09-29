@@ -1,6 +1,5 @@
 "use client";
 
-import Image from "next/image";
 import Link from "next/link";
 import {
   MoonIcon,
@@ -9,7 +8,6 @@ import {
   PersonIcon,
   ThickArrowRightIcon,
 } from "@radix-ui/react-icons";
-
 import type { Session } from "~/lib/server";
 import { src } from "~/lib";
 import {
@@ -18,8 +16,9 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from "~/components/ui/dropdown-menu";
-import { ThemeSwitcher } from "./theme-switcher";
 import { Logout } from "~/components/auth";
+import { ThemeSwitcher } from "./theme-switcher";
+import { LayoutProfileImage } from "./layout-profile-image";
 
 interface LayoutProfileProps {
   session: Session;
@@ -43,14 +42,8 @@ export const LayoutProfile = ({ session }: LayoutProfileProps) => {
 
   return (
     <DropdownMenu>
-      <DropdownMenuTrigger className="nn-interactive ms-center flex rounded-md">
-        <Image
-          src={src(profile.image, "profile")}
-          alt="Profile picture"
-          className="bg-nn-base-invert mx-1 rounded-full border border-transparent"
-          width={36}
-          height={36}
-        />
+      <DropdownMenuTrigger className="nn-interactive ms-center bg-nn-base-invert flex overflow-hidden rounded-md">
+        <LayoutProfileImage seed={profile.username} size={32} />
       </DropdownMenuTrigger>
       <DropdownMenuContent align="end" className="w-48">
         <div className="p-1">

@@ -113,10 +113,10 @@ export default async function ProjectLayout({
 
   return (
     <>
-      <BackgroundImage src={src(project.cover, "cover")}>
+      <BackgroundImage src={src(project.cover)}>
         <LayoutWrapper className="flex flex-wrap pb-12 md:flex-nowrap">
           <AspectImage
-            src={src(project.cover, "cover")}
+            src={src(project.cover)}
             alt={project.name}
             width={400}
             className="mx-auto w-60 flex-shrink-0 pb-8 md:w-72 md:pb-0"

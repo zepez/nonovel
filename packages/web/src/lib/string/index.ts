@@ -10,10 +10,7 @@ export const naturalListJoin = (index: number, length: number) => {
   return ", ";
 };
 
-export type SrcProfile = "cover" | "profile" | undefined;
-export const src = (src: string | null | undefined, profile?: SrcProfile) => {
-  if (!src && profile === "cover") return "/default/cover.gif";
-  if (!src && profile === "profile") return "/default/profile.png";
+export const src = (src: string | null | undefined) => {
   if (!src) return "";
 
   if (

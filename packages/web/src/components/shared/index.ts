@@ -11,6 +11,7 @@ export * from "./country-code-name";
 export * from "./layout-footer";
 export * from "./layout-wrapper";
 export * from "./layout-profile";
+export * from "./layout-profile-image";
 export * from "./layout-command";
 export * from "./theme-switcher";
 export * from "./theme-provider";

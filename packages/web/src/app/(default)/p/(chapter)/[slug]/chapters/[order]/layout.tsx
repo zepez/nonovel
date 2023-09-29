@@ -51,7 +51,7 @@ export default async function ChapterLayout({
         projectId={project.id}
         chapterId={chapter.id}
       />
-      <BackgroundImage src={src(project.cover, "cover")}>
+      <BackgroundImage src={src(project.cover)}>
         <LayoutWrapper className="flex flex-wrap items-center pb-8">
           <Link
             href={`/p/${project.slug}`}
@@ -59,7 +59,7 @@ export default async function ChapterLayout({
             title={project.name}
           >
             <AspectImage
-              src={src(project.cover, "cover")}
+              src={src(project.cover)}
               alt={project.name}
               width={200}
               className="flex w-auto justify-center"

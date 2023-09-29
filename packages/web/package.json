@@ -50,6 +50,7 @@
     "@types/react-dom": "18.2.6",
     "@uiw/react-color-github": "^1.4.0",
     "autoprefixer": "10.4.14",
+    "boring-avatars": "^1.10.1",
     "class-variance-authority": "^0.6.0",
     "clsx": "^1.2.1",
     "cmdk": "^0.2.0",

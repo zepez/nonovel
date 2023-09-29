@@ -74,7 +74,10 @@ export const EditAccount = ({ session }: EditAccountProps) => {
 
   return (
     <Form {...form}>
-      <form onSubmit={form.handleSubmit(handleSubmit)} className="space-y-8">
+      <form
+        onSubmit={form.handleSubmit(handleSubmit)}
+        className="flex flex-col space-y-12"
+      >
         {/* name */}
         <FormField
           control={form.control}
@@ -114,7 +117,8 @@ export const EditAccount = ({ session }: EditAccountProps) => {
               </FormControl>
               <FormDescription>
                 This email will be used to send you important notifications and
-                recover your account. This value can not be changed.
+                recover your account. Account emails are not able to be changed
+                at this time.
               </FormDescription>
               <FormMessage />
             </FormItem>

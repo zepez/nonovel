@@ -1,5 +1,6 @@
 "use client";
 
+import { cn } from "~/lib";
 import {
   DoubleArrowRightIcon,
   DoubleArrowLeftIcon,
@@ -11,6 +12,7 @@ interface ClientPaginateProps {
   previousDisabled: boolean;
   onNextClick: () => void;
   nextDisabled: boolean;
+  className?: string;
 }
 
 export const ClientPaginate = ({
@@ -18,13 +20,16 @@ export const ClientPaginate = ({
   previousDisabled,
   onNextClick,
   nextDisabled,
+  className,
 }: ClientPaginateProps) => {
   return (
-    <div className="flex items-center justify-center gap-4 mt-8">
+    <div
+      className={cn("mt-8 flex items-center justify-center gap-4", className)}
+    >
       <Button
         variant="default"
         disabled={previousDisabled}
-        className="text-xs nn-interactive"
+        className="nn-interactive text-xs"
         onClick={onPreviousClick}
         title="Previous page"
       >
@@ -33,7 +38,7 @@ export const ClientPaginate = ({
       <Button
         variant="default"
         disabled={nextDisabled}
-        className="text-xs nn-interactive"
+        className="nn-interactive text-xs"
         onClick={onNextClick}
         title="Next page"
       >
