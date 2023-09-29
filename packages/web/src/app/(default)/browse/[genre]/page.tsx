@@ -90,19 +90,19 @@ export default async function BrowsePage({
 
   return (
     <>
-      <SectionHeading className="mb-0 mt-0">
+      <SectionHeading className="mt-0 mb-0">
         {genre?.name ?? "All Genres"}
       </SectionHeading>
       {genre?.description && (
-        <p className="nn-detail pb-4">{parse(genre.description)}</p>
+        <p className="pb-4 nn-detail">{parse(genre.description)}</p>
       )}
 
-      <section className="flex flex-wrap justify-start gap-y-4 pt-2">
+      <section className="flex flex-wrap justify-start pt-2 gap-y-4">
         {results.map((result) => (
           <Link
             href={`/p/${result.slug}`}
             key={result.id}
-            className="nn-interactive block h-auto w-1/2 rounded-md px-1 sm:px-4 md:w-1/4"
+            className="block w-1/2 h-auto px-1 rounded-md nn-interactive sm:px-4 md:w-1/4"
           >
             <div className="relative">
               <Image
@@ -110,10 +110,10 @@ export default async function BrowsePage({
                 alt={`${result.name} cover`}
                 width={500}
                 height={750}
-                className="h-auto w-full rounded-sm p-1"
+                className="w-full h-auto p-1 rounded-sm"
               />
-              <div className="absolute right-0 top-4 flex w-full justify-center md:top-5">
-                <div className="flex items-center justify-center gap-1 rounded-sm bg-nn-base-dark/70 px-2 text-xs text-nn-base-light">
+              <div className="absolute right-0 flex justify-center w-full top-4 md:top-5">
+                <div className="flex items-center justify-center gap-1 px-2 text-xs rounded-sm bg-nn-base-dark/70 text-nn-base-light">
                   <AiTwotoneEye />
                   {summarizeNumber(result.views)}
                   <AiFillStar className="ml-2" />
@@ -121,18 +121,22 @@ export default async function BrowsePage({
                 </div>
               </div>
             </div>
-            <div className="flex min-w-0 flex-shrink flex-col p-1">
-              <p className="truncate text-lg font-semibold sm:text-xl">
+            <div className="flex flex-col flex-shrink min-w-0 p-1">
+              <p className="text-lg font-semibold truncate sm:text-xl">
                 {result.name}
               </p>
-              <p className="nn-detail truncate">{result.penName}</p>
+              <p className="truncate nn-detail">{result.penName}</p>
             </div>
           </Link>
         ))}
       </section>
 
       <nav className="flex items-center justify-center gap-4 pt-16">
-        <Link
+        {/* 
+          TODO: next/link has a bug in the client router.
+          fix this when upgrading from 13.5.3-canary.3
+        */}
+        <a
           href={`?${previousPage}`}
           aria-disabled={!previousPageAvailable}
           className={cn(
@@ -143,8 +147,8 @@ export default async function BrowsePage({
           )}
         >
           <DoubleArrowLeftIcon /> Previous
-        </Link>
-        <Link
+        </a>
+        <a
           href={`?${nextPage}`}
           aria-disabled={!nextPageAvailable}
           className={cn(
@@ -155,7 +159,7 @@ export default async function BrowsePage({
           )}
         >
           Next <DoubleArrowRightIcon />
-        </Link>
+        </a>
       </nav>
     </>
   );
