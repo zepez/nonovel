@@ -29,28 +29,27 @@ export default async function ProfileLayout({
   return (
     <>
       <LayoutWrapper className="flex flex-wrap items-end pb-16 md:flex-nowrap">
-        <LayoutProfileImage
-          seed={profile.username}
-          size={256}
-          className="relative -z-10 blur-3xl"
-        />
-        <LayoutProfileImage
-          seed={profile.username}
-          size={256}
-          className="absolute"
-        />
-        <div className="mt-8 w-full text-center md:mb-2 md:ml-8 md:mt-0 md:w-auto md:text-left">
-          <h1 className="nn-title mb-4">@{profile.username.toLowerCase()}</h1>
+        <div className="relative flex justify-center w-full md:w-auto">
+          <LayoutProfileImage
+            seed={profile.username}
+            size={256}
+            className="relative -z-10 blur-3xl"
+          />
+          <LayoutProfileImage
+            seed={profile.username}
+            size={256}
+            className="absolute bottom-0"
+          />
+        </div>
+        <div className="w-full mt-8 text-center md:mb-2 md:ml-8 md:mt-0 md:w-auto md:text-left">
+          <h1 className="mb-4 nn-title">@{profile.username.toLowerCase()}</h1>
           <p className="nn-detail">
             Joined {formatDistanceToNow(profile.createdAt, { addSuffix: true })}{" "}
-            <CountryCodeName code={profile.countryCode}>
-              {(countryName) => (
-                <span>
-                  | Located in {countryName}{" "}
-                  <CountryCodeEmoji code={profile.countryCode} />
-                </span>
-              )}
-            </CountryCodeName>
+            {profile.countryCode && (
+              <>
+                | <CountryCodeEmoji code={profile.countryCode} />
+              </>
+            )}
           </p>
         </div>
       </LayoutWrapper>
