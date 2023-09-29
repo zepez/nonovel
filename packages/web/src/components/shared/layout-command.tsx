@@ -47,7 +47,7 @@ export const LayoutCommand = ({ open, setOpen }: LayoutCommandProps) => {
   const authedShortcuts = [
     {
       name: "Settings",
-      value: "/settings/account",
+      value: "/settings/profile",
       action: (v: string) => router.push(v),
       icon: <GearIcon className={iconClass} />,
     },

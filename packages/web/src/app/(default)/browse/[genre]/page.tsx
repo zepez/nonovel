@@ -4,8 +4,12 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import parse from "html-react-parser";
 import { AiFillStar, AiTwotoneEye } from "react-icons/ai";
+import {
+  DoubleArrowLeftIcon,
+  DoubleArrowRightIcon,
+} from "@radix-ui/react-icons";
 import { getBrowsePageResult, getGenreBySlug } from "~/lib/server";
-import { ec, src, toTitleCase, summarizeNumber } from "~/lib";
+import { ec, src, toTitleCase, summarizeNumber, cn } from "~/lib";
 import { SectionEmpty, SectionHeading } from "~/components/shared";
 
 interface BrowsePageProps {
@@ -49,15 +53,28 @@ export default async function BrowsePage({
 
   const page = parseInt(stringPage);
 
+  const pageSize = 8;
   const [rawResultsErr, rawResults] = await getBrowsePageResult({
     page,
     sort,
     genre: genreSlug,
     query: q,
-    pageSize: 20,
+    pageSize,
   });
 
-  const results = rawResults?.splice(0, 10);
+  const results = rawResults?.slice(0, pageSize);
+  const nextPageAvailable = rawResults?.slice(pageSize, pageSize + 1)?.length;
+  const previousPageAvailable = page > 1;
+
+  const nextPage = new URLSearchParams({
+    ...(searchParams as Record<string, string>),
+    page: (page + 1).toString(),
+  }).toString();
+
+  const previousPage = new URLSearchParams({
+    ...(searchParams as Record<string, string>),
+    page: (page - 1).toString(),
+  }).toString();
 
   if ((!results || !results.length) && page > 1) {
     notFound();
@@ -113,6 +130,33 @@ export default async function BrowsePage({
           </Link>
         ))}
       </section>
+
+      <nav className="flex items-center justify-center gap-4 pt-16">
+        <Link
+          href={`?${previousPage}`}
+          aria-disabled={!previousPageAvailable}
+          className={cn(
+            "bg-nn-secondary flex items-center justify-center gap-2 rounded-md px-4 py-2 text-center text-xs font-bold",
+            previousPageAvailable
+              ? "nn-interactive"
+              : "nn-no-select pointer-events-none opacity-50"
+          )}
+        >
+          <DoubleArrowLeftIcon /> Previous
+        </Link>
+        <Link
+          href={`?${nextPage}`}
+          aria-disabled={!nextPageAvailable}
+          className={cn(
+            "nn-interactive bg-nn-secondary flex items-center justify-center gap-2 rounded-md px-4 py-2 text-center text-xs font-bold",
+            nextPageAvailable
+              ? "nn-interactive"
+              : "nn-no-select pointer-events-none opacity-50"
+          )}
+        >
+          Next <DoubleArrowRightIcon />
+        </Link>
+      </nav>
     </>
   );
 }

@@ -35,7 +35,7 @@ export const LayoutProfile = ({ session }: LayoutProfileProps) => {
     },
     {
       title: "Settings",
-      href: "/settings/account",
+      href: "/settings/profile",
       icon: <GearIcon className="mx-2" />,
     },
   ];

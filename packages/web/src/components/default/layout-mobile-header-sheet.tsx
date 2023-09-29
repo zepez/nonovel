@@ -112,7 +112,7 @@ export const LayoutMobileHeaderSheet = ({
                     Profile
                   </SheetLink>
                   <SheetLink
-                    href="/settings/account"
+                    href="/settings/profile"
                     onClick={() => setOpen(false)}
                   >
                     Settings

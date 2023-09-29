@@ -33,7 +33,7 @@ export default async function ProfilePage({ params }: ProfilePageProps) {
       <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
         {!projects.length ? (
           <SectionEmpty className="bg-nn-secondary col-span-2 rounded-md p-4 text-center text-sm">
-            @{profile.username} is not a part of any projects.
+            @{profile.username} has not contributed to any projects.
           </SectionEmpty>
         ) : null}
 

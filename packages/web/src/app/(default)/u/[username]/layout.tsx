@@ -56,7 +56,6 @@ export default async function ProfileLayout({
       </LayoutWrapper>
 
       <LayoutWrapper>{children}</LayoutWrapper>
-      <CommentLayout resourceId={profile.id} resourceType="profile" />
     </>
   );
 }
