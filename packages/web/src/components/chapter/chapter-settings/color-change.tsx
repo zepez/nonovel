@@ -68,7 +68,7 @@ export const ColorChange = ({
           className="w-full rounded-full py-[.35rem]"
         />
       </DialogTrigger>
-      <DialogContent className="w-auto p-8">
+      <DialogContent className="w-auto min-w-[300px] p-8">
         <Colorful
           color={localHexColor}
           style={{ width: "100%" }}
