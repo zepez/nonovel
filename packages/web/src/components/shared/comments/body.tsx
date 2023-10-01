@@ -9,6 +9,7 @@ import {
   FiX,
   FiEdit2,
   FiMessageCircle,
+  FiPlus,
 } from "react-icons/fi";
 
 import type {
@@ -43,6 +44,7 @@ export const CommentBody = ({
   const username = comment?.profile?.username ?? "deleted";
   const isCreator = comment?.user?.id === session?.user.id;
   const [isEditing, setIsEditing] = useState<boolean>(false);
+  const [isReplying, setIsReplying] = useState<boolean>(false);
   const [loadingReplies, setLoadingReplies] = useState<boolean>(false);
   const [replies, setReplies] = useState<Replies>([]);
 
@@ -167,7 +169,7 @@ export const CommentBody = ({
         {!isReply && (
           <div className="nn-border flex gap-2 sm:ml-2 sm:border-l-2 sm:pl-2">
             {/* no replies */}
-            {!isReply && comment.replyCount === 0 && (
+            {comment.replyCount === 0 && (
               <CommentNavButton
                 Icon={FiMessageCircle}
                 onClick={() => {}}
@@ -178,7 +180,7 @@ export const CommentBody = ({
             )}
 
             {/* toggle on replies */}
-            {!isReply && comment.replyCount > 0 && replies.length === 0 && (
+            {comment.replyCount > 0 && replies.length === 0 && (
               <CommentNavButton
                 Icon={FiMessageCircle}
                 onClick={getReplies}
@@ -195,7 +197,7 @@ export const CommentBody = ({
             )}
 
             {/* toggle off replies */}
-            {!isReply && comment.replyCount > 0 && replies.length > 0 && (
+            {comment.replyCount > 0 && replies.length > 0 && (
               <CommentNavButton
                 Icon={FiX}
                 onClick={() => setReplies([])}
@@ -203,6 +205,18 @@ export const CommentBody = ({
                 showTitle
               />
             )}
+          </div>
+        )}
+
+        {/* create a reply */}
+        {!isReply && !isReplying && (
+          <div className="nn-border flex gap-2 sm:ml-2 sm:border-l-2 sm:pl-2">
+            <CommentNavButton
+              Icon={FiPlus}
+              onClick={() => setIsReplying(true)}
+              title="Reply"
+              showTitle
+            />
           </div>
         )}
       </div>
@@ -219,6 +233,28 @@ export const CommentBody = ({
               isReply={true}
             />
           ))}
+        </div>
+      )}
+
+      {userId && isReplying && (
+        <div className="mt-4">
+          <CommentEdit
+            refresh={async () => {
+              setIsReplying(false);
+              await getReplies();
+            }}
+            cancel={() => setIsReplying(false)}
+            background="bg-nn-base"
+            defaultSubmitText="Post Reply"
+            actionText={["Posting", "Posted"]}
+            comment={{
+              resourceId: comment.resourceId,
+              resourceType: comment.resourceType,
+              userId,
+              parentId: comment.id,
+              content: "",
+            }}
+          />
         </div>
       )}
     </div>
