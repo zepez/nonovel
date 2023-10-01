@@ -19,7 +19,7 @@ export const BannerTextDark = ({ className }: { className?: string }) => {
       height="514"
       className={className}
     >
-      <title>Banner Text</title>
+      <title>Escape reality. Read a book.</title>
       <path
         id="Escape"
         fill="#f5e1c9"
