@@ -10,13 +10,13 @@ import { SectionHeading } from "~/components/shared";
 import { ListChapters } from "~/components/project";
 
 interface ProjectPageProps {
-  params: { slug: string };
+  params: { "project-slug": string };
 }
 
 export async function generateMetadata({
   params,
 }: ProjectPageProps): Promise<Metadata> {
-  const [, project] = await getProjectBySlug(params);
+  const [, project] = await getProjectBySlug({ slug: params["project-slug"] });
   if (!project) return {};
 
   const title = `${project.name} - Start Reading Today`;
@@ -48,7 +48,9 @@ export default async function ProjectPage({ params }: ProjectPageProps) {
   const [sessionErr, session] = await getSession();
   const { user } = session ?? {};
 
-  const [projectErr, project] = await getProjectBySlug(params);
+  const [projectErr, project] = await getProjectBySlug({
+    slug: params["project-slug"],
+  });
   if (!project) notFound();
 
   const [manifestErr, manifest] = await getChapterManifestByIds({

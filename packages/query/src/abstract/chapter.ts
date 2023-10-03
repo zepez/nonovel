@@ -1,7 +1,8 @@
 import type { Project, Chapter, User } from "@nonovel/db";
 import { ServerError, ServerErrorType } from "@nonovel/lib";
 import {
-  getChapterBySlugAndOrderPrepared,
+  getChapterBySlugsPrepared,
+  getChapterByOrderPrepared,
   getChapterManifestByIdsPrepared,
 } from "../prepared";
 import {
@@ -9,32 +10,45 @@ import {
   chapter as chapterValidator,
 } from "@nonovel/validator";
 
-export interface GetChapterBySlugAndOrderOptions {
-  slug: Project["slug"];
-  order: Chapter["order"];
+export interface GetChapterBySlugsOptions {
+  project: Project["slug"];
+  chapter: Chapter["slug"];
 }
 
-export const getChapterBySlugAndOrder = async (
-  opts: GetChapterBySlugAndOrderOptions
-) => {
+export const getChapterBySlugs = async (opts: GetChapterBySlugsOptions) => {
   try {
-    const { slug } = projectValidator.pick({ slug: true }).parse(opts);
-    const { order } = chapterValidator
-      .pick({ order: true })
-      .parse({ order: opts.order });
+    const maybeChapterNumber = parseInt(opts.chapter);
+    const chapterNumber =
+      typeof maybeChapterNumber === "number" && !isNaN(maybeChapterNumber)
+        ? maybeChapterNumber
+        : null;
 
-    const result =
-      (await getChapterBySlugAndOrderPrepared.execute({ slug, order })) ?? null;
+    const { slug: project } = projectValidator.pick({ slug: true }).parse({
+      slug: opts.project,
+    });
+    const { slug: chapterSlug } = chapterValidator.pick({ slug: true }).parse({
+      slug: opts.chapter,
+    });
 
-    return [null, result] as const;
+    const result = chapterNumber
+      ? await getChapterByOrderPrepared.execute({
+          project,
+          chapter: chapterNumber,
+        })
+      : await getChapterBySlugsPrepared.execute({
+          project,
+          chapter: chapterSlug,
+        });
+
+    return [null, result ?? null] as const;
   } catch (err) {
     const error = new ServerError("GetResourceError", err as ServerErrorType);
     return [error, null] as const;
   }
 };
 
-export type GetChapterBySlugAndOrderReturn = Awaited<
-  ReturnType<typeof getChapterBySlugAndOrder>
+export type GetChapterBySlugsReturn = Awaited<
+  ReturnType<typeof getChapterBySlugs>
 >;
 
 // ########################################

@@ -11,7 +11,7 @@ export async function GET() {
     with: {
       chapters: {
         columns: {
-          order: true,
+          slug: true,
           updatedAt: true,
         },
       },
@@ -33,7 +33,7 @@ export async function GET() {
     ...projects
       .map((project) =>
         project.chapters.map((chapter) => ({
-          loc: `https://nonovel.io/read/${project.slug}/chapters/${chapter.order}`,
+          loc: `https://nonovel.io/read/${project.slug}/chapter/${chapter.slug}`,
           lastmod: chapter.updatedAt.toISOString(),
           priority: 0.5,
         }))

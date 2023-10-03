@@ -15,7 +15,8 @@
     "db:seed": "dotenv -e ../../.env -- yarn tsx src/seed.ts",
     "db:fake": "dotenv -e ../../.env -- yarn tsx src/fake.ts",
     "db:empty": "dotenv -e ../../.env -- yarn tsx src/empty.ts",
-    "db:reset": "yarn db:empty && yarn db:generate && yarn db:migrate && yarn db:seed"
+    "db:reset": "yarn db:empty && yarn db:generate && yarn db:migrate && yarn db:seed",
+    "db:slugify": "dotenv -e ../../.env -- esno ./src/slugify-chapter.ts"
   },
   "devDependencies": {
     "@types/node": "^18.0.0",
@@ -31,6 +32,7 @@
     "@types/pg": "^8.6.6",
     "drizzle-orm": "^0.27.0",
     "pg": "^8.11.0",
+    "slugify": "^1.6.6",
     "tsx": "^3.12.7"
   }
 }

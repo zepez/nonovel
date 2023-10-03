@@ -15,6 +15,20 @@
       "when": 1690816292284,
       "tag": "0001_quiet_preak",
       "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "5",
+      "when": 1696372036564,
+      "tag": "0002_elite_blue_shield",
+      "breakpoints": true
+    },
+    {
+      "idx": 3,
+      "version": "5",
+      "when": 1696373908804,
+      "tag": "0003_glorious_zarek",
+      "breakpoints": true
     }
   ]
 }

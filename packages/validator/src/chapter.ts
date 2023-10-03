@@ -5,6 +5,7 @@ export const chapter = z.object({
   projectId: z.string(),
   name: z.string(),
   order: z.number(),
+  slug: z.string(),
   contentType: z.enum(["md", "html"]),
   content: z.string(),
 

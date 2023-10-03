@@ -1,15 +1,14 @@
 import { cache } from "react";
 
 import {
-  getChapterBySlugAndOrder as getChapterBySlugAndOrderQuery,
-  type GetChapterBySlugAndOrderOptions,
+  getChapterBySlugs as getChapterBySlugsQuery,
+  type GetChapterBySlugsOptions,
   getChapterManifestByIds as getChapterManifestByIdsQuery,
   type GetChapterManifestByIdsOptions,
 } from "@nonovel/query";
 
-export const getChapterBySlugAndOrder = cache(
-  async (opts: GetChapterBySlugAndOrderOptions) =>
-    await getChapterBySlugAndOrderQuery(opts)
+export const getChapterBySlugs = cache(
+  async (opts: GetChapterBySlugsOptions) => await getChapterBySlugsQuery(opts)
 );
 
 export const getChapterManifestByIds = cache(

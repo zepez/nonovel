@@ -1,19 +1,19 @@
 import { Metadata } from "next";
 import { notFound } from "next/navigation";
 import parse from "html-react-parser";
-import { getChapterBySlugAndOrder } from "~/lib/server";
+import { getChapterBySlugs } from "~/lib/server";
 import { clamp, toTitleCase, ec } from "~/lib";
 
 interface ChapterPageProps {
-  params: { slug: string; order: string };
+  params: { "project-slug": string; "chapter-slug": string };
 }
 
 export async function generateMetadata({
   params,
 }: ChapterPageProps): Promise<Metadata> {
-  const [, project] = await getChapterBySlugAndOrder({
-    ...params,
-    order: parseFloat(params.order),
+  const [, project] = await getChapterBySlugs({
+    project: params["project-slug"],
+    chapter: params["chapter-slug"],
   });
   if (!project) return {};
 
@@ -34,7 +34,7 @@ export async function generateMetadata({
     authors: project.penName ? [{ name: project.penName }] : [],
     openGraph: {
       title,
-      url: `https://nonovel.io/read/${project.slug}/chapters/${chapter.order}`,
+      url: `https://nonovel.io/read/${project.slug}/chapter/${chapter.slug}`,
       description,
       authors: project.penName ? [project.penName] : [],
       images: [
@@ -51,9 +51,9 @@ export async function generateMetadata({
 }
 
 export default async function ChapterPage({ params }: ChapterPageProps) {
-  const [projectErr, project] = await getChapterBySlugAndOrder({
-    ...params,
-    order: parseFloat(params.order),
+  const [projectErr, project] = await getChapterBySlugs({
+    project: params["project-slug"],
+    chapter: params["chapter-slug"],
   });
   if (!project) notFound();
 

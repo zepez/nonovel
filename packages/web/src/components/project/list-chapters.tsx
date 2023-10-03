@@ -98,7 +98,7 @@ export const ListChapters = ({
         {list.map((chapter) => (
           <ListItem
             key={chapter.id}
-            href={`/read/${projectSlug}/chapters/${chapter.order}`}
+            href={`/read/${projectSlug}/chapter/${chapter.slug}`}
             name={chapter.name}
             symbol={chapter.order}
             height={itemHeight}

@@ -4,7 +4,7 @@ import { formatDistanceToNow } from "date-fns";
 import Balancer from "react-wrap-balancer";
 import {
   getSession,
-  getChapterBySlugAndOrder,
+  getChapterBySlugs,
   getChapterManifestByIds,
 } from "~/lib/server";
 import { toTitleCase, src, ec } from "~/lib";
@@ -19,7 +19,7 @@ import { ChapterView } from "~/components/chapter";
 
 interface ChapterLayoutProps {
   children?: React.ReactNode;
-  params: { slug: string; order: string };
+  params: { "project-slug": string; "chapter-slug": string };
 }
 
 export default async function ChapterLayout({
@@ -27,9 +27,9 @@ export default async function ChapterLayout({
   children,
 }: ChapterLayoutProps) {
   const [sessionErr, session] = await getSession();
-  const [projectErr, project] = await getChapterBySlugAndOrder({
-    ...params,
-    order: parseFloat(params.order),
+  const [projectErr, project] = await getChapterBySlugs({
+    project: params["project-slug"],
+    chapter: params["chapter-slug"],
   });
   if (!project) notFound();
 

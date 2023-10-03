@@ -16,13 +16,18 @@ const nextConfig = {
   async redirects() {
     return [
       {
-        source: "/p/:slug",
-        destination: "/read/:slug",
+        source: "/p/:slug*",
+        destination: "/read/:slug*",
         permanent: true,
       },
       {
-        source: "/u/:slug",
-        destination: "/user/:slug",
+        source: "/read/:slug/chapters/:chapter*",
+        destination: "/read/:slug/chapter/:chapter*",
+        permanent: true,
+      },
+      {
+        source: "/u/:slug*",
+        destination: "/user/:slug*",
         permanent: true,
       },
     ];

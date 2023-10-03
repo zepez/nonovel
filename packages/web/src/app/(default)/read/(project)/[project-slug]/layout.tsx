@@ -50,7 +50,7 @@ const StatDisplay = ({ stat, name, icon }: StatDisplayProps) => {
 
 interface ProjectLayoutProps {
   children: React.ReactNode;
-  params: { slug: string };
+  params: { "project-slug": string };
 }
 
 export default async function ProjectLayout({
@@ -60,7 +60,9 @@ export default async function ProjectLayout({
   const [, session] = await getSession();
   const { user } = session ?? {};
 
-  const [projectErr, project] = await getProjectBySlug(params);
+  const [projectErr, project] = await getProjectBySlug({
+    slug: params["project-slug"],
+  });
   if (!project) notFound();
 
   const [manifestErr, manifest] = await getChapterManifestByIds({
@@ -102,12 +104,12 @@ export default async function ProjectLayout({
   const readButton = latestChapterRead
     ? {
         text: "Continue Reading",
-        href: `/read/${project.slug}/chapters/${latestChapterRead.order}`,
+        href: `/read/${project.slug}/chapter/${latestChapterRead.slug}`,
       }
     : manifest[0]
     ? {
         text: "Start Reading",
-        href: `/read/${project.slug}/chapters/${manifest[0]?.order ?? 0}`,
+        href: `/read/${project.slug}/chapter/${manifest[0].slug}`,
       }
     : null;
 

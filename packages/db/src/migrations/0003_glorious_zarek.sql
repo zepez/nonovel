@@ -1,0 +1,1 @@
+ALTER TABLE "chapter" ALTER COLUMN "slug" SET NOT NULL;

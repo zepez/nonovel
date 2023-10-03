@@ -8,7 +8,7 @@ import {
 } from "@radix-ui/react-icons";
 
 import type {
-  GetChapterBySlugAndOrderReturn,
+  GetChapterBySlugsReturn,
   GetChapterManifestByIdsReturn,
 } from "@nonovel/query";
 import { cn, toTitleCase } from "~/lib";
@@ -17,7 +17,7 @@ import { ScrollArea } from "~/components/ui/scroll-area";
 import { ChapterSettings } from "~/components/chapter/chapter-settings";
 
 interface DirectionalButtonProps {
-  chapter: number | null;
+  chapter: string | null;
   slug: string;
   title: string;
   icon: React.ReactNode;
@@ -34,7 +34,8 @@ const DirectionalButton = ({
   return (
     <Link
       className={cn(!chapter && "nn-no-select", "rounded-md")}
-      href={chapter ? `/read/${slug}/chapters/${chapter}` : "#"}
+      href={chapter ? `/read/${slug}/chapter/${chapter}` : "#"}
+      aria-disabled={!chapter}
       title={title}
     >
       <div
@@ -54,8 +55,8 @@ const DirectionalButton = ({
 
 interface ChapterNavigationProps {
   className?: string;
-  project: NonNullable<GetChapterBySlugAndOrderReturn[1]>;
-  chapter: NonNullable<GetChapterBySlugAndOrderReturn[1]>["chapters"][0];
+  project: NonNullable<GetChapterBySlugsReturn[1]>;
+  chapter: NonNullable<GetChapterBySlugsReturn[1]>["chapters"][0];
   manifest: NonNullable<GetChapterManifestByIdsReturn[1]>;
 }
 
@@ -77,7 +78,7 @@ const ChapterManifest = ({
             {manifest.map((c) => (
               <Link
                 key={c.id}
-                href={`/read/${project.slug}/chapters/${c.order}`}
+                href={`/read/${project.slug}/chapter/${c.slug}`}
                 className={cn(
                   chapter.order == c.order && "bg-nn-secondary",
                   "nn-interactive grid grid-cols-6 items-center px-2 py-4"
@@ -101,8 +102,8 @@ const ChapterManifest = ({
 // ########################################################
 
 interface ChapterNavigationProps {
-  project: NonNullable<GetChapterBySlugAndOrderReturn[1]>;
-  chapter: NonNullable<GetChapterBySlugAndOrderReturn[1]>["chapters"][0];
+  project: NonNullable<GetChapterBySlugsReturn[1]>;
+  chapter: NonNullable<GetChapterBySlugsReturn[1]>["chapters"][0];
   manifest: NonNullable<GetChapterManifestByIdsReturn[1]>;
 }
 
@@ -112,8 +113,8 @@ export const ChapterNavigation = ({
   manifest,
 }: ChapterNavigationProps) => {
   const chapterIndex = manifest.findIndex((c) => c.id === chapter.id) ?? 1;
-  const previousChapter = manifest[chapterIndex - 1]?.order ?? null;
-  const nextChapter = manifest[chapterIndex + 1]?.order ?? null;
+  const previousChapter = manifest[chapterIndex - 1]?.slug ?? null;
+  const nextChapter = manifest[chapterIndex + 1]?.slug ?? null;
 
   return (
     <>

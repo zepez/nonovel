@@ -16,13 +16,13 @@ import { LayoutPaginate } from "~/components/shared/layout-paginate";
 import { EditReview, ReviewScore, ReviewVote } from "~/components/project";
 
 interface ProjectReviewPageProps {
-  params: { slug: string; page: string };
+  params: { "project-slug": string; page: string };
 }
 
 export async function generateMetadata({
   params,
 }: ProjectReviewPageProps): Promise<Metadata> {
-  const [, project] = await getProjectBySlug(params);
+  const [, project] = await getProjectBySlug({ slug: params["project-slug"] });
   if (!project) return {};
 
   const title = `${project.name} - Reviews`;
@@ -62,7 +62,9 @@ export default async function ProjectReviewPage({
   const page = parseInt(params.page ?? "1", 10);
   const [sessionErr, session] = await getSession();
 
-  const [projectErr, project] = await getProjectBySlug(params);
+  const [projectErr, project] = await getProjectBySlug({
+    slug: params["project-slug"],
+  });
   if (!project) notFound();
 
   const [reviewErr, review] = await getReviewByIds({
