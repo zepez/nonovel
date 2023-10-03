@@ -102,12 +102,12 @@ export default async function ProjectLayout({
   const readButton = latestChapterRead
     ? {
         text: "Continue Reading",
-        href: `/p/${project.slug}/chapters/${latestChapterRead.order}`,
+        href: `/read/${project.slug}/chapters/${latestChapterRead.order}`,
       }
     : manifest[0]
     ? {
         text: "Start Reading",
-        href: `/p/${project.slug}/chapters/${manifest[0]?.order ?? 0}`,
+        href: `/read/${project.slug}/chapters/${manifest[0]?.order ?? 0}`,
       }
     : null;
 

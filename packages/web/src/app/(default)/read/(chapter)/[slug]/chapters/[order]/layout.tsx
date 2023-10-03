@@ -54,7 +54,7 @@ export default async function ChapterLayout({
       <BackgroundImage src={src(project.cover)}>
         <LayoutWrapper className="flex flex-wrap items-center pb-8">
           <Link
-            href={`/p/${project.slug}`}
+            href={`/read/${project.slug}`}
             className="nn-interactive mb-4 w-full flex-shrink-0 rounded-md p-1 md:mx-0 md:mb-0 md:w-auto"
             title={project.name}
           >
@@ -71,7 +71,7 @@ export default async function ChapterLayout({
             </Balancer>
 
             <Link
-              href={`/p/${project.slug}`}
+              href={`/read/${project.slug}`}
               className="nn-interactive block text-lg"
             >
               <Balancer as="h2">{toTitleCase(project.name)}</Balancer>

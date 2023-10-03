@@ -30,7 +30,7 @@ export const LayoutProfile = ({ session }: LayoutProfileProps) => {
   const profileNavItems = [
     {
       title: "Profile",
-      href: `/u/${profile.username}`,
+      href: `/user/${profile.username}`,
       icon: <PersonIcon className="mx-2" />,
     },
     {

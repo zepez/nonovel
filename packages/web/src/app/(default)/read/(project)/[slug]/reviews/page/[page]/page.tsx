@@ -39,7 +39,7 @@ export async function generateMetadata({
     authors: project.penName ? [{ name: project.penName }] : [],
     openGraph: {
       title,
-      url: `https://nonovel.io/p/${project.slug}/reviews`,
+      url: `https://nonovel.io/read/${project.slug}/reviews`,
       description,
       authors: project.penName ? [project.penName] : [],
       images: [
@@ -135,7 +135,7 @@ export default async function ProjectReviewPage({
             ))}
             <LayoutPaginate
               currentPage={page}
-              currentPath={`/p/${project.slug}/reviews/page`}
+              currentPath={`/read/${project.slug}/reviews/page`}
               previousDisabled={page <= 1}
               nextDisabled={reviews.length <= pageSize}
             />

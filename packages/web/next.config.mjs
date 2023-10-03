@@ -20,6 +20,11 @@ const nextConfig = {
         destination: "/read/:slug",
         permanent: true,
       },
+      {
+        source: "/u/:slug",
+        destination: "/user/:slug",
+        permanent: true,
+      },
     ];
   },
   images: {
@@ -29,24 +34,6 @@ const nextConfig = {
         hostname: "cdn.nonovel.io",
         port: "",
         pathname: "/**",
-      },
-      {
-        protocol: "https",
-        hostname: "avatars.githubusercontent.com",
-        port: "",
-        pathname: "/u/**",
-      },
-      {
-        protocol: "https",
-        hostname: "cloudflare-ipfs.com",
-        port: "",
-        pathname: "/ipfs/**",
-      },
-      {
-        protocol: "https",
-        hostname: "picsum.photos",
-        port: "",
-        pathname: "/seed/**",
       },
     ],
   },

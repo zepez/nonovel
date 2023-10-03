@@ -106,7 +106,7 @@ export const LayoutMobileHeaderSheet = ({
               {username ? (
                 <>
                   <SheetLink
-                    href={`/u/${username}`}
+                    href={`/user/${username}`}
                     onClick={() => setOpen(false)}
                   >
                     Profile

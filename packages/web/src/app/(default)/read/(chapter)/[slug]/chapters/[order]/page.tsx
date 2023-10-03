@@ -34,7 +34,7 @@ export async function generateMetadata({
     authors: project.penName ? [{ name: project.penName }] : [],
     openGraph: {
       title,
-      url: `https://nonovel.io/p/${project.slug}/chapters/${chapter.order}`,
+      url: `https://nonovel.io/read/${project.slug}/chapters/${chapter.order}`,
       description,
       authors: project.penName ? [project.penName] : [],
       images: [
