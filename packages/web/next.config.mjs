@@ -16,8 +16,8 @@ const nextConfig = {
   async redirects() {
     return [
       {
-        source: "/p/:slug/chapters",
-        destination: "/p/:slug",
+        source: "/p/:slug",
+        destination: "/read/:slug",
         permanent: true,
       },
     ];

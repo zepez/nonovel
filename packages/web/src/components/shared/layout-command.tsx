@@ -138,7 +138,9 @@ export const LayoutCommand = ({ open, setOpen }: LayoutCommandProps) => {
               <CommandItem
                 key={`${r.type}/${r.slug}/${r.name}`}
                 value={`${r.type}/${r.slug}/${r.name}`}
-                onSelect={() => handleSelect(() => router.push(`/p/${r.slug}`))}
+                onSelect={() =>
+                  handleSelect(() => router.push(`/read/${r.slug}`))
+                }
               >
                 {toTitleCase(r.name)}
               </CommandItem>

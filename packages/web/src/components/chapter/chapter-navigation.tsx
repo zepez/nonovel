@@ -34,7 +34,7 @@ const DirectionalButton = ({
   return (
     <Link
       className={cn(!chapter && "nn-no-select", "rounded-md")}
-      href={chapter ? `/p/${slug}/chapters/${chapter}` : "#"}
+      href={chapter ? `/read/${slug}/chapters/${chapter}` : "#"}
       title={title}
     >
       <div
@@ -77,7 +77,7 @@ const ChapterManifest = ({
             {manifest.map((c) => (
               <Link
                 key={c.id}
-                href={`/p/${project.slug}/chapters/${c.order}`}
+                href={`/read/${project.slug}/chapters/${c.order}`}
                 className={cn(
                   chapter.order == c.order && "bg-nn-secondary",
                   "nn-interactive grid grid-cols-6 items-center px-2 py-4"

@@ -26,14 +26,14 @@ export async function GET() {
       priority: 1,
     },
     ...projects.map((project) => ({
-      loc: `https://nonovel.io/p/${project.slug}`,
+      loc: `https://nonovel.io/read/${project.slug}`,
       lastmod: project.updatedAt.toISOString(),
       priority: 0.8,
     })),
     ...projects
       .map((project) =>
         project.chapters.map((chapter) => ({
-          loc: `https://nonovel.io/p/${project.slug}/chapters/${chapter.order}`,
+          loc: `https://nonovel.io/read/${project.slug}/chapters/${chapter.order}`,
           lastmod: chapter.updatedAt.toISOString(),
           priority: 0.5,
         }))

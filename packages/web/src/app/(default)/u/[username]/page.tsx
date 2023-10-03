@@ -41,7 +41,7 @@ export default async function ProfilePage({ params }: ProfilePageProps) {
           ? projects.map(({ project, ...relation }) => (
               <Link
                 key={project.id}
-                href={`/p/${project.slug}`}
+                href={`/read/${project.slug}`}
                 className={cn(
                   projects.length % 2 !== 0 ? "last:col-span-2" : null,
                   "nn-interactive bg-nn-secondary nn-border flex rounded-md border"

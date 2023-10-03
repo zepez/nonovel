@@ -68,7 +68,7 @@ const CoverGrid = async ({ projects, className }: CoverGridProps) => {
     <div className={cn("grid grid-cols-12 gap-y-8", className)}>
       {projects.map((project) => (
         <Link
-          href={`/p/${project.slug}`}
+          href={`/read/${project.slug}`}
           key={project.id}
           className="nn-interactive col-span-6 block h-auto px-2 sm:col-span-4 md:col-span-3 lg:col-span-2"
         >

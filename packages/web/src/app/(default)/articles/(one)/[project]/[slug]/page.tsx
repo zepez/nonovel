@@ -34,7 +34,7 @@ export default async function Page({ params }: Props) {
       </div>
       {proj && (
         <Link
-          href={`/p/${proj.slug}`}
+          href={`/read/${proj.slug}`}
           className="nn-interactive bg-nn-secondary mt-12 flex flex-wrap gap-6 rounded-md p-8 sm:flex-nowrap"
         >
           <AspectImage

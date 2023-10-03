@@ -27,7 +27,7 @@ export const LayoutNavigation = ({ slug }: LayoutNavigationProps) => {
       {navigation.map((n) => (
         <Link
           key={n.name}
-          href={`/p/${slug}/${n.segment ?? ""}`}
+          href={`/read/${slug}/${n.segment ?? ""}`}
           className={cn(
             n.segment === segment
               ? "nn-no-select cursor-default opacity-50"
