@@ -166,6 +166,11 @@ body {
   transform: translate3d(0, -120px, 0);
 }
 
+.nn-bg-footer-image {
+  height: calc(100% + 112px);
+  transform: translate3d(0, 112px, 0);
+}
+
 @keyframes spin-top {
   0% {
     background-position: center top;
