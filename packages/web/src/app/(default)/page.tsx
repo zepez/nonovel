@@ -107,14 +107,14 @@ const CoverGrid = async ({ projects, className, moreLink }: CoverGridProps) => {
               className="mb-3"
             />
           </div>
-          <div className="absolute bottom-0 left-0 right-0 top-0 z-10 flex items-center justify-center rounded-md backdrop-blur-[30px] backdrop-brightness-90">
+          <div className="absolute bottom-0 left-0 right-0 top-0 z-10 flex items-center justify-center rounded-md backdrop-blur-[30px] backdrop-brightness-75">
             <svg
               className="h-full w-full"
               preserveAspectRatio="xMidYMid meet"
               viewBox="0 0 100 50"
             >
               <foreignObject width="100" height="50">
-                <div className="flex h-full items-center justify-center">
+                <div className="flex h-full items-center justify-center text-nn-base-light">
                   <div className="text-center text-lg font-bold uppercase">
                     <p className="m-0 -my-1">View</p>
                     <p className="m-0 -my-1">More</p>

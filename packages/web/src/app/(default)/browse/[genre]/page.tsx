@@ -53,7 +53,7 @@ export default async function BrowsePage({
 
   const page = parseInt(stringPage);
 
-  const pageSize = 8;
+  const pageSize = 15;
   const [rawResultsErr, rawResults] = await getBrowsePageResult({
     page,
     sort,
@@ -99,12 +99,12 @@ export default async function BrowsePage({
         </p>
       )}
 
-      <section className="flex flex-wrap justify-start gap-y-4 pt-2">
+      <section className="flex flex-wrap justify-start gap-y-8 pt-2">
         {results.map((result) => (
           <Link
             href={`/read/${result.slug}`}
             key={result.id}
-            className="nn-interactive block h-auto w-1/2 rounded-md px-1 sm:px-4 md:w-1/4"
+            className="nn-interactive block h-auto w-1/2 rounded-md px-1 sm:w-1/3 md:w-1/5"
           >
             <div className="relative">
               <Image
@@ -131,7 +131,7 @@ export default async function BrowsePage({
         ))}
       </section>
 
-      <nav className="flex items-center justify-center gap-4 pt-16">
+      <nav className="flex items-center justify-center gap-4 pt-12">
         {/* 
           TODO: next/link has a bug in the client router.
           fix this when upgrading from 13.5.3-canary.3
