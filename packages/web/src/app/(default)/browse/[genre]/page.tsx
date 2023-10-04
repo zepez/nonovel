@@ -94,7 +94,9 @@ export default async function BrowsePage({
         {genre?.name ?? "All Genres"}
       </SectionHeading>
       {genre?.description && (
-        <p className="nn-detail pb-4">{parse(genre.description)}</p>
+        <p className="nn-detail pb-4 [&>*]:underline">
+          {parse(genre.description)}
+        </p>
       )}
 
       <section className="flex flex-wrap justify-start gap-y-4 pt-2">
@@ -122,9 +124,7 @@ export default async function BrowsePage({
               </div>
             </div>
             <div className="flex min-w-0 flex-shrink flex-col p-1">
-              <p className="truncate text-lg font-semibold sm:text-xl">
-                {result.name}
-              </p>
+              <p className="truncate text-lg font-semibold">{result.name}</p>
               <p className="nn-detail truncate">{result.penName}</p>
             </div>
           </Link>

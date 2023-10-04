@@ -78,7 +78,7 @@ const CoverGrid = async ({ projects, className }: CoverGridProps) => {
             width={300}
             className="mb-3"
           />
-          <p className="truncate text-xl font-bold">
+          <p className="truncate text-lg font-bold">
             {toTitleCase(project.name)}
           </p>
           <p className="truncate">

@@ -45,7 +45,7 @@ export const SelectGenre = ({
           aria-expanded={open}
           className={cn(
             className,
-            "justify-between py-[.6rem] text-xs font-normal"
+            "justify-between py-[.6rem] text-xs font-bold"
           )}
           title="Select a genre"
         >

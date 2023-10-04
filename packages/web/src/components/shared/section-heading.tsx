@@ -13,7 +13,7 @@ export const SectionHeading = ({
     <div
       className={cn("text-nn-accent mb-4 mt-12 flex items-center", className)}
     >
-      <h3 className="mr-3 font-display text-lg">{children}</h3>
+      <h3 className="mr-3 font-display text-[1.4rem] leading-8">{children}</h3>
       <hr className="bg-nn-accent h-[1px] flex-grow border-none opacity-20" />
     </div>
   );
