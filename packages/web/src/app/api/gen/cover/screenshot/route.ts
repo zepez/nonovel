@@ -65,6 +65,8 @@ export async function POST(request: Request) {
       Authorization: `Bearer ${config.NB_GEN_SECRET_KEY}`,
     });
 
+    puppeteerPage.setDefaultNavigationTimeout(0);
+
     await puppeteerPage.goto(`${config.WEB_URL}/cover?id=${project.id}`, {
       timeout: 0,
       waitUntil: "networkidle0",
