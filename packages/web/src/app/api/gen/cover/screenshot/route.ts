@@ -95,7 +95,7 @@ export async function POST(request: Request) {
 
     return NextResponse.json({ success: true });
   } catch (e) {
-    if (e instanceof Error) console.log(`${e.message}`);
+    if (e instanceof Error) console.error(`${e.message}`);
     return NextResponse.json(
       {
         success: false,

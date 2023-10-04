@@ -222,10 +222,24 @@ export const epubCommand = async (file: string | undefined) => {
   const chapters: NewChapter[] = [];
   for (const chapter of selectedChapters) {
     const idx = selectedChapters.indexOf(chapter) + 1;
+    const name = chapter.name.replace(
+      /^Chapter \d+\s*-\s*|^Chapter \d+\s*:\s*/,
+      ""
+    );
+
+    const slug = slugify(name, {
+      replacement: "-",
+      remove: undefined,
+      lower: true,
+      strict: true,
+      trim: true,
+    });
+
     chapters.push({
       id: uuidv4(),
       projectId: project.id as string,
-      name: chapter.name.replace(/^Chapter \d+\s*-\s*|^Chapter \d+\s*:\s*/, ""),
+      name,
+      slug,
       order: parseFloat(idx.toString()),
       content: chapter.html,
       contentType: "html",
@@ -252,21 +266,28 @@ export const epubCommand = async (file: string | undefined) => {
   console.log("Inserting chapters into database...");
   await db.insert(chapterTable).values(chapters);
 
-  if (!useExistingCover && project.id) {
-    console.log("Generating cover image...");
-    const coverReqBody = JSON.stringify({ id: project.id });
-    const res = await fetch(`${config.WEB_URL}/api/gen/cover/screenshot`, {
-      method: "POST",
-      headers: new Headers({
-        "Content-Type": "application/json",
-        "Content-Length": coverReqBody.length.toString(),
-        Authorization: `Bearer ${config.NB_GEN_SECRET_KEY}`,
-      }),
-      body: coverReqBody,
-    });
+  try {
+    if (!useExistingCover && project.id) {
+      console.log("Generating cover image...");
+      const coverReqBody = JSON.stringify({ id: project.id });
+      const res = await fetch(`${config.WEB_URL}/api/gen/cover/screenshot`, {
+        method: "POST",
+        headers: new Headers({
+          "Content-Type": "application/json",
+          "Content-Length": coverReqBody.length.toString(),
+          Authorization: `Bearer ${config.NB_GEN_SECRET_KEY}`,
+        }),
+        body: coverReqBody,
+      });
 
-    if (!res.ok) {
-      throw new Error("ERROR: Failed to generate cover.");
+      if (!res.ok) {
+        const resBody = await res.json();
+        throw new Error("ERROR: Failed to generate cover.", resBody);
+      }
+    }
+  } catch (e) {
+    if (e instanceof Error) {
+      console.error("ERROR: Failed to generate cover.", e.message);
     }
   }
 
