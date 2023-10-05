@@ -1,14 +1,10 @@
 import { Suspense } from "react";
 import { Metadata } from "next";
 import { Inter } from "next/font/google";
+import PlausibleProvider from "next-plausible";
 import { Provider as TextWrapProvider } from "react-wrap-balancer";
 import { LayoutDesktopHeader, LayoutMobileHeader } from "~/components/default";
-import {
-  LayoutFooter,
-  ThemeProvider,
-  AuthProvider,
-  Analytics,
-} from "~/components/shared";
+import { LayoutFooter, ThemeProvider, AuthProvider } from "~/components/shared";
 import { Toaster } from "~/components/ui/toaster";
 import { Skeleton } from "~/components/ui/skeleton";
 
@@ -71,10 +67,13 @@ interface RootLayoutProps {
 export default function RootLayout({ children }: RootLayoutProps) {
   return (
     <html lang="en" suppressHydrationWarning>
+      <head>
+        <PlausibleProvider domain="nonovel.io" />
+      </head>
       <body className={inter.className}>
         <AuthProvider>
           <ThemeProvider attribute="class" defaultTheme="dark" enableSystem>
-            <div className="flex min-h-screen flex-col font-sans">
+            <div className="flex flex-col min-h-screen font-sans">
               <Suspense
                 fallback={
                   <Skeleton className="h-[119.5px] w-full rounded-none" />
@@ -91,7 +90,6 @@ export default function RootLayout({ children }: RootLayoutProps) {
             <Toaster />
           </ThemeProvider>
         </AuthProvider>
-        <Analytics />
       </body>
     </html>
   );
