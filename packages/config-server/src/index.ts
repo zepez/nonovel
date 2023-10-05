@@ -44,6 +44,8 @@ const schema = z
     NEXTAUTH_GITHUB_CLIENT_SECRET: z.string(),
     NEXTAUTH_DISCORD_CLIENT_ID: z.string(),
     NEXTAUTH_DISCORD_CLIENT_SECRET: z.string(),
+    NEXTAUTH_GOOGLE_CLIENT_ID: z.string(),
+    NEXTAUTH_GOOGLE_CLIENT_SECRET: z.string(),
   })
   .transform((obj) => ({
     ...obj,

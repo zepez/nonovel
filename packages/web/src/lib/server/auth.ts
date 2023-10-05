@@ -1,9 +1,9 @@
 import { cache } from "react";
-import { cookies, headers } from "next/headers";
 import { NextAuthOptions } from "next-auth";
 import { getServerSession } from "next-auth/next";
 import GithubProvider from "next-auth/providers/github";
 import DiscordProvider from "next-auth/providers/discord";
+import GoogleProvider from "next-auth/providers/google";
 import config from "@nonovel/config-server";
 import { db } from "@nonovel/db";
 import adapter from "@nonovel/drizzle-adapter";
@@ -71,6 +71,10 @@ export const options: NextAuthOptions = {
     DiscordProvider({
       clientId: config.NEXTAUTH_DISCORD_CLIENT_ID,
       clientSecret: config.NEXTAUTH_DISCORD_CLIENT_SECRET,
+    }),
+    GoogleProvider({
+      clientId: config.NEXTAUTH_GOOGLE_CLIENT_ID,
+      clientSecret: config.NEXTAUTH_GOOGLE_CLIENT_SECRET,
     }),
   ],
   session: {

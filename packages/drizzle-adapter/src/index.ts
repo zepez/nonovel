@@ -16,9 +16,13 @@ import {
 export default function adapter(client: typeof db): Adapter {
   return {
     async createUser(userData) {
-      const profileValidated = profileValidator
-        .pick({ username: true })
-        .parse({ username: Math.random().toString(36).substring(4) });
+      const [name] = userData.email.split("@");
+      const discriminator = Math.random().toString(36).substring(4);
+      const username = name ? `${name}_${discriminator}` : discriminator;
+
+      const profileValidated = profileValidator.pick({ username: true }).parse({
+        username,
+      });
 
       const userValidated = userValidator
         .pick({ email: true, name: true })
