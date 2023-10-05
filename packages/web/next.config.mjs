@@ -2,6 +2,7 @@ import createMDX from "@next/mdx";
 import remarkGfm from "remark-gfm";
 import remarkFrontmatter from "remark-frontmatter";
 import remarkMdxFrontmatter from "remark-mdx-frontmatter";
+import { withPlausibleProxy } from "next-plausible";
 
 /** @type {import('next').NextConfig} */
 const nextConfig = {
@@ -63,4 +64,6 @@ const withMDX = createMDX({
   },
 });
 
-export default withMDX(nextConfig);
+const withPlausible = withPlausibleProxy();
+
+export default withPlausible(withMDX(nextConfig));
