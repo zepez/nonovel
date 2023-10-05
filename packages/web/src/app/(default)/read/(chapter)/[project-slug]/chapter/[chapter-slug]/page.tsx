@@ -20,11 +20,11 @@ export async function generateMetadata({
   const chapter = project.chapters[0];
   if (!chapter) return {};
 
-  const title = `${chapter.name} - ${project.name}`;
+  const title = `${toTitleCase(chapter.name)} - ${toTitleCase(project.name)}`;
   const description = clamp(
-    `Read ${chapter.name}, ${project.name} online for free. ${
-      project.description ?? ""
-    }`,
+    `Read ${toTitleCase(chapter.name)}, ${toTitleCase(
+      project.name
+    )} online for free. ${project.description ?? ""}`,
     160
   );
 
@@ -39,9 +39,7 @@ export async function generateMetadata({
       authors: project.penName ? [project.penName] : [],
       images: [
         {
-          url: `/api/og/p?title=${project.name}&image=${
-            project.cover as string
-          }&chapter=${toTitleCase(chapter.name)}`,
+          url: `/api/og/p?id=${project.id}`,
           width: 1200,
           height: 630,
         },

@@ -5,7 +5,7 @@ import {
   getProjectBySlug,
   getChapterManifestByIds,
 } from "~/lib/server";
-import { clamp, ec } from "~/lib";
+import { clamp, ec, toTitleCase } from "~/lib";
 import { SectionHeading } from "~/components/shared";
 import { ListChapters } from "~/components/project";
 
@@ -19,7 +19,7 @@ export async function generateMetadata({
   const [, project] = await getProjectBySlug({ slug: params["project-slug"] });
   if (!project) return {};
 
-  const title = `${project.name} - Start Reading Today`;
+  const title = `${toTitleCase(project.name)} - Start Reading Today`;
   const description = clamp(project.description, 160);
 
   return {
@@ -33,9 +33,7 @@ export async function generateMetadata({
       authors: project.penName ? [project.penName] : [],
       images: [
         {
-          url: `/api/og/p?title=${project.name}&image=${
-            project.cover as string
-          }`,
+          url: `/api/og/p?id=${project.id}`,
           width: 1200,
           height: 630,
         },

@@ -6,7 +6,7 @@ import {
   getReviewByIds,
   getReviewPageByProjectId,
 } from "~/lib/server";
-import { src, clamp, ec } from "~/lib";
+import { toTitleCase, clamp, ec } from "~/lib";
 import {
   SectionHeading,
   SectionEmpty,
@@ -25,9 +25,9 @@ export async function generateMetadata({
   const [, project] = await getProjectBySlug({ slug: params["project-slug"] });
   if (!project) return {};
 
-  const title = `${project.name} - Reviews`;
+  const title = `${toTitleCase(project.name)} - Reviews`;
   const description = clamp(
-    `Reviews for ${project.name} - see what other people think. ${
+    `Reviews for ${toTitleCase(project.name)} - see what other people think. ${
       project.description ?? ""
     }`,
     160
@@ -44,9 +44,7 @@ export async function generateMetadata({
       authors: project.penName ? [project.penName] : [],
       images: [
         {
-          url: `/api/og/p?title=${project.name}&image=${
-            project.cover as string
-          }`,
+          url: `/api/og/p?id=${project.id}`,
           width: 1200,
           height: 630,
         },

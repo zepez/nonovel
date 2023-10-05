@@ -49,6 +49,13 @@ export const metadata: Metadata = {
       template: "%s - NoNovel",
       default: "NoNovel",
     },
+    images: [
+      {
+        url: "/og.jpg",
+        width: 1200,
+        height: 630,
+      },
+    ],
     description: "Read novels online for free.",
     url: "https://nonovel.io",
     siteName: "NoNovel",
@@ -67,7 +74,7 @@ export default function RootLayout({ children }: RootLayoutProps) {
       <body className={inter.className}>
         <AuthProvider>
           <ThemeProvider attribute="class" defaultTheme="dark" enableSystem>
-            <div className="flex flex-col min-h-screen font-sans">
+            <div className="flex min-h-screen flex-col font-sans">
               <Suspense
                 fallback={
                   <Skeleton className="h-[119.5px] w-full rounded-none" />
