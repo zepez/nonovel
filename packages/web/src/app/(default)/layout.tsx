@@ -22,10 +22,7 @@ export const metadata: Metadata = {
     default: "NoNovel",
   },
   description:
-    "Escape reality. Read a book. NoNovel offers completely free access to hundreds of books.",
-  icons: {
-    icon: "/favicon.svg",
-  },
+    "Escape reality. Read a book. NoNovel offers completely free access to hundreds of books. Start your reading journey today!",
   generator: "Next.js",
   applicationName: "NoNovel",
   referrer: "origin-when-cross-origin",
@@ -52,7 +49,8 @@ export const metadata: Metadata = {
         height: 630,
       },
     ],
-    description: "Read novels online for free.",
+    description:
+      "Escape reality. Read a book. NoNovel offers completely free access to hundreds of books. Start your reading journey today!",
     url: "https://nonovel.io",
     siteName: "NoNovel",
     locale: "en_US",
