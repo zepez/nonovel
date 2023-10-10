@@ -145,7 +145,7 @@ export const CommentBody = ({
         </div>
 
         {/* edit comment */}
-        {isCreator && (
+        {isCreator && comment.content !== "[deleted]" && (
           <div className="nn-border flex items-center sm:ml-2 sm:border-l-2 sm:pl-2">
             {isEditing ? (
               <CommentNavButton
