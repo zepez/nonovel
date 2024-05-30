@@ -8,6 +8,7 @@ node_modules
 .pnp.js
 .env**
 !.env.example
+.turbo
 
 # testing
 /coverage

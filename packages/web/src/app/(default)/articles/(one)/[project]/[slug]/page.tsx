@@ -29,7 +29,7 @@ export default async function Page({ params }: Props) {
 
   return (
     <>
-      <div className="prose-lg dark:prose-invert prose max-w-none prose-headings:pb-4 prose-headings:pt-8 prose-headings:font-bold prose-headings:leading-tight prose-h2:text-[1.8rem] prose-h3:text-xl prose-img:mx-auto prose-img:pb-4 prose-img:pt-2">
+      <div className="prose-lg dark:prose-invert prose max-w-none prose-headings:pb-4 prose-headings:pt-8 prose-headings:font-bold prose-headings:leading-tight prose-h2:text-[1.8rem] prose-h3:text-xl prose-a:text-xs prose-a:underline prose-ol:list-decimal prose-ol:py-4 prose-ol:text-lg prose-ul:list-disc prose-img:mx-auto prose-img:pb-4 prose-img:pt-2">
         {article.content}
       </div>
       {proj && (
