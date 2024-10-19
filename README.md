@@ -6,33 +6,16 @@ The launch of NoNovel can be split into three phases.
 
 NoNovel can only be used to read public domain books. There are no options to self publish or monetize books. Users can create accounts and NoNovel will track their progress for each project.
 
-Before Launch:
-
-- [ ] File uploading (just profile picture right now)
-- [ ] Logo?
-- [ ] Upload a lot of public domain books
-- [ ] google oauth
-
 ### Phase 2
 
-CMS. Users can publish and edit content for themselves.
+Book Clubs. Users can upload epubs for private reading and invite other users to their `club`. All users in the club have access to the epub. Features:
 
-- [ ] Report system
-  - [ ] global
-  - [ ] profile
-  - [ ] project
-  - [ ] chapter
-  - [ ] comment
-- [ ] vote on chapter as `like`
-- [ ] explicit ranking page
-- [ ] link and delete comments from settings/comments page
-- [ ] link and delete reviews from settings/reviews page
-- [ ] Reaction system (?) (chapter)
-- [ ] Project tags (?)
-
-### Phase 3
-
-Monetization. Potential revshare.
+- [ ] Uploading epubs
+- [ ] Parse epub on demand
+- [ ] Regenerate epub covers on demand
+- [ ] Proper `library` support, show titles in library
+- [ ] Club support, invite others
+- [ ] Clubs show book progress
 
 ## Technology
 
