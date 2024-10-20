@@ -1,7 +1,7 @@
 import yauzl from "yauzl";
 
 // Helper function to convert the event emitter to async iterable
-export function getEntries(zipfile: yauzl.ZipFile): AsyncIterable<yauzl.Entry> {
+export function getEntries(zipFile: yauzl.ZipFile): AsyncIterable<yauzl.Entry> {
   return {
     [Symbol.asyncIterator]: () => ({
       next: () =>
@@ -19,14 +19,14 @@ export function getEntries(zipfile: yauzl.ZipFile): AsyncIterable<yauzl.Entry> {
             cleanup();
           };
           const cleanup = () => {
-            zipfile.off("entry", onEntry);
-            zipfile.off("end", onEnd);
-            zipfile.off("error", onError);
+            zipFile.off("entry", onEntry);
+            zipFile.off("end", onEnd);
+            zipFile.off("error", onError);
           };
-          zipfile.readEntry();
-          zipfile.once("entry", onEntry);
-          zipfile.once("end", onEnd);
-          zipfile.once("error", onError);
+          zipFile.readEntry();
+          zipFile.once("entry", onEntry);
+          zipFile.once("end", onEnd);
+          zipFile.once("error", onError);
         }),
     }),
   };

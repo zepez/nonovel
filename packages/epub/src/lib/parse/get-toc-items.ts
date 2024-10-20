@@ -1,49 +1,13 @@
-// import * as cheerio from "cheerio";
-// import { TEpub } from "../..";
-
-// export function getTocItems(this: TEpub) {
-//   const $ = cheerio.load(this.tocContent, { xmlMode: true });
-
-//   const tocItems = $("navMap navPoint").map((_, el) => {
-//     const $el = $(el);
-
-//     const name = $el.find("navLabel text").text();
-//     if (!name) throw new Error("Failed to get TOC item label");
-
-//     const relativeSrc = $el.find("content").attr("src");
-//     if (!relativeSrc) throw new Error("Failed to get TOC item content");
-
-//     const src = this.getPath(relativeSrc);
-//     if (!src) throw new Error("Failed to get TOC item href");
-
-//     const file = src.split("#")[0];
-//     if (!file) throw new Error("Failed to get TOC item file");
-
-//     const id = src.split("#")[1] ?? null;
-
-//     return { name, src, file, id, html: null };
-//   });
-
-//   return tocItems.toArray();
-// }
-
 import * as cheerio from "cheerio";
 import { TEpub } from "../..";
-
-interface TocItem {
-  name: string;
-  src: string;
-  file: string;
-  id: string | null;
-  html: null;
-}
+import { TocItem } from "../../types";
 
 function parseNavPoint(
-  $: cheerio.CheerioAPI,
-  $el: cheerio.Cheerio<cheerio.Element>,
+  $: cheerio.Root,
+  $el: cheerio.Cheerio,
   parentLabel = "",
   getPath: (src: string) => string | null
-): TocItem[] {
+): TocItem<null>[] {
   const name = $el.find("> navLabel > text").first().text();
   if (!name) throw new Error("Failed to get TOC item label");
 
@@ -55,14 +19,14 @@ function parseNavPoint(
   const src = getPath(relativeSrc);
   if (!src) throw new Error("Failed to get TOC item href");
 
-  const file = src.split("#")[0];
-  if (!file) throw new Error("Failed to get TOC item file");
+  const path = src.split("#")[0];
+  if (!path) throw new Error("Failed to get TOC item path");
 
   const id = src.split("#")[1] ?? null;
 
-  const item = { name: combinedName, src, file, id, html: null };
+  const item = { name: combinedName, src, path, id, html: null };
 
-  let childrenItems: TocItem[] = [];
+  let childrenItems: TocItem<null>[] = [];
   $el.find("> navPoint").each((_, el) => {
     const childEl = $(el);
     childrenItems = [
@@ -74,16 +38,20 @@ function parseNavPoint(
   return [item, ...childrenItems];
 }
 
-export function getTocItems(this: TEpub) {
-  const $ = cheerio.load(this.tocContent, { xmlMode: true });
+export function getTocItems(
+  getFilePath: TEpub["getFilePath"],
+  tocContent: string
+) {
+  if (!tocContent || tocContent === "") {
+    throw new Error("TOC content is empty or malformed");
+  }
 
-  let tocItems: TocItem[] = [];
+  const $ = cheerio.load(tocContent, { xmlMode: true });
+
+  let tocItems: TocItem<null>[] = [];
   $("navMap > navPoint").each((_, el) => {
     const $el = $(el);
-    tocItems = [
-      ...tocItems,
-      ...parseNavPoint($, $el, "", this.getPath.bind(this)),
-    ];
+    tocItems = [...tocItems, ...parseNavPoint($, $el, "", getFilePath)];
   });
 
   return tocItems;

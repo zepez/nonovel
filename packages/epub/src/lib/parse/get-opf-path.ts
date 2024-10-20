@@ -1,10 +1,9 @@
 import * as cheerio from "cheerio";
-import { TEpub } from "../..";
 
-export function getOpfPath(this: TEpub) {
-  const $ = cheerio.load(this.metaInfContent, { xmlMode: true });
+export function getOpfPath(metaInfContent: string) {
+  const $ = cheerio.load(metaInfContent, { xmlMode: true });
 
-  const opfPath = $("rootfile").attr("full-path");
+  const opfPath = $("rootfile").attr("full-path")?.trim();
   if (!opfPath) throw new Error("Failed to get OPF path");
 
   return opfPath;

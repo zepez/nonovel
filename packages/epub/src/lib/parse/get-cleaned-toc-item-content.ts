@@ -1,12 +1,17 @@
 import * as cheerio from "cheerio";
 import { TEpub } from "../..";
+import { TocItem } from "../../types";
 
-export function getCleanedTocItemContent(this: TEpub) {
-  const withCleanedContent = this.tocItemContent.map((item) => {
+export function getCleanedTocItemContent(
+  getFilePath: TEpub["getFilePath"],
+  getFileBuffer: TEpub["getFileBuffer"],
+  tocItems: TocItem<string>[]
+) {
+  const withCleanedContent = tocItems.map((item) => {
     const $ = cheerio.load(item.html);
 
     // Remove html and body tags
-    $("html, body").each(function () {
+    $("html, body").each(function (this: cheerio.Element) {
       $(this).replaceWith($(this).html() ?? "");
     });
 
@@ -38,8 +43,8 @@ export function getCleanedTocItemContent(this: TEpub) {
     $("img").each((index, element) => {
       const imgElement = $(element);
       const imgRelativeSrc = imgElement.attr("src");
-      const imgSrc = this.getPath(imgRelativeSrc);
-      const imgBuffer = imgSrc ? this.get(imgSrc) : null;
+      const imgSrc = getFilePath(imgRelativeSrc);
+      const imgBuffer = imgSrc ? getFileBuffer(imgSrc) : null;
       const imgBase64 = imgBuffer ? imgBuffer.toString("base64") : null;
 
       let mimetype = "";
@@ -47,33 +52,26 @@ export function getCleanedTocItemContent(this: TEpub) {
         mimetype = "image/jpeg";
       if (imgRelativeSrc?.endsWith(".png")) mimetype = "image/png";
 
-      if (imgBase64 && mimetype)
+      if (imgBase64 && mimetype) {
         imgElement.attr("src", `data:${mimetype};base64,${imgBase64}`);
-      else imgElement.remove();
+      } else imgElement.remove();
     });
 
-    // remove spanning tags
-    $("a, span, strong, i, b").each(function () {
-      const parentTag = $(this).parent()?.[0]?.name;
-      const children = $(this).children();
-      if (children.length) {
-        // If the element has children, replace it with its inner HTML.
-        $(this).replaceWith($(this).html() ?? "");
-      } else {
-        // If the element doesn't have children, replace it with its text.
-        const text = $(this).text();
-        // If there is no parent tag, wrap the text in a 'p' tag.
-        if (!parentTag) {
-          $(this).replaceWith(`<p>${text}</p>`);
-        } else {
-          $(this).replaceWith(text);
-        }
-      }
+    // Replace these text nodes with p tags
+    $("h4, h5, h6, pre, a, span").each(function (this: cheerio.Element) {
+      $(this).replaceWith(`<p>${$(this).html()}</p>`);
+    });
+
+    // Prevent nesting of p tags
+    $("p p").each(function (this: cheerio.Element) {
+      const e = $(this);
+      const text = e.text();
+      if (text) e.replaceWith(text);
     });
 
     // Unwrap these tags
     while ($("div, ul, ol, li").length) {
-      $("div, ul, ol, li").each(function () {
+      $("div, ul, ol, li").each(function (this: cheerio.Element) {
         // If the item is only text left, replace it with a p tag
         if ($(this).children().length === 0) {
           $(this).replaceWith(`<p>${$(this).text()}</p>`);
@@ -86,23 +84,16 @@ export function getCleanedTocItemContent(this: TEpub) {
     }
 
     // Remove empty tags that are not self-closing
-    $("*").each(function () {
+    $("*").each(function (this: cheerio.Element) {
       const selfClosingTags = ["img", "br", "hr"];
-      if (
-        !selfClosingTags.includes($(this).prop("tagName") ?? "") &&
-        !$(this).text().trim()
-      ) {
+      const tag = $(this).prop("tagName")?.toLowerCase() ?? "";
+      if (!selfClosingTags.includes(tag) && !$(this).text().trim()) {
         $(this).remove();
       }
     });
 
-    // Replace all text nodes with p tags
-    $("p, h1, h2, h3, h4, h5, h6, pre").each(function () {
-      $(this).replaceWith(`<p>${$(this).text()}</p>`);
-    });
-
     // Remove newlines from the text
-    $("*").each(function () {
+    $("*").each(function (this: cheerio.Element) {
       const elementHtml = $(this).html();
       if (elementHtml) {
         const removedNewlines = elementHtml.replace(/\n/g, " ");
@@ -115,7 +106,7 @@ export function getCleanedTocItemContent(this: TEpub) {
     // Ensure text nodes are paragraphs
     $.root()
       .contents()
-      .each(function () {
+      .each(function (this: cheerio.Element) {
         if (this.type === "text") {
           const text = $(this).text();
           const split = text.split("\n");

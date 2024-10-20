@@ -2,11 +2,11 @@ import yauzl from "yauzl";
 
 // Helper function to read the data from each entry
 export function getEntryData(
-  zipfile: yauzl.ZipFile,
+  zipFile: yauzl.ZipFile,
   entry: yauzl.Entry
 ): Promise<Buffer> {
   return new Promise((resolve, reject) => {
-    zipfile.openReadStream(entry, (err, readStream) => {
+    zipFile.openReadStream(entry, (err, readStream) => {
       if (err || !readStream) {
         reject(err);
         return;

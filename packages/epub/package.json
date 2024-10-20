@@ -6,6 +6,7 @@
   "types": "./src/index.ts",
   "scripts": {
     "epub:dev": "nodemon --watch 'src/**/*.ts' --exec 'esno' src/dev.ts",
+    "epub:test": "vitest --changed=false",
     "lint": "eslint --ext .ts .",
     "lint:fix": "eslint --ext .ts . --fix",
     "clean": "../../scripts/clean.sh"
@@ -16,10 +17,12 @@
     "zod": "^3.21.4"
   },
   "devDependencies": {
+    "@types/cheerio": "^0.22.35",
     "@types/node": "^18.0.0",
     "@types/yauzl": "^2.10.0",
-    "nodemon": "^3.0.1",
     "esno": "^0.17.0",
-    "typescript": "^4.8.4"
+    "nodemon": "^3.0.1",
+    "typescript": "^4.8.4",
+    "vitest": "^2.1.3"
   }
 }
