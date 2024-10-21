@@ -1,81 +1,92 @@
 import * as path from "path";
 import { readEpub } from "./lib/file";
 import {
-  getOpfPath,
-  getOpfMetadata,
+  getPackagePath,
+  getPackageMetadata,
+  getHtmlDirty,
+  getHtmlClean,
   getTocPath,
   getTocItems,
-  getCompiledHtml,
-  getTocItemContent,
-  getCleanedTocItemContent,
+  getTocItemsDirty,
+  getTocItemsClean,
 } from "./lib/parse";
 import { EpubMetadata, TocItem } from "./types";
 
 export class Epub {
-  private filePath: string;
-  public fileContent: Record<string, Buffer>;
+  public zip: {
+    path: string;
+    content: Record<string, Buffer> | null;
+  };
 
-  public metaInfContent: string | null;
-  public opfPath: string | null;
-  public opfContent: string | null;
-  public opfMetadata: EpubMetadata;
-  public tocPath: string | null;
-  public tocContent: string | null;
-  public tocItems: TocItem<null>[];
-  public compiledHtml: string;
-  public tocItemContent: TocItem<string>[];
-  public cleanedTocItemContent: TocItem<string>[];
+  public root: {
+    path: string;
+    content: string | null;
+  };
 
-  constructor(filePath: string) {
-    this.filePath = filePath;
-    this.fileContent = {};
+  public package: {
+    path: string | null;
+    content: string | null;
+    metadata: EpubMetadata | null;
+  };
 
-    this.metaInfContent = null;
-    this.opfPath = null;
-    this.opfContent = null;
-    this.opfMetadata = {
-      title: "",
-      creator: "",
-      cover: { path: null, buffer: null },
-      publisher: null,
-      description: null,
+  public html: {
+    dirty: string | null;
+    clean: string | null;
+  };
+
+  public toc: {
+    path: string | null;
+    content: string | null;
+    items: TocItem<null>[] | null;
+    dirtyItems: TocItem<string>[] | null;
+    cleanItems: TocItem<string>[] | null;
+  };
+
+  constructor(zipPath: string) {
+    this.zip = { path: zipPath, content: null };
+    this.root = { path: "META-INF/container.xml", content: null };
+    this.package = { path: null, content: null, metadata: null };
+    this.html = { dirty: null, clean: null };
+    this.toc = {
+      path: null,
+      content: null,
+      items: null,
+      dirtyItems: null,
+      cleanItems: null,
     };
-    this.tocPath = null;
-    this.tocContent = null;
-    this.tocItems = [];
-    this.compiledHtml = "";
-    this.tocItemContent = [];
-    this.cleanedTocItemContent = [];
   }
 
   public read = async () => {
-    this.fileContent = await readEpub(this.filePath);
-    this.metaInfContent = this.getFileStr("META-INF/container.xml");
-    this.opfPath = getOpfPath(this.metaInfContent);
-    this.opfContent = this.getFileStr(this.opfPath);
-    this.opfMetadata = getOpfMetadata(
+    this.zip.content = await readEpub(this.zip.path);
+    this.root.content = this.getFileStr(this.root.path);
+    this.package.path = getPackagePath(this.root.content);
+    this.package.content = this.getFileStr(this.package.path);
+    this.package.metadata = getPackageMetadata(
       this.getFilePath,
       this.getFileBuffer,
-      this.opfContent
+      this.package.content
     );
-    this.tocPath = getTocPath(this.getFilePath, this.opfContent);
-    this.tocContent = this.getFileStr(this.tocPath);
-    this.tocItems = getTocItems(this.getFilePath, this.tocContent);
-    this.compiledHtml = getCompiledHtml(this.getFileStr, this.tocItems);
-    this.tocItemContent = getTocItemContent(
+    this.toc.path = getTocPath(this.getFilePath, this.package.content);
+    this.toc.content = this.getFileStr(this.toc.path);
+    this.toc.items = getTocItems(this.getFilePath, this.toc.content);
+    this.html.dirty = getHtmlDirty(this.getFileStr, this.toc.items);
+    this.html.clean = getHtmlClean(this.html.dirty);
+    this.toc.dirtyItems = getTocItemsDirty(
       this.getFileStr,
-      this.tocItems,
-      this.compiledHtml
+      this.toc.items,
+      this.html.clean
     );
-    this.cleanedTocItemContent = getCleanedTocItemContent(
+    this.toc.cleanItems = getTocItemsClean(
       this.getFilePath,
       this.getFileBuffer,
-      this.tocItemContent
+      this.toc.dirtyItems,
+      this.package.metadata
     );
   };
 
   public getFileBuffer = (fileName: string) => {
-    return this.fileContent[fileName];
+    if (!this.zip.content) return null;
+    return this.zip.content[fileName] ?? null;
   };
 
   public getFileStr = (fileName: string) => {
@@ -89,9 +100,9 @@ export class Epub {
   };
 
   public getFilePath = (fileName?: string | null) => {
-    if (!fileName || !this.opfPath) return null;
+    if (!fileName || !this.package.path) return null;
 
-    return path.join(path.dirname(this.opfPath), fileName);
+    return path.join(path.dirname(this.package.path), fileName);
   };
 }
 

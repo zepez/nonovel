@@ -4,19 +4,19 @@ import { TocItem } from "../../types";
 
 function parseNavPoint(
   $: cheerio.Root,
-  $el: cheerio.Cheerio,
-  parentLabel = "",
-  getPath: (src: string) => string | null
+  e: cheerio.Cheerio,
+  parent = "",
+  getFilePath: (src: string) => string | null
 ): TocItem<null>[] {
-  const name = $el.find("> navLabel > text").first().text();
+  const name = e.find("> navLabel > text").first().text();
   if (!name) throw new Error("Failed to get TOC item label");
 
-  const combinedName = parentLabel ? `${parentLabel}: ${name}` : name;
+  const combinedName = parent ? `${parent}: ${name}` : name;
 
-  const relativeSrc = $el.find("> content").attr("src");
+  const relativeSrc = e.find("> content").attr("src");
   if (!relativeSrc) throw new Error("Failed to get TOC item content");
 
-  const src = getPath(relativeSrc);
+  const src = getFilePath(relativeSrc);
   if (!src) throw new Error("Failed to get TOC item href");
 
   const path = src.split("#")[0];
@@ -27,11 +27,11 @@ function parseNavPoint(
   const item = { name: combinedName, src, path, id, html: null };
 
   let childrenItems: TocItem<null>[] = [];
-  $el.find("> navPoint").each((_, el) => {
-    const childEl = $(el);
+  e.find("> navPoint").each((_, el) => {
+    const child = $(el);
     childrenItems = [
       ...childrenItems,
-      ...parseNavPoint($, childEl, combinedName, getPath),
+      ...parseNavPoint($, child, combinedName, getFilePath),
     ];
   });
 
@@ -50,8 +50,8 @@ export function getTocItems(
 
   let tocItems: TocItem<null>[] = [];
   $("navMap > navPoint").each((_, el) => {
-    const $el = $(el);
-    tocItems = [...tocItems, ...parseNavPoint($, $el, "", getFilePath)];
+    const e = $(el);
+    tocItems = [...tocItems, ...parseNavPoint($, e, "", getFilePath)];
   });
 
   return tocItems;
